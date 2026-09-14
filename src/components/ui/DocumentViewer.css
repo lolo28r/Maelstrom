@@ -1,0 +1,100 @@
+/* DocumentViewer.css — Lecteur de manuscrits/documents sombre et épuré */
+
+.document-viewer-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  pointer-events: auto;
+}
+
+.document-viewer-parchment {
+  position: relative;
+  width: 100%;
+  max-width: 34rem;
+  background-color: #161412;
+  color: #e6dacb;
+  border: 1px solid #3d3328;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.95);
+  padding: 1.75rem;
+  font-family: 'Special Elite', cursive, serif;
+}
+
+.document-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #332b22;
+  margin-bottom: 1rem;
+}
+
+.document-viewer-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: 'Cinzel', serif;
+  color: #f5e6d3;
+  margin: 0;
+}
+
+.document-viewer-close-btn {
+  color: #9e8b74;
+  font-size: 1rem;
+  font-family: monospace;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid #332b22;
+  background: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.document-viewer-close-btn:hover {
+  color: #f5e6d3;
+  border-color: #69543f;
+  background-color: #241e1a;
+}
+
+.document-viewer-content {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  white-space: pre-line;
+  color: #d9cbb8;
+  margin-bottom: 1.25rem;
+}
+
+.document-viewer-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.75rem;
+  border-top: 1px solid #332b22;
+}
+
+.document-viewer-action-btn {
+  padding: 0.5rem 1.25rem;
+  background-color: #241e1a;
+  border: 1px solid #4a3e31;
+  border-radius: 2px;
+  color: #f5e6d3;
+  font-size: 0.75rem;
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.document-viewer-action-btn:hover {
+  background-color: #332a24;
+  border-color: #705d4a;
+}

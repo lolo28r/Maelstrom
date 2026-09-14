@@ -1,0 +1,32 @@
+{
+  "menu": {
+    "newGame": "[ NOUVELLE PARTIE ]",
+    "continue": "[ CONTINUER ]",
+    "settings": "[ REGLAGES ]"
+  },
+  "intro": {
+    "monologue_city": "Arkham, automne 1926. Le brouillard épais de la Miskatonic étouffe la ville comme un linceul. Je m'appelle Laurence Lindner. Depuis la disparition brutale de mon père, les archives de l'université sont devenues mon seul refuge... et ma seule piste.",
+    "monologue_office": "Le bureau du Professeur est plongé dans la pénombre. Une étrange poussière stagne dans l'air... et là, posée sur le buvard en acajou, une lettre attire mon regard.",
+    "letter_title": "Lettre scellée de l'Université de Miskatonic",
+    "letter_content": "Chère Laurence,\n\nSi vous lisez ceci, c'est que j'ai dû quitter précipitamment Arkham. Les découvertes faites lors de l'expédition Lindner dépassent la raison humaine. Les résonances du Trapézoèdre ne peuvent plus être étouffées. N'ouvrez sous aucun prétexte la porte du laboratoire secret sans avoir activé la Vraie Vue.\n\n— Professeur Vance",
+    "q1": "Vous êtes-vous déjà demandé quels sont les sombres secrets que renferme notre univers ?",
+    "q2": "Pensez-vous réellement que nous sommes en sécurité... seuls sur une boule géante dans le vide cosmique ?",
+    "q3": "Dans le silence de la nuit, entendez-vous ces murmures qui rampent aux frontières de votre raison ?",
+    "q4": "Avez-vous foi en un dieu bienveillant et protecteur ?",
+    "q5": "Croyez vous au Big Bang ?",
+    "yes": "[ OUI ]",
+    "no": "[ NON ]",
+    "verdicts": {
+      "fanatique": "FANATIQUE",
+      "aveugle": "AVEUGLE",
+      "lucide": "LUCIDE",
+      "curieux": "CURIEUX",
+      "dogmatique": "DOGMATIQUE",
+      "poreux": "POREUX"
+    },
+    "credits": {
+      "author": "Écrit, développé et imaginé par Laurien Roche",
+      "ai": "Avec l'aide de l'Intelligence Artificielle"
+    }
+  }
+}

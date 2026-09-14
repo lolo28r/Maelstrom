@@ -1,0 +1,32 @@
+{
+  "menu": {
+    "newGame": "[ NEW GAME ]",
+    "continue": "[ CONTINUE ]",
+    "settings": "[ SETTINGS ]"
+  },
+  "intro": {
+    "monologue_city": "Arkham, autumn 1926. The thick fog from the Miskatonic smothers the city like a shroud. My name is Laurence Lindner. Ever since my father's sudden disappearance, the university archives have been my sole refuge... and my only clue.",
+    "monologue_office": "The Professor's office is plunged into darkness. A strange dust hangs in the air... and there, resting on the mahogany blotter, a letter catches my eye.",
+    "letter_title": "Sealed Letter from Miskatonic University",
+    "letter_content": "Dear Laurence,\n\nIf you are reading this, I have been forced to leave Arkham in haste. The discoveries made during the Lindner expedition exceed human reason. The resonances of the Trapezohedron can no longer be silenced. Do not open the door to the secret laboratory under any circumstances without activating the True View.\n\n— Professor Vance",
+    "q1": "Have you ever wondered what dark secrets our universe truly holds?",
+    "q2": "Do you really think we are safe... alone on a giant sphere in the cosmic void?",
+    "q3": "In the silence of the night, do you hear those whispers creeping at the edges of your sanity?",
+    "q4": "Do you have faith in a benevolent and protective god?",
+    "q5": "Do you believe in the Big Bang?",
+    "yes": "[ YES ]",
+    "no": "[ NO ]",
+    "verdicts": {
+      "fanatique": "FANATICAL",
+      "aveugle": "BLIND",
+      "lucide": "LUCID",
+      "curieux": "CURIOUS",
+      "dogmatique": "DOGMATIC",
+      "poreux": "POROUS"
+    },
+    "credits": {
+      "author": "Written, developed, and imagined by Laurien Roche",
+      "ai": "With the help of Artificial Intelligence"
+    }
+  }
+}
