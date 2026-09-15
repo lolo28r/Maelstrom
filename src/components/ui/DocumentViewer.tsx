@@ -1,60 +1,62 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useGameStore } from '../../store/useGameStore';
 import './DocumentViewer.css';
 
 export const DocumentViewer: React.FC = () => {
-  const { t } = useTranslation();
-  const activeDocument = useGameStore((state) => state.activeDocument);
-  const closeDocument = useGameStore((state) => state.closeDocument);
+    const activeDocument = useGameStore((state) => state.activeDocument);
+    const closeDocument = useGameStore((state) => state.closeDocument);
 
-  if (!activeDocument) return null;
+    if (!activeDocument) return null;
 
-  const titleText = t(activeDocument.titleKey, { defaultValue: activeDocument.titleKey });
-  const contentText = t(activeDocument.contentKey, { defaultValue: activeDocument.contentKey });
-
-  return (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
+    const handleClose = () => {
+        if (activeDocument.onClose) {
+            activeDocument.onClose();
+        }
         closeDocument();
-      }}
-      className="document-viewer-overlay"
-    >
-      {/* Aged Parchment / Manuscript Container */}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="document-viewer-parchment"
-      >
-        {/* Document Header */}
-        <div className="document-viewer-header">
-          <h2 className="document-viewer-title">
-            {titleText}
-          </h2>
-          <button
-            onClick={closeDocument}
-            className="document-viewer-close-btn"
-            title="Fermer"
-          >
-            ✕
-          </button>
-        </div>
+    };
 
-        {/* Document Content */}
-        <div className="document-viewer-content">
-          {contentText}
-        </div>
+    return (
+        <div
+            onClick={(e) => {
+                e.stopPropagation();
+                handleClose();
+            }}
+            className="document-viewer-overlay"
+        >
+            {/* Aged Parchment / Manuscript Container */}
+            <div
+                onClick={(e) => e.stopPropagation()}
+                className="document-viewer-parchment"
+            >
+                {/* Document Header */}
+                <div className="document-viewer-header">
+                    <h2 className="document-viewer-title">
+                        {activeDocument.title}
+                    </h2>
+                    <button
+                        onClick={handleClose}
+                        className="document-viewer-close-btn"
+                        title="Fermer"
+                    >
+                        ✕
+                    </button>
+                </div>
 
-        {/* Footer Action */}
-        <div className="document-viewer-footer">
-          <button
-            onClick={closeDocument}
-            className="document-viewer-action-btn"
-          >
-            [ REPOSER LE DOCUMENT ]
-          </button>
+                {/* Document Content */}
+                <div className="document-viewer-content" style={{ whiteSpace: 'pre-line' }}>
+                    {activeDocument.content}
+                </div>
+
+                {/* Footer Action */}
+                <div className="document-viewer-footer">
+                    <button
+                        onClick={handleClose}
+                        className="document-viewer-action-btn"
+                    >
+                        [ REPOSER LE DOCUMENT ]
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };

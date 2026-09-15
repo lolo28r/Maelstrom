@@ -5,10 +5,25 @@
     "settings": "[ REGLAGES ]"
   },
   "intro": {
-    "monologue_city": "Arkham, automne 1926. Le brouillard épais de la Miskatonic étouffe la ville comme un linceul. Je m'appelle Laurence Lindner. Depuis la disparition brutale de mon père, les archives de l'université sont devenues mon seul refuge... et ma seule piste.",
-    "monologue_office": "Le bureau du Professeur est plongé dans la pénombre. Une étrange poussière stagne dans l'air... et là, posée sur le buvard en acajou, une lettre attire mon regard.",
-    "letter_title": "Lettre scellée de l'Université de Miskatonic",
-    "letter_content": "Chère Laurence,\n\nSi vous lisez ceci, c'est que j'ai dû quitter précipitamment Arkham. Les découvertes faites lors de l'expédition Lindner dépassent la raison humaine. Les résonances du Trapézoèdre ne peuvent plus être étouffées. N'ouvrez sous aucun prétexte la porte du laboratoire secret sans avoir activé la Vraie Vue.\n\n— Professeur Vance",
+    "monologue_city_steps": [
+      "Je m'appelle Laurence Lindner.",
+      "Au cours des derniers mois, j'ai vu mon père sombrer dans une altération effroyable de son être.",
+      "Tout semblait étrange...",
+      "Sa personnalité avait changé du jour au lendemain.",
+      "Sa manière de parler, ses expressions faciales, sa voix...",
+      "Je ne saurais pas l'expliquer, mais ce n'est plus lui.",
+      "Puis vint ce jour d'hiver 1925..."
+    ],
+    "monologue_office_steps": [
+      "Je rentrais de la Bibliothèque de l'Université Miskatonic, où j'avais passé la journée à compulser de rares traités d'astronomie.",
+      "Comme l'ensemble des habitants d'Arkham, je m'étais laissé gagner par cette curiosité fiévreuse à l'approche de cette fameuse éclipse...",
+      "... peut-être cherchais-je dans l'étude des astres une explication rationnelle au malaise existentiel qui m'étouffait.",
+      "Mon bureau m'offrit enfin son obscurité familière, baignée de l'odeur du tabac froid et de l'encre sèche.",
+      "Et là, posée sur le buvard de cuir, cette enveloppe officielle de l'Asile d'Arkham attira mon regard..."
+    ],
+    "letter_title": "Asile d'Arkham — Notification de Transfert",
+    "letter_content": "À l'attention de Laurence Lindner,\n\nNous vous informons par la présente que l'état de votre père, le Patient #402 (Dr. Lindner), a connu un déclin psychiatrique sévère au cours des dernières 48 heures.\n\nLe sujet présentant une catatonie intermittente et des troubles du comportement majeurs, la direction médicale a pris la décision de procéder à son transfert immédiat vers le Pavillon d'Isolement des cas incurables.\n\nÀ compter de ce jour, les visites sont indéfiniment suspendues. Les effets personnels restants du patient sont tenus à votre disposition à l'accueil de l'établissement.\n\n— Direction Médicale, Asile d'Arkham",
+    "tutoriel_jauges_reaction": "TUTORIEL : LA SANTÉ MENTALE\n\nL'annonce du transfert de votre père (Patient #402) vers le pavillon des incurables inflige un choc violent à Laurence. Sa jauge de Santé Mentale vient de baisser.\n\n• FONCTIONNEMENT : La Santé Mentale diminue lors des mauvaises nouvelles, des visions d'horreur ou des choix occultes. \n\n• DANGER MORTEL : Si la Santé Mentale tombe à zéro, Laurence sombre définitivement dans la folie et se suicide. C'est un Game Over immédiat.\n\n• RÉGULATION : Vous pouvez remonter la jauge en consommant de l'alcool (whisky) ou du tabac depuis l'inventaire. Cependant, l'abus de ces substances augmente l'Épuisement et altère la clarté de vos rêves.\n\n• VISUELS : Suivez l'évolution de vos jauges via les notifications éphémères en haut à droite de l'écran. Attention, ces jauges ne sont pas accessibles durant le jeu, vous devez donc y faire attention.",
     "q1": "Vous êtes-vous déjà demandé quels sont les sombres secrets que renferme notre univers ?",
     "q2": "Pensez-vous réellement que nous sommes en sécurité... seuls sur une boule géante dans le vide cosmique ?",
     "q3": "Dans le silence de la nuit, entendez-vous ces murmures qui rampent aux frontières de votre raison ?",

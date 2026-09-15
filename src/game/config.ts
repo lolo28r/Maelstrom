@@ -4,15 +4,18 @@ import { IntroSequenceScene } from './scenes/IntroSequenceScene';
 import { ProfessorOfficeScene } from './scenes/ProfessorOfficeScene';
 
 export const phaserGameConfig: Phaser.Types.Core.GameConfig = {
-  type: Phaser.AUTO,
-  width: 1280,
-  height: 720,
-  parent: 'phaser-container',
-  backgroundColor: '#020408',
-  pixelArt: true,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
-  scene: [MainMenuScene, IntroSequenceScene, ProfessorOfficeScene],
+    type: Phaser.AUTO,
+    width: 1280,
+    height: 720,
+    parent: 'phaser-container',
+    backgroundColor: '#020408',
+    pixelArt: true,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    dom: {
+        createContainer: true, // <--- Indispensable pour injecter du HTML/CSS (comme le titre en Tangerine)
+    },
+    scene: [MainMenuScene, IntroSequenceScene, ProfessorOfficeScene],
 };

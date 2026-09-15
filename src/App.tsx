@@ -1,47 +1,50 @@
+
 import React, { useEffect, useRef } from 'react';
 import Phaser from 'phaser';
 import { phaserGameConfig } from './game/config';
 import { CosmicBackground } from './components/CosmicBackground';
-import { CosmicConsciousnessGauge } from './components/CosmicConsciousnessGauge';
 import { TrapezohedronHUD } from './components/TrapezohedronHUD';
 import { InventoryHUD } from './components/InventoryHUD';
 import { DialogueOverlay } from './components/DialogueOverlay';
 import { NarrativeDialog } from './components/ui/NarrativeDialog';
 import { DocumentViewer } from './components/ui/DocumentViewer';
+import { StatToast } from './components/ui/StatToast';
+import { CenterNarrativeModal } from './components/ui/CenterNarrativeModal';
 import './i18n';
 
 export const App: React.FC = () => {
-  const gameRef = useRef<Phaser.Game | null>(null);
+    const gameRef = useRef<Phaser.Game | null>(null);
 
-  useEffect(() => {
-    if (!gameRef.current) {
-      gameRef.current = new Phaser.Game(phaserGameConfig);
-    }
-  }, []);
+    useEffect(() => {
+        if (!gameRef.current) {
+            gameRef.current = new Phaser.Game(phaserGameConfig);
+        }
+    }, []);
 
-  return (
-    <div className="relative w-screen h-screen bg-black overflow-hidden m-0 p-0">
-      {/* Phaser 2D Game Canvas */}
-      <div id="phaser-container" className="absolute inset-0 w-full h-full" />
+    return (
+        <div style={{ position: 'relative', width: '100vw', height: '100vh', background: '#000', overflow: 'hidden', margin: 0, padding: 0 }}>
+            {/* Canvas Phaser */}
+            <div id="phaser-container" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, width: '100%', height: '100%' }} />
 
-      {/* Cosmic Nebula Canvas Overlay */}
-      <CosmicBackground />
+            {/* Fond cosmique (réservé pour extension future) */}
+            <CosmicBackground />
 
-      {/* CRT Scanlines & Vignette Shading */}
-      <div className="absolute inset-0 scanlines pointer-events-none z-20" />
-      <div className="absolute inset-0 vignette pointer-events-none z-20" />
+            {/* Effets CRT */}
+            <div className="scanlines" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', zIndex: 20 }} />
+            <div className="vignette"  style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', zIndex: 20 }} />
 
-      {/* HD Vector UI Layer */}
-      <CosmicConsciousnessGauge />
-      <TrapezohedronHUD />
-      <InventoryHUD />
-      <DialogueOverlay />
+            {/* HUD React */}
+            <TrapezohedronHUD />
+            <InventoryHUD />
+            <DialogueOverlay />
 
-      {/* Narrative Monologues & Document Viewer Overlays */}
-      <NarrativeDialog />
-      <DocumentViewer />
-    </div>
-  );
+            {/* Overlays narratifs & Toasts */}
+            <NarrativeDialog />
+            <CenterNarrativeModal />
+            <DocumentViewer />
+            <StatToast />
+        </div>
+    );
 };
 
 export default App;

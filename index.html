@@ -1,16 +1,39 @@
+
 <!doctype html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>L'Éveil - Jeu Point-and-Click Lovecraftien</title>
+    <title>Maelstrom</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Share+Tech+Mono&family=Special+Elite&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-black text-white overflow-hidden select-none m-0 p-0">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Share+Tech+Mono&family=Special+Elite&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        html, body, #root {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+        }
+        /* Classes utilitaires pour le préchargement des polices Phaser */
+        .tangerine-preload  { font-family: "Tangerine", cursive; font-weight: 700; }
+        .cormorant-preload  { font-family: "Cormorant Garamond", serif; }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- Préchargement invisible des polices pour Phaser/Canvas -->
+<div style="position:absolute;left:-9999px;visibility:hidden;pointer-events:none;">
+    <span class="cormorant-preload">Préchargement</span>
+    <span class="tangerine-preload">Maelstrom</span>
+</div>
+
+<script type="module" src="/src/main.tsx"></script>
+</body>
 </html>
