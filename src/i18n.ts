@@ -1,3 +1,4 @@
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
@@ -13,8 +14,9 @@ i18n
             en: { translation: en },
             ar: { translation: ar }
         },
-        lng: 'fr', // Langue par défaut
+        lng: 'fr',
         fallbackLng: 'fr',
+        returnObjects: true,
         interpolation: {
             escapeValue: false
         }

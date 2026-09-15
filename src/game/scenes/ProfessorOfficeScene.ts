@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { useGameStore } from '../../store/useGameStore';
 import { InteractiveObject } from '../helper/InteractiveObject.ts';
-import i18next from 'i18next'; // À ajouter en haut de ton fichier si ce n'est pas déjà importé
+import i18next from 'i18next';
 
 export class ProfessorOfficeScene extends Phaser.Scene {
     private cityBgGroup!: Phaser.GameObjects.Group;
@@ -12,6 +12,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     private isOfficeVisible: boolean = false;
     private currentAmbientSound: Phaser.Sound.BaseSound | null = null;
     private letterObject?: InteractiveObject;
+    private waitingForConsumption: boolean = false;
 
     constructor() {
         super('ProfessorOffice');
@@ -21,6 +22,13 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         this.load.image('city_night', '/assets/cityNight.jpg');
         this.load.image('office_interior', '/assets/Desk.jpg');
         this.load.image('letter_asset', '/assets/letterAsset.png');
+
+        // Gestion de la sécurité sur le chargement audio pour éviter les blocages de scène
+        this.load.on('loaderror', (fileObj: any) => {
+            if (fileObj.type === 'audio') {
+                console.warn(`[Audio Warning] Fichier non trouvé ou corrompu ignoré : ${fileObj.key}`);
+            }
+        });
 
         if (!this.cache.audio.exists('street_rain')) {
             this.load.audio('street_rain', '/assets/streetRain.mp3');
@@ -35,6 +43,9 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#000000');
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
+        // --- INVENTAIRE : Injection des objets de départ ---
+        this.initStarterInventory();
+
         this.cityBgGroup = this.add.group();
         this.officeBgGroup = this.add.group();
         this.normalGroup = this.add.group();
@@ -43,16 +54,28 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         this.createCityBackground();
         this.createOfficeBackground();
 
-        // Tout le contenu du bureau et les objets interactifs sont masqués au départ
         this.officeBgGroup.setVisible(false);
         this.normalGroup.setVisible(false);
         this.trueViewGroup.setVisible(false);
 
         this.playAmbientSound('street_rain', 0.2);
 
-        this.unsubscribeStore = useGameStore.subscribe((state) => {
+        // Surveillance du store pour la vue Trapezoèdre et la consommation obligatoire du tuto
+        this.unsubscribeStore = useGameStore.subscribe((state, prevState) => {
             if (this.isOfficeVisible) {
                 this.updateTrueViewVisibility(state.trapezohedron?.trueViewActive ?? false);
+            }
+
+            // Détection stricte de la consommation du Whisky pendant le tuto
+            if (this.waitingForConsumption) {
+                const hadWhisky = prevState.inventory.some((item) => item.id === 'whisky');
+                const hasWhisky = state.inventory.some((item) => item.id === 'whisky');
+
+                // Dès que l'objet 'whisky' disparaît de l'inventaire
+                if (hadWhisky && !hasWhisky) {
+                    this.waitingForConsumption = false;
+                    this.triggerExhaustionTutorial();
+                }
             }
         });
 
@@ -66,6 +89,32 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         });
     }
 
+    private initStarterInventory() {
+        const store = useGameStore.getState();
+
+        store.addItem({
+            id: 'whisky',
+            name: 'Flasque de Whisky',
+            icon: '/assets/whiskyAsset.png',
+            description: 'Bourbon de bas étage. Brûle la gorge, mais engourdit les nerfs.',
+            examineText: 'Une flasque en métal cabossée qui sent l\'alcool fort. Idéal pour apaiser les crises d\'angoisse et faire remonter la Santé Mentale, au prix d\'une fatigue accrue.',
+            quantity: 1,
+            stackable: true,
+            consumable: true
+        });
+
+        store.addItem({
+            id: 'tobacco',
+            name: 'Tabac à rouler',
+            icon: '/assets/tabac.png',
+            description: 'Une blague à tabac usée et quelques feuilles à rouler.',
+            examineText: 'Du tabac brun séché. Rouler une cigarette permet de rassembler ses idées et de calmer le cœur qui bat trop vite.',
+            quantity: 1,
+            stackable: true,
+            consumable: true
+        });
+    }
+
     private createCityBackground() {
         const cityImg = this.add.image(640, 360, 'city_night').setDisplaySize(1280, 720);
         this.cityBgGroup.add(cityImg);
@@ -75,7 +124,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         const officeImg = this.add.image(640, 360, 'office_interior').setDisplaySize(1280, 720);
         this.officeBgGroup.add(officeImg);
 
-        // Création de l'objet interactif de la lettre
         this.letterObject = new InteractiveObject({
             scene: this,
             x: 640,
@@ -91,7 +139,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                     title: i18next.t('intro.letter_title'),
                     content: i18next.t('intro.letter_content'),
                     onClose: () => {
-                        // S'exécute uniquement à la première fermeture
                         if (!isAlreadyRead) {
                             store.updateAct1Progress({ letterRead: true });
 
@@ -100,10 +147,24 @@ export class ProfessorOfficeScene extends Phaser.Scene {
 
                             store.modifyStat('mental', mentalDelta);
 
+                            // 1. Tuto : Santé Mentale
                             this.time.delayedCall(600, () => {
                                 store.setDialog({
                                     textKey: 'intro.tutoriel_jauges_reaction',
-                                    type: 'center', // <--- C'est ici qu'il faut l'ajouter !
+                                    type: 'center',
+                                    onComplete: () => {
+                                        // 2. Tuto : Inventaire
+                                        this.time.delayedCall(400, () => {
+                                            store.setDialog({
+                                                textKey: 'intro.tutoriel_inventaire',
+                                                type: 'center',
+                                                onComplete: () => {
+                                                    // OBLIGATION : On active l'écoute de la consommation du whisky
+                                                    this.waitingForConsumption = true;
+                                                }
+                                            });
+                                        });
+                                    }
                                 });
                             });
                         }
@@ -112,8 +173,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
             }
         });
 
-        // On s'assure que l'élément visuel de la lettre est bien inclus dans normalGroup
-        // pour obéir au masquage global pendant la vue de la ville
         this.normalGroup.add(this.letterObject.getContainer());
 
         const trueG = this.add.graphics();
@@ -122,25 +181,58 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         this.trueViewGroup.add(trueG);
     }
 
-    private openLetterDocument() {
-        const store = useGameStore.getState() as any;
-        if (typeof store.openDocument === 'function') {
-            store.openDocument({
-                title: i18next.t('intro.letter_title'),
-                content: i18next.t('intro.letter_content'),
-                onClose: () => {
-                    // Impact sur la santé mentale à la fermeture
-                    store.modifyStat('mental', -15);
+    private triggerExhaustionTutorial() {
+        const store = useGameStore.getState();
 
-                    this.time.delayedCall(600, () => {
-                        store.setDialog({
-                            textKey: 'intro.tutoriel_jauges_reaction',
-                            type: 'center', // <--- Force l'affichage au milieu de l'écran
+        this.time.delayedCall(1200, () => {
+            // 3. Tuto : Épuisement & Rêves
+            store.setDialog({
+                textKey: 'intro.tutoriel_epuisement',
+                type: 'center',
+                onComplete: () => {
+                    this.startDreamTransition();
+                }
+            });
+        });
+    }
+
+    private startDreamTransition() {
+        const store = useGameStore.getState() as any;
+
+        // Désabonnement du store Zustand pour éviter l'erreur de "entries" sur la scène en destruction
+        if (this.unsubscribeStore) {
+            this.unsubscribeStore();
+            this.unsubscribeStore = undefined;
+        }
+
+        this.time.delayedCall(500, () => {
+            store.setDialog({
+                textKey: 'intro.transition_sommeil',
+                type: 'bottom',
+                onComplete: () => {
+                    if (typeof store.setEyelidsClosing === 'function') {
+                        store.setEyelidsClosing(true);
+                    }
+
+                    if (this.currentAmbientSound) {
+                        this.tweens.add({
+                            targets: this.currentAmbientSound,
+                            volume: 0,
+                            duration: 2000
                         });
+                    }
+
+                    this.cameras.main.fadeOut(2500, 0, 0, 0);
+                    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                        if (typeof store.setEyelidsClosing === 'function') {
+                            store.setEyelidsClosing(false);
+                        }
+                        store.setScene('DreamScene');
+                        this.scene.start('DreamScene');
                     });
                 }
             });
-        }
+        });
     }
 
     private showLocationIntro(onComplete: () => void) {
@@ -179,7 +271,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                 });
             }
         } catch (e) {
-            console.warn('Ambient audio restricted:', e);
+            console.warn('Ambient audio restricted or missing:', e);
         }
     }
 
@@ -189,7 +281,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
             this.isOfficeVisible = true;
             this.cityBgGroup.setVisible(false);
 
-            // Révélation de l'intérieur du bureau et des éléments normaux (dont la lettre)
             this.officeBgGroup.setVisible(true);
             this.normalGroup.setVisible(true);
 
@@ -212,12 +303,15 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     }
 
     private updateTrueViewVisibility(active: boolean) {
-        this.trueViewGroup.setVisible(active);
+        if (this.trueViewGroup && (this.trueViewGroup as any).defaultFrame !== undefined) {
+            this.trueViewGroup.setVisible(active);
+        }
     }
 
     destroy() {
         if (this.unsubscribeStore) {
             this.unsubscribeStore();
+            this.unsubscribeStore = undefined;
         }
         if (this.currentAmbientSound) {
             this.currentAmbientSound.stop();

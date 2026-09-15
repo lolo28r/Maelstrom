@@ -9,7 +9,7 @@ interface InteractiveConfig {
     scale?: number;
     actionLabel?: string;
     onClick: () => void;
-    hasBeenRead?: () => boolean; // <--- Optionnel : vérifie si l'objet a déjà été consommé/lu
+    hasBeenRead?: () => boolean;
 }
 
 export class InteractiveObject {
@@ -54,18 +54,29 @@ export class InteractiveObject {
 
         this.image.on('pointerdown', () => {
             if (this.isInteractionBlocked()) return;
-
-            // Si l'objet a déjà été lu/utilisé, on peut changer dynamiquement son comportement ou son libellé si besoin,
-            // mais l'action principale s'exécute quand même (ex: réouvrir la lettre sans le malus).
             onClick();
         });
     }
 
+    /**
+     * SÉCURITÉ GLOBALE : Vérifie si une interface React bloque les interactions dans le monde 2D
+     */
     private isInteractionBlocked(): boolean {
         const store = useGameStore.getState() as any;
-        if (store.currentDialog || store.isDialogueActive || store.activeDocument) {
+
+        // On bloque le clic Phaser si :
+        // 1. Un dialogue est affiché
+        // 2. Un document React est ouvert (ex: la lettre)
+        // 3. Un objet de l'inventaire est sélectionné/en cours d'examen
+        if (
+            store.currentDialog ||
+            store.isDialogueActive ||
+            store.activeDocument ||
+            store.selectedItem !== null
+        ) {
             return true;
         }
+
         return false;
     }
 

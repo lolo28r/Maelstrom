@@ -7,28 +7,30 @@
   "intro": {
     "monologue_city_steps": [
       "Je m'appelle Laurence Lindner.",
-      "Au cours des derniers mois, j'ai vu mon père sombrer dans une altération effroyable de son être.",
-      "Tout semblait étrange...",
-      "Sa personnalité avait changé du jour au lendemain.",
-      "Sa manière de parler, ses expressions faciales, sa voix...",
-      "Je ne saurais pas l'expliquer, mais ce n'est plus lui.",
-      "Puis vint ce jour d'hiver 1925..."
+      "Au cours des derniers mois, j'ai vu mon père s'absenter d'entre les vivants.",
+      "Ce n'était plus tout à fait lui.",
+      "Une ombre dans le regard, une manière d'articuler qui m'était inconnue...",
+      "Puis la catatonie s'est installée, muette et impénétrable.",
+      "Et ce soir de janvier 1925, l'hiver semblait peser sur Arkham comme un linceul..."
     ],
     "monologue_office_steps": [
-      "Je rentrais de la Bibliothèque de l'Université Miskatonic, où j'avais passé la journée à compulser de rares traités d'astronomie.",
-      "Comme l'ensemble des habitants d'Arkham, je m'étais laissé gagner par cette curiosité fiévreuse à l'approche de cette fameuse éclipse...",
-      "... peut-être cherchais-je dans l'étude des astres une explication rationnelle au malaise existentiel qui m'étouffait.",
-      "Mon bureau m'offrit enfin son obscurité familière, baignée de l'odeur du tabac froid et de l'encre sèche.",
-      "Et là, posée sur le buvard de cuir, cette enveloppe officielle de l'Asile d'Arkham attira mon regard..."
+      "J'avais passé la journée à la Bibliothèque Miskatonic, perdu(e) dans d'anciens traités d'astronomie.",
+      "À l'approche de l'éclipse, une fièvre étrange saisissait la ville...",
+      "... et je cherchais dans le mouvement des astres un calme que ma propre raison ne m'offrait plus.",
+      "Mon bureau m'accueillit enfin, saturé d'encre sèche et de tabac froid.",
+      "Mais sur le buvard de cuir, une enveloppe de l'Asile d'Arkham m'attendait."
     ],
     "letter_title": "Asile d'Arkham — Notification de Transfert",
-    "letter_content": "À l'attention de Laurence Lindner,\n\nNous vous informons par la présente que l'état de votre père, le Patient #402 (Dr. Lindner), a connu un déclin psychiatrique sévère au cours des dernières 48 heures.\n\nLe sujet présentant une catatonie intermittente et des troubles du comportement majeurs, la direction médicale a pris la décision de procéder à son transfert immédiat vers le Pavillon d'Isolement des cas incurables.\n\nÀ compter de ce jour, les visites sont indéfiniment suspendues. Les effets personnels restants du patient sont tenus à votre disposition à l'accueil de l'établissement.\n\n— Direction Médicale, Asile d'Arkham",
-    "tutoriel_jauges_reaction": "TUTORIEL : LA SANTÉ MENTALE\n\nL'annonce du transfert de votre père (Patient #402) vers le pavillon des incurables inflige un choc violent à Laurence. Sa jauge de Santé Mentale vient de baisser.\n\n• FONCTIONNEMENT : La Santé Mentale diminue lors des mauvaises nouvelles, des visions d'horreur ou des choix occultes. \n\n• DANGER MORTEL : Si la Santé Mentale tombe à zéro, Laurence sombre définitivement dans la folie et se suicide. C'est un Game Over immédiat.\n\n• RÉGULATION : Vous pouvez remonter la jauge en consommant de l'alcool (whisky) ou du tabac depuis l'inventaire. Cependant, l'abus de ces substances augmente l'Épuisement et altère la clarté de vos rêves.\n\n• VISUELS : Suivez l'évolution de vos jauges via les notifications éphémères en haut à droite de l'écran. Attention, ces jauges ne sont pas accessibles durant le jeu, vous devez donc y faire attention.",
+    "letter_content": "À l'attention de Laurence Lindner,\n\nNous vous informons par la présente que l'état de votre père, le Patient #402 (Dr. Lindner), a connu un déclin mental sévère au cours des dernières 48 heures.\n\nLe sujet présentant une catatonie intermittente et des troubles du comportement majeurs, la direction médicale a pris la décision de procéder à son transfert immédiat vers le Pavillon d'Isolement des cas incurables.\n\nÀ compter de ce jour, les visites sont suspendues jusqu'à nouvel ordre. Les effets personnels restants du patient sont tenus à votre disposition à l'accueil de l'établissement.\n\n— La Direction Médicale, Asile d'Arkham",
+    "tutoriel_jauges_reaction": "TUTORIEL : LA SANTÉ MENTALE\n\nL'annonce du transfert de votre père fait chuter la Santé Mentale de Laurence.\n\n• CAUSES DE BAISSE : L'apprentissage de mauvaises nouvelles, la lecture de documents troublants, les découvertes macabres et certains choix de dialogue usent l'esprit de Laurence.\n• DANGER : Si la jauge tombe à zéro, Laurence sombre dans la folie et passera au suicide.\n• RÉGULATION : Consommez du whisky ou du tabac depuis l'inventaire pour vous stabiliser, au prix d'une fatigue accrue.\n• SUIVI : Observez les notifications éphémères en haut à droite. Aucune barre n'est affichée en permanence.",
+    "tutoriel_inventaire": "TUTORIEL : SACOCHE D'ARCHIVISTE\n\nVotre choc émotionnel nécessite une réaction immédiate.\n\n• ACCÈS : Cliquez sur la sacoche en bas à gauche pour l'ouvrir.\n• ACTION REQUISE : Sélectionnez la Flasque de Whisky et choisissez « BOIRE UNE GORGÉE » pour apaiser vos nerfs et faire remonter votre Santé Mentale.\n• EMPLACEMENTS : Les objets clés et indices y seront également stockés.",
+    "tutoriel_epuisement": "TUTORIEL : L'ÉPUISEMENT & LES RÊVES\n\nBoire du whisky a apaisé les nerfs de Laurence, mais son corps en paye le prix. Sa jauge d'Épuisement a augmenté.\n\n• MECANIQUE : L'Épuisement augmente avec l'usage de sédatifs, l'effort mental et le temps qui passe.\n• IMPACT SUR LES RÊVES : Un niveau d'épuisement élevé altère la clarté de vos phases de sommeil. Il vous plonge dans des cauchemars plus sombres et augmente le risque de sombrer dans l'inconscience.\n• ÉVALUATION : Surveillez attentivement cet équilibre entre clarté mentale et fatigue physique.",
+    "transition_sommeil": "Le vertige de l'alcool se mêle à une fatigue écrasante. Mes paupières deviennent de plomb... La réalité du bureau s'efface.",
     "q1": "Vous êtes-vous déjà demandé quels sont les sombres secrets que renferme notre univers ?",
     "q2": "Pensez-vous réellement que nous sommes en sécurité... seuls sur une boule géante dans le vide cosmique ?",
     "q3": "Dans le silence de la nuit, entendez-vous ces murmures qui rampent aux frontières de votre raison ?",
     "q4": "Avez-vous foi en un dieu bienveillant et protecteur ?",
-    "q5": "Croyez vous au Big Bang ?",
+    "q5": "Pensez-vous que le Cosmos a eu un commencement ?",
     "yes": "[ OUI ]",
     "no": "[ NON ]",
     "verdicts": {
@@ -41,7 +43,20 @@
     },
     "credits": {
       "author": "Écrit, développé et imaginé par Laurien Roche",
-      "ai": "Avec l'aide de l'Intelligence Artificielle"
+      "ai": "Avec l'aide de l'Intelligence Artificielle",
+      "homage": "Inspiré par l'œuvre immortelle de Howard Phillips Lovecraft,\nen profond hommage à son univers et à la fascination qu'il continue d'exercer sur nos esprits."
+    }
+  },
+  "dream": {
+    "scene_1": {
+      "speaker": "L'Homme Noir",
+      "steps": [
+        "Tu cherches du repos dans le sommeil... comme c'est humain.",
+        "Le whisky brûle tes entrailles, Laurence. Mais il ne suffit pas à étouffer le murmure de la vérité.",
+        "Tu pleures un père enfermé derrière les barreaux de l'Asile d'Arkham...",
+        "... mais es-tu seulement certain(e) que ce qui pousse ces hurlements dans la cellule #402 est encore ton père ?",
+        "Ouvre les yeux. Le spectacle n'a même pas encore commencé."
+      ]
     }
   }
 }

@@ -362,41 +362,62 @@ export class IntroSequenceScene extends Phaser.Scene {
             onComplete: () => {
                 if (this.isSkipping) return;
 
-                // --- TITRE FINAL "Maelström" ---
-                const bigTitle = this.add.text(640, 360, 'Maelström', {
-                    fontFamily: '"Tangerine", cursive',
-                    fontSize: '120px',
-                    color: '#ffffff',
-                    fontStyle: 'bold'
+                // --- HOMMAGE H.P. LOVECRAFT ---
+                const homageText = this.add.text(640, 360, i18n.t('intro.credits.homage'), {
+                    fontFamily: '"Cormorant Garamond", serif',
+                    fontSize: '24px',
+                    fontStyle: 'italic',
+                    color: '#94a3b8',
+                    align: 'center',
+                    wordWrap: { width: 900 }
                 }).setOrigin(0.5).setAlpha(0);
 
-                const totalTitleDuration = 2200 + 6000 + 2200;
-
-                if (this.currentMusic) {
-                    this.tweens.add({
-                        targets: this.currentMusic,
-                        volume: 0,
-                        duration: totalTitleDuration + 1000,
-                        onComplete: () => {
-                            if (this.currentMusic) this.currentMusic.stop();
-                        }
-                    });
-                }
-
                 this.tweens.add({
-                    targets: bigTitle,
+                    targets: homageText,
                     alpha: 1,
-                    duration: 2200,
-                    hold: 6000,
+                    duration: 1500,
+                    hold: 3500,
                     yoyo: true,
                     onComplete: () => {
                         if (this.isSkipping) return;
 
-                        this.cameras.main.fadeOut(2000, 0, 0, 0);
-                        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-                            this.startAct1();
+                        // --- TITRE FINAL "Maelström" ---
+                        const bigTitle = this.add.text(640, 360, 'Maelström', {
+                            fontFamily: '"Tangerine", cursive',
+                            fontSize: '120px',
+                            color: '#ffffff',
+                            fontStyle: 'bold'
+                        }).setOrigin(0.5).setAlpha(0);
+
+                        const totalTitleDuration = 2200 + 6000 + 2200;
+
+                        if (this.currentMusic) {
+                            this.tweens.add({
+                                targets: this.currentMusic,
+                                volume: 0,
+                                duration: totalTitleDuration + 1000,
+                                onComplete: () => {
+                                    if (this.currentMusic) this.currentMusic.stop();
+                                }
+                            });
+                        }
+
+                        this.tweens.add({
+                            targets: bigTitle,
+                            alpha: 1,
+                            duration: 2200,
+                            hold: 6000,
+                            yoyo: true,
+                            onComplete: () => {
+                                if (this.isSkipping) return;
+
+                                this.cameras.main.fadeOut(2000, 0, 0, 0);
+                                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                                    this.startAct1();
+                                });
+                            },
                         });
-                    },
+                    }
                 });
             },
         });

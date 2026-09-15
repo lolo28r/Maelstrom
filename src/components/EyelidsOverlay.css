@@ -1,0 +1,30 @@
+.eyelids-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Paupières supérieure et inférieure */
+.eyelid-top,
+.eyelid-bottom {
+    width: 100%;
+    height: 0%;
+    background: #000000;
+    transition: height 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Effet de flou sur la scène pendant la fermeture */
+.eyelids-active {
+    backdrop-filter: blur(4px);
+    transition: backdrop-filter 2.5s ease-in-out;
+}
+
+/* État fermé : chaque paupière couvre 50% de la hauteur */
+.eyelids-closed .eyelid-top,
+.eyelids-closed .eyelid-bottom {
+    height: 50.5%; /* L'excédent de 0.5% évite une ligne blanche au centre */
+}

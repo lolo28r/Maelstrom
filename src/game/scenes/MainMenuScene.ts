@@ -35,7 +35,7 @@ export class MainMenuScene extends Phaser.Scene {
             bg.setAlpha(0.45); // Image assombrie pour étouffer l'éclat d'origine
         }
 
-        // --- FILTRE SOMBRE INTensif (Voile d'occultation) ---
+        // --- FILTRE SOMBRE INTENSIF (Voile d'occultation) ---
         const darkOverlay = this.add.graphics();
         darkOverlay.fillStyle(0x020408, 0.65); // Voile sombre renforcé pour une ambiance plus lourde
         darkOverlay.fillRect(0, 0, 1280, 720);
@@ -121,9 +121,10 @@ export class MainMenuScene extends Phaser.Scene {
             {
                 text: i18n.t('menu.settings'),
                 action: () => {
-                    store.startDialogue({
+                    store.setDialog({
+                        textKey: 'Configuration : Rendu 16:9.\nSystème de sauvegarde automatique activé.',
                         speaker: 'RÉGLAGES',
-                        text: 'Configuration : Rendu 16:9.\nSystème de sauvegarde automatique activé.',
+                        type: 'bottom',
                     });
                 },
             },
@@ -153,8 +154,6 @@ export class MainMenuScene extends Phaser.Scene {
                 btn.on('pointerdown', () => option.action());
             }
         });
-
-
     }
 
     startLoadingAndNewGame() {
@@ -218,9 +217,10 @@ export class MainMenuScene extends Phaser.Scene {
                 this.scene.start(targetScene);
             });
         } else {
-            store.startDialogue({
+            store.setDialog({
+                textKey: 'Aucune sauvegarde locale trouvée.',
                 speaker: 'SYSTÈME',
-                text: 'Aucune sauvegarde locale trouvée.',
+                type: 'bottom',
             });
         }
     }

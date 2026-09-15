@@ -2,10 +2,11 @@
 import React, { useEffect, useRef } from 'react';
 import Phaser from 'phaser';
 import { phaserGameConfig } from './game/config';
+import { useGameStore } from './store/useGameStore';
 import { CosmicBackground } from './components/CosmicBackground';
+import { EyelidsOverlay } from './components/EyelidsOverlay';
 import { TrapezohedronHUD } from './components/TrapezohedronHUD';
 import { InventoryHUD } from './components/InventoryHUD';
-import { DialogueOverlay } from './components/DialogueOverlay';
 import { NarrativeDialog } from './components/ui/NarrativeDialog';
 import { DocumentViewer } from './components/ui/DocumentViewer';
 import { StatToast } from './components/ui/StatToast';
@@ -14,6 +15,7 @@ import './i18n';
 
 export const App: React.FC = () => {
     const gameRef = useRef<Phaser.Game | null>(null);
+    const isEyelidsClosing = useGameStore((state) => state.isEyelidsClosing);
 
     useEffect(() => {
         if (!gameRef.current) {
@@ -26,7 +28,6 @@ export const App: React.FC = () => {
             {/* Canvas Phaser */}
             <div id="phaser-container" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, width: '100%', height: '100%' }} />
 
-            {/* Fond cosmique (réservé pour extension future) */}
             <CosmicBackground />
 
             {/* Effets CRT */}
@@ -36,13 +37,15 @@ export const App: React.FC = () => {
             {/* HUD React */}
             <TrapezohedronHUD />
             <InventoryHUD />
-            <DialogueOverlay />
 
             {/* Overlays narratifs & Toasts */}
             <NarrativeDialog />
             <CenterNarrativeModal />
             <DocumentViewer />
             <StatToast />
+
+            {/* Overlay paupières (z-index max) */}
+            <EyelidsOverlay isClosing={isEyelidsClosing} />
         </div>
     );
 };

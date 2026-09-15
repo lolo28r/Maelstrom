@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import i18n from '../i18n';
 
 export interface Item {
     id: string;
@@ -6,11 +7,15 @@ export interface Item {
     icon: string;
     description: string;
     examineText: string;
+    quantity?: number;    // Quantité possédée
+    stackable?: boolean;   // Autoriser le cumul d'exemplaires (true par défaut)
+    consumable?: boolean;  // Autoriser la consommation (whisky, tabac)
 }
 
 export interface NarrativeDialogState {
     textKey: string;
-    type?: 'bottom' | 'center'; // Par défaut 'bottom'
+    type?: 'bottom' | 'center';
+    speaker?: string;
     onComplete?: () => void;
 }
 
@@ -46,6 +51,7 @@ export interface GameState {
     exhaustion: number;
     consciousness: number;
     modifyStat: (stat: 'mental' | 'exhaustion' | 'consciousness', delta: number) => void;
+    triggerStatChange: (label: string, type: 'up' | 'down', color: 'red' | 'green' | 'purple') => void;
 
     activeToast: StatNotification | null;
     clearToast: () => void;
@@ -54,8 +60,11 @@ export interface GameState {
     setScene: (scene: string) => void;
 
     inventory: Item[];
+    selectedItem: Item | null;
+    setSelectedItem: (item: Item | null) => void;
     addItem: (item: Item) => void;
     removeItem: (itemId: string) => void;
+    removeItemFromInventory: (itemId: string) => void;
 
     trapezohedron: TrapezohedronState;
     setTrapezohedronAcquired: (acquired: boolean) => void;
@@ -67,12 +76,16 @@ export interface GameState {
 
     currentDialog: NarrativeDialogState | null;
     setDialog: (dialog: NarrativeDialogState | null) => void;
+    startDialogue: (dialog: { speaker?: string; text: string }) => void;
     closeDialog: () => void;
 
     activeDocument: ActiveDocumentState | null;
     setDocument: (doc: ActiveDocumentState | null) => void;
     openDocument: (doc: ActiveDocumentState) => void;
     closeDocument: () => void;
+
+    isEyelidsClosing: boolean;
+    setEyelidsClosing: (closing: boolean) => void;
 
     saveGame: () => void;
     loadGame: () => boolean;
@@ -130,21 +143,77 @@ export const useGameStore = create<GameState>((set, get) => ({
         });
     },
 
+    triggerStatChange: (label, type, color) => {
+        const delta = type === 'up' ? 10 : -10;
+        let statType: 'mental' | 'exhaustion' | 'consciousness' = 'mental';
+
+        if (label.toLowerCase().includes('épuisement') || label.toLowerCase().includes('fatigue')) {
+            statType = 'exhaustion';
+        } else if (label.toLowerCase().includes('conscience')) {
+            statType = 'consciousness';
+        }
+
+        get().modifyStat(statType, delta);
+    },
+
     clearToast: () => set({ activeToast: null }),
 
     currentScene: 'MainMenu',
     setScene: (scene) => set({ currentScene: scene }),
 
     inventory: [],
+    selectedItem: null,
+    setSelectedItem: (item) => set({ selectedItem: item }),
+
     addItem: (item) =>
         set((state) => {
-            if (state.inventory.some((i) => i.id === item.id)) return state;
-            return { inventory: [...state.inventory, item] };
+            const existingIndex = state.inventory.findIndex((i) => i.id === item.id);
+            const isStackable = item.stackable !== false;
+
+            if (existingIndex !== -1 && isStackable) {
+                const updatedInventory = [...state.inventory];
+                const currentQty = updatedInventory[existingIndex].quantity || 1;
+                updatedInventory[existingIndex] = {
+                    ...updatedInventory[existingIndex],
+                    quantity: currentQty + (item.quantity || 1),
+                };
+                return { inventory: updatedInventory };
+            }
+
+            return {
+                inventory: [...state.inventory, { ...item, quantity: item.quantity || 1 }],
+            };
         }),
+
     removeItem: (itemId) =>
-        set((state) => ({
-            inventory: state.inventory.filter((i) => i.id !== itemId),
-        })),
+        set((state) => {
+            const itemToRemove = state.inventory.find((i) => i.id === itemId);
+            if (!itemToRemove) return state;
+
+            const currentQty = itemToRemove.quantity || 1;
+
+            if (currentQty > 1) {
+                const updatedInventory = state.inventory.map((i) =>
+                    i.id === itemId ? { ...i, quantity: currentQty - 1 } : i
+                );
+
+                const updatedSelectedItem = state.selectedItem?.id === itemId
+                    ? { ...state.selectedItem, quantity: currentQty - 1 }
+                    : state.selectedItem;
+
+                return {
+                    inventory: updatedInventory,
+                    selectedItem: updatedSelectedItem,
+                };
+            }
+
+            return {
+                inventory: state.inventory.filter((i) => i.id !== itemId),
+                selectedItem: state.selectedItem?.id === itemId ? null : state.selectedItem,
+            };
+        }),
+
+    removeItemFromInventory: (itemId) => get().removeItem(itemId),
 
     trapezohedron: initialTrapezohedron,
     setTrapezohedronAcquired: (acquired) =>
@@ -172,15 +241,39 @@ export const useGameStore = create<GameState>((set, get) => ({
         })),
 
     currentDialog: null,
-    setDialog: (dialog) => set({ currentDialog: dialog }),
 
-    // CORRECTION : On retire l'appel synchrone de onComp() ici pour laisser le composant React gérer l'avancement/fermeture
+    // Extraction automatique du speaker depuis i18n avec fallback sur 'Laurence Lindner'
+    setDialog: (dialog) =>
+        set(() => {
+            if (!dialog) return { currentDialog: null };
+
+            const speakerKey = dialog.textKey.replace(/\.steps$/, '.speaker');
+            const hasCustomSpeaker = i18n.exists(speakerKey);
+            const rawSpeaker = hasCustomSpeaker ? i18n.t(speakerKey) : null;
+            // Garantir que le speaker est toujours une string (jamais un objet)
+            const resolvedSpeaker = dialog.speaker
+                || (typeof rawSpeaker === 'string' ? rawSpeaker : null)
+                || 'Laurence Lindner';
+
+            return {
+                currentDialog: {
+                    ...dialog,
+                    speaker: resolvedSpeaker,
+                },
+            };
+        }),
+
+
+    startDialogue: ({ text, speaker }) => set({ currentDialog: { textKey: text, type: 'bottom', speaker: speaker || 'Laurence Lindner' } }),
     closeDialog: () => set({ currentDialog: null }),
 
     activeDocument: null,
     setDocument: (doc) => set({ activeDocument: doc }),
     openDocument: (doc) => set({ activeDocument: doc }),
     closeDocument: () => set({ activeDocument: null }),
+
+    isEyelidsClosing: false,
+    setEyelidsClosing: (closing) => set({ isEyelidsClosing: closing }),
 
     saveGame: () => {
         try {
@@ -231,9 +324,11 @@ export const useGameStore = create<GameState>((set, get) => ({
             activeToast: null,
             currentScene: 'MainMenu',
             inventory: [],
+            selectedItem: null,
             trapezohedron: initialTrapezohedron,
             act1Progress: initialAct1Progress,
             currentDialog: null,
             activeDocument: null,
+            isEyelidsClosing: false,
         }),
 }));

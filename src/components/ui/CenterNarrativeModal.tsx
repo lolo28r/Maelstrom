@@ -32,7 +32,7 @@ export const CenterNarrativeModal: React.FC = () => {
         <div className="center-modal-overlay" onClick={handleClose}>
             <div className="center-modal-parchment" onClick={(e) => e.stopPropagation()}>
                 <div className="center-modal-header-tag">
-                    <span>{t('intro.psychological_event_tag', { defaultValue: ' JAUGE DE SANTE MENTALE ' })}</span>
+                    <span>{t('intro.psychological_event_tag', { defaultValue: ' AIDE ' })}</span>
                 </div>
 
                 <div className="center-modal-content">
