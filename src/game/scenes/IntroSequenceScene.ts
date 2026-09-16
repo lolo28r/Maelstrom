@@ -15,7 +15,13 @@ export class IntroSequenceScene extends Phaser.Scene {
         if (!this.cache.audio.exists('intro_theme')) {
             this.load.audio('intro_theme', '/assets/intro.mp3');
         }
-        this.load.image('introEarth', '/assets/introEarth.png');
+        // Nouveaux assets d'introduction avec les noms exacts demandés
+        this.load.image('party', '/assets/party.jpg');
+        this.load.image('city', '/assets/city.jpg');
+        this.load.image('satellite', '/assets/satellite.jpg');
+
+        // Assets cosmiques suivants
+        this.load.image('introEarth', '/assets/introEarth.jpg');
         this.load.image('introGalaxy', '/assets/introGalaxy.png');
         this.load.image('introVoid', '/assets/introVoid.png');
     }
@@ -110,12 +116,11 @@ export class IntroSequenceScene extends Phaser.Scene {
             wordWrap: { width: 900 },
         }).setOrigin(0.5).setAlpha(0);
 
-        // Apparition -> Maintien -> Disparition
         this.tweens.add({
             targets: warningText,
             alpha: 1,
             duration: 1500,
-            hold: 4000, // Le texte reste lisible pendant 4 secondes
+            hold: 4000,
             yoyo: true,
             onComplete: () => {
                 warningText.destroy();
@@ -147,48 +152,53 @@ export class IntroSequenceScene extends Phaser.Scene {
         });
     }
 
+    // --- QUESTION 1 : Sombres secrets (OUI = conscient) ---
     askQuestion1() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q1'),
-            () => { this.userChoices.push(1); this.askQuestion2(); },
-            () => { this.userChoices.push(0); this.askQuestion2(); }
+            () => { this.userChoices.push(1); this.askQuestion2(); }, // OUI (Éveillé)
+            () => { this.userChoices.push(0); this.askQuestion2(); }  // NON
         );
     }
 
+    // --- QUESTION 2 : Sécurité sur notre boule géante (NON = lucide/angoissé) ---
     askQuestion2() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q2'),
-            () => { this.userChoices.push(1); this.askQuestion3(); },
-            () => { this.userChoices.push(0); this.askQuestion3(); }
+            () => { this.userChoices.push(0); this.askQuestion3(); }, // OUI
+            () => { this.userChoices.push(1); this.askQuestion3(); }  // NON (Éveillé)
         );
     }
 
+    // --- QUESTION 3 : Murmures dans la nuit (OUI = conscient) ---
     askQuestion3() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q3'),
-            () => { this.userChoices.push(1); this.askQuestion4(); },
-            () => { this.userChoices.push(0); this.askQuestion4(); }
+            () => { this.userChoices.push(1); this.askQuestion4(); }, // OUI (Éveillé)
+            () => { this.userChoices.push(0); this.askQuestion4(); }  // NON
         );
     }
 
+    // --- QUESTION 4 : Dieu bienveillant (NON = lucide/angoissé) ---
     askQuestion4() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q4'),
-            () => { this.userChoices.push(1); this.askQuestion5(); },
-            () => { this.userChoices.push(0); this.askQuestion5(); }
+            () => { this.userChoices.push(0); this.askQuestion5(); }, // OUI
+            () => { this.userChoices.push(1); this.askQuestion5(); }  // NON (Éveillé)
         );
     }
 
+    // --- QUESTION 5 : Commencement du Cosmos (NON = lucide/angoissé) ---
     askQuestion5() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q5'),
-            () => { this.userChoices.push(1); this.evaluateProfileAndProceed(); },
-            () => { this.userChoices.push(0); this.evaluateProfileAndProceed(); }
+            () => { this.userChoices.push(0); this.evaluateProfileAndProceed(); }, // OUI
+            () => { this.userChoices.push(1); this.evaluateProfileAndProceed(); }  // NON (Éveillé)
         );
     }
 
@@ -251,14 +261,13 @@ export class IntroSequenceScene extends Phaser.Scene {
         if (this.isSkipping) return;
         const score = this.userChoices.reduce((a, b) => a + b, 0);
 
-        // Correction : on utilise 'score' au lieu de 'amount'
-        useGameStore.getState().modifyStat('consciousness', score * 5); // Multiplié par 5 par exemple pour donner de l'ampleur à la jauge
+        useGameStore.getState().modifyStat('consciousness', score * 5);
 
         let verdictKey = 'intro.verdicts.aveugle';
-        if (score >= 4) verdictKey = 'intro.verdicts.fanatique';
-        else if (score === 3) verdictKey = 'intro.verdicts.poreux';
-        else if (score === 2) verdictKey = 'intro.verdicts.lucide';
-        else if (score === 1) verdictKey = 'intro.verdicts.curieux';
+        if (score === 5) verdictKey = 'intro.verdicts.fanatique';
+        else if (score === 4) verdictKey = 'intro.verdicts.poreux';
+        else if (score === 3) verdictKey = 'intro.verdicts.lucide';
+        else if (score === 2) verdictKey = 'intro.verdicts.curieux';
         else verdictKey = 'intro.verdicts.dogmatique';
 
         const finalVerdictText = i18n.t(verdictKey);
@@ -284,8 +293,19 @@ export class IntroSequenceScene extends Phaser.Scene {
             },
         });
     }
+
     startCosmicSequence() {
         if (this.isSkipping) return;
+
+        // Séquence visuelle complète : party.jpg -> city.jpg -> satellite.jpg -> introEarth -> introGalaxy -> introVoid
+        const partyBg = this.add.image(640, 360, 'party').setAlpha(0);
+        partyBg.setDisplaySize(1280, 720);
+
+        const cityBg = this.add.image(640, 360, 'city').setAlpha(0);
+        cityBg.setDisplaySize(1280, 720);
+
+        const satelliteBg = this.add.image(640, 360, 'satellite').setAlpha(0);
+        satelliteBg.setDisplaySize(1280, 720);
 
         const earthBg = this.add.image(640, 360, 'introEarth').setAlpha(0);
         earthBg.setDisplaySize(1280, 720);
@@ -296,8 +316,9 @@ export class IntroSequenceScene extends Phaser.Scene {
         const voidBg = this.add.image(640, 360, 'introVoid').setAlpha(0);
         voidBg.setDisplaySize(1280, 720);
 
+        // Enchaînement fluide de toutes les images
         this.tweens.add({
-            targets: earthBg,
+            targets: partyBg,
             alpha: 1,
             duration: 1500,
             hold: 3500,
@@ -306,7 +327,7 @@ export class IntroSequenceScene extends Phaser.Scene {
                 if (this.isSkipping) return;
                 this.time.delayedCall(400, () => {
                     this.tweens.add({
-                        targets: galaxyBg,
+                        targets: cityBg,
                         alpha: 1,
                         duration: 1500,
                         hold: 3500,
@@ -315,18 +336,57 @@ export class IntroSequenceScene extends Phaser.Scene {
                             if (this.isSkipping) return;
                             this.time.delayedCall(400, () => {
                                 this.tweens.add({
-                                    targets: voidBg,
+                                    targets: satelliteBg,
                                     alpha: 1,
                                     duration: 1500,
                                     hold: 3500,
                                     yoyo: true,
                                     onComplete: () => {
-                                        earthBg.destroy();
-                                        galaxyBg.destroy();
-                                        voidBg.destroy();
+                                        if (this.isSkipping) return;
+                                        this.time.delayedCall(400, () => {
+                                            this.tweens.add({
+                                                targets: earthBg,
+                                                alpha: 1,
+                                                duration: 1500,
+                                                hold: 3500,
+                                                yoyo: true,
+                                                onComplete: () => {
+                                                    if (this.isSkipping) return;
+                                                    this.time.delayedCall(400, () => {
+                                                        this.tweens.add({
+                                                            targets: galaxyBg,
+                                                            alpha: 1,
+                                                            duration: 1500,
+                                                            hold: 3500,
+                                                            yoyo: true,
+                                                            onComplete: () => {
+                                                                if (this.isSkipping) return;
+                                                                this.time.delayedCall(400, () => {
+                                                                    this.tweens.add({
+                                                                        targets: voidBg,
+                                                                        alpha: 1,
+                                                                        duration: 1500,
+                                                                        hold: 3500,
+                                                                        yoyo: true,
+                                                                        onComplete: () => {
+                                                                            partyBg.destroy();
+                                                                            cityBg.destroy();
+                                                                            satelliteBg.destroy();
+                                                                            earthBg.destroy();
+                                                                            galaxyBg.destroy();
+                                                                            voidBg.destroy();
 
-                                        this.time.delayedCall(600, () => {
-                                            this.showCreditsAndTitle();
+                                                                            this.time.delayedCall(600, () => {
+                                                                                this.showCreditsAndTitle();
+                                                                            });
+                                                                        },
+                                                                    });
+                                                                });
+                                                            },
+                                                        });
+                                                    });
+                                                },
+                                            });
                                         });
                                     },
                                 });
@@ -362,8 +422,8 @@ export class IntroSequenceScene extends Phaser.Scene {
             onComplete: () => {
                 if (this.isSkipping) return;
 
-                // --- HOMMAGE H.P. LOVECRAFT ---
-                const homageText = this.add.text(640, 360, i18n.t('intro.credits.homage'), {
+                // --- HOMMAGE EN DEUX LIGNES DISTINCTES ---
+                const homageText1 = this.add.text(640, 335, i18n.t('intro.credits.homage_line_1'), {
                     fontFamily: '"Cormorant Garamond", serif',
                     fontSize: '24px',
                     fontStyle: 'italic',
@@ -372,16 +432,39 @@ export class IntroSequenceScene extends Phaser.Scene {
                     wordWrap: { width: 900 }
                 }).setOrigin(0.5).setAlpha(0);
 
+                const homageText2 = this.add.text(640, 385, i18n.t('intro.credits.homage_line_2'), {
+                    fontFamily: '"Cormorant Garamond", serif',
+                    fontSize: '24px',
+                    fontStyle: 'italic',
+                    color: '#94a3b8',
+                    align: 'center',
+                    wordWrap: { width: 900 }
+                }).setOrigin(0.5).setAlpha(0);
+
+                // Affichage de la première ligne d'hommage
                 this.tweens.add({
-                    targets: homageText,
+                    targets: homageText1,
                     alpha: 1,
                     duration: 1500,
-                    hold: 3500,
+                    hold: 7000,
+                    yoyo: true,
+                    onComplete: () => {
+                        homageText1.destroy();
+                    }
+                });
+
+                // Affichage de la seconde ligne d'hommage puis enchaînement du titre principal
+                this.tweens.add({
+                    targets: homageText2,
+                    alpha: 1,
+                    duration: 1500,
+                    delay: 400,
+                    hold: 7000,
                     yoyo: true,
                     onComplete: () => {
                         if (this.isSkipping) return;
+                        homageText2.destroy();
 
-                        // --- TITRE FINAL "Maelström" ---
                         const bigTitle = this.add.text(640, 360, 'Maelström', {
                             fontFamily: '"Tangerine", cursive',
                             fontSize: '120px',

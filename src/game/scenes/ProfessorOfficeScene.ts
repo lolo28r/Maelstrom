@@ -13,6 +13,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     private currentAmbientSound: Phaser.Sound.BaseSound | null = null;
     private letterObject?: InteractiveObject;
     private waitingForConsumption: boolean = false;
+    private waitingForTobaccoConsumption: boolean = false; // Pour l'écoute du tabac
 
     constructor() {
         super('ProfessorOffice');
@@ -23,7 +24,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         this.load.image('office_interior', '/assets/Desk.jpg');
         this.load.image('letter_asset', '/assets/letterAsset.png');
 
-        // Gestion de la sécurité sur le chargement audio pour éviter les blocages de scène
         this.load.on('loaderror', (fileObj: any) => {
             if (fileObj.type === 'audio') {
                 console.warn(`[Audio Warning] Fichier non trouvé ou corrompu ignoré : ${fileObj.key}`);
@@ -39,11 +39,15 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     }
 
     create() {
-        useGameStore.getState().setScene('ProfessorOffice');
+        const store = useGameStore.getState();
+        store.setScene('ProfessorOffice');
+
+        // Verrouille l'inventaire au début de la scène pour le tutoriel
+        store.setInventoryLocked(true);
+
         this.cameras.main.setBackgroundColor('#000000');
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
-        // --- INVENTAIRE : Injection des objets de départ ---
         this.initStarterInventory();
 
         this.cityBgGroup = this.add.group();
@@ -60,7 +64,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
 
         this.playAmbientSound('street_rain', 0.2);
 
-        // Surveillance du store pour la vue Trapezoèdre et la consommation obligatoire du tuto
+        // Surveillance du store Zustand (Trapezoèdre, Whisky et Tabac)
         this.unsubscribeStore = useGameStore.subscribe((state, prevState) => {
             if (this.isOfficeVisible) {
                 this.updateTrueViewVisibility(state.trapezohedron?.trueViewActive ?? false);
@@ -71,11 +75,19 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                 const hadWhisky = prevState.inventory.some((item) => item.id === 'whisky');
                 const hasWhisky = state.inventory.some((item) => item.id === 'whisky');
 
-                // Dès que l'objet 'whisky' disparaît de l'inventaire
                 if (hadWhisky && !hasWhisky) {
                     this.waitingForConsumption = false;
                     this.triggerExhaustionTutorial();
                 }
+            }
+
+            // --- Détection de la consommation de Tabac pour le rituel de lucidité ---
+            const hadTobacco = prevState.inventory.some((item) => item.id === 'tobacco');
+            const hasTobacco = state.inventory.some((item) => item.id === 'tobacco');
+
+            // Si le tabac disparaît de l'inventaire (consommé)
+            if (hadTobacco && !hasTobacco) {
+                this.triggerTobaccoRitual();
             }
         });
 
@@ -108,10 +120,28 @@ export class ProfessorOfficeScene extends Phaser.Scene {
             name: 'Tabac à rouler',
             icon: '/assets/tabac.png',
             description: 'Une blague à tabac usée et quelques feuilles à rouler.',
-            examineText: 'Du tabac brun séché. Rouler une cigarette permet de rassembler ses idées et de calmer le cœur qui bat trop vite.',
+            examineText: 'Du tabac brun séché. Rouler une cigarette permet de rassembler ses idées et de calmer le cœur qui bat trop vite pour évaluer son état mental.',
             quantity: 1,
             stackable: true,
             consumable: true
+        });
+    }
+
+    private triggerTobaccoRitual() {
+        const store = useGameStore.getState();
+
+        store.modifyStat('mental', 15);
+        store.modifyStat('exhaustion', 10);
+
+        // Simple lancement du dialogue narratif
+        store.setDialog({
+            speaker: 'LAURENCE LINDNER',
+            textKey: 'intro.tobacco_ritual_steps',
+            type: 'bottom',
+            onComplete: () => {
+                // Une fois le dialogue fini, on active le mode fumette dans le store
+                store.setSmokingActive(true);
+            }
         });
     }
 
@@ -123,7 +153,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     private createOfficeBackground() {
         const officeImg = this.add.image(640, 360, 'office_interior').setDisplaySize(1280, 720);
         this.officeBgGroup.add(officeImg);
-
         this.letterObject = new InteractiveObject({
             scene: this,
             x: 640,
@@ -135,10 +164,21 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                 const store = useGameStore.getState() as any;
                 const isAlreadyRead = store.act1Progress?.letterRead;
 
+                const docTitle = i18next.t('intro.letter_title');
+                const docContent = i18next.t('intro.letter_content');
+
                 store.openDocument({
-                    title: i18next.t('intro.letter_title'),
-                    content: i18next.t('intro.letter_content'),
+                    title: docTitle,
+                    content: docContent,
                     onClose: () => {
+                        // ARCHIVAGE SILENCIEUX (Pas de notification puisque le journal n'est pas encore débloqué)
+                        store.silentAddArchivedDocument(
+                            'arkham_letter',
+                            docTitle,
+                            docContent,
+                            'Acte I - Bureau'
+                        );
+
                         if (!isAlreadyRead) {
                             store.updateAct1Progress({ letterRead: true });
 
@@ -147,19 +187,17 @@ export class ProfessorOfficeScene extends Phaser.Scene {
 
                             store.modifyStat('mental', mentalDelta);
 
-                            // 1. Tuto : Santé Mentale
                             this.time.delayedCall(600, () => {
                                 store.setDialog({
                                     textKey: 'intro.tutoriel_jauges_reaction',
                                     type: 'center',
                                     onComplete: () => {
-                                        // 2. Tuto : Inventaire
                                         this.time.delayedCall(400, () => {
                                             store.setDialog({
                                                 textKey: 'intro.tutoriel_inventaire',
                                                 type: 'center',
                                                 onComplete: () => {
-                                                    // OBLIGATION : On active l'écoute de la consommation du whisky
+                                                    store.setInventoryLocked(false);
                                                     this.waitingForConsumption = true;
                                                 }
                                             });
@@ -172,7 +210,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                 });
             }
         });
-
         this.normalGroup.add(this.letterObject.getContainer());
 
         const trueG = this.add.graphics();
@@ -185,7 +222,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         const store = useGameStore.getState();
 
         this.time.delayedCall(1200, () => {
-            // 3. Tuto : Épuisement & Rêves
             store.setDialog({
                 textKey: 'intro.tutoriel_epuisement',
                 type: 'center',
@@ -199,7 +235,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     private startDreamTransition() {
         const store = useGameStore.getState() as any;
 
-        // Désabonnement du store Zustand pour éviter l'erreur de "entries" sur la scène en destruction
         if (this.unsubscribeStore) {
             this.unsubscribeStore();
             this.unsubscribeStore = undefined;

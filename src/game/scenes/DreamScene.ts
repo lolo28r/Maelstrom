@@ -1,54 +1,309 @@
 import Phaser from 'phaser';
 import { useGameStore } from '../../store/useGameStore';
+import { CHOICES } from '../../constants/gameChoices';
 
 export class DreamScene extends Phaser.Scene {
     private bgImage!: Phaser.GameObjects.Image;
     private flashOverlay!: Phaser.GameObjects.Rectangle;
+    private audioElement?: HTMLAudioElement;
+    private audioCtx?: AudioContext;
+    private sourceNode?: MediaElementAudioSourceNode;
+    private filterNode?: BiquadFilterNode;
 
     constructor() {
         super('DreamScene');
     }
 
     preload() {
-        // Arrière-plan de la silhouette dans le brouillard
         this.load.image('nyarlathotep_bg', '/assets/nyarlathotep.jpg');
+        this.load.image('nyarlaTrueForm', '/assets/nyarlaTrueForm.jpg');
     }
 
     create() {
         const store = useGameStore.getState();
         store.setScene('DreamScene');
 
-        this.cameras.main.setBackgroundColor('#000000');
+        // Lancement et filtrage direct via Web Audio API (Effet Radio + Distorsion douce)
+        try {
+            const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+            if (AudioContextClass) {
+                this.audioCtx = new AudioContextClass();
 
-        // Visuel de fond
+                this.audioElement = new Audio('/assets/OSTnyarla.mp3');
+                this.audioElement.loop = true;
+                this.audioElement.volume = 0.35;
+                this.audioElement.playbackRate = 0.85;
+
+                this.sourceNode = this.audioCtx.createMediaElementSource(this.audioElement);
+
+                // 1. Filtre Radio (Médiums resserrés)
+                this.filterNode = this.audioCtx.createBiquadFilter();
+                this.filterNode.type = 'bandpass';
+                this.filterNode.frequency.value = 1300;
+                this.filterNode.Q.value = 1.0;
+
+                // 2. Nœud de Distorsion subtile
+                const distortionNode = this.audioCtx.createWaveShaper();
+                distortionNode.curve = makeDistortionCurve(6);
+
+                // Chaîne de connexion : Source -> Filtre Radio -> Distorsion -> Haut-parleurs
+                this.sourceNode.connect(this.filterNode);
+                this.filterNode.connect(distortionNode);
+                distortionNode.connect(this.audioCtx.destination);
+
+                this.audioElement.play().catch(err => {
+                    console.warn("Lecture audio bloquée par le navigateur :", err);
+                });
+            }
+        } catch (e) {
+            console.warn("Impossible d'initialiser l'effet radio/distorsion :", e);
+        }
+
+        this.cameras.main.setBackgroundColor('#000000');
+        this.cameras.main.fadeIn(3500, 0, 0, 0);
+
         this.bgImage = this.add.image(640, 360, 'nyarlathotep_bg')
             .setDisplaySize(1280, 720)
             .setAlpha(0);
 
-        // Flash blanc pour le climax
         this.flashOverlay = this.add.rectangle(640, 360, 1280, 720, 0xffffff)
             .setAlpha(0)
             .setDepth(999);
 
-        // Apparition lente de la scène
         this.tweens.add({
             targets: this.bgImage,
             alpha: 1,
-            duration: 3000,
+            duration: 6000,
+            ease: 'Sine.easeInOut',
             onComplete: () => {
-                this.time.delayedCall(800, () => {
-                    this.startDialogueSequence();
+                this.time.delayedCall(2000, () => {
+                    this.startStep1();
                 });
             }
         });
     }
 
-    private startDialogueSequence() {
+    // --- ÉTAPE 1 : Le tacle sur l'alcool ---
+    private startStep1() {
         const store = useGameStore.getState();
 
-        // Utilisation du composant de dialogue classique (DialogueOverlay / NarrativeDialog)
         store.setDialog({
-            textKey: 'dream.scene_1.steps',
+            textKey: 'dream.scene_1.step_1',
+            choices: [
+                {
+                    id: 'choice_alcohol_needed',
+                    text: "« Oui... c'est l'alcool qu'il me faut pour tenir. »",
+                    consequences: { mentalDelta: 5, exhaustionDelta: 5 }
+                },
+                {
+                    id: 'choice_alcohol_defensive',
+                    text: "« Mêle-toi de tes affaires. Ça ne te regarde pas. »",
+                    consequences: { mentalDelta: 2, consciousnessDelta: -2 }
+                }
+            ],
+            onComplete: (selectedChoiceId?: string) => {
+                let reactionKey = '';
+                if (selectedChoiceId === 'choice_alcohol_needed') {
+                    reactionKey = 'dream.scene_1.step_1_reactions.choice_alcohol_needed';
+                } else if (selectedChoiceId === 'choice_alcohol_defensive') {
+                    reactionKey = 'dream.scene_1.step_1_reactions.choice_alcohol_defensive';
+                }
+
+                if (reactionKey) {
+                    store.setDialog({
+                        textKey: reactionKey,
+                        choices: [],
+                        onComplete: () => {
+                            this.startStep2();
+                        }
+                    });
+                } else {
+                    this.startStep2();
+                }
+            }
+        });
+    }
+
+    // --- ÉTAPE 2 : Le père et les cris ---
+    private startStep2() {
+        const store = useGameStore.getState();
+
+        store.setDialog({
+            textKey: 'dream.scene_1.step_2',
+            onComplete: () => {
+                this.startStep3();
+            }
+        });
+    }
+
+    private startStep3() {
+        const store = useGameStore.getState();
+        const consciousness = store.consciousness;
+
+        const choices = [
+            {
+                id: 'choice_old_ones_yes',
+                text: "« Oui. »",
+                consequences: { consciousnessDelta: 10 }
+            },
+            {
+                id: 'choice_old_ones_no',
+                text: "« Non. »",
+                consequences: { mentalDelta: 5 }
+            }
+        ];
+
+        const thresholdConsciousness = 25;
+        if (consciousness >= thresholdConsciousness) {
+            choices.push({
+                id: 'choice_old_ones_what',
+                text: "👁️ « Les Grands Anciens ? »",
+                consequences: { consciousnessDelta: 15 }
+            });
+
+            // TUTORIEL : Si le joueur atteint ce seuil pour la première fois et qu'il découvre le choix occulte, 
+            // on déclenche le CenterNarrativeModal.
+            // (Tu peux stocker un flag dans ton store ou dans act1Progress/localStorage si tu veux ne l'afficher qu'une seule fois)
+            const hasSeenCosmicTutorial = useGameStore.getState().act1Progress.journalRead; // Ou une variable dédiée si tu préfères
+
+            // Pour faire simple, on peut utiliser une vérification directe ou ajouter une propriété dans le store.
+            // Imaginons qu'on affiche la modal center directement ici :
+            store.setDialog({
+                textKey: 'intro.tutoriel_choix_conscience',
+                type: 'center', // <-- C'est ça qui force l'affichage de la CenterNarrativeModal
+                onComplete: () => {
+                    // Une fois que le joueur clique sur [ COMPRIS ] dans le tuto, 
+                    // on relance le dialogue de l'étape 3 avec les choix
+                    this.showStep3Dialog(choices);
+                }
+            });
+            return; // On stoppe l'exécution ici pour laisser le joueur lire le tuto d'abord
+        }
+
+        this.showStep3Dialog(choices);
+    }
+
+    // Petite méthode utilitaire pour afficher les choix de l'étape 3 proprement
+    private showStep3Dialog(choices: any[]) {
+        const store = useGameStore.getState();
+        store.setDialog({
+            textKey: 'dream.scene_1.step_3',
+            choices: choices,
+            onComplete: (selectedChoiceId?: string) => {
+                let reactionKey = '';
+                if (selectedChoiceId === 'choice_old_ones_what') {
+                    reactionKey = 'dream.scene_1.step_3_reactions.choice_old_ones_what';
+                } else if (selectedChoiceId === 'choice_old_ones_yes') {
+                    reactionKey = 'dream.scene_1.step_3_reactions.choice_old_ones_yes';
+                } else if (selectedChoiceId === 'choice_old_ones_no') {
+                    reactionKey = 'dream.scene_1.step_3_reactions.choice_old_ones_no';
+                }
+
+                if (reactionKey) {
+                    store.setDialog({
+                        textKey: reactionKey,
+                        choices: [],
+                        onComplete: () => {
+                            if (selectedChoiceId === 'choice_old_ones_what') {
+                                store.setDialog({
+                                    textKey: 'dream.scene_1.step_3_bonus',
+                                    choices: [],
+                                    onComplete: () => {
+                                        this.startStep4();
+                                    }
+                                });
+                            } else {
+                                this.startStep4();
+                            }
+                        }
+                    });
+                } else {
+                    this.startStep4();
+                }
+            }
+        });
+    }
+    private startStep4() {
+        const store = useGameStore.getState();
+
+        store.setDialog({
+            textKey: 'dream.scene_1.step_4',
+            choices: [
+                {
+                    id: 'choice_final_yes',
+                    text: "« Oui. »",
+                    consequences: { consciousnessDelta: 20, mentalDelta: -10, exhaustionDelta: -15 }
+                },
+                {
+                    id: 'choice_final_no',
+                    text: "« Non. »",
+                    consequences: { mentalDelta: 5, exhaustionDelta: -10 }
+                },
+                {
+                    id: 'choice_try_wakeup',
+                    text: "Essayer de se réveiller.",
+                    consequences: { exhaustionDelta: 5, mentalDelta: -5 }
+                }
+            ],
+            onComplete: (selectedChoiceId?: string) => {
+                if (!selectedChoiceId) return;
+
+                // Récupération du choix cliqué pour appliquer ses conséquences
+                const currentChoices = [
+                    { id: 'choice_final_yes', consequences: { consciousnessDelta: 20, mentalDelta: -10, exhaustionDelta: -15 } },
+                    { id: 'choice_final_no', consequences: { mentalDelta: 5, exhaustionDelta: -10 } },
+                    { id: 'choice_try_wakeup', consequences: { exhaustionDelta: 5, mentalDelta: -5 } }
+                ];
+
+                const chosen = currentChoices.find(c => c.id === selectedChoiceId);
+                if (chosen) {
+                    // Enregistre le choix et applique automatiquement les deltas (Santé, Épuisement, Conscience)
+                    store.recordChoice(selectedChoiceId, 'DreamScene', chosen.consequences);
+                }
+
+                if (selectedChoiceId === 'choice_try_wakeup') {
+                    store.setDialog({
+                        textKey: 'dream.scene_1.step_4_fail_wakeup',
+                        choices: [],
+                        onComplete: () => {
+                            this.startStep4();
+                        }
+                    });
+                } else {
+                    let reactionKey = '';
+                    if (selectedChoiceId === 'choice_final_yes') {
+                        reactionKey = 'dream.scene_1.step_4_reactions.choice_final_yes';
+                    } else if (selectedChoiceId === 'choice_final_no') {
+                        reactionKey = 'dream.scene_1.step_4_reactions.choice_final_no';
+                    }
+
+                    if (reactionKey) {
+                        store.setDialog({
+                            textKey: reactionKey,
+                            choices: [],
+                            onComplete: () => {
+                                const isFanatic = store.consciousness >= 25;
+                                if (selectedChoiceId === 'choice_final_yes' && isFanatic) {
+                                    this.triggerSubliminalTrueFormFlash();
+                                } else {
+                                    this.startOutroIrony();
+                                }
+                            }
+                        });
+                    } else {
+                        this.startOutroIrony();
+                    }
+                }
+            }
+        });
+    }
+
+    // --- OUTRO : L'ironie finale et réveil ---
+    private startOutroIrony() {
+        const store = useGameStore.getState();
+
+        store.setDialog({
+            textKey: 'dream.scene_1.outro_irony',
             onComplete: () => {
                 this.triggerClimaxAndWakeUp();
             }
@@ -58,29 +313,95 @@ export class DreamScene extends Phaser.Scene {
     private triggerClimaxAndWakeUp() {
         const store = useGameStore.getState();
 
-        // Secousse et flash de fin de rêve
+        // Le corps a dormi : l'épuisement baisse
+        store.modifyStat('exhaustion', -20);
+
+        // 1. FADE-OUT PROGRESSIF DE LA MUSIQUE (sur 2,5 secondes)
+        if (this.audioElement) {
+            const fadeAudio = setInterval(() => {
+                if (this.audioElement && this.audioElement.volume > 0.02) {
+                    this.audioElement.volume -= 0.02;
+                } else {
+                    if (this.audioElement) {
+                        this.audioElement.pause();
+                        this.audioElement.currentTime = 0;
+                    }
+                    clearInterval(fadeAudio);
+                }
+            }, 100);
+        }
+
+        if (this.audioCtx && this.audioCtx.state !== 'closed') {
+            this.audioCtx.close();
+        }
+
         this.cameras.main.shake(300, 0.025);
 
+        // 2. FADE-OUT DOUX DE L'IMAGE DE NYARLATHOTEP VERS LE NOIR (au lieu d'un flash blanc violent)
         this.tweens.add({
-            targets: this.flashOverlay,
-            alpha: 0.8,
-            duration: 100,
-            yoyo: true,
-            hold: 150,
+            targets: this.bgImage,
+            alpha: 0,
+            duration: 2500, // L'entité se dissout lentement dans les ténèbres
+            ease: 'Sine.easeInOut',
             onComplete: () => {
-                // 1. Gain de Conscience Cosmique (+15)
-                store.modifyStat('consciousness', 15);
-
-                // 2. Fermeture des paupières via l'overlay React
+                // 3. Fermeture des paupières après la dissolution
                 store.setEyelidsClosing(true);
 
-                // 3. Réveil et retour dans le bureau d'Arkham
-                this.time.delayedCall(1800, () => {
+                this.time.delayedCall(2000, () => {
                     store.setEyelidsClosing(false);
-                    store.setScene('ProfessorOffice');
-                    this.scene.start('ProfessorOffice');
+                    store.setScene('DeskMorningScene');
+                    this.scene.start('DeskMorningScene');
                 });
             }
         });
     }
+    private triggerSubliminalTrueFormFlash() {
+        const trueFormImage = this.add.image(640, 360, 'nyarlaTrueForm')
+            .setDisplaySize(1280, 720)
+            .setAlpha(0)
+            .setDepth(998);
+
+        // Tremblement de caméra plus long et plus violent pour toute la séquence
+        this.cameras.main.shake(700, 0.05);
+
+        // Effet stroboscopique de l'image (plusieurs flashs successifs)
+        this.tweens.add({
+            targets: trueFormImage,
+            alpha: { start: 0, to: 1 },
+            duration: 40,       // Apparition ultra rapide
+            yoyo: true,         // Disparition immédiate
+            repeat: 3,          // Répète l'éclair 4 fois en tout
+            hold: 80,           // Temps de maintien à chaque flash
+            onComplete: () => {
+                trueFormImage.destroy();
+            }
+        });
+
+        // Flashs blancs synchronisés sur l'overlay pour aveugler par intermittence
+        this.tweens.add({
+            targets: this.flashOverlay,
+            alpha: { start: 0, to: 0.9 },
+            duration: 50,
+            yoyo: true,
+            repeat: 3,
+            hold: 60,
+            onComplete: () => {
+                // Une fois la crise stroboscopique terminée, on enchaîne sur l'outro
+                this.startOutroIrony();
+            }
+        });
+    }
+}
+
+// --- Fonction utilitaire de distorsion corrigée pour TypeScript ---
+function makeDistortionCurve(amount: number = 20): Float32Array<ArrayBuffer> {
+    const k = typeof amount === 'number' ? amount : 50;
+    const n_samples = 44100;
+    const curve = new Float32Array(n_samples);
+    const deg = Math.PI / 180;
+    for (let i = 0; i < n_samples; ++i) {
+        const x = (i * 2) / n_samples - 1;
+        curve[i] = ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
+    }
+    return curve as Float32Array<ArrayBuffer>;
 }

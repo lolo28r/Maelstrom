@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import i18n from '../i18n';
+import { RecordedChoice, ChoiceSystem } from '../game/helper/ChoiceSystem';
+import { JournalSlice, createJournalSlice } from './journalSlice';
 
 export interface Item {
     id: string;
@@ -7,16 +9,30 @@ export interface Item {
     icon: string;
     description: string;
     examineText: string;
-    quantity?: number;    // Quantité possédée
-    stackable?: boolean;   // Autoriser le cumul d'exemplaires (true par défaut)
-    consumable?: boolean;  // Autoriser la consommation (whisky, tabac)
+    quantity?: number;
+    stackable?: boolean;
+    consumable?: boolean;
+}
+
+export interface ChoiceOption {
+    id: string;
+    text: string;
+    consequences: {
+        mentalDelta?: number;
+        exhaustionDelta?: number;
+        consciousnessDelta?: number;
+        customPayload?: string | number;
+    };
+    requiredFlag?: string;
 }
 
 export interface NarrativeDialogState {
     textKey: string;
     type?: 'bottom' | 'center';
     speaker?: string;
-    onComplete?: () => void;
+    choices?: ChoiceOption[];
+    onSelectChoice?: (choice: ChoiceOption) => void;
+    onComplete?: (selectedChoiceId?: string) => void;
 }
 
 export interface ActiveDocumentState {
@@ -46,7 +62,8 @@ export interface StatNotification {
     type: 'mental' | 'exhaustion' | 'consciousness';
 }
 
-export interface GameState {
+// Fusion du GameState avec JournalSlice pour éviter les erreurs TypeScript
+export interface GameState extends JournalSlice {
     mentalHealth: number;
     exhaustion: number;
     consciousness: number;
@@ -66,17 +83,31 @@ export interface GameState {
     removeItem: (itemId: string) => void;
     removeItemFromInventory: (itemId: string) => void;
 
+    isInventoryLocked: boolean;
+    setInventoryLocked: (locked: boolean) => void;
+
+    choicesHistory: Record<string, RecordedChoice>;
+    recordChoice: (choiceId: string, currentScene: string, consequences: ChoiceOption['consequences']) => void;
+    hasMadeChoice: (choiceId: string) => boolean;
+    getChoiceInfo: (choiceId: string) => RecordedChoice | undefined;
+
     trapezohedron: TrapezohedronState;
     setTrapezohedronAcquired: (acquired: boolean) => void;
     toggleTrueView: () => void;
     setTrueView: (active: boolean) => void;
+
+    isStatusRevealed: boolean;
+    setStatusRevealed: (revealed: boolean) => void;
+
+    isSmokingActive: boolean;
+    setSmokingActive: (active: boolean) => void;
 
     act1Progress: Act1Progress;
     updateAct1Progress: (updates: Partial<Act1Progress>) => void;
 
     currentDialog: NarrativeDialogState | null;
     setDialog: (dialog: NarrativeDialogState | null) => void;
-    startDialogue: (dialog: { speaker?: string; text: string }) => void;
+    startDialogue: (dialog: { speaker?: string; text: string; choices?: ChoiceOption[]; }) => void;
     closeDialog: () => void;
 
     activeDocument: ActiveDocumentState | null;
@@ -109,10 +140,13 @@ const initialAct1Progress: Act1Progress = {
     trapezohedronCollected: false,
 };
 
-export const useGameStore = create<GameState>((set, get) => ({
+export const useGameStore = create<GameState>()((set, get, store) => ({
     mentalHealth: 100,
     exhaustion: 0,
     consciousness: 0,
+    isStatusRevealed: false,
+    isSmokingActive: false,
+    isInventoryLocked: true,
 
     activeToast: null,
 
@@ -214,6 +248,55 @@ export const useGameStore = create<GameState>((set, get) => ({
         }),
 
     removeItemFromInventory: (itemId) => get().removeItem(itemId),
+    setInventoryLocked: (locked) => set({ isInventoryLocked: locked }),
+
+    choicesHistory: {},
+
+    recordChoice: (choiceId, currentScene, consequences) => {
+        set((state) => {
+            const recordedChoice: RecordedChoice = {
+                id: choiceId,
+                scene: currentScene,
+                timestamp: Date.now(),
+                consequences: {
+                    mentalDelta: consequences.mentalDelta,
+                    exhaustionDelta: consequences.exhaustionDelta,
+                    consciousnessDelta: consequences.consciousnessDelta,
+                    customPayload: consequences.customPayload,
+                },
+                customPayload: consequences.customPayload,
+            };
+
+            let newMental = state.mentalHealth;
+            let newExhaustion = state.exhaustion;
+            let newConsciousness = state.consciousness;
+
+            if (consequences.mentalDelta) {
+                newMental = Math.min(100, Math.max(0, state.mentalHealth + consequences.mentalDelta));
+            }
+            if (consequences.exhaustionDelta) {
+                newExhaustion = Math.min(100, Math.max(0, state.exhaustion + consequences.exhaustionDelta));
+            }
+            if (consequences.consciousnessDelta) {
+                newConsciousness = Math.min(100, Math.max(0, state.consciousness + consequences.consciousnessDelta));
+            }
+
+            return {
+                choicesHistory: { ...state.choicesHistory, [choiceId]: recordedChoice },
+                mentalHealth: newMental,
+                exhaustion: newExhaustion,
+                consciousness: newConsciousness,
+            };
+        });
+    },
+
+    hasMadeChoice: (choiceId) => {
+        return ChoiceSystem.hasMade(get().choicesHistory, choiceId);
+    },
+
+    getChoiceInfo: (choiceId) => {
+        return ChoiceSystem.getChoiceDetails(get().choicesHistory, choiceId);
+    },
 
     trapezohedron: initialTrapezohedron,
     setTrapezohedronAcquired: (acquired) =>
@@ -234,6 +317,9 @@ export const useGameStore = create<GameState>((set, get) => ({
             trapezohedron: { ...state.trapezohedron, trueViewActive: active },
         })),
 
+    setStatusRevealed: (revealed) => set({ isStatusRevealed: revealed }),
+    setSmokingActive: (active) => set({ isSmokingActive: active }),
+
     act1Progress: initialAct1Progress,
     updateAct1Progress: (updates) =>
         set((state) => ({
@@ -242,18 +328,31 @@ export const useGameStore = create<GameState>((set, get) => ({
 
     currentDialog: null,
 
-    // Extraction automatique du speaker depuis i18n avec fallback sur 'Laurence Lindner'
     setDialog: (dialog) =>
         set(() => {
             if (!dialog) return { currentDialog: null };
 
-            const speakerKey = dialog.textKey.replace(/\.steps$/, '.speaker');
-            const hasCustomSpeaker = i18n.exists(speakerKey);
-            const rawSpeaker = hasCustomSpeaker ? i18n.t(speakerKey) : null;
-            // Garantir que le speaker est toujours une string (jamais un objet)
-            const resolvedSpeaker = dialog.speaker
-                || (typeof rawSpeaker === 'string' ? rawSpeaker : null)
-                || 'Laurence Lindner';
+            let resolvedSpeaker = dialog.speaker;
+
+            if (!resolvedSpeaker) {
+                const parts = dialog.textKey.split('.');
+                let speakerKey = '';
+
+                if (parts.length >= 2) {
+                    speakerKey = `${parts[0]}.${parts[1]}.speaker`;
+                }
+
+                const hasCustomSpeaker = speakerKey && i18n.exists(speakerKey);
+                const rawSpeaker = hasCustomSpeaker ? i18n.t(speakerKey) : null;
+
+                if (typeof rawSpeaker === 'string' && rawSpeaker) {
+                    resolvedSpeaker = rawSpeaker;
+                } else if (dialog.textKey.includes('dream.scene_1')) {
+                    resolvedSpeaker = '????????????';
+                } else {
+                    resolvedSpeaker = 'Laurence Lindner';
+                }
+            }
 
             return {
                 currentDialog: {
@@ -263,8 +362,15 @@ export const useGameStore = create<GameState>((set, get) => ({
             };
         }),
 
+    startDialogue: ({ text, speaker, choices }) => set({
+        currentDialog: {
+            textKey: text,
+            type: 'bottom',
+            speaker: speaker || 'Laurence Lindner',
+            choices: choices
+        }
+    }),
 
-    startDialogue: ({ text, speaker }) => set({ currentDialog: { textKey: text, type: 'bottom', speaker: speaker || 'Laurence Lindner' } }),
     closeDialog: () => set({ currentDialog: null }),
 
     activeDocument: null,
@@ -274,6 +380,9 @@ export const useGameStore = create<GameState>((set, get) => ({
 
     isEyelidsClosing: false,
     setEyelidsClosing: (closing) => set({ isEyelidsClosing: closing }),
+
+    // Intégration de la slice Journal
+    ...createJournalSlice(set, get, store),
 
     saveGame: () => {
         try {
@@ -286,12 +395,17 @@ export const useGameStore = create<GameState>((set, get) => ({
                 inventory: state.inventory,
                 trapezohedron: state.trapezohedron,
                 act1Progress: state.act1Progress,
+                choicesHistory: state.choicesHistory,
+                journalUnlocked: state.journalUnlocked,
+                notes: state.notes,
+                discoveredKeywords: state.discoveredKeywords,
             };
             localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
         } catch (e) {
             console.warn('Erreur lors de la sauvegarde locale:', e);
         }
     },
+
     loadGame: () => {
         try {
             const dataStr = localStorage.getItem(SAVE_KEY);
@@ -305,6 +419,13 @@ export const useGameStore = create<GameState>((set, get) => ({
                 inventory: data.inventory || [],
                 trapezohedron: data.trapezohedron || initialTrapezohedron,
                 act1Progress: data.act1Progress || initialAct1Progress,
+                choicesHistory: data.choicesHistory || {},
+                journalUnlocked: data.journalUnlocked ?? false,
+                notes: data.notes || [],
+                discoveredKeywords: data.discoveredKeywords || [],
+                isStatusRevealed: false,
+                isSmokingActive: false,
+                isInventoryLocked: false,
             });
             return true;
         } catch (e) {
@@ -312,6 +433,7 @@ export const useGameStore = create<GameState>((set, get) => ({
             return false;
         }
     },
+
     hasSave: () => {
         return !!localStorage.getItem(SAVE_KEY);
     },
@@ -321,14 +443,21 @@ export const useGameStore = create<GameState>((set, get) => ({
             mentalHealth: 100,
             exhaustion: 0,
             consciousness: 0,
+            isStatusRevealed: false,
+            isSmokingActive: false,
+            isInventoryLocked: true,
             activeToast: null,
             currentScene: 'MainMenu',
             inventory: [],
             selectedItem: null,
             trapezohedron: initialTrapezohedron,
             act1Progress: initialAct1Progress,
+            choicesHistory: {},
             currentDialog: null,
             activeDocument: null,
             isEyelidsClosing: false,
+            journalUnlocked: false,
+            notes: [],
+            discoveredKeywords: [],
         }),
 }));

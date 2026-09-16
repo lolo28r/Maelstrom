@@ -11,6 +11,9 @@ import { NarrativeDialog } from './components/ui/NarrativeDialog';
 import { DocumentViewer } from './components/ui/DocumentViewer';
 import { StatToast } from './components/ui/StatToast';
 import { CenterNarrativeModal } from './components/ui/CenterNarrativeModal';
+import { CosmicStatusHUD } from './components/CosmicStatusHUD';
+import { JournalModal } from './components/ui/JournalModal';
+import { SmokingOverlay } from './components/SmokingOverlay';
 import './i18n';
 
 export const App: React.FC = () => {
@@ -32,11 +35,14 @@ export const App: React.FC = () => {
 
             {/* Effets CRT */}
             <div className="scanlines" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', zIndex: 20 }} />
-            <div className="vignette"  style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', zIndex: 20 }} />
+            <div className="vignette" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', zIndex: 20 }} />
 
             {/* HUD React */}
             <TrapezohedronHUD />
             <InventoryHUD />
+            <CosmicStatusHUD />
+            <JournalModal />
+            <SmokingOverlay /> {/* <-- C'est lui qui affiche le background smokeBackground.jpg */}
 
             {/* Overlays narratifs & Toasts */}
             <NarrativeDialog />

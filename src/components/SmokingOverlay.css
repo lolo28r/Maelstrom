@@ -1,0 +1,65 @@
+.smoking-overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    /* Centre horizontalement */
+    align-items: center;
+    /* Centre verticalement */
+    background-color: #000;
+}
+
+.smoking-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(0.7) contrast(1.1);
+}
+
+.smoking-center-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    /* Espace propre entre la boîte de jauges et le bouton */
+}
+
+.finish-cigarette-btn {
+    background: rgba(5, 7, 10, 0.85);
+    border: 1px solid #64748b;
+    color: #e2e8f0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+.finish-cigarette-btn:hover {
+    background: #1e293b;
+    border-color: #cbd5e1;
+    color: #ffffff;
+    transform: scale(1.03);
+}
+
+@keyframes fadeInSmoke {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

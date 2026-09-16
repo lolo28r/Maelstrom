@@ -22,7 +22,7 @@
     ],
     "letter_title": "Asile d'Arkham — Notification de Transfert",
     "letter_content": "À l'attention de Laurence Lindner,\n\nNous vous informons par la présente que l'état de votre père, le Patient #402 (Dr. Lindner), a connu un déclin mental sévère au cours des dernières 48 heures.\n\nLe sujet présentant une catatonie intermittente et des troubles du comportement majeurs, la direction médicale a pris la décision de procéder à son transfert immédiat vers le Pavillon d'Isolement des cas incurables.\n\nÀ compter de ce jour, les visites sont suspendues jusqu'à nouvel ordre. Les effets personnels restants du patient sont tenus à votre disposition à l'accueil de l'établissement.\n\n— La Direction Médicale, Asile d'Arkham",
-    "tutoriel_jauges_reaction": "TUTORIEL : LA SANTÉ MENTALE\n\nL'annonce du transfert de votre père fait chuter la Santé Mentale de Laurence.\n\n• CAUSES DE BAISSE : L'apprentissage de mauvaises nouvelles, la lecture de documents troublants, les découvertes macabres et certains choix de dialogue usent l'esprit de Laurence.\n• DANGER : Si la jauge tombe à zéro, Laurence sombre dans la folie et passera au suicide.\n• RÉGULATION : Consommez du whisky ou du tabac depuis l'inventaire pour vous stabiliser, au prix d'une fatigue accrue.\n• SUIVI : Observez les notifications éphémères en haut à droite. Aucune barre n'est affichée en permanence.",
+    "tutoriel_jauges_reaction": "TUTORIEL : LA SANTÉ MENTALE ET LES JAUGES\n\nL'annonce du transfert de votre père fait chuter la Santé Mentale de Laurence.\n\n• LA RÈGLE DES JAUGES : Aucune barre d'état n'est visible en permanence à l'écran. C'est un choix délibéré : le monde extérieur ignore votre état intérieur.\n• LE TABAC (RITUEL DE LUCIDITÉ) : Fumer une cigarette est la SEULE façon d'afficher et d'évaluer l'état de vos jauges à l'écran. Cela remonte aussi légèrement votre santé mentale, au prix d'un effort.\n• LE WHISKY : Permet de regagner directement et rapidement de la Santé Mentale en cas de crise, mais alourdit considérablement votre Épuisement.\n• DANGER : Si votre Santé Mentale tombe à zéro, Laurence sombre définitivement dans la folie.",
     "tutoriel_inventaire": "TUTORIEL : SACOCHE D'ARCHIVISTE\n\nVotre choc émotionnel nécessite une réaction immédiate.\n\n• ACCÈS : Cliquez sur la sacoche en bas à gauche pour l'ouvrir.\n• ACTION REQUISE : Sélectionnez la Flasque de Whisky et choisissez « BOIRE UNE GORGÉE » pour apaiser vos nerfs et faire remonter votre Santé Mentale.\n• EMPLACEMENTS : Les objets clés et indices y seront également stockés.",
     "tutoriel_epuisement": "TUTORIEL : L'ÉPUISEMENT & LES RÊVES\n\nBoire du whisky a apaisé les nerfs de Laurence, mais son corps en paye le prix. Sa jauge d'Épuisement a augmenté.\n\n• MECANIQUE : L'Épuisement augmente avec l'usage de sédatifs, l'effort mental et le temps qui passe.\n• IMPACT SUR LES RÊVES : Un niveau d'épuisement élevé altère la clarté de vos phases de sommeil. Il vous plonge dans des cauchemars plus sombres et augmente le risque de sombrer dans l'inconscience.\n• ÉVALUATION : Surveillez attentivement cet équilibre entre clarté mentale et fatigue physique.",
     "transition_sommeil": "Le vertige de l'alcool se mêle à une fatigue écrasante. Mes paupières deviennent de plomb... La réalité du bureau s'efface.",
@@ -33,6 +33,13 @@
     "q5": "Pensez-vous que le Cosmos a eu un commencement ?",
     "yes": "[ OUI ]",
     "no": "[ NON ]",
+    "tutoriel_choix_conscience": "TUTORIEL : LA CONSCIENCE COSMIQUE\n\nVotre esprit s'ouvre aux vérités indicibles.\n\n• ICONOGRAPHIE : Les choix précédés d'un picto 👁️ ne sont révélés qu'aux esprits dont le niveau de Conscience Cosmique est suffisant.\n• IMPACT : Plus vous acceptez l'étrangeté du monde, plus de nouvelles voies s'offrent à vous... au détriment de votre santé mentale.",
+    "tobacco_ritual_steps": [
+      "Laurence fouille en silence dans les recoins de sa sacoche et en sort la blague à tabac usée.",
+      "Après avoir soigneusement roulé une cigarette entre ses doigts engourdis, il l'allume d'un geste sec.",
+      "Il se laisse lentement envahir par la fumée âpre et épaisse, cherchant un refuge éphémère dans la solitude de la pièce.",
+      "Le temps d'une expiration, le brouillard dans son esprit se lève pour révéler la vérité de ses jauges intérieures..."
+    ],
     "verdicts": {
       "fanatique": "FANATIQUE",
       "aveugle": "AVEUGLE",
@@ -44,19 +51,95 @@
     "credits": {
       "author": "Écrit, développé et imaginé par Laurien Roche",
       "ai": "Avec l'aide de l'Intelligence Artificielle",
-      "homage": "Inspiré par l'œuvre immortelle de Howard Phillips Lovecraft,\nen profond hommage à son univers et à la fascination qu'il continue d'exercer sur nos esprits."
+      "homage_line_1": "Inspiré par l'œuvre immortelle de Howard Phillips Lovecraft (1890–1937),",
+      "homage_line_2": "en profond hommage à son univers et à la fascination qu'il continue d'exercer sur nos esprits."
     }
   },
   "dream": {
     "scene_1": {
-      "speaker": "L'Homme Noir",
-      "steps": [
-        "Tu cherches du repos dans le sommeil... comme c'est humain.",
-        "Le whisky brûle tes entrailles, Laurence. Mais il ne suffit pas à étouffer le murmure de la vérité.",
-        "Tu pleures un père enfermé derrière les barreaux de l'Asile d'Arkham...",
-        "... mais es-tu seulement certain(e) que ce qui pousse ces hurlements dans la cellule #402 est encore ton père ?",
-        "Ouvre les yeux. Le spectacle n'a même pas encore commencé."
+      "speaker": "????????????",
+      "step_1": [
+        "Encore une gorgée.",
+        "Toujours la même bouteille, Laurence.",
+        "Tu crois que ça aidera à faire taire les cris dans ta tête ?"
+      ],
+      "step_1_reactions": {
+        "choice_alcohol_needed": "Pathétique.",
+        "choice_alcohol_defensive": "L'agressivité est le bouclier des faibles.",
+        "choice_alcohol_defensive_2": "Tu peux cracher ton venin, Laurence.",
+        "choice_alcohol_defensive_3": "Cela ne fait qu'ouvrir les fissures."
+      },
+      "step_2": [
+        "Ton pauvre père...",
+        "Qui sait les atrocités qu'il subit là-bas...",
+        "Es-tu sûr que c'est vraiment lui qu'on entend hurler dans sa cellule ?"
+      ],
+      "step_3": [
+        "Regarde le ciel, Laurence.",
+        "Bientôt, ceux qui n'ont pas de nom descendront sur terre.",
+        "Seras-tu là pour les accueillir ?"
+      ],
+      "step_3_reactions": {
+        "choice_old_ones_yes": "Tu ne sais rien.",
+        "choice_old_ones_yes_2": "Mais je sais ce que tu veux.",
+        "choice_old_ones_no": "Avoir les yeux fermés est souvent plus sûr que de regarder la vérité en face.",
+        "choice_old_ones_what": "Ceux qui sommeillent au-delà des astres...",
+        "choice_old_ones_what_2": "...et dans les replis de ton propre esprit.",
+        "choice_old_ones_what_3": "Tu ne fais que répéter leurs rêves, Laurence."
+      },
+      "step_3_bonus": [
+        "Regarder le néant en face demande un estomac bien plus solide que le tien, Laurence..."
+      ],
+      "step_4": [
+        "Si tu veux vraiment comprendre pourquoi ton monde est aussi vide, fais-moi confiance.",
+        "Alors je te montrerai mon vrai visage.",
+        "Est-ce que c'est ce que tu veux ?"
+      ],
+      "step_4_reactions": {
+        "choice_final_yes": "Ta curiosité est ton plus grand défaut.",
+        "choice_final_no": "Tu n'auras pas le choix."
+      },
+      "step_4_fail_wakeup": [
+        "Tu tires sur tes paupières.",
+        "Tu t'agrippes aux draps...",
+        "Mais tes yeux refusent de s'ouvrir.",
+        "Tu es prisonnier(e) ici."
+      ],
+      "outro_irony": [
+        "Qui sait, après tout...",
+        "À qui penses-tu parler en ce moment ?"
       ]
     }
+  },
+  "act1_morning": {
+    "need_fresh_air": [
+      "L'encre de mes notes n'a pas séché que l'air étouffant de cette pièce pèse sur mes tempes.",
+      "Il faut que je sorte. Ne serait-ce que pour dissiper ce brouillard persistant..."
+    ],
+    "choice_prompt": "Où dois-je diriger mes pas à présent ?",
+    "choice_asylum": "[ Se rendre directement à l'Asile d'Arkham ]",
+    "choice_city": "[ Flâner dans les rues d'Arkham ]",
+    "headache": [
+      "Je me suis réveillé ce matin-là avachi sur le bois froid de mon bureau.",
+      "Une douleur lancinante me martelait les tempes, un mal de crâne dont l'accoutumance ne diminuait en rien la cruauté."
+    ],
+    "missing": [
+      "En reprenant peu à peu mes esprits, j'ai machinalement porté la main là où je rangeais mes affaires.",
+      "Le constat fut immédiat, glaçant : ma réserve d'alcool et l'ensemble de mes notes de recherche avaient disparu.",
+      "Je suis pourtant le seul à détenir la clé de cette modeste chambre.",
+      "Aurais-je commis des actes dans mon sommeil, guidé par une inconscience que je refuse d'admettre ?",
+      "Quoi qu'il en soit, je n'ai plus le choix : il me faut tout consigner par écrit."
+    ],
+    "tutorial_desc": [
+      "NOUVEAU SYSTÈME DÉBLOQUÉ : JOURNAL DE BORD",
+      "Votre journal personnel a été débloqué.",
+      "Face aux troubles qui s'accumulent, Laurence doit consigner par écrit ses pensées et les indices de son enquête.",
+      "Ouvrez régulièrement votre grimoire pour valider et rédiger les notes en attente."
+    ],
+    "open_journal_btn": "Ouvrir le journal / Commencer l'enquête",
+    "skip_journal_btn": "Continuer",
+    "note_title": "Premier journal - Le réveil",
+    "note_content": "Mes notes ont volé en éclats et ma mémoire flanche depuis cette vision. Je dois tout consigner par écrit, avant que mon propre esprit ne m'échappe.",
+    "note_timestamp": "Jour 1 - Matin"
   }
 }

@@ -6,42 +6,73 @@ export const InventoryHUD: React.FC = () => {
     const inventory = useGameStore((state) => state.inventory);
     const selectedItem = useGameStore((state) => state.selectedItem);
     const setSelectedItem = useGameStore((state) => state.setSelectedItem);
+    const isInventoryLocked = useGameStore((state) => state.isInventoryLocked); // <-- Récupération du verrou
 
-    // Récupération directe de modifyStat pour enchaîner les modifications de jauges
     const modifyStat = useGameStore((state) => state.modifyStat);
     const removeItemFromInventory = useGameStore((state) => state.removeItemFromInventory);
+    const setStatusRevealed = useGameStore((state) => state.setStatusRevealed);
+    const setDialog = useGameStore((state) => state.setDialog);
 
     const [isOpen, setIsOpen] = useState(false);
     const [examiningItem, setExaminingItem] = useState<Item | null>(null);
 
-    // Nombre d'emplacements occupés en comptant le cumul
     const totalItemCount = inventory.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
-    // Consommation d'un vice (Whisky / Tabac) avec blocage de propagation
+    // Consommation d'un vice (Whisky ou Tabac)
     const handleUseSubstance = (e: React.MouseEvent, item: Item) => {
-        // Bloque le clic pour qu'il ne traverse pas vers la scène Phaser
         e.stopPropagation();
 
-        if (item.consumable || item.id === 'whisky' || item.id === 'tobacco') {
-
-            // 1. Hausse de la Santé Mentale (+15)
+        if (item.id === 'whisky') {
+            // Comportement du Whisky : Soin mental immédiat + contre-coup d'épuisement
             modifyStat('mental', 15);
 
-            // 2. Décalage de 1.5s pour la hausse de l'Épuisement (+10)
             setTimeout(() => {
                 modifyStat('exhaustion', 10);
             }, 1500);
 
-            // Mise à jour de la quantité en cours d'examen
-            const currentQty = item.quantity || 1;
-            if (currentQty > 1) {
-                setExaminingItem({ ...item, quantity: currentQty - 1 });
-            } else {
-                setExaminingItem(null);
-            }
+            updateInventoryAfterUse(item);
 
-            removeItemFromInventory(item.id);
+        } else if (item.id === 'tobacco') {
+            modifyStat('mental', 15);
+            modifyStat('exhaustion', 10);
+
+            setExaminingItem(null);
+            setIsOpen(false);
+
+            // 1. D'abord les dialogues du rituel
+            setDialog({
+                speaker: 'LAURENCE LINDNER',
+                textKey: 'intro.tobacco_ritual_steps',
+                type: 'bottom',
+                onComplete: () => {
+                    // 2. Juste après les dialogues, on joue le SFX de fumée
+                    try {
+                        const smokeAudio = new Audio('/assets/smokeVFX.mp3');
+                        smokeAudio.volume = 0.4;
+                        smokeAudio.play().catch(err => console.warn("Audio bloqué :", err));
+                    } catch (e) {
+                        console.warn("Erreur lecture SFX fumée :", e);
+                    }
+
+                    // 3. On active la cinématique de fumée (background + jauges révélées)
+                    useGameStore.getState().setSmokingActive(true);
+                    setStatusRevealed(true);
+                }
+            });
+
+            updateInventoryAfterUse(item);
         }
+    };
+
+    // Utilitaire de mise à jour des quantités de l'objet consommé
+    const updateInventoryAfterUse = (item: Item) => {
+        const currentQty = item.quantity || 1;
+        if (currentQty > 1) {
+            setExaminingItem({ ...item, quantity: currentQty - 1 });
+        } else {
+            setExaminingItem(null);
+        }
+        removeItemFromInventory(item.id);
     };
 
     return (
@@ -51,18 +82,20 @@ export const InventoryHUD: React.FC = () => {
                 <button
                     onClick={(e) => {
                         e.stopPropagation();
+                        if (isInventoryLocked) return; // Empêche l'ouverture si verrouillé
                         setIsOpen(!isOpen);
                     }}
-                    className={`inventory-toggle-btn ${isOpen ? 'active' : ''}`}
-                    title="Ouvrir la sacoche"
+                    className={`inventory-toggle-btn ${isOpen ? 'active' : ''} ${isInventoryLocked ? 'locked' : ''}`}
+                    title={isInventoryLocked ? "La sacoche est verrouillée pour l'instant..." : "Ouvrir la sacoche"}
+                    style={{ opacity: isInventoryLocked ? 0.4 : 1, cursor: isInventoryLocked ? 'not-allowed' : 'pointer' }}
                 >
                     <img src="/assets/inventory.png" alt="Sacoche d'archiviste" className="satchel-icon" />
-                    {totalItemCount > 0 && <span className="inventory-count">{totalItemCount}</span>}
+                    {!isInventoryLocked && totalItemCount > 0 && <span className="inventory-count">{totalItemCount}</span>}
                 </button>
             </div>
 
-            {/* Tiroir d'Inventaire */}
-            {isOpen && (
+            {/* Tiroir d'Inventaire (Masqué si verrouillé ou fermé) */}
+            {isOpen && !isInventoryLocked && (
                 <div className="inventory-drawer" onClick={(e) => e.stopPropagation()}>
                     <div className="inventory-header">
                         <span className="inventory-title">SACOCHE D'ARCHIVISTE</span>
@@ -100,9 +133,7 @@ export const InventoryHUD: React.FC = () => {
                                             <span className="item-emoji">{item.icon}</span>
                                         )}
 
-                                        {/* Badge de quantité (ex: x2) */}
                                         {qty > 1 && <span className="item-quantity-badge">x{qty}</span>}
-
                                         <span className="item-tooltip">{item.name}</span>
                                     </button>
                                 );

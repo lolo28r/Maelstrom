@@ -3,6 +3,8 @@ import { useGameStore } from '../../store/useGameStore';
 import i18n from '../../i18n';
 
 export class MainMenuScene extends Phaser.Scene {
+    private devCodeSequence: string = '';
+
     constructor() {
         super('MainMenu');
     }
@@ -18,6 +20,22 @@ export class MainMenuScene extends Phaser.Scene {
     create() {
         useGameStore.getState().setScene('MainMenu');
         this.cameras.main.setBackgroundColor('#05070a');
+
+        // --- ÉCOUTEUR CLAVIER POUR LE CODE DEV "1937" ---
+        this.input.keyboard?.on('keydown', (event: KeyboardEvent) => {
+            if (/^[0-9]$/.test(event.key)) {
+                this.devCodeSequence += event.key;
+
+                if (this.devCodeSequence.length > 4) {
+                    this.devCodeSequence = this.devCodeSequence.slice(-4);
+                }
+
+                if (this.devCodeSequence === '1937') {
+                    this.devCodeSequence = '';
+                    this.openDevChapterMenu();
+                }
+            }
+        });
 
         // On attend explicitement que les polices soient chargées par le DOM avant de dessiner
         document.fonts.ready.then(() => {
@@ -152,6 +170,70 @@ export class MainMenuScene extends Phaser.Scene {
                     btn.setScale(1.0);
                 });
                 btn.on('pointerdown', () => option.action());
+            }
+        });
+    }
+
+    // --- INTERFACE DU MODE DEV (SÉLECTION DES CHAPITRES) ---
+    // --- INTERFACE DU MODE DEV (SÉLECTION DES CHAPITRES) ---
+    private openDevChapterMenu() {
+        const store = useGameStore.getState();
+        this.sound.stopAll();
+
+        store.setDialog({
+            speaker: '[ MODE DÉVELOPPEUR - ACCÈS RESTREINT ]',
+            textKey: 'Code 1937 validé.\nChoisissez le point de saut temporel :',
+            type: 'bottom',
+            choices: [
+                {
+                    id: 'dev_intro',
+                    text: '1. Introduction / Prologue (IntroSequence)',
+                    consequences: {},
+                },
+                {
+                    id: 'dev_office',
+                    text: '2. Bureau du Professeur & Lettre (ProfessorOffice)',
+                    consequences: {},
+                },
+                {
+                    id: 'dev_dream',
+                    text: '3. Cauchemar / Rencontre (DreamScene)',
+                    consequences: {},
+                },
+                {
+                    id: 'dev_morning',
+                    text: '4. Réveil & Disparition / Journal (DeskMorningScene)',
+                    consequences: {},
+                },
+                {
+                    id: 'dev_city',
+                    text: '5. Exploration d\'Arkham / Ville (CityExplorerScene)', // <-- Ajout du choix de la ville
+                    consequences: {},
+                },
+                {
+                    id: 'dev_close',
+                    text: 'Fermer le mode dev',
+                    consequences: {},
+                }
+            ],
+            onComplete: (selectedChoiceId?: string) => {
+                if (!selectedChoiceId || selectedChoiceId === 'dev_close') {
+                    store.closeDialog();
+                    return;
+                }
+
+                let targetScene = 'MainMenu';
+                if (selectedChoiceId === 'dev_intro') targetScene = 'IntroSequence';
+                if (selectedChoiceId === 'dev_office') targetScene = 'ProfessorOffice';
+                if (selectedChoiceId === 'dev_dream') targetScene = 'DreamScene';
+                if (selectedChoiceId === 'dev_morning') targetScene = 'DeskMorningScene';
+                if (selectedChoiceId === 'dev_city') targetScene = 'CityExplorerScene'; // <-- Lien avec la variable
+
+                store.closeDialog();
+                this.cameras.main.fadeOut(500, 0, 0, 0);
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                    this.scene.start(targetScene);
+                });
             }
         });
     }
