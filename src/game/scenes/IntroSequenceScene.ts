@@ -12,18 +12,20 @@ export class IntroSequenceScene extends Phaser.Scene {
     }
 
     preload() {
+        const baseUrl = import.meta.env.BASE_URL;
+
         if (!this.cache.audio.exists('intro_theme')) {
-            this.load.audio('intro_theme', '/assets/intro.mp3');
+            this.load.audio('intro_theme', `${baseUrl}assets/intro.mp3`);
         }
         // Nouveaux assets d'introduction avec les noms exacts demandés
-        this.load.image('party', '/assets/party.jpg');
-        this.load.image('city', '/assets/city.jpg');
-        this.load.image('satellite', '/assets/satellite.jpg');
+        this.load.image('party', `${baseUrl}assets/party.jpg`);
+        this.load.image('city', `${baseUrl}assets/city.jpg`);
+        this.load.image('satellite', `${baseUrl}assets/satellite.jpg`);
 
         // Assets cosmiques suivants
-        this.load.image('introEarth', '/assets/introEarth.jpg');
-        this.load.image('introGalaxy', '/assets/introGalaxy.png');
-        this.load.image('introVoid', '/assets/introVoid.png');
+        this.load.image('introEarth', `${baseUrl}assets/introEarth.jpg`);
+        this.load.image('introGalaxy', `${baseUrl}assets/introGalaxy.png`);
+        this.load.image('introVoid', `${baseUrl}assets/introVoid.png`);
     }
 
     create() {

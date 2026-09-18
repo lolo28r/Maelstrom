@@ -4,7 +4,6 @@ import { phaserGameConfig } from './game/config';
 import { useGameStore } from './store/useGameStore';
 import { CosmicBackground } from './components/CosmicBackground';
 import { EyelidsOverlay } from './components/EyelidsOverlay';
-import { TrapezohedronHUD } from './components/TrapezohedronHUD';
 import { InventoryHUD } from './components/InventoryHUD';
 import { NarrativeDialog } from './components/ui/NarrativeDialog';
 import { DocumentViewer } from './components/ui/DocumentViewer';
@@ -51,7 +50,7 @@ export const App: React.FC = () => {
             <div className="vignette" style={{ position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, pointerEvents: 'none', zIndex: 20 }} />
 
             {/* HUD React */}
-            <TrapezohedronHUD />
+
             <InventoryHUD />
             <CosmicStatusHUD />
             <JournalModal />

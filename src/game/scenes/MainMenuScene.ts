@@ -10,11 +10,14 @@ export class MainMenuScene extends Phaser.Scene {
     }
 
     preload() {
+        // Utilisation de BASE_URL pour adapter le chemin en local et en production (GitHub Pages)
+        const baseUrl = import.meta.env.BASE_URL;
+
         if (!this.cache.audio.exists('menu_music')) {
-            this.load.audio('menu_music', '/assets/menu_theme.mp3');
+            this.load.audio('menu_music', `${baseUrl}assets/menu_theme.mp3`);
         }
         // Préchargement de l'image de fond du menu
-        this.load.image('menu_bg', '/assets/maelstrom.jpg');
+        this.load.image('menu_bg', `${baseUrl}assets/maelstrom.jpg`);
     }
 
     create() {
@@ -175,7 +178,6 @@ export class MainMenuScene extends Phaser.Scene {
     }
 
     // --- INTERFACE DU MODE DEV (SÉLECTION DES CHAPITRES) ---
-    // --- INTERFACE DU MODE DEV (SÉLECTION DES CHAPITRES) ---
     private openDevChapterMenu() {
         const store = useGameStore.getState();
         this.sound.stopAll();
@@ -207,7 +209,7 @@ export class MainMenuScene extends Phaser.Scene {
                 },
                 {
                     id: 'dev_city',
-                    text: '5. Exploration d\'Arkham / Ville (CityExplorerScene)', // <-- Ajout du choix de la ville
+                    text: '5. Exploration d\'Arkham / Ville (CityExplorerScene)',
                     consequences: {},
                 },
                 {
@@ -227,7 +229,7 @@ export class MainMenuScene extends Phaser.Scene {
                 if (selectedChoiceId === 'dev_office') targetScene = 'ProfessorOffice';
                 if (selectedChoiceId === 'dev_dream') targetScene = 'DreamScene';
                 if (selectedChoiceId === 'dev_morning') targetScene = 'DeskMorningScene';
-                if (selectedChoiceId === 'dev_city') targetScene = 'CityExplorerScene'; // <-- Lien avec la variable
+                if (selectedChoiceId === 'dev_city') targetScene = 'CityExplorerScene';
 
                 store.closeDialog();
                 this.cameras.main.fadeOut(500, 0, 0, 0);
@@ -259,12 +261,13 @@ export class MainMenuScene extends Phaser.Scene {
 
         const progressBar = this.add.graphics();
 
+        const baseUrl = import.meta.env.BASE_URL;
         const loader = new Phaser.Loader.LoaderPlugin(this);
-        loader.image('introEarth', '/assets/introEarth.png');
-        loader.image('introGalaxy', '/assets/introGalaxy.png');
-        loader.image('introVoid', '/assets/introVoid.png');
+        loader.image('introEarth', `${baseUrl}assets/introEarth.png`);
+        loader.image('introGalaxy', `${baseUrl}assets/introGalaxy.png`);
+        loader.image('introVoid', `${baseUrl}assets/introVoid.png`);
         if (!this.cache.audio.exists('intro_theme')) {
-            loader.audio('intro_theme', '/assets/intro.mp3');
+            loader.audio('intro_theme', `${baseUrl}assets/intro.mp3`);
         }
 
         loader.on('progress', (value: number) => {

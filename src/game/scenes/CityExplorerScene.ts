@@ -21,16 +21,18 @@ export class CityExplorerScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('carrefour', 'assets/carrefour.jpg');
-        this.load.image('journal', 'assets/journal.jpg');
-        this.load.image('porteLib', 'assets/porteLib.jpg');
-        this.load.image('entreeLib', 'assets/entreeLib.jpg');
-        this.load.image('salon', 'assets/salon.png');
-        this.load.image('tabac1', 'assets/tabac1.jpg');
-        this.load.image('egliseExt', 'assets/egliseExt.jpg');
-        this.load.image('eglise', 'assets/eglise.jpg');
-        this.load.image('chapelleVierge', 'assets/chapelleVierge.jpg');
-        this.load.image('priest', 'assets/priest.jpg');
+        const baseUrl = import.meta.env.BASE_URL;
+
+        this.load.image('carrefour', `${baseUrl}assets/carrefour.jpg`);
+        this.load.image('journal', `${baseUrl}assets/journal.jpg`);
+        this.load.image('porteLib', `${baseUrl}assets/porteLib.jpg`);
+        this.load.image('entreeLib', `${baseUrl}assets/entreeLib.jpg`);
+        this.load.image('salon', `${baseUrl}assets/salon.png`);
+        this.load.image('tabac1', `${baseUrl}assets/tabac1.jpg`);
+        this.load.image('egliseExt', `${baseUrl}assets/egliseExt.jpg`);
+        this.load.image('eglise', `${baseUrl}assets/eglise.jpg`);
+        this.load.image('chapelleVierge', `${baseUrl}assets/chapelleVierge.jpg`);
+        this.load.image('priest', `${baseUrl}assets/priest.jpg`);
     }
 
     create() {
@@ -270,7 +272,6 @@ export class CityExplorerScene extends Phaser.Scene {
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'chapelleVierge').setDisplaySize(width, height);
 
-        // Hotspot interactif sur la statue de la Vierge (située au centre de la scène)
         this.addHotspot({
             scene: this,
             x: 646,
@@ -280,7 +281,6 @@ export class CityExplorerScene extends Phaser.Scene {
             type: 'inspect',
             actionLabel: "Examiner la statue de la Vierge",
             onClick: () => {
-                // Si la statue a déjà été observée, on ne relance rien ou on met une pensée courte
                 if (this.hasSeenStatue) {
                     useGameStore.getState().startDialogue({
                         text: "La statue de pierre me regarde dans un silence de marbre. Inutile de m'attarder davantage ici.",
@@ -291,12 +291,10 @@ export class CityExplorerScene extends Phaser.Scene {
 
                 this.hasSeenStatue = true;
 
-                // 1. Premier dialogue d'observation de la statue
                 useGameStore.getState().setDialog({
                     textKey: 'act1_church.first_statue_gaze',
                     type: 'bottom',
                     onComplete: () => {
-                        // 2. Déclenchement de la pensée et des choix de prière
                         useGameStore.getState().setDialog({
                             textKey: 'act1_church.statue_thought',
                             type: 'bottom',
@@ -331,12 +329,12 @@ export class CityExplorerScene extends Phaser.Scene {
 
         this.createBackButton(() => this.enterChurchInterior());
     }
+
     private enterSepulchreSequence() {
         this.clearSceneElements();
 
         const store = useGameStore.getState();
 
-        // Si le joueur a déjà fini la discussion et obtenu le chapelet
         if (store.act1Progress.priestEncountered) {
             this.cameras.main.fadeOut(800, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
@@ -345,7 +343,6 @@ export class CityExplorerScene extends Phaser.Scene {
             return;
         }
 
-        // Sinon, première visite complète
         this.cameras.main.fadeOut(800, 0, 0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
             store.setDialog({
@@ -358,7 +355,6 @@ export class CityExplorerScene extends Phaser.Scene {
         });
     }
 
-    // Version courte pour les visites ultérieures
     private enterPriestEncounterShort() {
         this.currentLocation = 'SEPULCRE';
         const { width, height } = this.scale;
@@ -385,13 +381,11 @@ export class CityExplorerScene extends Phaser.Scene {
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
-        // 1. Dialogue d'accroche du prêtre
         useGameStore.getState().setDialog({
             textKey: 'act1_church.priest_dialog',
             type: 'bottom',
             speaker: 'Père Thomas',
             onComplete: () => {
-                // 2. Introduction et réplique de Laurence sur son père
                 this.startPriestDialogueFlow();
             }
         });
@@ -417,7 +411,6 @@ export class CityExplorerScene extends Phaser.Scene {
                             type: 'bottom',
                             speaker: 'Père Thomas',
                             onComplete: () => {
-                                // 3. Lancement des choix de questions philosophiques
                                 this.showPhilosophicalMenu(new Set());
                             }
                         });
@@ -426,6 +419,7 @@ export class CityExplorerScene extends Phaser.Scene {
             }
         });
     }
+
     private showPhilosophicalMenu(askedThemes: Set<string>) {
         const store = useGameStore.getState();
         const choices: ChoiceOption[] = [];
@@ -473,22 +467,20 @@ export class CityExplorerScene extends Phaser.Scene {
             }
         });
     }
+
     private playThemeExchange(themeKey: string, askedThemes: Set<string>) {
         const store = useGameStore.getState();
 
-        // Réplique de Laurence (le tableau gère les fenêtres multiples)
         store.setDialog({
             textKey: `act1_church.long_discussion.themes_philosophiques.${themeKey}.laurence`,
             type: 'bottom',
             speaker: 'Laurence Lindner',
             onComplete: () => {
-                // Réplique du Père Thomas (le tableau gère les fenêtres multiples)
                 store.setDialog({
                     textKey: `act1_church.long_discussion.themes_philosophiques.${themeKey}.pere_thomas`,
                     type: 'bottom',
                     speaker: 'Père Thomas',
                     onComplete: () => {
-                        // Retour au menu des questions restantes
                         this.showPhilosophicalMenu(askedThemes);
                     }
                 });
@@ -539,7 +531,6 @@ export class CityExplorerScene extends Phaser.Scene {
                             examineText: 'Les grains usés glissent entre mes doigts. Une tiédeur étrange s’en dégage, ou est-ce simplement le fruit de mon imagination ?'
                         });
 
-                        // MARQUE LA RENCONTRE COMME TERMINÉE
                         store.updateAct1Progress({ priestEncountered: true });
                     }
                 });

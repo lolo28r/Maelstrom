@@ -15,13 +15,16 @@ export class DreamScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('nyarlathotep_bg', '/assets/nyarlathotep.jpg');
-        this.load.image('nyarlaTrueForm', '/assets/nyarlaTrueForm.jpg');
+        const baseUrl = import.meta.env.BASE_URL;
+
+        this.load.image('nyarlathotep_bg', `${baseUrl}assets/nyarlathotep.jpg`);
+        this.load.image('nyarlaTrueForm', `${baseUrl}assets/nyarlaTrueForm.jpg`);
     }
 
     create() {
         const store = useGameStore.getState();
         store.setScene('DreamScene');
+        const baseUrl = import.meta.env.BASE_URL;
 
         // Lancement et filtrage direct via Web Audio API (Effet Radio + Distorsion douce)
         try {
@@ -29,7 +32,7 @@ export class DreamScene extends Phaser.Scene {
             if (AudioContextClass) {
                 this.audioCtx = new AudioContextClass();
 
-                this.audioElement = new Audio('/assets/OSTnyarla.mp3');
+                this.audioElement = new Audio(`${baseUrl}assets/OSTnyarla.mp3`);
                 this.audioElement.loop = true;
                 this.audioElement.volume = 0.35;
                 this.audioElement.playbackRate = 0.85;
@@ -161,29 +164,19 @@ export class DreamScene extends Phaser.Scene {
                 consequences: { consciousnessDelta: 15 }
             });
 
-            // TUTORIEL : Si le joueur atteint ce seuil pour la première fois et qu'il découvre le choix occulte, 
-            // on déclenche le CenterNarrativeModal.
-            // (Tu peux stocker un flag dans ton store ou dans act1Progress/localStorage si tu veux ne l'afficher qu'une seule fois)
-            const hasSeenCosmicTutorial = useGameStore.getState().act1Progress.journalRead; // Ou une variable dédiée si tu préfères
-
-            // Pour faire simple, on peut utiliser une vérification directe ou ajouter une propriété dans le store.
-            // Imaginons qu'on affiche la modal center directement ici :
             store.setDialog({
                 textKey: 'intro.tutoriel_choix_conscience',
-                type: 'center', // <-- C'est ça qui force l'affichage de la CenterNarrativeModal
+                type: 'center',
                 onComplete: () => {
-                    // Une fois que le joueur clique sur [ COMPRIS ] dans le tuto, 
-                    // on relance le dialogue de l'étape 3 avec les choix
                     this.showStep3Dialog(choices);
                 }
             });
-            return; // On stoppe l'exécution ici pour laisser le joueur lire le tuto d'abord
+            return;
         }
 
         this.showStep3Dialog(choices);
     }
 
-    // Petite méthode utilitaire pour afficher les choix de l'étape 3 proprement
     private showStep3Dialog(choices: any[]) {
         const store = useGameStore.getState();
         store.setDialog({
@@ -223,6 +216,7 @@ export class DreamScene extends Phaser.Scene {
             }
         });
     }
+
     private startStep4() {
         const store = useGameStore.getState();
 
@@ -248,7 +242,6 @@ export class DreamScene extends Phaser.Scene {
             onComplete: (selectedChoiceId?: string) => {
                 if (!selectedChoiceId) return;
 
-                // Récupération du choix cliqué pour appliquer ses conséquences
                 const currentChoices = [
                     { id: 'choice_final_yes', consequences: { consciousnessDelta: 20, mentalDelta: -10, exhaustionDelta: -15 } },
                     { id: 'choice_final_no', consequences: { mentalDelta: 5, exhaustionDelta: -10 } },
@@ -257,7 +250,6 @@ export class DreamScene extends Phaser.Scene {
 
                 const chosen = currentChoices.find(c => c.id === selectedChoiceId);
                 if (chosen) {
-                    // Enregistre le choix et applique automatiquement les deltas (Santé, Épuisement, Conscience)
                     store.recordChoice(selectedChoiceId, 'DreamScene', chosen.consequences);
                 }
 
@@ -298,7 +290,6 @@ export class DreamScene extends Phaser.Scene {
         });
     }
 
-    // --- OUTRO : L'ironie finale et réveil ---
     private startOutroIrony() {
         const store = useGameStore.getState();
 
@@ -313,10 +304,8 @@ export class DreamScene extends Phaser.Scene {
     private triggerClimaxAndWakeUp() {
         const store = useGameStore.getState();
 
-        // Le corps a dormi : l'épuisement baisse
         store.modifyStat('exhaustion', -20);
 
-        // 1. FADE-OUT PROGRESSIF DE LA MUSIQUE (sur 2,5 secondes)
         if (this.audioElement) {
             const fadeAudio = setInterval(() => {
                 if (this.audioElement && this.audioElement.volume > 0.02) {
@@ -337,14 +326,12 @@ export class DreamScene extends Phaser.Scene {
 
         this.cameras.main.shake(300, 0.025);
 
-        // 2. FADE-OUT DOUX DE L'IMAGE DE NYARLATHOTEP VERS LE NOIR (au lieu d'un flash blanc violent)
         this.tweens.add({
             targets: this.bgImage,
             alpha: 0,
-            duration: 2500, // L'entité se dissout lentement dans les ténèbres
+            duration: 2500,
             ease: 'Sine.easeInOut',
             onComplete: () => {
-                // 3. Fermeture des paupières après la dissolution
                 store.setEyelidsClosing(true);
 
                 this.time.delayedCall(2000, () => {
@@ -355,29 +342,27 @@ export class DreamScene extends Phaser.Scene {
             }
         });
     }
+
     private triggerSubliminalTrueFormFlash() {
         const trueFormImage = this.add.image(640, 360, 'nyarlaTrueForm')
             .setDisplaySize(1280, 720)
             .setAlpha(0)
             .setDepth(998);
 
-        // Tremblement de caméra plus long et plus violent pour toute la séquence
         this.cameras.main.shake(700, 0.05);
 
-        // Effet stroboscopique de l'image (plusieurs flashs successifs)
         this.tweens.add({
             targets: trueFormImage,
             alpha: { start: 0, to: 1 },
-            duration: 40,       // Apparition ultra rapide
-            yoyo: true,         // Disparition immédiate
-            repeat: 3,          // Répète l'éclair 4 fois en tout
-            hold: 80,           // Temps de maintien à chaque flash
+            duration: 40,
+            yoyo: true,
+            repeat: 3,
+            hold: 80,
             onComplete: () => {
                 trueFormImage.destroy();
             }
         });
 
-        // Flashs blancs synchronisés sur l'overlay pour aveugler par intermittence
         this.tweens.add({
             targets: this.flashOverlay,
             alpha: { start: 0, to: 0.9 },
@@ -386,14 +371,12 @@ export class DreamScene extends Phaser.Scene {
             repeat: 3,
             hold: 60,
             onComplete: () => {
-                // Une fois la crise stroboscopique terminée, on enchaîne sur l'outro
                 this.startOutroIrony();
             }
         });
     }
 }
 
-// --- Fonction utilitaire de distorsion corrigée pour TypeScript ---
 function makeDistortionCurve(amount: number = 20): Float32Array<ArrayBuffer> {
     const k = typeof amount === 'number' ? amount : 50;
     const n_samples = 44100;

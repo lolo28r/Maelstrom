@@ -47,7 +47,8 @@ export const InventoryHUD: React.FC = () => {
                 onComplete: () => {
                     // 2. Juste après les dialogues, on joue le SFX de fumée
                     try {
-                        const smokeAudio = new Audio('/assets/smokeVFX.mp3');
+                        const baseUrl = import.meta.env.BASE_URL;
+                        const smokeAudio = new Audio(`${baseUrl}assets/smokeVFX.mp3`);
                         smokeAudio.volume = 0.4;
                         smokeAudio.play().catch(err => console.warn("Audio bloqué :", err));
                     } catch (e) {
@@ -75,6 +76,8 @@ export const InventoryHUD: React.FC = () => {
         removeItemFromInventory(item.id);
     };
 
+    const baseUrl = import.meta.env.BASE_URL;
+
     return (
         <>
             {/* Bouton Sacoche */}
@@ -89,7 +92,7 @@ export const InventoryHUD: React.FC = () => {
                     title={isInventoryLocked ? "La sacoche est verrouillée pour l'instant..." : "Ouvrir la sacoche"}
                     style={{ opacity: isInventoryLocked ? 0.4 : 1, cursor: isInventoryLocked ? 'not-allowed' : 'pointer' }}
                 >
-                    <img src="/assets/inventory.png" alt="Sacoche d'archiviste" className="satchel-icon" />
+                    <img src={`${baseUrl}assets/inventory.png`} alt="Sacoche d'archiviste" className="satchel-icon" />
                     {!isInventoryLocked && totalItemCount > 0 && <span className="inventory-count">{totalItemCount}</span>}
                 </button>
             </div>

@@ -13,7 +13,8 @@ export class DeskMorningScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('deskDay', '/assets/DeskDay.jpg');
+        const baseUrl = import.meta.env.BASE_URL;
+        this.load.image('deskDay', `${baseUrl}assets/DeskDay.jpg`);
     }
 
     create() {
@@ -25,24 +26,26 @@ export class DeskMorningScene extends Phaser.Scene {
         bg.setDisplaySize(1280, 720);
         bg.setAlpha(0.7);
 
+        const baseUrl = import.meta.env.BASE_URL;
+
         // --- LANCEMENT DE L'AMBIANCE AUDIO DU MATIN (Mix enrichi) ---
         try {
-            this.musicOst = new Audio('/assets/ostDeskDay.mp3');
+            this.musicOst = new Audio(`${baseUrl}assets/ostDeskDay.mp3`);
             this.musicOst.loop = true;
             this.musicOst.volume = 0.18;
             this.musicOst.play().catch(err => console.warn("Lecture ostDeskDay bloquée :", err));
 
-            this.vinylSound = new Audio('/assets/vinyl.mp3');
+            this.vinylSound = new Audio(`${baseUrl}assets/vinyl.mp3`);
             this.vinylSound.loop = true;
             this.vinylSound.volume = 0.06;
             this.vinylSound.play().catch(err => console.warn("Lecture vinyl bloquée :", err));
 
-            this.quietRoomSound = new Audio('/assets/quietRoom.mp3');
+            this.quietRoomSound = new Audio(`${baseUrl}assets/quietRoom.mp3`);
             this.quietRoomSound.loop = true;
             this.quietRoomSound.volume = 0.05;
             this.quietRoomSound.play().catch(err => console.warn("Lecture quietRoom bloquée :", err));
 
-            this.streetAmbianceSound = new Audio('/assets/streetAmbiance.mp3');
+            this.streetAmbianceSound = new Audio(`${baseUrl}assets/streetAmbiance.mp3`);
             this.streetAmbianceSound.loop = true;
             this.streetAmbianceSound.volume = 0.01;
             this.streetAmbianceSound.play().catch(err => console.warn("Lecture streetAmbiance bloquée :", err));

@@ -9,13 +9,14 @@ export const SmokingOverlay: React.FC = () => {
     const setStatusRevealed = useGameStore((state) => state.setStatusRevealed);
 
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const baseUrl = import.meta.env.BASE_URL;
 
     useEffect(() => {
         if (isSmokingActive) {
             setStatusRevealed(true);
 
             try {
-                audioRef.current = new Audio('/assets/smokeVFX.mp3');
+                audioRef.current = new Audio(`${baseUrl}assets/smokeVFX.mp3`);
                 audioRef.current.volume = 0.5;
                 audioRef.current.play().catch(err => {
                     console.warn("Lecture audio bloquée par le navigateur :", err);
@@ -29,7 +30,7 @@ export const SmokingOverlay: React.FC = () => {
                 audioRef.current = null;
             }
         }
-    }, [isSmokingActive, setStatusRevealed]);
+    }, [isSmokingActive, setStatusRevealed, baseUrl]);
 
     if (!isSmokingActive) return null;
 
@@ -42,10 +43,10 @@ export const SmokingOverlay: React.FC = () => {
     return (
         <div className="smoking-overlay-container" onClick={(e) => e.stopPropagation()}>
             <img
-                src="/assets/smokeBackground.jpg"
+                src={`${baseUrl}assets/smokeBackground.jpg`}
                 alt="Rituel tabac"
                 className="smoking-bg"
-                onError={(e) => console.error("Erreur de chargement de l'image de fond : /assets/smokeBackground.jpg", e)}
+                onError={(e) => console.error(`Erreur de chargement de l'image de fond : ${baseUrl}assets/smokeBackground.jpg`, e)}
             />
 
             {/* Conteneur centralisé pour les jauges ET le bouton */}

@@ -20,9 +20,11 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('city_night', '/assets/cityNight.jpg');
-        this.load.image('office_interior', '/assets/Desk.jpg');
-        this.load.image('letter_asset', '/assets/letterAsset.png');
+        const baseUrl = import.meta.env.BASE_URL;
+
+        this.load.image('city_night', `${baseUrl}assets/cityNight.jpg`);
+        this.load.image('office_interior', `${baseUrl}assets/Desk.jpg`);
+        this.load.image('letter_asset', `${baseUrl}assets/letterAsset.png`);
 
         this.load.on('loaderror', (fileObj: any) => {
             if (fileObj.type === 'audio') {
@@ -31,10 +33,10 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         });
 
         if (!this.cache.audio.exists('street_rain')) {
-            this.load.audio('street_rain', '/assets/streetRain.mp3');
+            this.load.audio('street_rain', `${baseUrl}assets/streetRain.mp3`);
         }
         if (!this.cache.audio.exists('desk_rain')) {
-            this.load.audio('desk_rain', '/assets/deskRain.mp3');
+            this.load.audio('desk_rain', `${baseUrl}assets/deskRain.mp3`);
         }
     }
 
@@ -103,11 +105,12 @@ export class ProfessorOfficeScene extends Phaser.Scene {
 
     private initStarterInventory() {
         const store = useGameStore.getState();
+        const baseUrl = import.meta.env.BASE_URL;
 
         store.addItem({
             id: 'whisky',
             name: 'Flasque de Whisky',
-            icon: '/assets/whiskyAsset.png',
+            icon: `${baseUrl}assets/whiskyAsset.png`,
             description: 'Bourbon de bas étage. Brûle la gorge, mais engourdit les nerfs.',
             examineText: 'Une flasque en métal cabossée qui sent l\'alcool fort. Idéal pour apaiser les crises d\'angoisse et faire remonter la Santé Mentale, au prix d\'une fatigue accrue.',
             quantity: 1,
@@ -118,7 +121,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         store.addItem({
             id: 'tobacco',
             name: 'Tabac à rouler',
-            icon: '/assets/tabac.png',
+            icon: `${baseUrl}assets/tabac.png`,
             description: 'Une blague à tabac usée et quelques feuilles à rouler.',
             examineText: 'Du tabac brun séché. Rouler une cigarette permet de rassembler ses idées et de calmer le cœur qui bat trop vite pour évaluer son état mental.',
             quantity: 1,
