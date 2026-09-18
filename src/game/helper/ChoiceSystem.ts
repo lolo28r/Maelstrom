@@ -10,7 +10,7 @@ export interface RecordedChoice {
         consciousnessDelta?: number;
         customPayload?: string | number;
     };
-    customPayload?: string | number; // Supporte aussi la racine si besoin
+    customPayload?: string | number;
 }
 
 export class ChoiceSystem {
