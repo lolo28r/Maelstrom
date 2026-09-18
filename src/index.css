@@ -1,11 +1,15 @@
 /* index.css — Styles globaux uniquement */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     user-select: none;
 }
 
-html, body, #root {
+html,
+body,
+#root {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -17,16 +21,22 @@ html, body, #root {
 }
 
 /* Polices custom */
-.font-typewriter { font-family: 'Special Elite', cursive, serif; }
-.font-tech       { font-family: 'Share Tech Mono', monospace; }
-.font-cosmic     { font-family: 'Cinzel', serif; }
+.font-typewriter {
+    font-family: 'Special Elite', cursive, serif;
+}
+
+.font-tech {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.font-cosmic {
+    font-family: 'Cinzel', serif;
+}
 
 /* Effet CRT — scanlines */
 .scanlines {
-    background: linear-gradient(
-            rgba(18, 16, 16, 0) 50%,
-            rgba(0, 0, 0, 0.25) 50%
-    );
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+            rgba(0, 0, 0, 0.25) 50%);
     background-size: 100% 4px;
 }
 
@@ -37,11 +47,35 @@ html, body, #root {
 
 /* Lueur cosmique iridescente */
 @keyframes cosmic-iridescent {
-    0%   { filter: drop-shadow(0 0 4px  rgba(217, 119, 6, 0.4)); }
-    50%  { filter: drop-shadow(0 0 10px rgba(168, 85,  247, 0.6)); }
-    100% { filter: drop-shadow(0 0 4px  rgba(217, 119, 6, 0.4)); }
+    0% {
+        filter: drop-shadow(0 0 4px rgba(217, 119, 6, 0.4));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.6));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 4px rgba(217, 119, 6, 0.4));
+    }
 }
 
 .iridescent-glow {
     animation: cosmic-iridescent 6s infinite ease-in-out;
+}
+
+/* Curseur par défaut : Un œil ou un pointeur d'observation */
+/* Curseur par défaut du jeu */
+canvas {
+    cursor: default;
+}
+
+/* Curseur Chemin : Flèche de direction */
+.cursor-path {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f4ebd0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' y1='19' x2='12' y2='5'></line><polyline points='5 12 12 5 19 12'></polyline></svg>"), pointer;
+}
+
+/* Curseur Objet/Fouille : Loupe */
+.cursor-inspect {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23f4ebd0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'></circle><line x1='21' y1='21' x2='16.65' y2='16.65'></line></svg>"), zoom-in;
 }

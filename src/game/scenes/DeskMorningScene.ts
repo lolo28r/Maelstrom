@@ -27,25 +27,21 @@ export class DeskMorningScene extends Phaser.Scene {
 
         // --- LANCEMENT DE L'AMBIANCE AUDIO DU MATIN (Mix enrichi) ---
         try {
-            // 1. La musique classique principale (Schubert / Piano feutré)
             this.musicOst = new Audio('/assets/ostDeskDay.mp3');
             this.musicOst.loop = true;
             this.musicOst.volume = 0.18;
             this.musicOst.play().catch(err => console.warn("Lecture ostDeskDay bloquée :", err));
 
-            // 2. Le grésillement du vinyle (Texture rétro très discrète)
             this.vinylSound = new Audio('/assets/vinyl.mp3');
             this.vinylSound.loop = true;
             this.vinylSound.volume = 0.06;
             this.vinylSound.play().catch(err => console.warn("Lecture vinyl bloquée :", err));
 
-            // 3. Le bruit de la pièce / souffle feutré (Fond silencieux)
             this.quietRoomSound = new Audio('/assets/quietRoom.mp3');
             this.quietRoomSound.loop = true;
             this.quietRoomSound.volume = 0.05;
             this.quietRoomSound.play().catch(err => console.warn("Lecture quietRoom bloquée :", err));
 
-            // 4. L'ambiance de rue lointaine (Très bas volume pour suggérer l'extérieur)
             this.streetAmbianceSound = new Audio('/assets/streetAmbiance.mp3');
             this.streetAmbianceSound.loop = true;
             this.streetAmbianceSound.volume = 0.01;
@@ -89,21 +85,21 @@ export class DeskMorningScene extends Phaser.Scene {
             i18n.t('act1_morning.note_timestamp')
         );
 
-        // Affichage de la modale centrale de tutoriel
+        // Affichage de la modale centrale de tutoriel du journal
         store.setDialog({
             textKey: 'act1_morning.tutorial_desc',
-            type: 'center', // <--- Force l'utilisation du CenterNarrativeModal
+            type: 'center',
             onComplete: () => {
-                // Une fois que le joueur clique sur [ COMPRIS ], on active la zone de sortie
+                // Une fois validé, on active la zone de sortie de la pièce
                 this.setupExitHotspot();
             }
         });
     }
 
     setupExitHotspot() {
-        // Zone interactive discrète (Point-and-Click) pour laisser le joueur explorer son inventaire
+        // Zone interactive discrète pour laisser le joueur explorer son inventaire avant de partir
         const exitZone = this.add.zone(1150, 650, 120, 60)
-            .setInteractive({ useHandCursor: true });
+            .setInteractive({ useHandCursor: false }); // On gère via nos curseurs CSS
 
         const exitText = this.add.text(1150, 650, "➔ Sortir", {
             fontFamily: 'serif',
@@ -111,54 +107,39 @@ export class DeskMorningScene extends Phaser.Scene {
             color: '#aaaaaa'
         }).setOrigin(0.5);
 
-        exitZone.on('pointerover', () => exitText.setColor('#ffffff'));
-        exitZone.on('pointerout', () => exitText.setColor('#aaaaaa'));
+        exitZone.on('pointerover', () => {
+            exitText.setColor('#ffffff');
+            this.game.canvas.classList.add('cursor-path');
+        });
+
+        exitZone.on('pointerout', () => {
+            exitText.setColor('#aaaaaa');
+            this.game.canvas.classList.remove('cursor-path');
+        });
 
         exitZone.on('pointerdown', () => {
+            this.game.canvas.classList.remove('cursor-path');
             exitZone.disableInteractive();
             exitText.destroy();
-            this.triggerFreshAirChoice();
+            this.triggerFreshAirThought();
         });
     }
 
-    triggerFreshAirChoice() {
+    triggerFreshAirThought() {
         const store = useGameStore.getState();
 
+        // Pensée intime de Laurence : il faut sortir prendre l'air
         store.setDialog({
             textKey: 'act1_morning.need_fresh_air',
             type: 'bottom',
             onComplete: () => {
-                store.setDialog({
-                    textKey: 'act1_morning.choice_prompt',
-                    type: 'bottom',
-                    choices: [
-                        {
-                            id: 'GO_TO_ASYLUM',
-                            text: i18n.t('act1_morning.choice_asylum'),
-                            consequences: { mentalDelta: 2 }
-                        },
-                        {
-                            id: 'GO_TO_CITY',
-                            text: i18n.t('act1_morning.choice_city'),
-                            consequences: { exhaustionDelta: 5 }
-                        }
-                    ],
-                    onComplete: (selectedChoiceId?: string) => {
-                        if (!selectedChoiceId) return;
-
-                        const consequences = selectedChoiceId === 'GO_TO_ASYLUM'
-                            ? { mentalDelta: 2 }
-                            : { exhaustionDelta: 5 };
-
-                        store.recordChoice(selectedChoiceId, 'DeskMorningScene', consequences);
-                        this.transitionToDestination(selectedChoiceId);
-                    }
-                });
+                store.recordChoice('LEAVE_DESK', 'DeskMorningScene', { exhaustionDelta: 5 });
+                this.transitionToDestination();
             }
         });
     }
 
-    transitionToDestination(choiceId: string) {
+    transitionToDestination() {
         // --- COUPURE PROPRE DES QUATRE PISTES AUDIO ---
         if (this.musicOst) { this.musicOst.pause(); this.musicOst.currentTime = 0; }
         if (this.vinylSound) { this.vinylSound.pause(); this.vinylSound.currentTime = 0; }
@@ -167,11 +148,7 @@ export class DeskMorningScene extends Phaser.Scene {
 
         this.cameras.main.fadeOut(1000, 0, 0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-            if (choiceId === 'GO_TO_ASYLUM') {
-                this.scene.start('AsylumOfficeScene');
-            } else {
-                this.scene.start('CityExplorerScene');
-            }
+            this.scene.start('CityExplorerScene');
         });
     }
 }

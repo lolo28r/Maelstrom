@@ -1,8 +1,8 @@
 {
   "menu": {
-    "newGame": "[ NOUVELLE PARTIE ]",
-    "continue": "[ CONTINUER ]",
-    "settings": "[ REGLAGES ]"
+    "newGame": "NOUVELLE PARTIE",
+    "continue": "CONTINUER",
+    "settings": "REGLAGES"
   },
   "intro": {
     "monologue_city_steps": [
@@ -22,7 +22,7 @@
     ],
     "letter_title": "Asile d'Arkham — Notification de Transfert",
     "letter_content": "À l'attention de Laurence Lindner,\n\nNous vous informons par la présente que l'état de votre père, le Patient #402 (Dr. Lindner), a connu un déclin mental sévère au cours des dernières 48 heures.\n\nLe sujet présentant une catatonie intermittente et des troubles du comportement majeurs, la direction médicale a pris la décision de procéder à son transfert immédiat vers le Pavillon d'Isolement des cas incurables.\n\nÀ compter de ce jour, les visites sont suspendues jusqu'à nouvel ordre. Les effets personnels restants du patient sont tenus à votre disposition à l'accueil de l'établissement.\n\n— La Direction Médicale, Asile d'Arkham",
-    "tutoriel_jauges_reaction": "TUTORIEL : LA SANTÉ MENTALE ET LES JAUGES\n\nL'annonce du transfert de votre père fait chuter la Santé Mentale de Laurence.\n\n• LA RÈGLE DES JAUGES : Aucune barre d'état n'est visible en permanence à l'écran. C'est un choix délibéré : le monde extérieur ignore votre état intérieur.\n• LE TABAC (RITUEL DE LUCIDITÉ) : Fumer une cigarette est la SEULE façon d'afficher et d'évaluer l'état de vos jauges à l'écran. Cela remonte aussi légèrement votre santé mentale, au prix d'un effort.\n• LE WHISKY : Permet de regagner directement et rapidement de la Santé Mentale en cas de crise, mais alourdit considérablement votre Épuisement.\n• DANGER : Si votre Santé Mentale tombe à zéro, Laurence sombre définitivement dans la folie.",
+    "tutoriel_jauges_reaction": "Le jeu repose sur deux jauges invisibles : \n\n• La santé mentale change selon vos choix, vos dialogues et vos découvertes. Si elle tombe à zéro, Laurence se suicide. Pour l'afficher et l'évaluer, fumez une cigarette. Vous pouvez aussi boire du whisky pour stopper une crise, mais cela augmente votre épuisement.\n\n• La conscience cosmique ne fait que monter à mesure que vous découvrez l'horreur. Elle est indispensable pour progresser dans l'enquête.",
     "tutoriel_inventaire": "TUTORIEL : SACOCHE D'ARCHIVISTE\n\nVotre choc émotionnel nécessite une réaction immédiate.\n\n• ACCÈS : Cliquez sur la sacoche en bas à gauche pour l'ouvrir.\n• ACTION REQUISE : Sélectionnez la Flasque de Whisky et choisissez « BOIRE UNE GORGÉE » pour apaiser vos nerfs et faire remonter votre Santé Mentale.\n• EMPLACEMENTS : Les objets clés et indices y seront également stockés.",
     "tutoriel_epuisement": "TUTORIEL : L'ÉPUISEMENT & LES RÊVES\n\nBoire du whisky a apaisé les nerfs de Laurence, mais son corps en paye le prix. Sa jauge d'Épuisement a augmenté.\n\n• MECANIQUE : L'Épuisement augmente avec l'usage de sédatifs, l'effort mental et le temps qui passe.\n• IMPACT SUR LES RÊVES : Un niveau d'épuisement élevé altère la clarté de vos phases de sommeil. Il vous plonge dans des cauchemars plus sombres et augmente le risque de sombrer dans l'inconscience.\n• ÉVALUATION : Surveillez attentivement cet équilibre entre clarté mentale et fatigue physique.",
     "transition_sommeil": "Le vertige de l'alcool se mêle à une fatigue écrasante. Mes paupières deviennent de plomb... La réalité du bureau s'efface.",
@@ -30,7 +30,7 @@
     "q2": "Pensez-vous réellement que nous sommes en sécurité... seuls sur une boule géante dans le vide cosmique ?",
     "q3": "Dans le silence de la nuit, entendez-vous ces murmures qui rampent aux frontières de votre raison ?",
     "q4": "Avez-vous foi en un dieu bienveillant et protecteur ?",
-    "q5": "Pensez-vous que le Cosmos a eu un commencement ?",
+    "q5": "Pensez-vous que le Cosmos a eu un commencement² ?",
     "yes": "[ OUI ]",
     "no": "[ NON ]",
     "tutoriel_choix_conscience": "TUTORIEL : LA CONSCIENCE COSMIQUE\n\nVotre esprit s'ouvre aux vérités indicibles.\n\n• ICONOGRAPHIE : Les choix précédés d'un picto 👁️ ne sont révélés qu'aux esprits dont le niveau de Conscience Cosmique est suffisant.\n• IMPACT : Plus vous acceptez l'étrangeté du monde, plus de nouvelles voies s'offrent à vous... au détriment de votre santé mentale.",
@@ -141,5 +141,107 @@
     "note_title": "Premier journal - Le réveil",
     "note_content": "Mes notes ont volé en éclats et ma mémoire flanche depuis cette vision. Je dois tout consigner par écrit, avant que mon propre esprit ne m'échappe.",
     "note_timestamp": "Jour 1 - Matin"
+  },
+  "act1_church": {
+    "speaker": "Père Thomas",
+    "first_entry": [
+      "La lourde porte en chêne s'est refermée derrière moi, coupant net le sifflement glacial du vent d'Arkham.",
+      "Si je me suis tourné vers la religion, ce n'est pas par habitude, mais par cette question lancinante qui me hante depuis toujours : pourquoi sommes-nous là ?",
+      "J'ai épluché tant de dogmes, cherchant désespérément une réponse sur la véritable apparition de l'univers, sur l'étincelle initiale...",
+      "Mais plus je cherche, plus le silence de ces vieilles pierres résonne avec le vide abyssal du cosmos."
+    ],
+    "first_statue_gaze": [
+      "En avançant dans la nef, mon regard accroche la silhouette de la Vierge, drapée dans sa pierre froide.",
+      "Une étrange tiédeur m'enveloppe soudain. Cette présence maternelle m'offre un répit inespéré.",
+      "Une main tendue dans l'obscurité, un instant d'apaisement pur où mes angoisses s'effacent, ne serait-ce qu'un instant."
+    ],
+    "statue_thought": "Devrais-je m'agenouiller un instant et tenter de prier... pour apaiser ce tumulte ?",
+    "choice_pray_yes": "[ Prier et chercher l'apaisement ]",
+    "choice_pray_no": "[ Refuser de plier le genou ]",
+    "sepulchre_transition": [
+      "Je quitte la nef principale et pousse une porte latérale dissimulée dans l'ombre.",
+      "L'air y est plus lourd, empreint de cire froide et de poussière ancienne.",
+      "Dans la pénombre de la chapelle du Saint-Sépulcre, une silhouette se tient immobile près du tombeau de pierre."
+    ],
+    "priest_dialog": [
+      "Ah... un visage nouveau dans ces cryptes, mais déjà si consumé...",
+      "Le regard fuyant, les traits creusés par l'insomnie...",
+      "Approchez, mon enfant. Qu'est-ce qui pèse ainsi sur vos épaules ?"
+    ],
+    "long_discussion": {
+      "introduction": [
+        "Mon enfant, venez... Asseyez-vous.",
+        "Le monde extérieur est trop dur pour un porteur d'ombres de votre acabit.",
+        "Laissez-moi vous écouter."
+      ],
+      "laurence_contexte": [
+        "C'est mon père...",
+        "Vous ne le connaissez pas, il vivait retiré, c'était un esprit brillant et cartésien.",
+        "Mais du jour au lendemain, il a cessé d'être lui-même.",
+        "Ses yeux... Ce n'est plus mon père derrière ce regard.",
+        "C'est une autre conscience, froide, calculatrice.",
+        "Un étranger a pris possession de son corps.",
+        "Je ne sais plus quoi faire, je perds la tête."
+      ],
+      "pere_thomas_ecoute": [
+        "C'est une terrible épreuve, mon fils, mais ne désespérez pas.",
+        "La folie ou les tourments de ce monde ne sont que des illusions passagères face à la grâce.",
+        "Votre père est peut-être égaré, mais la prière et la foi offrent un refuge inespéré.",
+        "Elles seules peuvent réparer les âmes brisées et ramener la lumière.",
+        "Confiez-lui votre peine."
+      ],
+      "invite_reflexion": "Qu'est-ce qui consume encore votre esprit ?",
+      "themes_philosophiques": {
+        "theme_1_horloger": {
+          "laurence": [
+            "Dites-moi, Père...",
+            "Vivons-nous dans un monde régi par un grand Horloger qui a tout calculé...",
+            "Ou tout cela n'est-il qu'un chaos aveugle, un hasard froid qui broie les hommes sans raison ?"
+          ],
+          "pere_thomas": [
+            "L'Homme moderne cherche des rouages partout parce qu'il a peur du vide, mon fils.",
+            "Mais l'ordre divin est bien réel.",
+            "Chaque étoile et chaque souffle obéissent à un dessein sacré et bienveillant.",
+            "Croire au simple hasard, c'est se condamner à la terreur de l'absurde."
+          ]
+        },
+        "theme_2_creation_souffrance": {
+          "laurence": [
+            "Si Dieu est tout-puissant et bon, pourquoi nous avoir créés pour souffrir ainsi ?",
+            "Pourquoi ce deuil, cette pourriture qui ronge les esprits de l'intérieur ?"
+          ],
+          "pere_thomas": [
+            "La souffrance n'est pas un châtiment aveugle, mon enfant.",
+            "C'est le creuset par lequel l'âme se purifie et se rapproche de la perfection divine.",
+            "Pour apprécier la lumière, l'esprit doit traverser l'épreuve des ténèbres terrestres."
+          ]
+        },
+        "theme_3_origine_dieu": {
+          "laurence": [
+            "Et si tout doit avoir une cause... qui a créé Dieu ?",
+            "Où s'arrête cette chaîne infinie d'existences ?",
+            "Ne sommes-nous pas juste prisonniers d'une boucle sans fin ?"
+          ],
+          "pere_thomas": [
+            "Vous cherchez un commencement là où réside l'Éternité.",
+            "Dieu n'a pas de cause parce qu'Il est la Source de toute chose, l'Alpha et l'Oméga.",
+            "Vouloir mesurer le Créateur avec notre logique de mortel, c'est vouloir enfermer l'océan dans une coupe."
+          ]
+        }
+      },
+      "conclusion_dilemme": [
+        "Vous êtes venu ici pour fuir le néant, Laurence.",
+        "Alors, dites-moi...",
+        "Cet échange a-t-il apaisé vos tourments et conforté votre foi dans le dessein sacré...",
+        "Ou vous a-t-il laissé aux prises avec le froid du doute ?"
+      ],
+      "choice_prier_ pere": "[ S'agenouiller et prier pour le salut de son père ]",
+      "choice_refuser_prier": "[ Votre foi est ébranlée, vous refusez de prier ]",
+      "offrande_finale": [
+        "Prenez ceci. Ce chapelet a traversé les années.",
+        "Qu'il vous serve de point d'ancrage et de bouclier quand le monde extérieur vous paraîtra trop menaçant.",
+        "Revenez me voir dès que le silence pèsera trop lourd."
+      ]
+    }
   }
 }

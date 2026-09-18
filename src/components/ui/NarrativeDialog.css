@@ -27,17 +27,35 @@
   max-width: 54rem !important;
   min-height: 140px !important;
   padding: 1.5rem 2rem !important;
-  background-color: rgba(0, 0, 0, 0.85) !important;
-  /* Le fond noir semi-transparent exact */
-  border: none !important;
-  /* Pas de bordure comme dans ta boîte Phaser */
+  background-color: rgba(0, 0, 0, 0.88) !important;
+  border: 1px solid rgba(168, 159, 133, 0.25) !important;
+  /* Une micro-bordure couleur parchemin estompée pour l'ancrer */
   border-radius: 4px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.95) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.98), inset 0 0 20px rgba(0, 0, 0, 0.8) !important;
+  /* Effet de profondeur interne */
+  backdrop-filter: blur(4px) !important;
+  /* Léger flou subtil sur ce qui est derrière */
   position: relative !important;
   pointer-events: auto !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* On ajoute un subtil effet de scanlines/grille rétro sur la boîte elle-même pour qu'elle épouse le style Phaser */
+.narrative-dialog-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+      rgba(0, 0, 0, 0.2) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.6;
+  border-radius: 4px;
 }
 
 .narrative-dialog-header {

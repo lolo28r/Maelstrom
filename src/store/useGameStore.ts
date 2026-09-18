@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import i18n from '../i18n';
 import { RecordedChoice, ChoiceSystem } from '../game/helper/ChoiceSystem';
 import { JournalSlice, createJournalSlice } from './journalSlice';
+import { DevSlice, createDevSlice } from './devSlice';
 
 export interface Item {
     id: string;
@@ -53,6 +54,7 @@ export interface Act1Progress {
     secretDrawerUnlocked: boolean;
     secretLabOpened: boolean;
     trapezohedronCollected: boolean;
+    priestEncountered?: boolean;
 }
 
 export interface StatNotification {
@@ -62,8 +64,8 @@ export interface StatNotification {
     type: 'mental' | 'exhaustion' | 'consciousness';
 }
 
-// Fusion du GameState avec JournalSlice pour éviter les erreurs TypeScript
-export interface GameState extends JournalSlice {
+// Fusion du GameState avec JournalSlice et DevSlice pour éviter les erreurs TypeScript
+export interface GameState extends JournalSlice, DevSlice {
     mentalHealth: number;
     exhaustion: number;
     consciousness: number;
@@ -138,6 +140,7 @@ const initialAct1Progress: Act1Progress = {
     secretDrawerUnlocked: false,
     secretLabOpened: false,
     trapezohedronCollected: false,
+    priestEncountered: false
 };
 
 export const useGameStore = create<GameState>()((set, get, store) => ({
@@ -270,15 +273,17 @@ export const useGameStore = create<GameState>()((set, get, store) => ({
             let newMental = state.mentalHealth;
             let newExhaustion = state.exhaustion;
             let newConsciousness = state.consciousness;
+            let toastToSet: StatNotification | null = null;
 
             if (consequences.mentalDelta) {
                 newMental = Math.min(100, Math.max(0, state.mentalHealth + consequences.mentalDelta));
-            }
-            if (consequences.exhaustionDelta) {
+                toastToSet = { id: Date.now(), statName: "Santé Mentale", delta: consequences.mentalDelta, type: 'mental' };
+            } else if (consequences.exhaustionDelta) {
                 newExhaustion = Math.min(100, Math.max(0, state.exhaustion + consequences.exhaustionDelta));
-            }
-            if (consequences.consciousnessDelta) {
+                toastToSet = { id: Date.now(), statName: "Épuisement", delta: consequences.exhaustionDelta, type: 'exhaustion' };
+            } else if (consequences.consciousnessDelta) {
                 newConsciousness = Math.min(100, Math.max(0, state.consciousness + consequences.consciousnessDelta));
+                toastToSet = { id: Date.now(), statName: "Conscience Cosmique", delta: consequences.consciousnessDelta, type: 'consciousness' };
             }
 
             return {
@@ -286,6 +291,7 @@ export const useGameStore = create<GameState>()((set, get, store) => ({
                 mentalHealth: newMental,
                 exhaustion: newExhaustion,
                 consciousness: newConsciousness,
+                activeToast: toastToSet,
             };
         });
     },
@@ -381,8 +387,9 @@ export const useGameStore = create<GameState>()((set, get, store) => ({
     isEyelidsClosing: false,
     setEyelidsClosing: (closing) => set({ isEyelidsClosing: closing }),
 
-    // Intégration de la slice Journal
+    // Intégration des Slices
     ...createJournalSlice(set, get, store),
+    ...createDevSlice(set, get, store),
 
     saveGame: () => {
         try {

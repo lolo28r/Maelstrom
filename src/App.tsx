@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import Phaser from 'phaser';
 import { phaserGameConfig } from './game/config';
@@ -24,6 +23,20 @@ export const App: React.FC = () => {
         if (!gameRef.current) {
             gameRef.current = new Phaser.Game(phaserGameConfig);
         }
+
+        // --- ÉCOUTEUR GLOBAL POUR LE CODE SECRET "1937" ---
+        let keySequence: string[] = [];
+        const handleKeyDown = (e: KeyboardEvent) => {
+            keySequence.push(e.key);
+            if (keySequence.length > 4) keySequence.shift();
+
+            if (keySequence.join('') === '1937') {
+                useGameStore.getState().toggleDevMode();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
     return (
