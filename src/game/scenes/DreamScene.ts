@@ -160,7 +160,7 @@ export class DreamScene extends Phaser.Scene {
         if (consciousness >= thresholdConsciousness) {
             choices.push({
                 id: 'choice_old_ones_what',
-                text: "👁️ « Les Grands Anciens ? »",
+                text: "👁️ « Ceux qui n'ont de nom ? »",
                 consequences: { consciousnessDelta: 15 }
             });
 

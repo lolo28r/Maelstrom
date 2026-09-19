@@ -1,23 +1,47 @@
 {
   "menu": {
-    "newGame": "[ NEW GAME ]",
-    "continue": "[ CONTINUE ]",
-    "settings": "[ SETTINGS ]"
+    "newGame": "NEW GAME",
+    "continue": "CONTINUE",
+    "settings": "SETTINGS"
   },
   "intro": {
-    "monologue_city": "Arkham, autumn 1926. The thick fog from the Miskatonic smothers the city like a shroud. My name is Laurence Lindner. Ever since my father's sudden disappearance, the university archives have been my sole refuge... and my only clue.",
-    "monologue_office": "The Professor's office is plunged into darkness. A strange dust hangs in the air... and there, resting on the mahogany blotter, a letter catches my eye.",
-    "letter_title": "Sealed Letter from Miskatonic University",
-    "letter_content": "Dear Laurence,\n\nIf you are reading this, I have been forced to leave Arkham in haste. The discoveries made during the Lindner expedition exceed human reason. The resonances of the Trapezohedron can no longer be silenced. Do not open the door to the secret laboratory under any circumstances without activating the True View.\n\n— Professor Vance",
-    "q1": "Have you ever wondered what dark secrets our universe truly holds?",
-    "q2": "Do you really think we are safe... alone on a giant sphere in the cosmic void?",
-    "q3": "In the silence of the night, do you hear those whispers creeping at the edges of your sanity?",
+    "monologue_city_steps": [
+      "My name is Laurence Lindner.",
+      "Over the past few months, I have watched my father slip away from the living.",
+      "He was no longer quite himself.",
+      "A shadow in his eyes, a way of speaking that was entirely foreign to me...",
+      "Then catatonia set in, mute and impenetrable.",
+      "And on this January evening in 1925, winter seemed to weigh upon Arkham like a shroud..."
+    ],
+    "monologue_office_steps": [
+      "I had spent the day at the Miskatonic Library, lost in ancient treatises on astronomy.",
+      "As the eclipse approached, a strange fever gripped the city...",
+      "...and I sought in the movement of the stars a calm that my own reason could no longer offer.",
+      "My office finally welcomed me, saturated with dry ink and cold tobacco.",
+      "Yet upon the leather blotter, an envelope from the Arkham Asylum awaited me."
+    ],
+    "letter_title": "Arkham Asylum — Transfer Notification",
+    "letter_content": "Attention Laurence Lindner,\n\nWe hereby inform you that the condition of your father, Patient #402 (Dr. Lindner), has experienced a severe mental decline over the past 48 hours.\n\nAs the subject exhibits intermittent catatonia and major behavioral disorders, the medical management has decided to proceed with his immediate transfer to the Incurable Ward.\n\nAs of this day, visits are suspended until further notice. The patient's remaining personal effects are being held for you at the facility's reception.\n\n— The Medical Management, Arkham Asylum",
+    "tutoriel_jauges_reaction": "The game relies on two hidden gauges: \n\n• Mental health fluctuates based on your choices, dialogues, and discoveries. If it drops to zero, Laurence commits suicide. To view and evaluate it, smoke a cigarette. You can also drink whisky to stop a crisis, but it increases your exhaustion.\n\n• Cosmic consciousness only rises as you uncover the horror. It is essential for progressing through the investigation.",
+    "tutoriel_inventaire": "TUTORIAL: ARCHIVIST'S SATCHEL\n\nYour emotional shock requires an immediate reaction.\n\n• ACCESS: Click on the satchel in the bottom left corner to open it.\n• REQUIRED ACTION: Select the Flask of Whisky and choose 'TAKE A SIP' to soothe your nerves and raise your Mental Health.\n• SLOTS: Key items and clues will also be stored here.",
+    "tutoriel_epuisement": "TUTORIAL: EXHAUSTION & DREAMS\n\nDrinking whisky has soothed Laurence's nerves, but his body pays the price. His Exhaustion gauge has increased.\n\n• MECHANIC: Exhaustion increases with the use of sedatives, mental effort, and the passage of time.\n• IMPACT ON DREAMS: A high level of exhaustion alters the clarity of your sleep phases. It plunges you into darker nightmares and increases the risk of slipping into unconsciousness.\n• EVALUATION: Carefully monitor this balance between mental clarity and physical fatigue.",
+    "transition_sommeil": "The vertigo of alcohol mixes with overwhelming fatigue. My eyelids grow heavy... The reality of the office fades away.",
+    "q1": "Have you ever wondered what dark secrets our universe conceives?",
+    "q2": "Do you truly believe we are safe... alone on a giant sphere in the cosmic void?",
+    "q3": "In the silence of the night, do you hear those whispers crawling at the borders of your reason?",
     "q4": "Do you have faith in a benevolent and protective god?",
-    "q5": "Do you believe in the Big Bang?",
+    "q5": "Do you think the Cosmos had a beginning?",
     "yes": "[ YES ]",
     "no": "[ NO ]",
+    "tutoriel_choix_conscience": "TUTORIAL: COSMIC CONSCIOUSNESS\n\nYour mind opens to unspeakable truths.\n\n• ICONOGRAPHY: Choices preceded by a 👁️ icon are only revealed to minds whose level of Cosmic Consciousness is sufficient.\n• IMPACT: The more you accept the strangeness of the world, the more new paths open up to you... at the expense of your mental health.",
+    "tobacco_ritual_steps": [
+      "Laurence searches in silence through the corners of his satchel and pulls out the worn tobacco pouch.",
+      "After carefully rolling a cigarette between his numb fingers, he lights it with a sharp gesture.",
+      "He lets himself be slowly enveloped by the harsh, thick smoke, seeking a fleeting refuge in the solitude of the room.",
+      "For the duration of an exhale, the fog in his mind lifts to reveal the truth of his inner gauges..."
+    ],
     "verdicts": {
-      "fanatique": "FANATICAL",
+      "fanatique": "FANATIC",
       "aveugle": "BLIND",
       "lucide": "LUCID",
       "curieux": "CURIOUS",
@@ -26,7 +50,201 @@
     },
     "credits": {
       "author": "Written, developed, and imagined by Laurien Roche",
-      "ai": "With the help of Artificial Intelligence"
+      "ai": "With the assistance of Artificial Intelligence",
+      "homage_line_1": "Inspired by the immortal work of Howard Phillips Lovecraft (1890–1937),",
+      "homage_line_2": "in deep homage to his universe and the fascination it continues to hold over our minds."
     }
+  },
+  "dream": {
+    "scene_1": {
+      "speaker": "????????????",
+      "step_1": [
+        "Another sip.",
+        "Always the same bottle, Laurence.",
+        "Do you think it will help silence the screams in your head?"
+      ],
+      "step_1_reactions": {
+        "choice_alcohol_needed": "Pathetic.",
+        "choice_alcohol_defensive": "Aggression is the shield of the weak.",
+        "choice_alcohol_defensive_2": "You can spit your venom, Laurence.",
+        "choice_alcohol_defensive_3": "It only widens the cracks."
+      },
+      "step_2": [
+        "Your poor father...",
+        "Who knows the atrocities he suffers down there...",
+        "Are you sure it's really him we hear screaming in his cell?"
+      ],
+      "step_3": [
+        "Look at the sky, Laurence.",
+        "Soon, those who have no name will descend upon the earth.",
+        "Will you be there to welcome them?"
+      ],
+      "step_3_reactions": {
+        "choice_old_ones_yes": "You know nothing.",
+        "choice_old_ones_yes_2": "But I know what you want.",
+        "choice_old_ones_no": "Keeping your eyes closed is often safer than facing the truth.",
+        "choice_old_ones_what": "Those who slumber beyond the stars...",
+        "choice_old_ones_what_2": "...and within the folds of your own mind.",
+        "choice_old_ones_what_3": "You are merely echoing their dreams, Laurence."
+      },
+      "step_3_bonus": [
+        "Looking the void in the face requires a stomach much stronger than yours, Laurence..."
+      ],
+      "step_4": [
+        "If you truly want to understand why your world is so empty, trust me.",
+        "Then I will show you my true face.",
+        "Is that what you want?"
+      ],
+      "step_4_reactions": {
+        "choice_final_yes": "Your curiosity is your greatest flaw.",
+        "choice_final_no": "You will not have a choice."
+      },
+      "step_4_fail_wakeup": [
+        "You pull at your eyelids.",
+        "You cling to the sheets...",
+        "But your eyes refuse to open.",
+        "You are a prisoner here."
+      ],
+      "outro_irony": [
+        "Who knows, after all...",
+        "Who do you think you are talking to right now?"
+      ]
+    }
+  },
+  "act1_morning": {
+    "need_fresh_air": [
+      "The ink on my notes has barely dried before the suffocating air of this room weighs upon my temples.",
+      "I must go out. If only to dispel this lingering fog..."
+    ],
+    "choice_prompt": "Where should I direct my steps now?",
+    "choice_asylum": "[ Go directly to Arkham Asylum ]",
+    "choice_city": "[ Stroll through the streets of Arkham ]",
+    "headache": [
+      "I woke up that morning slumped over the cold wood of my desk.",
+      "A throbbing pain hammered at my temples, a headache whose habituation did nothing to lessen its cruelty."
+    ],
+    "missing": [
+      "As I gradually regained my senses, my hand mechanically reached for where I kept my belongings.",
+      "The realization was immediate, freezing: my supply of alcohol and all my research notes had vanished.",
+      "Yet I am the only one who holds the key to this modest room.",
+      "Could I have committed acts in my sleep, guided by an unconsciousness I refuse to admit?",
+      "Be that as it may, I no longer have a choice: I must log everything in writing."
+    ],
+    "tutorial_desc": [
+      "NEW SYSTEM UNLOCKED: LOGBOOK",
+      "Your personal journal has been unlocked.",
+      "Faced with the mounting disturbances, Laurence must record his thoughts and investigation clues in writing.",
+      "Regularly open your grimoire to validate and write down pending notes."
+    ],
+    "open_journal_btn": "Open journal / Begin investigation",
+    "skip_journal_btn": "Continue",
+    "note_title": "First journal - Awakening",
+    "note_content": "My notes have shattered and my memory is slipping since that vision. I must write everything down before my own mind escapes me.",
+    "note_timestamp": "Day 1 - Morning"
+  },
+  "act1_church": {
+    "speaker": "Father Thomas",
+    "first_entry": [
+      "The heavy oak door closed behind me, cutting off the glacial whistle of Arkham's wind.",
+      "If I turned to religion, it was not out of habit, but because of this haunting question that has always plagued me: why are we here?",
+      "I have combed through so many dogmas, desperately seeking an answer regarding the true origin of the universe, the initial spark...",
+      "But the more I search, the more the silence of these old stones echoes with the abyssal void of the cosmos."
+    ],
+    "first_statue_gaze": [
+      "Stepping into the nave, my gaze catches the silhouette of the Virgin, draped in her cold stone.",
+      "A strange warmth suddenly envelops me. This maternal presence offers an unexpected respite.",
+      "An outstretched hand in the darkness, a moment of pure peace where my anxieties vanish, if only for a second."
+    ],
+    "statue_thought": "Should I kneel for a moment and attempt to pray... to calm this turmoil?",
+    "choice_pray_yes": "[ Pray and seek solace ]",
+    "choice_pray_no": "[ Refuse to bend the knee ]",
+    "sepulchre_transition": [
+      "I leave the main nave and push open a side door concealed in the shadows.",
+      "The air here is heavier, steeped in cold wax and ancient dust.",
+      "In the gloom of the Holy Sepulchre chapel, a figure stands motionless near the stone tomb."
+    ],
+    "priest_dialog": [
+      "Ah... a new face in these crypts, yet already so consumed...",
+      "Eyes drifting, features carved by insomnia...",
+      "Approach, my child. What weighs so heavily upon your shoulders?"
+    ],
+    "long_discussion": {
+      "introduction": [
+        "My child, come... Sit down.",
+        "The outside world is too harsh for a bearer of shadows like you.",
+        "Let me listen to you."
+      ],
+      "laurence_contexte": [
+        "It's my father...",
+        "You don't know him; he lived a secluded life, a brilliant and rational mind.",
+        "But overnight, he stopped being himself.",
+        "His eyes... It is no longer my father behind that gaze.",
+        "It is another consciousness, cold, calculating.",
+        "A stranger has taken possession of his body.",
+        "I don't know what to do anymore; I'm losing my mind."
+      ],
+      "pere_thomas_ecoute": [
+        "It is a terrible ordeal, my son, but do not despair.",
+        "Madness or the torments of this world are merely passing illusions in the face of grace.",
+        "Your father may be lost, but prayer and faith offer an unexpected refuge.",
+        "They alone can mend broken souls and bring back the light.",
+        "Entrust your sorrow to Him."
+      ],
+      "invite_reflexion": "What is still consuming your mind?",
+      "themes_philosophiques": {
+        "theme_1_horloger": {
+          "laurence": [
+            "Tell me, Father...",
+            "Do we live in a world governed by a grand Clockmaker who calculated everything...",
+            "Or is all this merely a blind chaos, a cold hazard grinding men down without reason?"
+          ],
+          "pere_thomas": [
+            "Modern man looks for cogs everywhere because he fears the void, my son.",
+            "Yet the divine order is very real.",
+            "Every star and every breath obey a sacred and benevolent design.",
+            "To believe in mere chance is to doom oneself to the terror of the absurd."
+          ]
+        },
+        "theme_2_creation_souffrance": {
+          "laurence": [
+            "If God is all-powerful and good, why create us to suffer like this?",
+            "Why this mourning, this rot eating away at minds from within?"
+          ],
+          "pere_thomas": [
+            "Suffering is not a blind punishment, my child.",
+            "It is the crucible through which the soul is purified and draws closer to divine perfection.",
+            "To appreciate the light, the spirit must pass through the trial of earthly darkness."
+          ]
+        },
+        "theme_3_origine_dieu": {
+          "laurence": [
+            "And if everything must have a cause... who created God?",
+            "Where does this infinite chain of existences end?",
+            "Are we not simply trapped in an endless loop?"
+          ],
+          "pere_thomas": [
+            "You seek a beginning where Eternity resides.",
+            "God has no cause because He is the Source of all things, the Alpha and the Omega.",
+            "Wanting to measure the Creator with our mortal logic is like trying to contain the ocean in a cup."
+          ]
+        }
+      },
+      "conclusion_dilemme": [
+        "You came here to flee the void, Laurence.",
+        "So tell me...",
+        "Has this exchange soothed your torments and comforted your faith in the sacred design...",
+        "Or has it left you grappling with the chill of doubt?"
+      ],
+      "choice_prier_pere": "[ Kneel and pray for your father's salvation ]",
+      "choice_refuser_prier": "[ Your faith is shaken, you refuse to pray ]",
+      "offrande_finale": [
+        "Take this. This rosary has weathered the years.",
+        "May it serve as your anchor and shield when the outside world feels too threatening.",
+        "Come back to see me whenever the silence weighs too heavily."
+      ]
+    },
+    "cross_lore_part1": "Jesus of Nazareth... The Son of God, descended among men to guide straying humanity toward the light and eternal salvation.",
+    "cross_lore_part2": "I was taught that by accepting to die on the cross, he took upon himself the burden and the weight of all human sins. An ultimate offering to redeem our flawed nature.",
+    "cross_lore_part3": "Deep down, I always wanted to believe it. But as I raise my eyes toward this carved wood... Was it truly Him? What if the weight of our faults was far too heavy for a single man?"
   }
 }

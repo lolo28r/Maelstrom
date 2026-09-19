@@ -142,6 +142,26 @@
     "note_content": "Mes notes ont volé en éclats et ma mémoire flanche depuis cette vision. Je dois tout consigner par écrit, avant que mon propre esprit ne m'échappe.",
     "note_timestamp": "Jour 1 - Matin"
   },
+  "act1_city": {
+    "newspaper_eclipse": {
+      "title": "La Gazette d'Arkham — Édition du 20 Janvier 1925",
+      "content": "ARKHAM — 20 JANVIER 1925\n\nÀ quatre jours de l'éclipse totale de Soleil annoncée par l'Observatoire de l'Université Miskatonic, la cité s'enfonce chaque jour un peu plus dans une anxiété sourde et glaciale. Les températures polaires qui s'abattent sur la vallée de la Miskatonic ne suffisent pas à expliquer la fébrilité qui s'empare des habitants à l'approche de la conjonction astrale.\n\nAlors que les savants se veulent rassurants face à ce qu'ils qualifient de simple prodige de mécanique céleste, les bas-fonds bruissent de rumeurs bien plus inquiétantes. Des colporteurs et des fidèles d'un nouveau genre, rassemblés autour d'un mystérieux prédicateur autoproclamé venu de l'étranger, multiplient les veillées nocturnes en lisière des bois. Ces illuminés, que certains nomment déjà les adeptes du 'Guide', voient dans l'obscurité à venir le signal d'une renaissance cosmique.\n\nLa police municipale appelle à la plus grande vigilance face à ces rassemblements sectaires qui profitent de la crédulité publique. Une chose est sûre : sous un ciel d'hiver de plus en plus livide, Arkham retient son souffle.",
+      "timestamp": "Jour 1",
+      "note_title": "Indice — L'approche de l'éclipse et les rumeurs",
+      "note_content": "La Gazette d'Arkham du 20 janvier annonce l'éclipse pour dans quatre jours et mentionne l'apparition inquiétante d'un nouveau culte mené par un mystérieux gourou dans les bois."
+    }
+  },
+  "act1_street": {
+    "dispute_intro": "Je m'arrête un instant, retenant ma respiration près d'une façade. Derrière la porte close, des voix s'élèvent, rendues étouffées par le bois.",
+    "dispute_f1": "Tu m'avais promis que tu n'irais plus là-bas !",
+    "dispute_h1": "Tu ne comprends pas ce que nous avons découvert.",
+    "dispute_f2": "Ce n'est pas une découverte. C'est une secte.",
+    "dispute_h2": "Ne prononce jamais ce mot ici.",
+    "dispute_f3": "Alors comment dois-je appeler ça ? Tes réunions ? Tes prières ? Cet homme qui vous parle comme s'il était envoyé par Dieu ?",
+    "dispute_h3": "Il nous montre ce que l'Église nous a caché... Il sait qui est derrière les prières.",
+    "dispute_f4": "Un bruit sourd résonne à l'intérieur, comme un meuble bousculé, suivi d'un silence lourd. La voix de la femme tremble : — Tu devrais avoir peur de lui...",
+    "dispute_h4": "J'ai peur de ce qui arrivera si nous cessons de l'écouter."
+  },
   "act1_church": {
     "speaker": "Père Thomas",
     "first_entry": [
@@ -184,25 +204,24 @@
         "Je ne sais plus quoi faire, je perds la tête."
       ],
       "pere_thomas_ecoute": [
-        "C'est une terrible épreuve, mon fils, mais ne désespérez pas.",
-        "La folie ou les tourments de ce monde ne sont que des illusions passagères face à la grâce.",
-        "Votre père est peut-être égaré, mais la prière et la foi offrent un refuge inespéré.",
-        "Elles seules peuvent réparer les âmes brisées et ramener la lumière.",
-        "Confiez-lui votre peine."
+        "C'est une terrible épreuve, mon fils, mais ne voyez pas là le néant.",
+        "Dieu ne nous abandonne jamais, Il éprouve notre foi pour mieux nous ramener vers Son amour.",
+        "Votre père est peut-être prisonnier de la tourmente, mais l'âme humaine échappe aux lois de la matière.",
+        "La prière est le seul pont capable de traverser les ténèbres. Confiez-le à Celui qui a vaincu la mort.",
+        "Écoutez votre cœur : n'y a-t-il pas une justice et une lumière qui guident nos pas, même dans l'épreuve ?"
       ],
       "invite_reflexion": "Qu'est-ce qui consume encore votre esprit ?",
       "themes_philosophiques": {
         "theme_1_horloger": {
           "laurence": [
             "Dites-moi, Père...",
-            "Vivons-nous dans un monde régi par un grand Horloger qui a tout calculé...",
-            "Ou tout cela n'est-il qu'un chaos aveugle, un hasard froid qui broie les hommes sans raison ?"
+            "Est-ce que c'est vraiment le hasard ou Dieu nous a créés, avec tout ce que ça implique ?"
           ],
           "pere_thomas": [
-            "L'Homme moderne cherche des rouages partout parce qu'il a peur du vide, mon fils.",
-            "Mais l'ordre divin est bien réel.",
-            "Chaque étoile et chaque souffle obéissent à un dessein sacré et bienveillant.",
-            "Croire au simple hasard, c'est se condamner à la terreur de l'absurde."
+            "Regardez la beauté de la Création, mon fils. La complexité d'une vie, l'harmonie des saisons...",
+            "L'idée que tout cela soit né du néant et du hasard pur relève de l'absurde.",
+            "Dieu est le Créateur souverain, et chaque homme a une place unique et voulue dans Son grand dessein.",
+            "Le doute vient de notre impuissance à voir le tableau tout entier, mais l'amour de Dieu, lui, ne faillit jamais."
           ]
         },
         "theme_2_creation_souffrance": {
@@ -211,9 +230,10 @@
             "Pourquoi ce deuil, cette pourriture qui ronge les esprits de l'intérieur ?"
           ],
           "pere_thomas": [
-            "La souffrance n'est pas un châtiment aveugle, mon enfant.",
-            "C'est le creuset par lequel l'âme se purifie et se rapproche de la perfection divine.",
-            "Pour apprécier la lumière, l'esprit doit traverser l'épreuve des ténèbres terrestres."
+            "C'est le mystère du libre arbitre et de la chute, mon enfant.",
+            "Dieu nous a créés par amour, libres de choisir le bien ou de nous en détourner.",
+            "La souffrance n'est pas voulue pour elle-même ; elle est la conséquence de notre séparation d'avec la source divine.",
+            "Mais le Christ a souffert sur la croix pour nous montrer que la douleur n'a pas le dernier mot. Elle est rachetée par l'espérance."
           ]
         },
         "theme_3_origine_dieu": {
@@ -223,9 +243,10 @@
             "Ne sommes-nous pas juste prisonniers d'une boucle sans fin ?"
           ],
           "pere_thomas": [
-            "Vous cherchez un commencement là où réside l'Éternité.",
-            "Dieu n'a pas de cause parce qu'Il est la Source de toute chose, l'Alpha et l'Oméga.",
-            "Vouloir mesurer le Créateur avec notre logique de mortel, c'est vouloir enfermer l'océan dans une coupe."
+            "Vous appliquez la logique des choses créées à Celui qui est incréé, mon fils.",
+            "Tout ce qui commence a une cause, certes. Mais Dieu est l'Être par essence, l'Alpha et l'Oméga, Celui qui Est de toute éternité.",
+            "S'il fallait un créateur à Dieu, il faudrait un créateur à ce créateur, à l'infini... ce qui n'aurait aucun sens.",
+            "La foi consiste précisément à reconnaître qu'il existe une source première, un amour absolu qui transcende notre petite raison."
           ]
         }
       },
@@ -235,13 +256,22 @@
         "Cet échange a-t-il apaisé vos tourments et conforté votre foi dans le dessein sacré...",
         "Ou vous a-t-il laissé aux prises avec le froid du doute ?"
       ],
-      "choice_prier_ pere": "[ S'agenouiller et prier pour le salut de son père ]",
+      "choice_prier_pere": "[ S'agenouiller et prier pour le salut de son père ]",
       "choice_refuser_prier": "[ Votre foi est ébranlée, vous refusez de prier ]",
       "offrande_finale": [
         "Prenez ceci. Ce chapelet a traversé les années.",
         "Qu'il vous serve de point d'ancrage et de bouclier quand le monde extérieur vous paraîtra trop menaçant.",
         "Revenez me voir dès que le silence pèsera trop lourd."
       ]
-    }
+    },
+    "cross_lore_part1": "Jésus de Nazareth... Le Fils de Dieu, descendu parmi les hommes pour guider l'humanité égarée vers la lumière et le salut éternel.",
+    "cross_lore_part2": "On m'a enseigné qu'en acceptant de mourir sur la croix, il a pris sur lui le fardeau et le poids des péchés de tous les hommes. Une offrande ultime pour racheter notre nature fautive.",
+    "cross_lore_part3": "Au fond de moi, j'ai toujours voulu y croire. Mais en levant les yeux vers ce bois sculpté... Est-ce que c'était vraiment Lui ? Et si le poids de nos fautes était bien trop lourd pour un seul homme ?",
+    "bench_thought": "Je m'affaisse un instant sur le bois froid et vernis d'un banc. Le silence de la nef m'enveloppe, lourd et solennel. Mes jambes me portent à peine... Ici, loin du monde, le temps semble suspendu, mais le poids de mes pensées ne me quitte pas pour autant."
+  },
+  "act1_store": {
+    "shopkeeper_dialog": "« Qu'est-ce qu'il vous faut ? Ne traînez pas trop, le givre commence à piquer les vitres et j'ai hâte de fermer boutique. »",
+    "stove_dialog": "Un mastodonte de fonte noire qui diffuse une chaleur poussive, luttant difficilement contre le froid mordant d'Arkham. Autrefois, ce magasin ravitaillait les équipages du port avant que la rivière ne s'ensable.",
+    "shelves_dialog": "Des pots d'apothicaire remplis d'herbes séchées et de flacons d'épices exotiques aux étiquettes à demi effacées. Des reliques d'un commerce d'importation qui a périclité avec la mort du fleuve."
   }
 }

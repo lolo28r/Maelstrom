@@ -3,13 +3,15 @@ import { useGameStore, ChoiceOption } from '../../store/useGameStore';
 import { HotspotZone } from '../helper/HotSpotZone';
 import i18n from '../../i18n';
 
-type CityLocation = 'CARREFOUR' | 'JOURNAL_STREET' | 'PORTE_LIB' | 'ENTREE_LIB' | 'SALON' | 'TABAC' | 'EGLISE_EXT' | 'EGLISE_INT' | 'CHAPELLE' | 'SEPULCRE';
+type CityLocation = 'CARREFOUR' | 'JOURNAL_STREET' | 'PORTE_LIB' | 'ENTREE_LIB' | 'SALON' | 'TABAC' | 'TABAC_INT' | 'EGLISE_EXT' | 'EGLISE_INT' | 'CHAPELLE' | 'SEPULCRE';
 
 export class CityExplorerScene extends Phaser.Scene {
     private currentBg!: Phaser.GameObjects.Image;
     private thoughtText?: Phaser.GameObjects.Text;
     private activeHotspots: HotspotZone[] = [];
     private backButton?: Phaser.GameObjects.Text;
+    private churchMusic?: Phaser.Sound.BaseSound;
+    private storeMusic?: Phaser.Sound.BaseSound; // 👈 Référence pour la musique du magasin
 
     private hasVisitedChurch: boolean = false;
     private hasSeenStatue: boolean = false;
@@ -28,11 +30,16 @@ export class CityExplorerScene extends Phaser.Scene {
         this.load.image('porteLib', `${baseUrl}assets/porteLib.jpg`);
         this.load.image('entreeLib', `${baseUrl}assets/entreeLib.jpg`);
         this.load.image('salon', `${baseUrl}assets/salon.png`);
-        this.load.image('tabac1', `${baseUrl}assets/tabac1.jpg`);
+        this.load.image('tabac1', `${baseUrl}assets/tabac1.jpg`); // Extérieur / Façade du tabac
+        this.load.image('interieurStore', `${baseUrl}assets/interieurStore.jpg`); // Intérieur du magasin
         this.load.image('egliseExt', `${baseUrl}assets/egliseExt.jpg`);
         this.load.image('eglise', `${baseUrl}assets/eglise.jpg`);
         this.load.image('chapelleVierge', `${baseUrl}assets/chapelleVierge.jpg`);
         this.load.image('priest', `${baseUrl}assets/priest.jpg`);
+
+        // Chargement des musiques
+        this.load.audio('ostEglise', `${baseUrl}assets/ostEglise.mp3`);
+        this.load.audio('ostStore', `${baseUrl}assets/ostStore.mp3`);
     }
 
     create() {
@@ -57,6 +64,22 @@ export class CityExplorerScene extends Phaser.Scene {
         }
     }
 
+    private stopChurchMusic() {
+        if (this.churchMusic) {
+            this.churchMusic.stop();
+            this.churchMusic.destroy();
+            this.churchMusic = undefined;
+        }
+    }
+
+    private stopStoreMusic() {
+        if (this.storeMusic) {
+            this.storeMusic.stop();
+            this.storeMusic.destroy();
+            this.storeMusic = undefined;
+        }
+    }
+
     private addHotspot(config: ConstructorParameters<typeof HotspotZone>[0]) {
         const hotspot = new HotspotZone(config);
         this.activeHotspots.push(hotspot);
@@ -67,6 +90,8 @@ export class CityExplorerScene extends Phaser.Scene {
     // 1. CARREFOUR CENTRAL
     // ==========================================
     private enterCarrefour() {
+        this.stopChurchMusic();
+        this.stopStoreMusic();
         this.clearSceneElements();
         this.currentLocation = 'CARREFOUR';
         const { width, height } = this.scale;
@@ -91,6 +116,7 @@ export class CityExplorerScene extends Phaser.Scene {
             onClick: () => { }
         });
 
+        // Rue de droite menant au tabac / magasin
         this.addHotspot({
             scene: this, x: width * 0.82, y: height * 0.5, width: 220, height: 380,
             type: 'path', actionLabel: "S'engager dans la rue à droite",
@@ -108,6 +134,8 @@ export class CityExplorerScene extends Phaser.Scene {
     // 2. BRANCHE GAUCHE : RUE & LIBRAIRIE
     // ==========================================
     private enterJournalStreet() {
+        this.stopChurchMusic();
+        this.stopStoreMusic();
         this.clearSceneElements();
         this.currentLocation = 'JOURNAL_STREET';
         const { width, height } = this.scale;
@@ -137,6 +165,84 @@ export class CityExplorerScene extends Phaser.Scene {
                 journalHotspot.destroy();
                 this.clearSceneElements();
                 this.enterJournalStreet();
+            }
+        });
+
+        this.addHotspot({
+            scene: this,
+            x: 462,
+            y: 459,
+            width: 40,
+            height: 250,
+            type: 'inspect',
+            actionLabel: "Écouter aux portes",
+            onClick: () => {
+                const store = useGameStore.getState();
+
+                store.setDialog({
+                    textKey: 'act1_street.dispute_intro',
+                    type: 'bottom',
+                    speaker: 'Laurence Lindner',
+                    onComplete: () => {
+                        store.setDialog({
+                            textKey: 'act1_street.dispute_f1',
+                            type: 'bottom',
+                            speaker: 'Femme inconnue',
+                            onComplete: () => {
+                                store.setDialog({
+                                    textKey: 'act1_street.dispute_h1',
+                                    type: 'bottom',
+                                    speaker: 'Homme inconnu',
+                                    onComplete: () => {
+                                        store.setDialog({
+                                            textKey: 'act1_street.dispute_f2',
+                                            type: 'bottom',
+                                            speaker: 'Femme inconnue',
+                                            onComplete: () => {
+                                                store.setDialog({
+                                                    textKey: 'act1_street.dispute_h2',
+                                                    type: 'bottom',
+                                                    speaker: 'Homme inconnu',
+                                                    onComplete: () => {
+                                                        store.setDialog({
+                                                            textKey: 'act1_street.dispute_f3',
+                                                            type: 'bottom',
+                                                            speaker: 'Femme inconnue',
+                                                            onComplete: () => {
+                                                                store.setDialog({
+                                                                    textKey: 'act1_street.dispute_h3',
+                                                                    type: 'bottom',
+                                                                    speaker: 'Homme inconnu',
+                                                                    onComplete: () => {
+                                                                        store.setDialog({
+                                                                            textKey: 'act1_street.dispute_f4',
+                                                                            type: 'bottom',
+                                                                            speaker: 'Femme inconnue',
+                                                                            onComplete: () => {
+                                                                                store.setDialog({
+                                                                                    textKey: 'act1_street.dispute_h4',
+                                                                                    type: 'bottom',
+                                                                                    speaker: 'Homme inconnu',
+                                                                                    onComplete: () => {
+                                                                                        store.recordChoice('LISTEN_TO_DISPUTE', this.currentLocation, { consciousnessDelta: 3, mentalDelta: -2 });
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             }
         });
 
@@ -194,21 +300,28 @@ export class CityExplorerScene extends Phaser.Scene {
     // ==========================================
     // 3. BRANCHE DROITE : TABAC & ÉGLISE / CHAPELLE
     // ==========================================
+
+    // Extérieur / Façade du Tabac
     private enterTobacco() {
+        this.stopChurchMusic();
+        this.stopStoreMusic();
         this.clearSceneElements();
         this.currentLocation = 'TABAC';
         const { width, height } = this.scale;
+
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'tabac1').setDisplaySize(width, height);
 
+        // Hotspot pour entrer dans le magasin (interieurStore)
         this.addHotspot({
-            scene: this, x: width * 0.32, y: height * 0.55, width: 340, height: 450,
-            type: 'inspect', actionLabel: "Acheter du tabac",
-            onClick: () => { }
+            scene: this, x: 325, y: 430, width: 340, height: 450,
+            type: 'path', actionLabel: "Entrer dans le magasin",
+            onClick: () => this.enterGeneralStore()
         });
 
+        // Hotspot pour continuer vers l'église depuis la rue du tabac
         this.addHotspot({
-            scene: this, x: width * 0.80, y: height * 0.45, width: 400, height: 450,
+            scene: this, x: width * 0.80, y: height * 0.45, width: 200, height: 350,
             type: 'path', actionLabel: "Continuer vers l'église",
             onClick: () => this.enterChurchExterior()
         });
@@ -216,7 +329,83 @@ export class CityExplorerScene extends Phaser.Scene {
         this.createBackButton(() => this.enterCarrefour());
     }
 
+    // Intérieur du General Store (avec la commerçante, le poêle et les étagères)
+    private enterGeneralStore() {
+        this.stopChurchMusic();
+        this.clearSceneElements();
+        this.currentLocation = 'TABAC_INT';
+        const { width, height } = this.scale;
+
+        if (this.currentBg) this.currentBg.destroy();
+        this.currentBg = this.add.image(width / 2, height / 2, 'interieurStore').setDisplaySize(width, height);
+
+        // Lancement de la musique du magasin
+        if (!this.storeMusic) {
+            this.storeMusic = this.sound.add('ostStore', { loop: true, volume: 0.15 });
+            this.storeMusic.play();
+        }
+
+        // 1. HITBOX 1 : La Commerçante
+        this.addHotspot({
+            scene: this,
+            x: 701,
+            y: 306,
+            width: 670,
+            height: 450,
+            type: 'inspect',
+            actionLabel: "Parler à la commerçante",
+            onClick: () => {
+                useGameStore.getState().startDialogue({
+                    text: i18n.t('act1_store.shopkeeper_dialog'),
+                    speaker: 'Commerçante'
+                });
+            }
+        });
+
+        // 2. HITBOX 2 : Le Poêle en fonte
+        this.addHotspot({
+            scene: this,
+            x: 1186,
+            y: 485,
+            width: 80,
+            height: 280,
+            type: 'inspect',
+            actionLabel: "Examiner le poêle en fonte",
+            onClick: () => {
+                useGameStore.getState().startDialogue({
+                    text: i18n.t('act1_store.stove_dialog'),
+                    speaker: 'Laurence Lindner'
+                });
+            }
+        });
+
+        // 3. HITBOX 3 : Les étagères / épices
+        this.addHotspot({
+            scene: this,
+            x: 351,
+            y: 670,
+            width: 700,
+            height: 110,
+            type: 'inspect',
+            actionLabel: "Inspecter les étagères",
+            onClick: () => {
+                useGameStore.getState().startDialogue({
+                    text: i18n.t('act1_store.shelves_dialog'),
+                    speaker: 'Laurence Lindner'
+                });
+            }
+        });
+
+        // Bouton de retour vers l'extérieur du tabac (stoppe la musique du magasin)
+        this.createBackButton(() => {
+            this.stopStoreMusic();
+            this.enterTobacco();
+        });
+    }
+
     private enterChurchExterior() {
+        this.stopChurchMusic();
+        this.stopStoreMusic();
         this.clearSceneElements();
         this.currentLocation = 'EGLISE_EXT';
         const { width, height } = this.scale;
@@ -242,6 +431,11 @@ export class CityExplorerScene extends Phaser.Scene {
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'eglise').setDisplaySize(width, height);
 
+        if (!this.churchMusic) {
+            this.churchMusic = this.sound.add('ostEglise', { loop: true, volume: 0.4 });
+            this.churchMusic.play();
+        }
+
         if (!this.hasVisitedChurch) {
             this.hasVisitedChurch = true;
             useGameStore.getState().setDialog({
@@ -250,21 +444,69 @@ export class CityExplorerScene extends Phaser.Scene {
             });
         }
 
+        // 1. La grande croix (Inspect)
         this.addHotspot({
-            scene: this, x: width * 0.88, y: height * 0.5, width: 240, height: 720,
-            type: 'path', actionLabel: "Vers la chapelle de la Sainte Vierge",
+            scene: this,
+            x: width * 0.5,
+            y: height * 0.45,
+            width: 140,
+            height: 220,
+            type: 'inspect',
+            actionLabel: "Examiner la grande croix",
+            onClick: () => {
+                const store = useGameStore.getState();
+
+                store.setDialog({
+                    textKey: 'act1_church.cross_lore_part1',
+                    type: 'bottom',
+                    speaker: 'Laurence Lindner',
+                    onComplete: () => {
+                        store.setDialog({
+                            textKey: 'act1_church.cross_lore_part2',
+                            type: 'bottom',
+                            speaker: 'Laurence Lindner',
+                            onComplete: () => {
+                                store.setDialog({
+                                    textKey: 'act1_church.cross_lore_part3',
+                                    type: 'bottom',
+                                    speaker: 'Laurence Lindner',
+                                    onComplete: () => {
+                                        store.recordChoice('EXAMINE_ALTAR_CROSS', this.currentLocation, { mentalDelta: -2 });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        // 2. Chapelle de la Sainte Vierge (à droite) - Avec actionLabel rétabli
+        this.addHotspot({
+            scene: this,
+            x: 1064,
+            y: 481,
+            width: 240,
+            height: 300,
+            type: 'path',
+            actionLabel: "Vers la chapelle de la Sainte Vierge",
             onClick: () => this.enterChapel()
         });
 
+        // 3. Chapelle du Saint-Sépulcre (à gauche) - Avec actionLabel rétabli
         this.addHotspot({
-            scene: this, x: width * 0.12, y: height * 0.5, width: 200, height: 720,
-            type: 'path', actionLabel: "Vers la chapelle du Saint-Sépulcre",
+            scene: this,
+            x: 214,
+            y: 504,
+            width: 200,
+            height: 300,
+            type: 'path',
+            actionLabel: "Vers la chapelle du Saint-Sépulcre",
             onClick: () => this.enterSepulchreSequence()
         });
 
         this.createBackButton(() => this.enterChurchExterior());
     }
-
     private enterChapel() {
         this.clearSceneElements();
         this.currentLocation = 'CHAPELLE';
@@ -332,7 +574,6 @@ export class CityExplorerScene extends Phaser.Scene {
 
     private enterSepulchreSequence() {
         this.clearSceneElements();
-
         const store = useGameStore.getState();
 
         if (store.act1Progress.priestEncountered) {
@@ -421,13 +662,12 @@ export class CityExplorerScene extends Phaser.Scene {
     }
 
     private showPhilosophicalMenu(askedThemes: Set<string>) {
-        const store = useGameStore.getState();
         const choices: ChoiceOption[] = [];
 
         if (!askedThemes.has('theme_1_horloger')) {
             choices.push({
                 id: 'theme_1_horloger',
-                text: "1. Vivons-nous dans un monde régi par un grand Horloger ou par un chaos aveugle ?",
+                text: "1. Est-ce que c'est vraiment le hasard ou Dieu nous a créés, avec tout ce que ça implique ?",
                 consequences: {}
             });
         }
@@ -452,7 +692,7 @@ export class CityExplorerScene extends Phaser.Scene {
             consequences: {}
         });
 
-        store.setDialog({
+        useGameStore.getState().setDialog({
             textKey: 'act1_church.long_discussion.invite_reflexion',
             type: 'bottom',
             speaker: 'Laurence Lindner',
@@ -508,8 +748,6 @@ export class CityExplorerScene extends Phaser.Scene {
                 }
             ],
             onComplete: (selectedChoiceId?: string) => {
-                const store = useGameStore.getState();
-
                 if (selectedChoiceId) {
                     const chosenOption = selectedChoiceId === 'act1_church_prier_pere'
                         ? { mentalDelta: 10 }
@@ -539,7 +777,6 @@ export class CityExplorerScene extends Phaser.Scene {
     }
 
     private createBackButton(callback: () => void) {
-        const { width, height } = this.scale;
         this.backButton = this.add.text(80, 50, "← Retour", {
             fontFamily: 'monospace', fontSize: '16px', color: '#f4ebd0', backgroundColor: '#000000', padding: { x: 10, y: 5 }
         }).setInteractive({ useHandCursor: true });
