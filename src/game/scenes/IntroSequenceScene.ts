@@ -17,12 +17,9 @@ export class IntroSequenceScene extends Phaser.Scene {
         if (!this.cache.audio.exists('intro_theme')) {
             this.load.audio('intro_theme', `${baseUrl}assets/intro.mp3`);
         }
-        // Nouveaux assets d'introduction avec les noms exacts demandés
         this.load.image('party', `${baseUrl}assets/party.jpg`);
         this.load.image('city', `${baseUrl}assets/city.jpg`);
         this.load.image('satellite', `${baseUrl}assets/satellite.jpg`);
-
-        // Assets cosmiques suivants
         this.load.image('introEarth', `${baseUrl}assets/introEarth.jpg`);
         this.load.image('introGalaxy', `${baseUrl}assets/introGalaxy.png`);
         this.load.image('introVoid', `${baseUrl}assets/introVoid.png`);
@@ -34,6 +31,11 @@ export class IntroSequenceScene extends Phaser.Scene {
         this.cameras.main.fadeIn(1500, 0, 0, 0);
         this.userChoices = [];
         this.isSkipping = false;
+
+        // 👈 SÉCURITÉ : On s'assure de couper et nettoyer toute musique résiduelle de Phaser
+        if (this.sound.get('intro_theme')) {
+            this.sound.stopByKey('intro_theme');
+        }
 
         // --- BOUTON PLEIN ÉCRAN (SVG) ---
         const fsSvg = `
@@ -98,7 +100,6 @@ export class IntroSequenceScene extends Phaser.Scene {
             console.warn('Audio play restricted or unavailable:', e);
         }
 
-        // Affichage de l'avertissement audio au tout début, avant les questions
         this.showAudioWarning(() => {
             if (!this.isSkipping) {
                 this.askQuestion1();
@@ -137,70 +138,79 @@ export class IntroSequenceScene extends Phaser.Scene {
 
         this.tweens.killAll();
 
+        // 👈 Arrêt propre et immédiat de la musique
+        this.stopMusicAndProceed();
+    }
+
+    private stopMusicAndProceed() {
         if (this.currentMusic) {
             this.tweens.add({
                 targets: this.currentMusic,
                 volume: 0,
-                duration: 800,
+                duration: 500,
                 onComplete: () => {
-                    if (this.currentMusic) this.currentMusic.stop();
+                    if (this.currentMusic) {
+                        (this.currentMusic as Phaser.Sound.WebAudioSound).stop();
+                        this.currentMusic.destroy();
+                        this.currentMusic = null;
+                    }
+                    this.sound.stopByKey('intro_theme');
+                    this.startAct1();
                 }
             });
-        }
-
-        this.cameras.main.fadeOut(800, 0, 0, 0);
-        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+        } else {
+            this.sound.stopByKey('intro_theme');
             this.startAct1();
-        });
+        }
     }
 
-    // --- QUESTION 1 : Sombres secrets (OUI = conscient) ---
+    // --- QUESTION 1 ---
     askQuestion1() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q1'),
-            () => { this.userChoices.push(1); this.askQuestion2(); }, // OUI (Éveillé)
-            () => { this.userChoices.push(0); this.askQuestion2(); }  // NON
+            () => { this.userChoices.push(1); this.askQuestion2(); },
+            () => { this.userChoices.push(0); this.askQuestion2(); }
         );
     }
 
-    // --- QUESTION 2 : Sécurité sur notre boule géante (NON = lucide/angoissé) ---
+    // --- QUESTION 2 ---
     askQuestion2() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q2'),
-            () => { this.userChoices.push(0); this.askQuestion3(); }, // OUI
-            () => { this.userChoices.push(1); this.askQuestion3(); }  // NON (Éveillé)
+            () => { this.userChoices.push(0); this.askQuestion3(); },
+            () => { this.userChoices.push(1); this.askQuestion3(); }
         );
     }
 
-    // --- QUESTION 3 : Murmures dans la nuit (OUI = conscient) ---
+    // --- QUESTION 3 ---
     askQuestion3() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q3'),
-            () => { this.userChoices.push(1); this.askQuestion4(); }, // OUI (Éveillé)
-            () => { this.userChoices.push(0); this.askQuestion4(); }  // NON
+            () => { this.userChoices.push(1); this.askQuestion4(); },
+            () => { this.userChoices.push(0); this.askQuestion4(); }
         );
     }
 
-    // --- QUESTION 4 : Dieu bienveillant (NON = lucide/angoissé) ---
+    // --- QUESTION 4 ---
     askQuestion4() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q4'),
-            () => { this.userChoices.push(0); this.askQuestion5(); }, // OUI
-            () => { this.userChoices.push(1); this.askQuestion5(); }  // NON (Éveillé)
+            () => { this.userChoices.push(0); this.askQuestion5(); },
+            () => { this.userChoices.push(1); this.askQuestion5(); }
         );
     }
 
-    // --- QUESTION 5 : Commencement du Cosmos (NON = lucide/angoissé) ---
+    // --- QUESTION 5 ---
     askQuestion5() {
         if (this.isSkipping) return;
         this.showBinaryChoice(
             i18n.t('intro.q5'),
-            () => { this.userChoices.push(0); this.evaluateProfileAndProceed(); }, // OUI
-            () => { this.userChoices.push(1); this.evaluateProfileAndProceed(); }  // NON (Éveillé)
+            () => { this.userChoices.push(0); this.evaluateProfileAndProceed(); },
+            () => { this.userChoices.push(1); this.evaluateProfileAndProceed(); }
         );
     }
 
@@ -299,7 +309,6 @@ export class IntroSequenceScene extends Phaser.Scene {
     startCosmicSequence() {
         if (this.isSkipping) return;
 
-        // Séquence visuelle complète : party.jpg -> city.jpg -> satellite.jpg -> introEarth -> introGalaxy -> introVoid
         const partyBg = this.add.image(640, 360, 'party').setAlpha(0);
         partyBg.setDisplaySize(1280, 720);
 
@@ -318,7 +327,6 @@ export class IntroSequenceScene extends Phaser.Scene {
         const voidBg = this.add.image(640, 360, 'introVoid').setAlpha(0);
         voidBg.setDisplaySize(1280, 720);
 
-        // Enchaînement fluide de toutes les images
         this.tweens.add({
             targets: partyBg,
             alpha: 1,
@@ -424,7 +432,6 @@ export class IntroSequenceScene extends Phaser.Scene {
             onComplete: () => {
                 if (this.isSkipping) return;
 
-                // --- HOMMAGE EN DEUX LIGNES DISTINCTES ---
                 const homageText1 = this.add.text(640, 335, i18n.t('intro.credits.homage_line_1'), {
                     fontFamily: '"Cormorant Garamond", serif',
                     fontSize: '24px',
@@ -443,7 +450,6 @@ export class IntroSequenceScene extends Phaser.Scene {
                     wordWrap: { width: 900 }
                 }).setOrigin(0.5).setAlpha(0);
 
-                // Affichage de la première ligne d'hommage
                 this.tweens.add({
                     targets: homageText1,
                     alpha: 1,
@@ -455,7 +461,6 @@ export class IntroSequenceScene extends Phaser.Scene {
                     }
                 });
 
-                // Affichage de la seconde ligne d'hommage puis enchaînement du titre principal
                 this.tweens.add({
                     targets: homageText2,
                     alpha: 1,
@@ -474,15 +479,18 @@ export class IntroSequenceScene extends Phaser.Scene {
                             fontStyle: 'bold'
                         }).setOrigin(0.5).setAlpha(0);
 
-                        const totalTitleDuration = 2200 + 6000 + 2200;
-
+                        // 👈 Arrêt progressif de la musique de manière sécurisée pendant l'affichage du titre
                         if (this.currentMusic) {
                             this.tweens.add({
                                 targets: this.currentMusic,
                                 volume: 0,
-                                duration: totalTitleDuration + 1000,
+                                duration: 2500,
                                 onComplete: () => {
-                                    if (this.currentMusic) this.currentMusic.stop();
+                                    if (this.currentMusic) {
+                                        (this.currentMusic as Phaser.Sound.WebAudioSound).stop();
+                                        this.currentMusic.destroy();
+                                        this.currentMusic = null;
+                                    }
                                 }
                             });
                         }
@@ -491,14 +499,14 @@ export class IntroSequenceScene extends Phaser.Scene {
                             targets: bigTitle,
                             alpha: 1,
                             duration: 2200,
-                            hold: 6000,
+                            hold: 4000,
                             yoyo: true,
                             onComplete: () => {
                                 if (this.isSkipping) return;
 
-                                this.cameras.main.fadeOut(2000, 0, 0, 0);
+                                this.cameras.main.fadeOut(1500, 0, 0, 0);
                                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-                                    this.startAct1();
+                                    this.stopMusicAndProceed();
                                 });
                             },
                         });
@@ -509,6 +517,10 @@ export class IntroSequenceScene extends Phaser.Scene {
     }
 
     startAct1() {
+        // Double sécurité de nettoyage global du son de la scène
+        if (this.sound.get('intro_theme')) {
+            this.sound.stopByKey('intro_theme');
+        }
         this.scene.start('ProfessorOffice');
     }
 }

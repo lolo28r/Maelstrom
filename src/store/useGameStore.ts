@@ -55,6 +55,9 @@ export interface Act1Progress {
     secretLabOpened: boolean;
     trapezohedronCollected: boolean;
     priestEncountered?: boolean;
+    listenedToDispute?: boolean; // Étape : Dialogue caché derrière la porte
+    metMrBell?: boolean;
+    cityFatigueTriggered?: boolean;
 }
 
 export interface StatNotification {
@@ -140,7 +143,11 @@ const initialAct1Progress: Act1Progress = {
     secretDrawerUnlocked: false,
     secretLabOpened: false,
     trapezohedronCollected: false,
-    priestEncountered: false
+    priestEncountered: false,
+    listenedToDispute: false,
+    metMrBell: false,
+    cityFatigueTriggered: false
+
 };
 
 export const useGameStore = create<GameState>()((set, get, store) => ({

@@ -213,6 +213,11 @@ export class MainMenuScene extends Phaser.Scene {
                     consequences: {},
                 },
                 {
+                    id: 'dev_end',
+                    text: '6. Fin du Chapitre 1 (ChapterEndScene)',
+                    consequences: {},
+                },
+                {
                     id: 'dev_close',
                     text: 'Fermer le mode dev',
                     consequences: {},
@@ -230,6 +235,7 @@ export class MainMenuScene extends Phaser.Scene {
                 if (selectedChoiceId === 'dev_dream') targetScene = 'DreamScene';
                 if (selectedChoiceId === 'dev_morning') targetScene = 'DeskMorningScene';
                 if (selectedChoiceId === 'dev_city') targetScene = 'CityExplorerScene';
+                if (selectedChoiceId === 'dev_end') targetScene = 'ChapterEndScene';
 
                 store.closeDialog();
                 this.cameras.main.fadeOut(500, 0, 0, 0);
