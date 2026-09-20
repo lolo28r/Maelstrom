@@ -2,7 +2,7 @@ name: Deploy Vite & Phaser to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ] # Déclenché à chaque push sur la branche main (ou master selon ton repo)
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -22,9 +22,11 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install
-        
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
+
       - name: Build project
         run: npm run build
 
