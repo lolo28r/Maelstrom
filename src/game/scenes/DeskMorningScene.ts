@@ -104,7 +104,7 @@ export class DeskMorningScene extends Phaser.Scene {
         const exitZone = this.add.zone(1150, 650, 120, 60)
             .setInteractive({ useHandCursor: false }); // On gère via nos curseurs CSS
 
-        const exitText = this.add.text(1150, 650, "➔ Sortir", {
+        const exitText = this.add.text(1150, 650, i18n.t('scene_ui.exit'), {
             fontFamily: 'serif',
             fontSize: '18px',
             color: '#aaaaaa'

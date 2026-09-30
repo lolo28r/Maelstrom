@@ -1,6 +1,5 @@
 import React from 'react';
 import { useGameStore } from '../store/useGameStore';
-// @ts-ignore
 import './CosmicStatusHUD.css';
 
 export const CosmicStatusHUD: React.FC = () => {

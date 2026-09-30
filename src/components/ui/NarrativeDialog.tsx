@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useGameStore, ChoiceOption } from '../../store/useGameStore';
-// @ts-ignore
 import './NarrativeDialog.css';
 import i18n from '../../i18n';
 
@@ -38,7 +37,7 @@ export const NarrativeDialog: React.FC = () => {
 
     const dialogKey = currentDialog?.textKey ?? '';
     const isCenterModal = currentDialog?.type === 'center';
-    const speakerName = currentDialog?.speaker ?? 'LAURENCE LINDNER';
+    const speakerName = currentDialog?.speaker ?? i18n.t('characters.laurence');
     const choices = currentDialog?.choices ?? [];
 
     const steps = resolveSteps(dialogKey);
@@ -53,7 +52,7 @@ export const NarrativeDialog: React.FC = () => {
             setCurrentStep(0);
             setDisplayedCharCount(0);
         }
-    }, [dialogKey]);
+    }, [dialogKey, currentDialog]);
 
     useEffect(() => {
         if (!currentDialog || isCenterModal) return;

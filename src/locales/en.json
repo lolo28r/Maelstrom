@@ -1,4 +1,121 @@
 {
+  "branding": {
+    "title": "Maelström",
+    "subtitle": "— THE AWAKENING —"
+  },
+  "characters": {
+    "laurence": "Laurence Lindner",
+    "unknownEntity": "????????????",
+    "unknownWoman": "Unknown woman",
+    "unknownMan": "Unknown man",
+    "librarian": "Librarian",
+    "mrBell": "Mr. Bell",
+    "shopkeeper": "Shopkeeper",
+    "fatherThomas": "Father Thomas",
+    "settings": "SETTINGS",
+    "system": "SYSTEM",
+    "developerMode": "[ DEVELOPER MODE — RESTRICTED ACCESS ]"
+  },
+  "stats": {
+    "mentalHealth": "Mental health",
+    "exhaustion": "Exhaustion",
+    "fatigue": "Fatigue",
+    "cosmicConsciousness": "Cosmic consciousness"
+  },
+  "journal": {
+    "initialDate": "January 20, 1925",
+    "officeArchiveTimestamp": "Act I - Office"
+  },
+  "scene_ui": {
+    "audioRecommendation": "This game is best experienced with sound enabled\nand headphones for optimal immersion.",
+    "officeLocation": "Arkham, Massachusetts — January 1925",
+    "exit": "➔ Leave",
+    "back": "← Back"
+  },
+  "menu_dialogs": {
+    "settings": "Configuration: 16:9 rendering.\nAutomatic saves enabled.",
+    "loading": "Loading...",
+    "noSave": "No local save was found.",
+    "devPrompt": "Code 1937 accepted.\nChoose a time jump point:",
+    "devIntro": "1. Introduction / Prologue (IntroSequence)",
+    "devOffice": "2. Professor's Office & Letter (ProfessorOffice)",
+    "devDream": "3. Nightmare / Encounter (DreamScene)",
+    "devMorning": "4. Awakening & Disappearance / Journal (DeskMorningScene)",
+    "devCity": "5. Exploring Arkham / City (CityExplorerScene)",
+    "devEnd": "6. End of Chapter 1 (ChapterEndScene)",
+    "devClose": "Close developer mode"
+  },
+  "scene_choices": {
+    "dreamAlcoholNeeded": "“Yes... alcohol is what I need to keep going.”",
+    "dreamAlcoholDefensive": "“Mind your own business. This has nothing to do with you.”",
+    "yes": "“Yes.”",
+    "no": "“No.”",
+    "oldOnes": "👁️ “Those who have no name?”",
+    "wakeUp": "Try to wake up.",
+    "churchThemeClockmaker": "1. Is it truly chance, or did God create us—with all that implies?",
+    "churchThemeSuffering": "2. If God is good, why create us only to suffer like this?",
+    "churchThemeGodOrigin": "3. And if everything must have a cause... who created God?",
+    "churchListen": "— Say nothing more and listen to the priest."
+  },
+  "scene_narration": {
+    "churchStatueRevisited": "The stone statue watches me in marble silence. There is no reason to linger here.",
+    "churchPriestRevisited": "Father Thomas prays silently by the tomb. He gently inclines his head toward you: “Rest, my child. The road ahead is still long.”"
+  },
+  "scene_actions": {
+    "examine": "Examine",
+    "read": "Read",
+    "asylumRoad": "Road to the Asylum",
+    "rightStreet": "Take the street to the right",
+    "leftStreet": "Take the street to the left",
+    "examineNewspaper": "Examine the newspaper",
+    "listenAtDoor": "Listen at the door",
+    "streetEnd": "Toward the end of the street",
+    "enterLibrary": "Enter the library",
+    "talkLibrarian": "Talk to the librarian",
+    "talkMrBell": "Talk to Mr. Bell",
+    "examineShelves": "Examine the shelves",
+    "enterStore": "Enter the store",
+    "continueChurch": "Continue toward the church",
+    "talkShopkeeper": "Talk to the shopkeeper",
+    "examineStove": "Examine the cast-iron stove",
+    "inspectShelves": "Inspect the shelves",
+    "enterChurch": "Enter the church",
+    "examineCross": "Examine the large cross",
+    "virginChapel": "Toward the Chapel of the Virgin",
+    "sepulchreChapel": "Toward the Chapel of the Holy Sepulchre",
+    "examineVirginStatue": "Examine the statue of the Virgin"
+  },
+  "notifications": {
+    "feedbackSendError": "An error occurred while sending your message.",
+    "feedbackNetworkError": "The message cannot be sent right now."
+  },
+  "items": {
+    "whisky": {
+      "name": "Whisky flask",
+      "description": "Cheap bourbon. It burns the throat but numbs the nerves.",
+      "examineText": "A dented metal flask that reeks of strong alcohol. Useful for easing panic and restoring mental health, at the cost of greater fatigue."
+    },
+    "tobacco": {
+      "name": "Rolling tobacco",
+      "description": "A worn tobacco pouch and a few rolling papers.",
+      "examineText": "Dried brown tobacco. Rolling a cigarette helps gather one's thoughts and calm a racing heart long enough to assess one's mental state."
+    },
+    "strongAlcohol": {
+      "name": "Flask of strong alcohol",
+      "description": "A small flask of cheap spirits to warm the blood.",
+      "examineText": "The sharp smell of alcohol escapes as soon as the cap is cracked open."
+    },
+    "driedTobacco": {
+      "name": "Packet of dried tobacco",
+      "description": "A packet of coarse tobacco, ideal for keeping anxiety at bay.",
+      "examineText": "The leaves are dry and acrid."
+    },
+    "rosary": {
+      "name": "Father Thomas's rosary",
+      "description": "An old dark rosary offered by Father Thomas as an anchor.",
+      "examineText": "The worn beads slide between my fingers. A strange warmth emanates from them—or is it merely my imagination?"
+    }
+  },
   "menu": {
     "newGame": "NEW GAME",
     "continue": "CONTINUE",

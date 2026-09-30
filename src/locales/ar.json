@@ -1,4 +1,121 @@
 {
+    "branding": {
+        "title": "Maelström",
+        "subtitle": "— اليقظة —"
+    },
+    "characters": {
+        "laurence": "لورانس ليندنر",
+        "unknownEntity": "????????????",
+        "unknownWoman": "امرأة مجهولة",
+        "unknownMan": "رجل مجهول",
+        "librarian": "أمينة المكتبة",
+        "mrBell": "السيد بيل",
+        "shopkeeper": "البائعة",
+        "fatherThomas": "الأب توماس",
+        "settings": "الإعدادات",
+        "system": "النظام",
+        "developerMode": "[ وضع المطور — وصول مقيّد ]"
+    },
+    "stats": {
+        "mentalHealth": "الصحة النفسية",
+        "exhaustion": "الإرهاق",
+        "fatigue": "التعب",
+        "cosmicConsciousness": "الوعي الكوني"
+    },
+    "journal": {
+        "initialDate": "20 يناير 1925",
+        "officeArchiveTimestamp": "الفصل الأول - المكتب"
+    },
+    "scene_ui": {
+        "audioRecommendation": "يُفضّل خوض هذه اللعبة مع تشغيل الصوت\nواستخدام سماعات الرأس لأفضل تجربة.",
+        "officeLocation": "أركام، ماساتشوستس — يناير 1925",
+        "exit": "➔ خروج",
+        "back": "← رجوع"
+    },
+    "menu_dialogs": {
+        "settings": "الإعداد: عرض بنسبة 16:9.\nالحفظ التلقائي مفعّل.",
+        "loading": "جارٍ التحميل...",
+        "noSave": "لم يتم العثور على حفظ محلي.",
+        "devPrompt": "تم قبول الرمز 1937.\nاختر نقطة الانتقال الزمني:",
+        "devIntro": "1. المقدمة / التمهيد (IntroSequence)",
+        "devOffice": "2. مكتب الأستاذ والرسالة (ProfessorOffice)",
+        "devDream": "3. الكابوس / اللقاء (DreamScene)",
+        "devMorning": "4. الاستيقاظ والاختفاء / اليومية (DeskMorningScene)",
+        "devCity": "5. استكشاف أركام / المدينة (CityExplorerScene)",
+        "devEnd": "6. نهاية الفصل الأول (ChapterEndScene)",
+        "devClose": "إغلاق وضع المطور"
+    },
+    "scene_choices": {
+        "dreamAlcoholNeeded": "«نعم... الكحول هو ما أحتاجه لأصمد.»",
+        "dreamAlcoholDefensive": "«اهتم بشؤونك. هذا لا يعنيك.»",
+        "yes": "«نعم.»",
+        "no": "«لا.»",
+        "oldOnes": "👁️ «الذين لا أسماء لهم؟»",
+        "wakeUp": "محاولة الاستيقاظ.",
+        "churchThemeClockmaker": "1. أهي المصادفة حقًا، أم أن الله خلقنا بكل ما يستتبعه ذلك؟",
+        "churchThemeSuffering": "2. إن كان الله خيرًا، فلماذا خلقنا لنعاني هكذا؟",
+        "churchThemeGodOrigin": "3. وإن كان لكل شيء سبب... فمن خلق الله؟",
+        "churchListen": "— التزم الصمت واستمع إلى الكاهن."
+    },
+    "scene_narration": {
+        "churchStatueRevisited": "يحدق بي التمثال الحجري في صمت رخامي. لا داعي للبقاء هنا أكثر.",
+        "churchPriestRevisited": "يصلي الأب توماس بصمت قرب القبر. يميل برأسه نحوك بلطف: «استرح يا بني، فالطريق ما زال طويلًا.»"
+    },
+    "scene_actions": {
+        "examine": "تفحّص",
+        "read": "قراءة",
+        "asylumRoad": "طريق المصح",
+        "rightStreet": "اسلك الشارع إلى اليمين",
+        "leftStreet": "اسلك الشارع إلى اليسار",
+        "examineNewspaper": "تفحّص الصحيفة",
+        "listenAtDoor": "استمع عند الأبواب",
+        "streetEnd": "نحو نهاية الشارع",
+        "enterLibrary": "ادخل المكتبة",
+        "talkLibrarian": "تحدث إلى أمينة المكتبة",
+        "talkMrBell": "تحدث إلى السيد بيل",
+        "examineShelves": "تفحّص الرفوف",
+        "enterStore": "ادخل المتجر",
+        "continueChurch": "تابع نحو الكنيسة",
+        "talkShopkeeper": "تحدث إلى البائعة",
+        "examineStove": "تفحّص الموقد الحديدي",
+        "inspectShelves": "عاين الرفوف",
+        "enterChurch": "ادخل الكنيسة",
+        "examineCross": "تفحّص الصليب الكبير",
+        "virginChapel": "نحو كنيسة العذراء",
+        "sepulchreChapel": "نحو كنيسة القبر المقدس",
+        "examineVirginStatue": "تفحّص تمثال العذراء"
+    },
+    "notifications": {
+        "feedbackSendError": "حدث خطأ أثناء إرسال رسالتك.",
+        "feedbackNetworkError": "يتعذر إرسال الرسالة الآن."
+    },
+    "items": {
+        "whisky": {
+            "name": "قارورة ويسكي",
+            "description": "بوربون رخيص يحرق الحلق لكنه يخدّر الأعصاب.",
+            "examineText": "قارورة معدنية منبعجة تفوح منها رائحة الكحول القوي. تهدئ نوبات القلق وتعيد الصحة النفسية مقابل مزيد من التعب."
+        },
+        "tobacco": {
+            "name": "تبغ للفّ",
+            "description": "كيس تبغ مهترئ وبعض أوراق اللف.",
+            "examineText": "تبغ بني مجفف. يساعد لف سيجارة على جمع الأفكار وتهدئة ضربات القلب لتقييم الحالة النفسية."
+        },
+        "strongAlcohol": {
+            "name": "قارورة كحول قوي",
+            "description": "قارورة صغيرة من مشروب رخيص لتدفئة الدم.",
+            "examineText": "تفوح رائحة الكحول اللاذعة بمجرد فتح الغطاء قليلًا."
+        },
+        "driedTobacco": {
+            "name": "علبة تبغ مجفف",
+            "description": "علبة تبغ خشن مناسبة لإبعاد القلق.",
+            "examineText": "الأوراق جافة ولاذعة."
+        },
+        "rosary": {
+            "name": "مسبحة الأب توماس",
+            "description": "مسبحة قديمة داكنة أهداها الأب توماس لتكون مرساة للنفس.",
+            "examineText": "تنزلق الحبات البالية بين أصابعي. ينبعث منها دفء غريب، أم أنه مجرد خيالي؟"
+        }
+    },
     "menu": {
         "newGame": "[ لعبة جديدة ]",
         "continue": "[ متابعة ]",

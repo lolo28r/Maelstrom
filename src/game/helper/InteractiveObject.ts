@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { useGameStore } from '../../store/useGameStore';
+import i18n from '../../i18n';
 
 interface InteractiveConfig {
     scene: Phaser.Scene;
@@ -19,7 +20,7 @@ export class InteractiveObject {
     private isHovered: boolean = false;
 
     constructor(config: InteractiveConfig) {
-        const { scene, x, y, texture, scale = 1, actionLabel = "Examiner", onClick, hasBeenRead } = config;
+        const { scene, x, y, texture, scale = 1, actionLabel = i18n.t('scene_actions.examine'), onClick } = config;
 
         this.container = scene.add.container(x, y);
 
@@ -62,7 +63,7 @@ export class InteractiveObject {
      * SÉCURITÉ GLOBALE : Vérifie si une interface React bloque les interactions dans le monde 2D
      */
     private isInteractionBlocked(): boolean {
-        const store = useGameStore.getState() as any;
+        const store = useGameStore.getState();
 
         // On bloque le clic Phaser si :
         // 1. Un dialogue est affiché
@@ -70,7 +71,6 @@ export class InteractiveObject {
         // 3. Un objet de l'inventaire est sélectionné/en cours d'examen
         if (
             store.currentDialog ||
-            store.isDialogueActive ||
             store.activeDocument ||
             store.selectedItem !== null
         ) {

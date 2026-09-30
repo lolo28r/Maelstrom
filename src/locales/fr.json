@@ -1,4 +1,122 @@
 {
+  "branding": {
+    "title": "Maelström",
+    "subtitle": "— L'ÉVEIL —"
+  },
+  "characters": {
+    "laurence": "Laurence Lindner",
+    "unknownEntity": "????????????",
+    "unknownWoman": "Femme inconnue",
+    "unknownMan": "Homme inconnu",
+    "librarian": "Bibliothécaire",
+    "mrBell": "Monsieur Bell",
+    "shopkeeper": "Commerçante",
+    "fatherThomas": "Père Thomas",
+    "settings": "RÉGLAGES",
+    "system": "SYSTÈME",
+    "developerMode": "[ MODE DÉVELOPPEUR - ACCÈS RESTREINT ]"
+  },
+  "stats": {
+    "mentalHealth": "Santé mentale",
+    "exhaustion": "Épuisement",
+    "fatigue": "Fatigue",
+    "cosmicConsciousness": "Conscience cosmique"
+  },
+  "journal": {
+    "initialDate": "20 janvier 1925",
+    "officeArchiveTimestamp": "Acte I - Bureau"
+  },
+  "scene_ui": {
+    "audioRecommendation": "Ce jeu se vit de préférence avec le son activé\net un casque audio pour une immersion optimale.",
+    "officeLocation": "Arkham, Massachusetts — Janvier 1925",
+    "exit": "➔ Sortir",
+    "back": "← Retour"
+  },
+  "menu_dialogs": {
+    "settings": "Configuration : rendu 16:9.\nSystème de sauvegarde automatique activé.",
+    "loading": "Chargement...",
+    "noSave": "Aucune sauvegarde locale trouvée.",
+    "devPrompt": "Code 1937 validé.\nChoisissez le point de saut temporel :",
+    "devIntro": "1. Introduction / Prologue (IntroSequence)",
+    "devOffice": "2. Bureau du Professeur & Lettre (ProfessorOffice)",
+    "devDream": "3. Cauchemar / Rencontre (DreamScene)",
+    "devMorning": "4. Réveil & Disparition / Journal (DeskMorningScene)",
+    "devCity": "5. Exploration d'Arkham / Ville (CityExplorerScene)",
+    "devNightmare": "5.1 Cauchemar / Rencontre (NightmareScene)",
+    "devEnd": "6. Fin du Chapitre 1 (ChapterEndScene)",
+    "devClose": "Fermer le mode dev"
+  },
+  "scene_choices": {
+    "dreamAlcoholNeeded": "« Oui... c'est l'alcool qu'il me faut pour tenir. »",
+    "dreamAlcoholDefensive": "« Mêle-toi de tes affaires. Ça ne te regarde pas. »",
+    "yes": "« Oui. »",
+    "no": "« Non. »",
+    "oldOnes": "👁️ « Ceux qui n'ont de nom ? »",
+    "wakeUp": "Essayer de se réveiller.",
+    "churchThemeClockmaker": "1. Est-ce que c'est vraiment le hasard ou Dieu nous a créés, avec tout ce que ça implique ?",
+    "churchThemeSuffering": "2. Si Dieu est bon, pourquoi nous avoir créés pour souffrir ainsi ?",
+    "churchThemeGodOrigin": "3. Et si tout doit avoir une cause... qui a créé Dieu ?",
+    "churchListen": "— Ne rien dire de plus et écouter le prêtre."
+  },
+  "scene_narration": {
+    "churchStatueRevisited": "La statue de pierre me regarde dans un silence de marbre. Inutile de m'attarder davantage ici.",
+    "churchPriestRevisited": "Le père Thomas prie en silence près du tombeau. Il incline la tête vers vous avec douceur : « Reposez-vous, mon enfant. Le chemin est encore long. »"
+  },
+  "scene_actions": {
+    "examine": "Examiner",
+    "read": "Lire",
+    "asylumRoad": "Route de l'Asile",
+    "rightStreet": "S'engager dans la rue à droite",
+    "leftStreet": "S'engager dans la rue à gauche",
+    "examineNewspaper": "Examiner le journal",
+    "listenAtDoor": "Écouter aux portes",
+    "streetEnd": "Vers le fond de la rue",
+    "enterLibrary": "Entrer dans la librairie",
+    "talkLibrarian": "Parler au bibliothécaire",
+    "talkMrBell": "Parler à Monsieur Bell",
+    "examineShelves": "Examiner les étagères",
+    "enterStore": "Entrer dans le magasin",
+    "continueChurch": "Continuer vers l'église",
+    "talkShopkeeper": "Parler à la commerçante",
+    "examineStove": "Examiner le poêle en fonte",
+    "inspectShelves": "Inspecter les étagères",
+    "enterChurch": "Entrer dans l'église",
+    "examineCross": "Examiner la grande croix",
+    "virginChapel": "Vers la chapelle de la Sainte Vierge",
+    "sepulchreChapel": "Vers la chapelle du Saint-Sépulcre",
+    "examineVirginStatue": "Examiner la statue de la Vierge"
+  },
+  "notifications": {
+    "feedbackSendError": "Une erreur est survenue lors de l'envoi.",
+    "feedbackNetworkError": "Impossible d'envoyer le message pour le moment."
+  },
+  "items": {
+    "whisky": {
+      "name": "Flasque de whisky",
+      "description": "Bourbon de bas étage. Brûle la gorge, mais engourdit les nerfs.",
+      "examineText": "Une flasque en métal cabossée qui sent l'alcool fort. Idéal pour apaiser les crises d'angoisse et faire remonter la santé mentale, au prix d'une fatigue accrue."
+    },
+    "tobacco": {
+      "name": "Tabac à rouler",
+      "description": "Une blague à tabac usée et quelques feuilles à rouler.",
+      "examineText": "Du tabac brun séché. Rouler une cigarette permet de rassembler ses idées et de calmer le cœur qui bat trop vite pour évaluer son état mental."
+    },
+    "strongAlcohol": {
+      "name": "Flasque d’alcool fort",
+      "description": "Une petite flasque de spiritueux bon marché pour réchauffer le sang.",
+      "examineText": "L’odeur âpre de l’alcool s’échappe à peine le bouchon entrouvert."
+    },
+    "driedTobacco": {
+      "name": "Paquet de tabac séché",
+      "description": "Un paquet de tabac grossier, idéal pour tromper l’angoisse.",
+      "examineText": "Les feuilles sont sèches et âcres."
+    },
+    "rosary": {
+      "name": "Chapelet du Père Thomas",
+      "description": "Un vieux chapelet sombre offert par le Père Thomas comme point d’ancrage.",
+      "examineText": "Les grains usés glissent entre mes doigts. Une tiédeur étrange s’en dégage, ou est-ce simplement le fruit de mon imagination ?"
+    }
+  },
   "menu": {
     "newGame": "NOUVELLE PARTIE",
     "continue": "CONTINUER",
@@ -390,5 +508,171 @@
     "submit_btn": "Envoyer le retour",
     "success_msg": "Merci ! Votre retour a bien été enregistré.",
     "menu_btn": "Retour au menu principal"
+  },
+  "nightmare": {
+    "intro_return": "Laurence rentre chez lui, épuisé par le froid. Le sommeil l’emporte presque aussitôt.",
+    "lit_0": "Il faudrait que je dorme.",
+    "lit_1": "Mais chaque fois que je ferme les yeux, je reviens à toi.",
+    "ruins_0": "Tu ne riais jamais de mes questions.",
+    "ruins_1": "Tu m’écoutais comme si chaque idée méritait d’être suivie.",
+    "ruins_2": "Quand j’ai trouvé cette marque dans la pierre, tu as posé ta main sur mon épaule.",
+    "ruins_3": "J’ai cru que nous chercherions toujours ensemble.",
+    "station_0": "Puis il y a eu cette nuit-là.",
+    "train_0": "Personne ne savait pourquoi tu partais.",
+    "train_1": "Je t’ai appelé.",
+    "train_2": "Tu t’es retourné…",
+    "train_3": "Et tu m’as demandé mon nom.",
+    "train_4": "Tu ne plaisantais pas.",
+    "lonely_0": "Mère a continué de dresser ta place.",
+    "lonely_1": "Au début, je crois qu’elle t’attendait vraiment.",
+    "lonely_2": "Moi aussi.",
+    "crazy_0": "Quatre ans…",
+    "crazy_1": "Je ne sais même plus quel visage je retrouverai.",
+    "crazy_2": "J’aimerais t’apporter un livre. Comme avant.",
+    "crazy_3": "Mais j’ai peur que tu ne saches plus qui je suis.",
+    "cursed_0": "Pourquoi est-ce que je ne trouve plus les mots pour prier ?",
+    "cult_0": "Ce ne sont plus mes souvenirs.",
+    "cult_1": "Qui me montre cela ?",
+    "fish_0": "Qu'est ce que je suis en train de regarder ?",
+    "sea_0": "...",
+    "eye_0": "Regarde le ciel Laurence.",
+    "eye_1": "Va-y lève les yeux.",
+    "eclipse_0": "Ton père a regardé le premier.",
+    "eclipse_1": "À ton tour.",
+    "scene_2": {
+      "step_1": [
+        "Tu peux baisser les yeux, maintenant.",
+        "Tu vois ?",
+        "Les images restent."
+      ],
+      "step_1_choices": {
+        "choice_visions": "« Qu’est-ce que tu m’as montré ? »",
+        "choice_manipulation": "« Tu as mis ces choses dans ma tête. »",
+        "choice_stop": "« Je ne veux plus les voir. »"
+      },
+      "step_1_reactions": {
+        "choice_visions": [
+          "Tu cherchais ta place dans l’univers.",
+          "Pourquoi trembles-tu lorsque je te le montre ?"
+        ],
+        "choice_manipulation": [
+          "Les premières étaient déjà là.",
+          "Ton père. Le quai. Cette place vide à table.",
+          "Je n’ai eu qu’à poursuivre."
+        ],
+        "choice_stop": [
+          "Alors regarde-moi.",
+          "Un visage presque humain.",
+          "Cela te soulage, n’est-ce pas ?"
+        ]
+      },
+      "step_2": [
+        "Sur le quai, tu attendais qu’il prononce ton nom.",
+        "Un seul mot aurait suffi.",
+        "Depuis, tu cherches ce qui aurait pu le lui faire oublier."
+      ],
+      "step_2_choices": {
+        "choice_father_truth": "« Qu’est-ce qui lui est arrivé ? »",
+        "choice_father_protect": "« Laisse mon père en dehors de ça. »",
+        "choice_father_fear": "« Est-ce que je vais devenir comme lui ? »"
+      },
+      "step_2_reactions": {
+        "choice_father_truth": [
+          "Tu as parlé de son regard.",
+          "De sa voix.",
+          "Continue. Qu’as-tu remarqué d’autre ?"
+        ],
+        "choice_father_protect": [
+          "C’est toi qui reviens à lui chaque fois que tu fermes les yeux.",
+          "Même ici."
+        ],
+        "choice_father_fear": [
+          "Voilà ce que tu voulais vraiment demander.",
+          "Tu voudrais connaître la limite.",
+          "Et t’arrêter juste avant."
+        ]
+      },
+      "step_3": [
+        "Aujourd’hui, tu as cherché un endroit où ta peur pourrait se taire.",
+        "Quelques paroles. Une présence.",
+        "Quelque chose qui veillerait sur toi.",
+        "Puis tu as vu cet œil."
+      ],
+      "step_3_choices": {
+        "choice_eye_meaning": "« Qu’est-ce qu’il regardait ? »",
+        "choice_faith": "« Tu ne sais rien de ce en quoi je crois. »",
+        "choice_indifference": "« Nous ne sommes rien pour lui. »"
+      },
+      "step_3_reactions": {
+        "choice_eye_meaning": [
+          "Tu l’as vu tourné vers votre monde.",
+          "Et tu attends encore de savoir si c’est une bonne nouvelle."
+        ],
+        "choice_faith": [
+          "Garde ta foi, Laurence.",
+          "Nous verrons ce qu’elle devient lorsque tu reconnaîtras ce qui reçoit tes prières."
+        ],
+        "choice_indifference": [
+          "Et pourtant, te voilà incapable de détourner les yeux.",
+          "Il n’a pas besoin de te connaître pour changer toute ta vie."
+        ]
+      },
+      "step_4": [
+        "Ton père cherchait des formes qui revenaient à travers les siècles.",
+        "Tu as trouvé une marque dans la pierre.",
+        "Tu voulais savoir ce qu’elle signifiait.",
+        "Cette question est toujours là."
+      ],
+      "step_4_choices": {
+        "choice_knowledge": "« Oui. Je veux comprendre. »",
+        "choice_rest": "« Je veux seulement retrouver le calme. »",
+        "choice_resist": "« Je chercherai sans toi. »"
+      },
+      "step_4_reactions": {
+        "choice_knowledge": [
+          "Alors souviens-toi de cette envie.",
+          "Lorsque tes mains trembleront.",
+          "Lorsque tu voudras refermer le livre.",
+          "Tu pourras venir me demander la suite."
+        ],
+        "choice_rest": [
+          "Le calme...",
+          "Tu passes tes journées à chercher, puis tes nuits à supplier ton esprit de se taire.",
+          "Il existe un sommeil dont aucune question ne vient troubler la profondeur.",
+          "Un jour, peut-être, tu me le demanderas."
+        ],
+        "choice_resist": [
+          "Bien sûr.",
+          "Lis. Compare. Prends des notes.",
+          "Je suis curieux de savoir quels mots tu choisiras pour raconter ce que tu viens de voir."
+        ]
+      },
+      "step_5_choices": {
+        "choice_true_face": "« Tu avais promis de me montrer ton vrai visage. »",
+        "choice_identity": "« Pourquoi t’intéresses-tu à moi ? »",
+        "choice_wakeup": "« Laisse-moi me réveiller. »"
+      },
+      "step_5_reactions": {
+        "choice_true_face": [
+          "Après tout cela...",
+          "Tu veux encore voir.",
+          "Nous reprendrons ici."
+        ],
+        "choice_identity": [
+          "Tu souffres de ne pas savoir.",
+          "Tu souffres lorsque je te montre.",
+          "Et pourtant, tu poses une autre question."
+        ],
+        "choice_wakeup": [
+          "Cette fois, oui.",
+          "Retrouve ta chambre.",
+          "Essaie d’y penser à autre chose."
+        ]
+      },
+      "outro": [
+        "Lorsque tu regarderas le ciel demain...",
+        "Essaie de retrouver ce que tu y voyais avant."
+      ]
+    }
   }
 }

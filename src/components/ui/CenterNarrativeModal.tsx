@@ -11,13 +11,15 @@ export const CenterNarrativeModal: React.FC = () => {
     // Ce composant ne s'affiche QUE pour les dialogues de type 'center'
     if (!currentDialog || currentDialog.type !== 'center') return null;
 
-    // On caste explicitement le résultat de t() en `any` ou en type attendu pour contourner le typage strict `never` de i18next
-    const raw: any = t(currentDialog.textKey, { returnObjects: true, defaultValue: currentDialog.textKey });
+    const raw = t(currentDialog.textKey, {
+        returnObjects: true,
+        defaultValue: currentDialog.textKey,
+    }) as unknown;
 
     let paragraphs: string[] = [currentDialog.textKey];
 
     if (Array.isArray(raw)) {
-        paragraphs = raw;
+        paragraphs = raw.filter((paragraph): paragraph is string => typeof paragraph === 'string');
     } else if (typeof raw === 'string') {
         paragraphs = raw.split('\n\n');
     }

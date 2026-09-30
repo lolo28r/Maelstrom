@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import { useGameStore } from '../../store/useGameStore';
-import { CHOICES } from '../../constants/gameChoices';
+import { useGameStore, type ChoiceOption } from '../../store/useGameStore';
+import i18n from '../../i18n';
 
 export class DreamScene extends Phaser.Scene {
     private bgImage!: Phaser.GameObjects.Image;
@@ -28,7 +28,10 @@ export class DreamScene extends Phaser.Scene {
 
         // Lancement et filtrage direct via Web Audio API (Effet Radio + Distorsion douce)
         try {
-            const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+            const browserWindow = window as Window & {
+                webkitAudioContext?: typeof AudioContext;
+            };
+            const AudioContextClass = window.AudioContext || browserWindow.webkitAudioContext;
             if (AudioContextClass) {
                 this.audioCtx = new AudioContextClass();
 
@@ -95,12 +98,12 @@ export class DreamScene extends Phaser.Scene {
             choices: [
                 {
                     id: 'choice_alcohol_needed',
-                    text: "« Oui... c'est l'alcool qu'il me faut pour tenir. »",
+                    text: i18n.t('scene_choices.dreamAlcoholNeeded'),
                     consequences: { mentalDelta: 5, exhaustionDelta: 5 }
                 },
                 {
                     id: 'choice_alcohol_defensive',
-                    text: "« Mêle-toi de tes affaires. Ça ne te regarde pas. »",
+                    text: i18n.t('scene_choices.dreamAlcoholDefensive'),
                     consequences: { mentalDelta: 2, consciousnessDelta: -2 }
                 }
             ],
@@ -146,12 +149,12 @@ export class DreamScene extends Phaser.Scene {
         const choices = [
             {
                 id: 'choice_old_ones_yes',
-                text: "« Oui. »",
+                text: i18n.t('scene_choices.yes'),
                 consequences: { consciousnessDelta: 10 }
             },
             {
                 id: 'choice_old_ones_no',
-                text: "« Non. »",
+                text: i18n.t('scene_choices.no'),
                 consequences: { mentalDelta: 5 }
             }
         ];
@@ -160,7 +163,7 @@ export class DreamScene extends Phaser.Scene {
         if (consciousness >= thresholdConsciousness) {
             choices.push({
                 id: 'choice_old_ones_what',
-                text: "👁️ « Ceux qui n'ont de nom ? »",
+                text: i18n.t('scene_choices.oldOnes'),
                 consequences: { consciousnessDelta: 15 }
             });
 
@@ -177,7 +180,7 @@ export class DreamScene extends Phaser.Scene {
         this.showStep3Dialog(choices);
     }
 
-    private showStep3Dialog(choices: any[]) {
+    private showStep3Dialog(choices: ChoiceOption[]) {
         const store = useGameStore.getState();
         store.setDialog({
             textKey: 'dream.scene_1.step_3',
@@ -225,17 +228,17 @@ export class DreamScene extends Phaser.Scene {
             choices: [
                 {
                     id: 'choice_final_yes',
-                    text: "« Oui. »",
+                    text: i18n.t('scene_choices.yes'),
                     consequences: { consciousnessDelta: 20, mentalDelta: -10, exhaustionDelta: -15 }
                 },
                 {
                     id: 'choice_final_no',
-                    text: "« Non. »",
+                    text: i18n.t('scene_choices.no'),
                     consequences: { mentalDelta: 5, exhaustionDelta: -10 }
                 },
                 {
                     id: 'choice_try_wakeup',
-                    text: "Essayer de se réveiller.",
+                    text: i18n.t('scene_choices.wakeUp'),
                     consequences: { exhaustionDelta: 5, mentalDelta: -5 }
                 }
             ],

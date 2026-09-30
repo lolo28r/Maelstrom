@@ -24,7 +24,7 @@ export const App: React.FC = () => {
         }
 
         // --- ÉCOUTEUR GLOBAL POUR LE CODE SECRET "1937" ---
-        let keySequence: string[] = [];
+        const keySequence: string[] = [];
         const handleKeyDown = (e: KeyboardEvent) => {
             keySequence.push(e.key);
             if (keySequence.length > 4) keySequence.shift();

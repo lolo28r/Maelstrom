@@ -110,7 +110,7 @@ export class IntroSequenceScene extends Phaser.Scene {
     showAudioWarning(onComplete: () => void) {
         if (this.isSkipping) return;
 
-        const warningText = this.add.text(640, 360, "Ce jeu se vit de préférence avec le son activé\net un casque audio pour une immersion optimale.", {
+        const warningText = this.add.text(640, 360, i18n.t('scene_ui.audioRecommendation'), {
             fontFamily: '"Cormorant Garamond", serif',
             fontSize: '28px',
             fontStyle: 'italic',
@@ -472,7 +472,7 @@ export class IntroSequenceScene extends Phaser.Scene {
                         if (this.isSkipping) return;
                         homageText2.destroy();
 
-                        const bigTitle = this.add.text(640, 360, 'Maelström', {
+                        const bigTitle = this.add.text(640, 360, i18n.t('branding.title'), {
                             fontFamily: '"Tangerine", cursive',
                             fontSize: '120px',
                             color: '#ffffff',

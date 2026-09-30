@@ -25,7 +25,7 @@ export class HotspotZone {
     private debugGraphics: Phaser.GameObjects.Graphics;
     private debugText: Phaser.GameObjects.Text;
     private unsubscribeStore?: () => void;
-    private wheelListener?: (pointer: Phaser.Input.Pointer, over: any[], deltaX: number, deltaY: number) => void;
+    private wheelListener?: (pointer: Phaser.Input.Pointer, over: Phaser.GameObjects.GameObject[], deltaX: number, deltaY: number) => void;
 
     constructor(config: HotspotConfig) {
         const { scene, x, y, width, height, type, actionLabel, onClick } = config;
@@ -86,7 +86,7 @@ export class HotspotZone {
         });
 
         // Événement Clic
-        this.zone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        this.zone.on('pointerdown', () => {
             if (useGameStore.getState().devMode) return;
             if (this.isInteractionBlocked()) return;
             canvas.classList.remove('cursor-path', 'cursor-inspect');
@@ -111,7 +111,9 @@ export class HotspotZone {
         });
 
         // --- REDIMENSIONNEMENT (MODE DEV) ---
-        this.wheelListener = (pointer: Phaser.Input.Pointer, over: any[], deltaX: number, deltaY: number) => {
+        this.wheelListener = (pointer, over, _deltaX, deltaY) => {
+            void over;
+            void _deltaX;
             if (!useGameStore.getState().devMode) return;
 
             const bounds = this.zone.getBounds();
@@ -258,10 +260,9 @@ export class HotspotZone {
     }
 
     private isInteractionBlocked(): boolean {
-        const store = useGameStore.getState() as any;
+        const store = useGameStore.getState();
         if (
             store.currentDialog ||
-            store.isDialogueActive ||
             store.activeDocument ||
             store.selectedItem !== null
         ) {

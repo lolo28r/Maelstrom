@@ -101,7 +101,7 @@ export class MainMenuScene extends Phaser.Scene {
 
         // Title (Police Tangerine en Vrai Élément DOM HTML pour un rendu parfait)
         const titleElement = document.createElement('h1');
-        titleElement.innerText = "Maelström";
+        titleElement.innerText = i18n.t('branding.title');
         titleElement.style.fontFamily = '"Tangerine", cursive';
         titleElement.style.fontSize = '120px';
         titleElement.style.color = '#f8fafc';
@@ -117,7 +117,7 @@ export class MainMenuScene extends Phaser.Scene {
 
         // Sous-titre (Police Cormorant Garamond)
         this.add
-            .text(640, 285, "— L ' É V E I L —", {
+            .text(640, 285, i18n.t('branding.subtitle'), {
                 fontFamily: '"Cormorant Garamond", serif',
                 fontSize: '22px',
                 fontStyle: 'italic',
@@ -143,15 +143,15 @@ export class MainMenuScene extends Phaser.Scene {
                 text: i18n.t('menu.settings'),
                 action: () => {
                     store.setDialog({
-                        textKey: 'Configuration : Rendu 16:9.\nSystème de sauvegarde automatique activé.',
-                        speaker: 'RÉGLAGES',
+                        textKey: 'menu_dialogs.settings',
+                        speaker: i18n.t('characters.settings'),
                         type: 'bottom',
                     });
                 },
             },
         ];
 
-        let startY = 380;
+        const startY = 380;
         menuOptions.forEach((option, index) => {
             const color = option.disabled ? '#334155' : '#cbd5e1';
             const btn = this.add
@@ -183,43 +183,48 @@ export class MainMenuScene extends Phaser.Scene {
         this.sound.stopAll();
 
         store.setDialog({
-            speaker: '[ MODE DÉVELOPPEUR - ACCÈS RESTREINT ]',
-            textKey: 'Code 1937 validé.\nChoisissez le point de saut temporel :',
+            speaker: i18n.t('characters.developerMode'),
+            textKey: 'menu_dialogs.devPrompt',
             type: 'bottom',
             choices: [
                 {
                     id: 'dev_intro',
-                    text: '1. Introduction / Prologue (IntroSequence)',
+                    text: i18n.t('menu_dialogs.devIntro'),
                     consequences: {},
                 },
                 {
                     id: 'dev_office',
-                    text: '2. Bureau du Professeur & Lettre (ProfessorOffice)',
+                    text: i18n.t('menu_dialogs.devOffice'),
                     consequences: {},
                 },
                 {
                     id: 'dev_dream',
-                    text: '3. Cauchemar / Rencontre (DreamScene)',
+                    text: i18n.t('menu_dialogs.devDream'),
                     consequences: {},
                 },
                 {
                     id: 'dev_morning',
-                    text: '4. Réveil & Disparition / Journal (DeskMorningScene)',
+                    text: i18n.t('menu_dialogs.devMorning'),
                     consequences: {},
                 },
                 {
                     id: 'dev_city',
-                    text: '5. Exploration d\'Arkham / Ville (CityExplorerScene)',
+                    text: i18n.t('menu_dialogs.devCity'),
+                    consequences: {},
+                },
+                {
+                    id: 'dev_nightmare',
+                    text: i18n.t('menu_dialogs.devNightmare'),
                     consequences: {},
                 },
                 {
                     id: 'dev_end',
-                    text: '6. Fin du Chapitre 1 (ChapterEndScene)',
+                    text: i18n.t('menu_dialogs.devEnd'),
                     consequences: {},
                 },
                 {
                     id: 'dev_close',
-                    text: 'Fermer le mode dev',
+                    text: i18n.t('menu_dialogs.devClose'),
                     consequences: {},
                 }
             ],
@@ -236,7 +241,7 @@ export class MainMenuScene extends Phaser.Scene {
                 if (selectedChoiceId === 'dev_morning') targetScene = 'DeskMorningScene';
                 if (selectedChoiceId === 'dev_city') targetScene = 'CityExplorerScene';
                 if (selectedChoiceId === 'dev_end') targetScene = 'ChapterEndScene';
-
+                if (selectedChoiceId === 'dev_nightmare') targetScene = 'NightmareScene';
                 store.closeDialog();
                 this.cameras.main.fadeOut(500, 0, 0, 0);
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
@@ -254,7 +259,7 @@ export class MainMenuScene extends Phaser.Scene {
         loadingBg.fillStyle(0x020408, 0.9);
         loadingBg.fillRect(0, 0, 1280, 720);
 
-        const loadingText = this.add.text(640, 330, "Chargement...", {
+        const loadingText = this.add.text(640, 330, i18n.t('menu_dialogs.loading'), {
             fontFamily: '"Cormorant Garamond", serif',
             fontSize: '24px',
             fontStyle: 'italic',
@@ -309,8 +314,8 @@ export class MainMenuScene extends Phaser.Scene {
             });
         } else {
             store.setDialog({
-                textKey: 'Aucune sauvegarde locale trouvée.',
-                speaker: 'SYSTÈME',
+                textKey: 'menu_dialogs.noSave',
+                speaker: i18n.t('characters.system'),
                 type: 'bottom',
             });
         }

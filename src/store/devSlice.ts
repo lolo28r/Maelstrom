@@ -1,5 +1,5 @@
-import { StateCreator } from 'zustand';
-import { GameState } from './useGameStore';
+import type { StateCreator } from 'zustand';
+import type { GameState } from './useGameStore';
 
 export interface DevSlice {
     devMode: boolean;

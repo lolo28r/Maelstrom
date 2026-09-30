@@ -26,7 +26,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         this.load.image('office_interior', `${baseUrl}assets/Desk.jpg`);
         this.load.image('letter_asset', `${baseUrl}assets/letterAsset.png`);
 
-        this.load.on('loaderror', (fileObj: any) => {
+        this.load.on('loaderror', (fileObj: Phaser.Loader.File) => {
             if (fileObj.type === 'audio') {
                 console.warn(`[Audio Warning] Fichier non trouvé ou corrompu ignoré : ${fileObj.key}`);
             }
@@ -109,10 +109,10 @@ export class ProfessorOfficeScene extends Phaser.Scene {
 
         store.addItem({
             id: 'whisky',
-            name: 'Flasque de Whisky',
+            name: i18next.t('items.whisky.name'),
             icon: `${baseUrl}assets/whiskyAsset.png`,
-            description: 'Bourbon de bas étage. Brûle la gorge, mais engourdit les nerfs.',
-            examineText: 'Une flasque en métal cabossée qui sent l\'alcool fort. Idéal pour apaiser les crises d\'angoisse et faire remonter la Santé Mentale, au prix d\'une fatigue accrue.',
+            description: i18next.t('items.whisky.description'),
+            examineText: i18next.t('items.whisky.examineText'),
             quantity: 1,
             stackable: true,
             consumable: true
@@ -120,10 +120,10 @@ export class ProfessorOfficeScene extends Phaser.Scene {
 
         store.addItem({
             id: 'tobacco',
-            name: 'Tabac à rouler',
+            name: i18next.t('items.tobacco.name'),
             icon: `${baseUrl}assets/tabac.png`,
-            description: 'Une blague à tabac usée et quelques feuilles à rouler.',
-            examineText: 'Du tabac brun séché. Rouler une cigarette permet de rassembler ses idées et de calmer le cœur qui bat trop vite pour évaluer son état mental.',
+            description: i18next.t('items.tobacco.description'),
+            examineText: i18next.t('items.tobacco.examineText'),
             quantity: 1,
             stackable: true,
             consumable: true
@@ -138,7 +138,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
 
         // Simple lancement du dialogue narratif
         store.setDialog({
-            speaker: 'LAURENCE LINDNER',
+            speaker: i18next.t('characters.laurence'),
             textKey: 'intro.tobacco_ritual_steps',
             type: 'bottom',
             onComplete: () => {
@@ -162,9 +162,9 @@ export class ProfessorOfficeScene extends Phaser.Scene {
             y: 480,
             texture: 'letter_asset',
             scale: 0.5,
-            actionLabel: "Lire",
+            actionLabel: i18next.t('scene_actions.read'),
             onClick: () => {
-                const store = useGameStore.getState() as any;
+                const store = useGameStore.getState();
                 const isAlreadyRead = store.act1Progress?.letterRead;
 
                 const docTitle = i18next.t('intro.letter_title');
@@ -179,7 +179,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                             'arkham_letter',
                             docTitle,
                             docContent,
-                            'Acte I - Bureau'
+                            i18next.t('journal.officeArchiveTimestamp')
                         );
 
                         if (!isAlreadyRead) {
@@ -236,7 +236,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     }
 
     private startDreamTransition() {
-        const store = useGameStore.getState() as any;
+        const store = useGameStore.getState();
 
         if (this.unsubscribeStore) {
             this.unsubscribeStore();
@@ -274,7 +274,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     }
 
     private showLocationIntro(onComplete: () => void) {
-        const locationText = this.add.text(640, 580, "Arkham, Massachusetts — Janvier 1925", {
+        const locationText = this.add.text(640, 580, i18next.t('scene_ui.officeLocation'), {
             fontFamily: '"Tangerine", cursive',
             fontSize: '56px',
             color: '#cbd5e1',
@@ -341,7 +341,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     }
 
     private updateTrueViewVisibility(active: boolean) {
-        if (this.trueViewGroup && (this.trueViewGroup as any).defaultFrame !== undefined) {
+        if (this.trueViewGroup) {
             this.trueViewGroup.setVisible(active);
         }
     }

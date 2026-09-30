@@ -1,5 +1,6 @@
-import { StateCreator } from 'zustand';
-import { GameState } from './useGameStore';
+import type { StateCreator } from 'zustand';
+import i18n from '../i18n';
+import type { GameState } from './useGameStore';
 
 export interface JournalNote {
     id: string;
@@ -23,7 +24,7 @@ export interface ArchivedDocument {
 
 export interface JournalSlice {
     journalUnlocked: boolean;
-    currentDate: string; // <-- Ajout de la date actuelle (ex: "20 Janvier 1925")
+    currentDate: string;
     notes: JournalNote[];
     discoveredKeywords: InvestigationKeyword[];
     documents: ArchivedDocument[];
@@ -31,7 +32,7 @@ export interface JournalSlice {
     hasNewJournalEntry: boolean;
 
     unlockJournal: () => void;
-    setCurrentDate: (date: string) => void; // <-- Permet de changer de jour si besoin
+    setCurrentDate: (date: string) => void;
     addJournalNote: (title: string, content: string, timestamp: string) => void;
     addInvestigationKeyword: (id: string, label: string) => void;
     addArchivedDocument: (id: string, title: string, content: string, timestamp: string) => void;
@@ -42,7 +43,7 @@ export interface JournalSlice {
 
 export const createJournalSlice: StateCreator<GameState, [], [], JournalSlice> = (set) => ({
     journalUnlocked: false,
-    currentDate: "20 Janvier 1925", // <-- Initialisation au premier jour de l'enquête
+    currentDate: i18n.t('journal.initialDate'),
     notes: [],
     discoveredKeywords: [],
     documents: [],
@@ -59,7 +60,7 @@ export const createJournalSlice: StateCreator<GameState, [], [], JournalSlice> =
     }),
 
     addInvestigationKeyword: (id, label) => set((state) => {
-        if (state.discoveredKeywords.some((k) => k.id === id)) state;
+        if (state.discoveredKeywords.some((k) => k.id === id)) return state;
         return {
             discoveredKeywords: [...state.discoveredKeywords, { id, label, discovered: true }],
             hasNewJournalEntry: true,

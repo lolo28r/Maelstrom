@@ -91,11 +91,11 @@ export class ChapterEndScene extends Phaser.Scene {
                     submitBtn.style.display = 'none';
                     if (successMsg) successMsg.style.display = 'block';
                 } else {
-                    alert("Une erreur est survenue lors de l'envoi.");
+                    alert(i18n.t('notifications.feedbackSendError'));
                 }
             } catch (error) {
                 console.error("Erreur réseau :", error);
-                alert("Impossible d'envoyer le message pour le moment.");
+                alert(i18n.t('notifications.feedbackNetworkError'));
             }
         });
 

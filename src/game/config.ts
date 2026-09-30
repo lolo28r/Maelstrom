@@ -6,6 +6,7 @@ import { DreamScene } from "./scenes/DreamScene.ts";
 import { DeskMorningScene } from './scenes/DeskMorningScene';
 import { CityExplorerScene } from './scenes/CityExplorerScene';
 import { ChapterEndScene } from './scenes/ChapterEndScene';
+import { NightmareScene } from './scenes/NightmareScene';
 
 export const phaserGameConfig: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
@@ -21,5 +22,5 @@ export const phaserGameConfig: Phaser.Types.Core.GameConfig = {
     dom: {
         createContainer: true, // <--- Indispensable pour injecter du HTML/CSS (comme le titre en Tangerine)
     },
-    scene: [MainMenuScene, IntroSequenceScene, ProfessorOfficeScene, DreamScene, DeskMorningScene, CityExplorerScene, ChapterEndScene],
+    scene: [MainMenuScene, IntroSequenceScene, ProfessorOfficeScene, DreamScene, DeskMorningScene, CityExplorerScene, ChapterEndScene, NightmareScene],
 };
