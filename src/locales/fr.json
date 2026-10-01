@@ -17,14 +17,225 @@
     "developerMode": "[ MODE DÉVELOPPEUR - ACCÈS RESTREINT ]"
   },
   "stats": {
-    "mentalHealth": "Santé mentale",
-    "exhaustion": "Épuisement",
-    "fatigue": "Fatigue",
+    "lucidity": "Lucidité",
+    "innerState": "État intérieur",
+    "crisisSuppressed": "Manifestations atténuées par l'alcool — Lucidité inchangée",
     "cosmicConsciousness": "Conscience cosmique"
   },
   "journal": {
     "initialDate": "20 janvier 1925",
     "officeArchiveTimestamp": "Acte I - Bureau"
+  },
+  "new_content": {
+    "whiskyUse": "La peur ne disparaît pas. Ses contours deviennent seulement moins nets.",
+    "smoking": {
+      "title": "Pause pour évaluer l'état de Laurence",
+      "autoCloseHint": "Cette pause se refermera automatiquement.",
+      "closeNow": "[ FINIR MAINTENANT ]"
+    },
+    "office": {
+      "prompt": "Choisissez comment Laurence réagit au choc. Chaque option a une fonction différente ; aucune ne change ce qui est écrit dans la lettre.",
+      "verify": "[ ANCRAGE — restaure 10 de Lucidité, une fois ] Relire la date et la signature.",
+      "drink": "[ ALCOOL — masque une crise, ne restaure pas la Lucidité ] Boire pour calmer le tremblement.",
+      "smoke": "[ TABAC — révèle votre état, ne restaure rien ] Rouler une cigarette et faire le point.",
+      "reactionVerify": "La date, la signature, le papier. Ces choses sont réelles. Je peux partir de là.",
+      "reactionDrink": "La peur ne disparaît pas. Elle recule juste assez pour me laisser dormir.",
+      "reactionSmoke": "Je nomme chaque sensation sans lui inventer de cause. Pour l'instant, cela suffit."
+    },
+    "dream": {
+      "openingVerify": [
+        "Tu as vérifié la date, la signature et le papier.",
+        "Même éveillé, tu cherchais déjà ce qui était réel."
+      ],
+      "openingSmoke": [
+        "Tu as nommé chaque sensation pour ne pas lui inventer de cause.",
+        "Voyons combien de temps les noms te protégeront."
+      ],
+      "openingDrink": [
+        "Tu as bu pour faire taire ce que tu ressentais.",
+        "Pourtant, quelque chose en toi refuse le silence."
+      ],
+      "opening": [
+        "Tu bois pour faire taire ce que tu ressens.",
+        "Pourtant, quelque chose en toi refuse le silence."
+      ],
+      "seekTruth": "« Je veux savoir ce qui est arrivé à mon père. »",
+      "resist": "« Je ne te dois aucune réponse. »",
+      "seekRest": "« Je veux seulement réussir à dormir. »",
+      "reactionTruth": [
+        "Bien.",
+        "La prochaine fois, je ne te donnerai pas de réponse.",
+        "Je te montrerai comment tu les fabriques."
+      ],
+      "reactionResist": "Tu crois qu'une question cesse d'exister lorsque tu refuses d'y répondre.",
+      "reactionRest": [
+        "Le repos est une forme de réponse.",
+        "Certaines choses dorment depuis bien plus longtemps que toi."
+      ],
+      "firstMeetingPrompt": "Avant de te réveiller, Laurence, quelle question veux-tu réellement me poser ?",
+      "askTrueFace": "« Montre-moi ton vrai visage. »",
+      "askIdentity": "« Qui es-tu, et pourquoi t'intéresses-tu à moi ? »",
+      "askWakeUp": "« Je ne veux rien de plus. Laisse-moi me réveiller. »",
+      "reactionTrueFace": [
+        "Pas encore.",
+        "Si tu me le demandes encore lorsque nous nous reverrons, je ne détournerai pas les yeux à ta place."
+      ],
+      "reactionIdentity": "Un nom te donnerait l'impression de me comprendre. Pour l'instant, observe seulement qui pose les questions.",
+      "reactionWakeUp": "Alors réveille-toi. Nous verrons si ce refus existe encore lorsque tu refermeras les yeux.",
+      "outro": "Lorsque tu te réveilleras, demande-toi quelle partie de ceci venait réellement de moi."
+    },
+    "church": {
+      "observeStatue": "[ Prendre un moment pour contempler la statue ]",
+      "prayForFather": "[ S'agenouiller et prier pour son père ]",
+      "questionThomas": "[ Demander à Thomas ce qu'il entend par dessein sacré ]",
+      "examineRosary": "[ Prendre le chapelet entre ses doigts ]"
+    },
+    "nightmare": {
+      "introTruth": [
+        "Tu as dit vouloir savoir.",
+        "Voyons ce que tu fais des choses que tu sais déjà.",
+        "Qu'as-tu compris, Laurence ?"
+      ],
+      "introRest": [
+        "Tu voulais dormir.",
+        "Pourtant, même ici, tu continues de chercher ton père.",
+        "Qu'as-tu compris ?"
+      ],
+      "introResist": [
+        "Tu ne me devais aucune réponse.",
+        "Mais tu continues de répondre à mes questions dans ta tête.",
+        "Qu'as-tu compris ?"
+      ],
+      "trapPrompt": [
+        "Le corps de ton père était toujours devant toi, mais sa manière d'être avait changé.",
+        "Tu veux comprendre cette rupture.",
+        "Alors comprendre exige de risquer la même rupture."
+      ],
+      "requestVision": "« Montre-moi ce qu'il a vu. »",
+      "requestRest": "« Je veux que cela cesse pour cette nuit. »",
+      "reject": "« Non. Les faits ne prouvent pas cela. »",
+      "reactionVision": [
+        "Voilà.",
+        "Tu vois comme il est facile de confondre courage et faim."
+      ],
+      "reactionRest": [
+        "Pour cette nuit.",
+        "Tu choisis déjà soigneusement tes mots."
+      ],
+      "reactionReject": [
+        "Non.",
+        "Mais ils t'ont conduit exactement là où je voulais."
+      ],
+      "trueFaceReminder": [
+        "Lors de notre première rencontre, tu m'as demandé mon vrai visage.",
+        "Je m'en suis souvenu.",
+        "Le veux-tu encore, maintenant que tu sais ce que peut coûter une question ?"
+      ],
+      "confirmTrueFace": "« Oui. Montre-le-moi. »",
+      "refuseTrueFace": "« Non. Je ne te laisserai pas choisir ce que je dois voir. »",
+      "reactionTrueFace": "Tu l'as demandé deux fois. Souviens-toi également que je ne t'ai jamais forcé à regarder.",
+      "reactionRefuseTrueFace": "Tu désirais une réponse. Maintenant, tu choisis une limite. Voilà une autre chose dont je me souviendrai."
+    }
+  },
+  "investigation": {
+    "journal": {
+      "fragments": "Fragments",
+      "conclusions": "Conclusions",
+      "noFragments": "Aucun fragment consigné pour le moment.",
+      "noConclusions": "Aucune connexion établie pour le moment."
+    },
+    "status": {
+      "fact": "Constat",
+      "hypothesis": "Hypothèse",
+      "fragile": "Hypothèse fragile",
+      "suggestion": "Suggestion",
+      "rejected_suggestion": "Suggestion rejetée"
+    },
+    "sources": {
+      "asylum_letter": "Source : lettre de l'asile",
+      "dream": "Source : rêve — fiabilité indéterminée",
+      "memory": "Source : souvenir personnel",
+      "bell": "Source : témoignage de Bell",
+      "rumor": "Source : rumeur — fiabilité faible",
+      "observation": "Source : observation matérielle"
+    },
+    "kinds": {
+      "memory": "Souvenir",
+      "observation": "Observation",
+      "testimony": "Témoignage",
+      "document": "Document",
+      "vision": "Vision"
+    },
+    "fragments": {
+      "asylum_letter_decline": {
+        "title": "La lettre de l'asile",
+        "content": "L'état du père s'est aggravé au cours des dernières quarante-huit heures."
+      },
+      "dream1_unknown_entity": {
+        "title": "L'inconnu du rêve",
+        "content": "Une silhouette presque humaine connaissait mes habitudes et mon père."
+      },
+      "father_forgot_name_at_station": {
+        "title": "Le quai",
+        "content": "Mon père s'est retourné et m'a demandé mon nom."
+      },
+      "bell_change_1921": {
+        "title": "Le changement de 1921",
+        "content": "Bell situe le changement de mon père autour de 1921."
+      },
+      "bell_changed_behavior": {
+        "title": "Un comportement étranger",
+        "content": "Son regard, sa voix et sa façon de vérifier ses propres connaissances avaient changé."
+      },
+      "bell_mind_ownership_question": {
+        "title": "À qui appartient un esprit ?",
+        "content": "Mon père a demandé à Bell si l'esprit d'un homme pouvait appartenir à quelqu'un d'autre."
+      },
+      "bell_retained_scholarship": {
+        "title": "Une érudition intacte",
+        "content": "Après 1921, mon père connaissait toujours ses livres, ses auteurs et ses théories, mais vérifiait des connaissances qu'il maîtrisait déjà."
+      },
+      "street_cult_rumor": {
+        "title": "Une secte derrière les prières",
+        "content": "Une dispute évoque des réunions, des prières et un homme qui prétend révéler ce que l'Église aurait caché — notamment qui se tient réellement derrière les prières."
+      },
+      "dream_eclipse_vision": {
+        "title": "L'éclipse rêvée",
+        "content": "Dans le rêve, l'éclipse précédait directement l'apparition de l'inconnu."
+      }
+    },
+    "connections": {
+      "father_changed_around_1921": {
+        "title": "CONSTAT — Le changement autour de 1921",
+        "content": "Le comportement de mon père avait changé autour de 1921."
+      },
+      "scholarship_without_recognition": {
+        "title": "HYPOTHÈSE — Savoir sans reconnaître",
+        "content": "Le changement ne ressemble pas à un simple déclin de mémoire : mon père conservait son érudition, mais ne reconnaissait plus son propre enfant. À vérifier à l'asile."
+      }
+    },
+    "suggestions": {
+      "suffering": {
+        "title": "L'interprétation de l'inconnu",
+        "rejected": "L'entité affirme que comprendre exige de subir ce que mon père a subi. Les faits ne permettent pas de l'établir.",
+        "accepted": "Pendant le rêve, l'idée que je devais suivre le chemin de mon père m'a paru inévitable. Je ne sais pas si elle venait de moi."
+      }
+    },
+    "board": {
+      "eyebrow": "Mémoire recomposée",
+      "title": "Connexions",
+      "question": "Qu'ai-je réellement compris ?",
+      "instructions": "Sélectionnez deux fragments et rapprochez-les.",
+      "selectTwo": "Deux fragments sont nécessaires.",
+      "insufficient": "Ces éléments partagent une impression, pas une preuve.",
+      "missingTitle": "Témoignage manquant",
+      "missingText": "Une partie du raisonnement reste inaccessible.",
+      "undo": "Défaire",
+      "connect": "Relier",
+      "finish": "Conserver ces conclusions",
+      "admitMissing": "Reconnaître ce qui manque",
+      "progress": "Connexions établies : {{solved}} / {{total}}"
+    }
   },
   "scene_ui": {
     "audioRecommendation": "Ce jeu se vit de préférence avec le son activé\net un casque audio pour une immersion optimale.",
@@ -94,7 +305,7 @@
     "whisky": {
       "name": "Flasque de whisky",
       "description": "Bourbon de bas étage. Brûle la gorge, mais engourdit les nerfs.",
-      "examineText": "Une flasque en métal cabossée qui sent l'alcool fort. Idéal pour apaiser les crises d'angoisse et faire remonter la santé mentale, au prix d'une fatigue accrue."
+      "examineText": "Une flasque en métal cabossée qui sent l'alcool fort. Elle peut étouffer momentanément les manifestations d'une crise, mais ne rend aucune lucidité."
     },
     "tobacco": {
       "name": "Tabac à rouler",
@@ -140,9 +351,8 @@
     ],
     "letter_title": "Asile d'Arkham — Notification de Transfert",
     "letter_content": "À l'attention de Laurence Lindner,\n\nNous vous informons par la présente que l'état de votre père, le Patient #402 (Dr. Lindner), a connu un déclin mental sévère au cours des dernières 48 heures.\n\nLe sujet présentant une catatonie intermittente et des troubles du comportement majeurs, la direction médicale a pris la décision de procéder à son transfert immédiat vers le Pavillon d'Isolement des cas incurables.\n\nÀ compter de ce jour, les visites sont suspendues jusqu'à nouvel ordre. Les effets personnels restants du patient sont tenus à votre disposition à l'accueil de l'établissement.\n\n— La Direction Médicale, Asile d'Arkham",
-    "tutoriel_jauges_reaction": "Le jeu repose sur deux jauges invisibles : \n\n• La santé mentale change selon vos choix, vos dialogues et vos découvertes. Si elle tombe à zéro, Laurence se suicide. Pour l'afficher et l'évaluer, fumez une cigarette. Vous pouvez aussi boire du whisky pour stopper une crise, mais cela augmente votre épuisement.\n\n• La conscience cosmique ne fait que monter à mesure que vous découvrez l'horreur. Elle est indispensable pour progresser dans l'enquête.",
+    "tutoriel_jauges_reaction": "Le jeu repose sur deux jauges :\n\n• La Lucidité mesure la capacité de Laurence à distinguer une observation, un souvenir et une interprétation. À zéro, une crise survient : le jeu continue, mais certaines réponses deviennent momentanément impossibles.\n\n• La Conscience cosmique représente les connaissances acquises sur les phénomènes cosmiques. Elle ouvre de nouvelles observations sans garantir leur bonne interprétation.\n\nLe whisky masque une crise sans restaurer la Lucidité. Le tabac permet d'évaluer son état.",
     "tutoriel_inventaire": "TUTORIEL : SACOCHE D'ARCHIVISTE\n\nVotre choc émotionnel nécessite une réaction immédiate.\n\n• ACCÈS : Cliquez sur la sacoche en bas à gauche pour l'ouvrir.\n• ACTION REQUISE : Sélectionnez la Flasque de Whisky et choisissez « BOIRE UNE GORGÉE » pour apaiser vos nerfs et faire remonter votre Santé Mentale.\n• EMPLACEMENTS : Les objets clés et indices y seront également stockés.",
-    "tutoriel_epuisement": "TUTORIEL : L'ÉPUISEMENT & LES RÊVES\n\nBoire du whisky a apaisé les nerfs de Laurence, mais son corps en paye le prix. Sa jauge d'Épuisement a augmenté.\n\n• MECANIQUE : L'Épuisement augmente avec l'usage de sédatifs, l'effort mental et le temps qui passe.\n• IMPACT SUR LES RÊVES : Un niveau d'épuisement élevé altère la clarté de vos phases de sommeil. Il vous plonge dans des cauchemars plus sombres et augmente le risque de sombrer dans l'inconscience.\n• ÉVALUATION : Surveillez attentivement cet équilibre entre clarté mentale et fatigue physique.",
     "transition_sommeil": "Le vertige de l'alcool se mêle à une fatigue écrasante. Mes paupières deviennent de plomb... La réalité du bureau s'efface.",
     "q1": "Vous êtes-vous déjà demandé quels sont les sombres secrets que renferme notre univers ?",
     "q2": "Pensez-vous réellement que nous sommes en sécurité... seuls sur une boule géante dans le vide cosmique ?",
@@ -430,14 +640,14 @@
     "laurence_stubborn": "Obstiné ?",
     "bell_stubborn": "Lorsqu'une question lui venait à l'esprit, il ne pouvait pas la laisser tranquille.",
     "laurence_what_questions": "Quel genre de questions ?",
-    "bell_questions": "L'histoire des peuples anciens. Leurs religions. Leurs mythes.\nLes ressemblances entre des civilisations qui n'avaient, en apparence, jamais eu de contact.",
+    "bell_questions": "L'histoire des peuples anciens. Leurs langues, leurs coutumes, leurs récits.\nTout ce qui permet de comprendre comment une civilisation pense et se transforme.",
     "laurence_research": "Il cherchait quelque chose en particulier ?",
-    "bell_research": "Je crois qu'il cherchait à comprendre pourquoi certaines choses revenaient sans cesse.",
+    "bell_research": "Rien d'unique, à ma connaissance. C'était un historien passionné par les civilisations anciennes.",
     "laurence_recurring": "Des mythes ?",
-    "bell_recurring": "Des mythes. Des symboles. Des formes.",
-    "laurence_symbols": "Des formes ?",
-    "bell_symbols": "Il disait que certaines figures apparaissaient dans des endroits qui n'avaient rien à voir les uns avec les autres.",
-    "bell_symbols_more": "Des civilisations séparées par des siècles.\nParfois même par des continents.",
+    "bell_recurring": "Il comparait les textes, les chronologies et les usages. C'était sa manière de travailler.",
+    "laurence_symbols": "Il avait découvert quelque chose d'inhabituel ?",
+    "bell_symbols": "Pas qu'il m'ait confié. Avant 1921, son travail était celui d'un érudit exigeant, mais parfaitement ordinaire.",
+    "bell_symbols_more": "C'est son comportement qui a changé, pas le sujet de ses recherches.",
     "laurence_change": "Vous avez remarqué un changement chez lui ?",
     "bell_change": "Oui.",
     "laurence_when_change": "Quand ?",
@@ -468,26 +678,9 @@
     "laurence_answer": "Et vous lui avez répondu quoi ?",
     "bell_answer": "Que je ne comprenais pas sa question.",
     "bell_after_question": "Il n'a rien répondu.\nIl s'est remis à écrire.",
-    "laurence_manuscript": "Vous avez parlé de ses recherches ?",
-    "bell_manuscript_intro": "Oui. Enfin... avant que les choses deviennent plus difficiles.",
-    "laurence_what_research": "Qu'est-ce qu'il étudiait exactement ?",
-    "bell_ancient_texts": "Des textes anciens. Des récits religieux. Des mythes provenant de civilisations très éloignées.",
-    "bell_pattern": "Il cherchait des correspondances.",
-    "laurence_correspondences": "Des correspondances ?",
-    "bell_pattern_explain": "Des choses qui revenaient d'un récit à l'autre.\nDes symboles, des formes, parfois même certaines histoires.",
-    "laurence_manuscript_found": "Il avait trouvé quelque chose ?",
-    "bell_manuscript": "Je crois.",
-    "laurence_what_manuscript": "Quoi ?",
-    "bell_manuscript_description": "Un manuscrit.\nJe l'ai vu une seule fois.",
-    "laurence_symbol": "Qu'est-ce qu'il contenait ?",
-    "bell_symbol": "Je ne sais pas vraiment.\nMais il y avait un symbole. Une forme géométrique.",
-    "laurence_repeated_symbol": "Le même genre de forme qu'il étudiait dans ses recherches ?",
-    "bell_repeated_symbol": "Oui.",
-    "laurence_where_manuscript": "Vous savez où il est maintenant ?",
-    "bell_where_manuscript": "Non.",
-    "bell_end": "Après ça, votre père est devenu de plus en plus difficile à comprendre.",
+    "bell_end": "Après ça, je ne l'ai plus jamais revu ici.",
     "journal_note_title": "Indices — Les recherches de mon père",
-    "journal_note_content": "Mon père fréquentait la bibliothèque et étudiait les civilisations anciennes, leurs mythes, leurs religions et certains symboles récurrents. Bell situe un changement dans son comportement vers 1921 : un regard étrange, une manière de parler plus froide et précise, et une tendance à réétudier des connaissances qu'il possédait déjà. Il aurait également travaillé sur un mystérieux manuscrit contenant une forme géométrique.",
+    "journal_note_content": "Mon père fréquentait la bibliothèque et étudiait les civilisations anciennes. Bell situe un changement dans son comportement vers 1921 : son érudition était intacte, mais son regard, sa manière de parler et son rapport à des connaissances familières étaient devenus étranges.",
     "journal_timestamp": "1925 - Acte I",
     "shelves_thought": "Des tonnes de livres... Mon père a dû plonger son nez là-dedans tellement de fois.",
     "fireplace_thought": "La chaleur du feu contraste étrangement avec le silence de la pièce.",
@@ -497,7 +690,6 @@
     "laurence_ask_change": "« Vous avez remarqué un changement chez lui ? »",
     "laurence_ask_behavior": "« Comment se comportait-il ? »",
     "laurence_ask_strange": "« Il vous a déjà dit quelque chose d'étrange ? »",
-    "laurence_ask_research": "« Vous avez parlé de ses recherches et d'un manuscrit ? »",
     "laurence_leave": "— Le saluer et le laisser à sa lecture."
   },
   "act1_end": {
@@ -515,21 +707,21 @@
     "lit_1": "Mais chaque fois que je ferme les yeux, je reviens à toi.",
     "ruins_0": "Tu ne riais jamais de mes questions.",
     "ruins_1": "Tu m’écoutais comme si chaque idée méritait d’être suivie.",
-    "ruins_2": "Quand j’ai trouvé cette marque dans la pierre, tu as posé ta main sur mon épaule.",
+    "ruins_2": "Quand tu m'a amené dans les vieilles ruines ce jour-là.",
     "ruins_3": "J’ai cru que nous chercherions toujours ensemble.",
     "station_0": "Puis il y a eu cette nuit-là.",
     "train_0": "Personne ne savait pourquoi tu partais.",
     "train_1": "Je t’ai appelé.",
     "train_2": "Tu t’es retourné…",
-    "train_3": "Et tu m’as demandé mon nom.",
-    "train_4": "Tu ne plaisantais pas.",
+    "train_3": "Et tu m’as demandé qui j'étais.",
+    "train_4": "Tu ne reconnaissais même pas ton propre enfant.",
     "lonely_0": "Mère a continué de dresser ta place.",
     "lonely_1": "Au début, je crois qu’elle t’attendait vraiment.",
     "lonely_2": "Moi aussi.",
     "crazy_0": "Quatre ans…",
     "crazy_1": "Je ne sais même plus quel visage je retrouverai.",
     "crazy_2": "J’aimerais t’apporter un livre. Comme avant.",
-    "crazy_3": "Mais j’ai peur que tu ne saches plus qui je suis.",
+    "crazy_3": "Mais j’ai peur que tu ne saches vraiment plus qui je suis.",
     "cursed_0": "Pourquoi est-ce que je ne trouve plus les mots pour prier ?",
     "cult_0": "Ce ne sont plus mes souvenirs.",
     "cult_1": "Qui me montre cela ?",
@@ -618,10 +810,10 @@
         ]
       },
       "step_4": [
-        "Ton père cherchait des formes qui revenaient à travers les siècles.",
-        "Tu as trouvé une marque dans la pierre.",
-        "Tu voulais savoir ce qu’elle signifiait.",
-        "Cette question est toujours là."
+        "Ton père connaissait toujours ses livres, mais il ne te reconnaissait plus.",
+        "Bell a vu son comportement changer autour de 1921.",
+        "Deux faits peuvent se rejoindre sans encore livrer leur explication.",
+        "Cette question est désormais la tienne."
       ],
       "step_4_choices": {
         "choice_knowledge": "« Oui. Je veux comprendre. »",

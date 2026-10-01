@@ -8,9 +8,8 @@ export const InventoryHUD: React.FC = () => {
     const setSelectedItem = useGameStore((state) => state.setSelectedItem);
     const isInventoryLocked = useGameStore((state) => state.isInventoryLocked); // <-- Récupération du verrou
 
-    const modifyStat = useGameStore((state) => state.modifyStat);
+    const suppressCrisis = useGameStore((state) => state.suppressCrisis);
     const removeItemFromInventory = useGameStore((state) => state.removeItemFromInventory);
-    const setStatusRevealed = useGameStore((state) => state.setStatusRevealed);
     const setDialog = useGameStore((state) => state.setDialog);
 
     const [isOpen, setIsOpen] = useState(false);
@@ -23,19 +22,12 @@ export const InventoryHUD: React.FC = () => {
         e.stopPropagation();
 
         if (item.id === 'whisky') {
-            // Comportement du Whisky : Soin mental immédiat + contre-coup d'épuisement
-            modifyStat('mental', 15);
-
-            setTimeout(() => {
-                modifyStat('exhaustion', 10);
-            }, 1500);
+            suppressCrisis();
+            setDialog({ speaker: 'LAURENCE LINDNER', textKey: 'new_content.whiskyUse', type: 'bottom' });
 
             updateInventoryAfterUse(item);
 
         } else if (item.id === 'tobacco') {
-            modifyStat('mental', 15);
-            modifyStat('exhaustion', 10);
-
             setExaminingItem(null);
             setIsOpen(false);
 
@@ -45,19 +37,8 @@ export const InventoryHUD: React.FC = () => {
                 textKey: 'intro.tobacco_ritual_steps',
                 type: 'bottom',
                 onComplete: () => {
-                    // 2. Juste après les dialogues, on joue le SFX de fumée
-                    try {
-                        const baseUrl = import.meta.env.BASE_URL;
-                        const smokeAudio = new Audio(`${baseUrl}assets/smokeVFX.mp3`);
-                        smokeAudio.volume = 0.4;
-                        smokeAudio.play().catch(err => console.warn("Audio bloqué :", err));
-                    } catch (e) {
-                        console.warn("Erreur lecture SFX fumée :", e);
-                    }
-
-                    // 3. On active la cinématique de fumée (background + jauges révélées)
+                    // L'overlay gère seul le son, l'affichage temporaire et sa fermeture.
                     useGameStore.getState().setSmokingActive(true);
-                    setStatusRevealed(true);
                 }
             });
 

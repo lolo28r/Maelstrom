@@ -1,17 +1,21 @@
 import type { StateCreator } from 'zustand';
 import type { GameState } from './useGameStore';
 import type { PersistenceSlice } from './types';
-import { initialAct1Progress, initialTrapezohedron } from './worldSlice';
+import { initialAct1Progress } from './worldSlice';
 
-const SAVE_KEY = 'maelstrom_save_v1';
+const SAVE_KEY = 'maelstrom_save_v2';
 
 type SavedGame = Partial<Pick<GameState,
-    | 'mentalHealth'
-    | 'exhaustion'
+    | 'lucidity'
     | 'consciousness'
+    | 'crisisState'
+    | 'crisisSuppressed'
+    | 'usedAnchors'
+    | 'acquiredFragments'
+    | 'resolvedConnections'
+    | 'investigationConclusions'
     | 'currentScene'
     | 'inventory'
-    | 'trapezohedron'
     | 'act1Progress'
     | 'choicesHistory'
     | 'journalUnlocked'
@@ -26,12 +30,16 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
         try {
             const state = get();
             const saveData: SavedGame = {
-                mentalHealth: state.mentalHealth,
-                exhaustion: state.exhaustion,
+                lucidity: state.lucidity,
                 consciousness: state.consciousness,
+                crisisState: state.crisisState,
+                crisisSuppressed: state.crisisSuppressed,
+                usedAnchors: state.usedAnchors,
+                acquiredFragments: state.acquiredFragments,
+                resolvedConnections: state.resolvedConnections,
+                investigationConclusions: state.investigationConclusions,
                 currentScene: state.currentScene,
                 inventory: state.inventory,
-                trapezohedron: state.trapezohedron,
                 act1Progress: state.act1Progress,
                 choicesHistory: state.choicesHistory,
                 journalUnlocked: state.journalUnlocked,
@@ -53,13 +61,19 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
 
             const data = JSON.parse(serializedData) as SavedGame;
             set({
-                mentalHealth: data.mentalHealth ?? 100,
-                exhaustion: data.exhaustion ?? 0,
+                lucidity: data.lucidity ?? 100,
                 consciousness: data.consciousness ?? 0,
+                crisisState: data.crisisState ?? 'stable',
+                crisisSuppressed: data.crisisSuppressed ?? false,
+                usedAnchors: data.usedAnchors ?? {},
+                acquiredFragments: data.acquiredFragments ?? [],
+                resolvedConnections: data.resolvedConnections ?? [],
+                investigationConclusions: data.investigationConclusions ?? [],
+                connectionBoardOpen: false,
+                connectionBoardRevision: 0,
                 currentScene: data.currentScene ?? 'ProfessorOffice',
                 inventory: data.inventory ?? [],
                 selectedItem: null,
-                trapezohedron: data.trapezohedron ?? { ...initialTrapezohedron },
                 act1Progress: data.act1Progress ?? { ...initialAct1Progress },
                 choicesHistory: data.choicesHistory ?? {},
                 journalUnlocked: data.journalUnlocked ?? false,
@@ -87,16 +101,22 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
     hasSave: () => localStorage.getItem(SAVE_KEY) !== null,
 
     resetGame: () => set({
-        mentalHealth: 100,
-        exhaustion: 0,
+        lucidity: 100,
         consciousness: 0,
+        crisisState: 'stable',
+        crisisSuppressed: false,
+        usedAnchors: {},
+        acquiredFragments: [],
+        resolvedConnections: [],
+        investigationConclusions: [],
+        connectionBoardOpen: false,
+        connectionBoardRevision: 0,
         activeToast: null,
         currentScene: 'MainMenu',
         inventory: [],
         selectedItem: null,
         isInventoryLocked: true,
         choicesHistory: {},
-        trapezohedron: { ...initialTrapezohedron },
         isStatusRevealed: false,
         isSmokingActive: false,
         act1Progress: { ...initialAct1Progress },

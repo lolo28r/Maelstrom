@@ -1,6 +1,27 @@
-import type { RecordedChoice } from '../game/helper/ChoiceSystem';
+import type { NarrativeAttitude, NarrativeTendency, RecordedChoice } from '../game/helper/ChoiceSystem';
 
-export type StatType = 'mental' | 'exhaustion' | 'consciousness';
+export type StatType = 'lucidity' | 'consciousness';
+
+export type CrisisState = 'stable' | 'warning' | 'crisis';
+export type FragmentKind = 'memory' | 'observation' | 'testimony' | 'document' | 'vision';
+export type ConclusionStatus = 'fact' | 'hypothesis' | 'fragile' | 'suggestion' | 'rejected_suggestion';
+
+export interface InvestigationFragment {
+    id: string;
+    kind: FragmentKind;
+    titleKey: string;
+    contentKey: string;
+    sourceKey: string;
+}
+
+export interface InvestigationConclusion {
+    id: string;
+    connectionId: string;
+    status: ConclusionStatus;
+    titleKey: string;
+    contentKey: string;
+    acquiredAt: string;
+}
 
 export interface Item {
     id: string;
@@ -14,9 +35,10 @@ export interface Item {
 }
 
 export interface ChoiceConsequences {
-    mentalDelta?: number;
-    exhaustionDelta?: number;
+    lucidityDelta?: number;
     consciousnessDelta?: number;
+    attitudeTag?: NarrativeAttitude;
+    attitudeTags?: NarrativeAttitude[];
     customPayload?: string | number;
 }
 
@@ -42,23 +64,18 @@ export interface ActiveDocumentState {
     onClose?: () => void;
 }
 
-export interface TrapezohedronState {
-    acquired: boolean;
-    trueViewActive: boolean;
-}
-
 export interface Act1Progress {
     deskSearched: boolean;
     journalRead: boolean;
     letterRead: boolean;
     secretDrawerUnlocked: boolean;
     secretLabOpened: boolean;
-    trapezohedronCollected: boolean;
     priestEncountered?: boolean;
     listenedToDispute?: boolean;
     metMrBell?: boolean;
     cityFatigueTriggered?: boolean;
     storeRationedToday?: boolean;
+    bellTopicsHeard: string[];
 }
 
 export interface StatNotification {
@@ -69,13 +86,35 @@ export interface StatNotification {
 }
 
 export interface StatsSlice {
-    mentalHealth: number;
-    exhaustion: number;
+    lucidity: number;
     consciousness: number;
+    crisisState: CrisisState;
+    crisisSuppressed: boolean;
+    usedAnchors: Record<string, string[]>;
     activeToast: StatNotification | null;
     modifyStat: (stat: StatType, delta: number) => void;
+    suppressCrisis: () => void;
+    clearCrisisSuppression: () => void;
+    useAnchor: (stageId: string, anchorId: string, amount: number) => boolean;
+    hasUsedAnchor: (stageId: string, anchorId: string) => boolean;
     triggerStatChange: (label: string, type: 'up' | 'down', color: 'red' | 'green' | 'purple') => void;
     clearToast: () => void;
+}
+
+export interface InvestigationSlice {
+    acquiredFragments: string[];
+    resolvedConnections: string[];
+    investigationConclusions: InvestigationConclusion[];
+    connectionBoardOpen: boolean;
+    connectionBoardRevision: number;
+    grantFragment: (fragmentId: string) => void;
+    hasFragment: (fragmentId: string) => boolean;
+    resolveConnection: (connectionId: string) => boolean;
+    hasResolvedConnection: (connectionId: string) => boolean;
+    addInvestigationConclusion: (conclusion: InvestigationConclusion) => void;
+    rejectSuggestion: (suggestionId: string, titleKey: string, contentKey: string) => void;
+    openConnectionBoard: () => void;
+    completeConnectionBoard: () => void;
 }
 
 export interface InventorySlice {
@@ -94,18 +133,16 @@ export interface ChoicesSlice {
     recordChoice: (choiceId: string, currentScene: string, consequences: ChoiceConsequences) => void;
     hasMadeChoice: (choiceId: string) => boolean;
     getChoiceInfo: (choiceId: string) => RecordedChoice | undefined;
+    getAttitudeScore: (attitude: NarrativeAttitude) => number;
+    getNarrativeTendency: () => NarrativeTendency;
 }
 
 export interface WorldSlice {
     currentScene: string;
-    trapezohedron: TrapezohedronState;
     isStatusRevealed: boolean;
     isSmokingActive: boolean;
     act1Progress: Act1Progress;
     setScene: (scene: string) => void;
-    setTrapezohedronAcquired: (acquired: boolean) => void;
-    toggleTrueView: () => void;
-    setTrueView: (active: boolean) => void;
     setStatusRevealed: (revealed: boolean) => void;
     setSmokingActive: (active: boolean) => void;
     updateAct1Progress: (updates: Partial<Act1Progress>) => void;

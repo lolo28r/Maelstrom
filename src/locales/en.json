@@ -17,14 +17,93 @@
     "developerMode": "[ DEVELOPER MODE — RESTRICTED ACCESS ]"
   },
   "stats": {
-    "mentalHealth": "Mental health",
-    "exhaustion": "Exhaustion",
-    "fatigue": "Fatigue",
+    "lucidity": "Lucidity",
+    "innerState": "Inner state",
+    "crisisSuppressed": "Symptoms muted by alcohol — Lucidity unchanged",
     "cosmicConsciousness": "Cosmic consciousness"
   },
   "journal": {
     "initialDate": "January 20, 1925",
     "officeArchiveTimestamp": "Act I - Office"
+  },
+  "new_content": {
+    "whiskyUse": "The fear does not disappear. Its edges merely become less distinct.",
+    "smoking": {
+      "title": "Pause to assess Laurence's condition",
+      "autoCloseHint": "This pause will close automatically.",
+      "closeNow": "[ FINISH NOW ]"
+    },
+    "office": {
+      "prompt": "Choose how Laurence responds to the shock. Each option has a different function; none changes what the letter says.",
+      "verify": "[ ANCHOR — restores 10 Lucidity once ] Read the date and signature again.", "drink": "[ ALCOHOL — masks a crisis, restores no Lucidity ] Drink to calm the trembling.", "smoke": "[ TOBACCO — reveals your condition, restores nothing ] Roll a cigarette and assess my condition.",
+      "reactionVerify": "The date, the signature, the paper. These things are real. I can begin there.",
+      "reactionDrink": "The fear does not disappear. It recedes just enough to let me sleep.",
+      "reactionSmoke": "I name each sensation without inventing a cause. For now, that is enough."
+    },
+    "dream": {
+      "openingVerify": ["You checked the date, the signature, and the paper.", "Even while awake, you were already searching for what was real."],
+      "openingSmoke": ["You named every sensation so you would not invent its cause.", "Let us see how long names can protect you."],
+      "openingDrink": ["You drank to silence what you felt.", "Yet something in you refuses silence."],
+      "opening": ["You drink to silence what you feel.", "Yet something in you refuses silence."],
+      "seekTruth": "“I want to know what happened to my father.”", "resist": "“I owe you no answer.”", "seekRest": "“I only want to sleep.”",
+      "reactionTruth": ["Good.", "Next time, I will not give you an answer.", "I will show you how you make them."],
+      "reactionResist": "You believe a question ceases to exist when you refuse to answer it.",
+      "reactionRest": ["Rest is a kind of answer.", "Some things have slept far longer than you."],
+      "firstMeetingPrompt": "Before you wake, Laurence, what question do you truly wish to ask me?",
+      "askTrueFace": "“Show me your true face.”",
+      "askIdentity": "“Who are you, and why are you interested in me?”",
+      "askWakeUp": "“I want nothing more. Let me wake up.”",
+      "reactionTrueFace": ["Not yet.", "If you ask me again when next we meet, I will not look away on your behalf."],
+      "reactionIdentity": "A name would make you feel that you understood me. For now, observe only who is asking the questions.",
+      "reactionWakeUp": "Then wake. We shall see whether that refusal remains when you close your eyes again.",
+      "outro": "When you wake, ask yourself which part of this truly came from me."
+    },
+    "church": {
+      "observeStatue": "[ Take a moment to contemplate the statue ]", "prayForFather": "[ Kneel and pray for my father ]",
+      "questionThomas": "[ Ask Thomas what he means by a sacred design ]", "examineRosary": "[ Hold the rosary between my fingers ]"
+    },
+    "nightmare": {
+      "introTruth": ["You said you wanted to know.", "Let us see what you do with the things you already know.", "What have you understood, Laurence?"],
+      "introRest": ["You wanted to sleep.", "Yet even here, you continue searching for your father.", "What have you understood?"],
+      "introResist": ["You owed me no answer.", "But you keep answering my questions inside your head.", "What have you understood?"],
+      "trapPrompt": ["Your father's body still stood before you, yet his manner had changed.", "You want to understand that rupture.", "Therefore understanding requires risking the same rupture."],
+      "requestVision": "“Show me what he saw.”", "requestRest": "“I want this to stop for tonight.”", "reject": "“No. The facts do not prove that.”",
+      "reactionVision": ["There.", "See how easily courage and hunger become confused."],
+      "reactionRest": ["For tonight.", "You already choose your words carefully."],
+      "reactionReject": ["No.", "But they led you exactly where I wanted."],
+      "trueFaceReminder": ["When first we met, you asked for my true face.", "I remembered.", "Do you still want it, now that you know what a question may cost?"],
+      "confirmTrueFace": "“Yes. Show me.”",
+      "refuseTrueFace": "“No. I will not let you choose what I must see.”",
+      "reactionTrueFace": "You asked twice. Remember also that I never forced you to look.",
+      "reactionRefuseTrueFace": "You wanted an answer. Now you choose a boundary. That is another thing I shall remember."
+    }
+  },
+  "investigation": {
+    "journal": { "fragments": "Fragments", "conclusions": "Conclusions", "noFragments": "No fragments recorded yet.", "noConclusions": "No connections established yet." },
+    "status": { "fact": "Fact", "hypothesis": "Hypothesis", "fragile": "Fragile hypothesis", "suggestion": "Suggestion", "rejected_suggestion": "Rejected suggestion" },
+    "sources": { "asylum_letter": "Source: asylum letter", "dream": "Source: dream — undetermined reliability", "memory": "Source: personal memory", "bell": "Source: Bell's testimony", "rumor": "Source: rumor — low reliability", "observation": "Source: material observation" },
+    "kinds": { "memory": "Memory", "observation": "Observation", "testimony": "Testimony", "document": "Document", "vision": "Vision" },
+    "fragments": {
+      "asylum_letter_decline": { "title": "The asylum letter", "content": "Father's condition deteriorated over the last forty-eight hours." },
+      "dream1_unknown_entity": { "title": "The dream stranger", "content": "An almost human figure knew my habits and my father." },
+      "father_forgot_name_at_station": { "title": "The platform", "content": "My father turned around and asked me my name." },
+      "bell_change_1921": { "title": "The change in 1921", "content": "Bell places the change in my father around 1921." },
+      "bell_changed_behavior": { "title": "Foreign behavior", "content": "His gaze, voice, and habit of checking his own knowledge had changed." },
+      "bell_mind_ownership_question": { "title": "Who owns a mind?", "content": "Father asked Bell whether a man's mind could belong to someone else." },
+      "bell_retained_scholarship": { "title": "Scholarship intact", "content": "After 1921, Father still knew his books, authors, and theories, yet checked knowledge he had already mastered." },
+      "street_cult_rumor": { "title": "A cult behind the prayers", "content": "An argument mentions meetings, prayers, and a man claiming to reveal what the Church concealed — including who truly stands behind the prayers." },
+      "dream_eclipse_vision": { "title": "The dreamed eclipse", "content": "In the dream, the eclipse immediately preceded the stranger's appearance." }
+    },
+    "connections": {
+      "father_changed_around_1921": { "title": "FACT — The change around 1921", "content": "My father's behavior had changed around 1921." },
+      "scholarship_without_recognition": { "title": "HYPOTHESIS — Knowledge without recognition", "content": "The change does not resemble ordinary memory loss: Father retained his scholarship but no longer recognized his own child. Verify at the asylum." }
+    },
+    "suggestions": { "suffering": { "title": "The stranger's interpretation", "rejected": "The entity claims that understanding requires suffering what my father suffered. The facts do not establish this.", "accepted": "During the dream, the idea that I had to follow my father's path felt inevitable. I do not know whether it came from me." } },
+    "board": {
+      "eyebrow": "Recomposed memory", "title": "Connections", "question": "What have I truly understood?", "instructions": "Select two fragments and connect them.",
+      "selectTwo": "Two fragments are required.", "insufficient": "These elements share an impression, not proof.", "missingTitle": "Missing testimony", "missingText": "Part of the reasoning remains inaccessible.",
+      "undo": "Undo", "connect": "Connect", "finish": "Keep these conclusions", "admitMissing": "Acknowledge what is missing", "progress": "Connections established: {{solved}} / {{total}}"
+    }
   },
   "scene_ui": {
     "audioRecommendation": "This game is best experienced with sound enabled\nand headphones for optimal immersion.",
@@ -93,7 +172,7 @@
     "whisky": {
       "name": "Whisky flask",
       "description": "Cheap bourbon. It burns the throat but numbs the nerves.",
-      "examineText": "A dented metal flask that reeks of strong alcohol. Useful for easing panic and restoring mental health, at the cost of greater fatigue."
+      "examineText": "A dented metal flask that reeks of strong alcohol. It can briefly mute a crisis, but it restores no lucidity."
     },
     "tobacco": {
       "name": "Rolling tobacco",
@@ -139,9 +218,8 @@
     ],
     "letter_title": "Arkham Asylum — Transfer Notification",
     "letter_content": "Attention Laurence Lindner,\n\nWe hereby inform you that the condition of your father, Patient #402 (Dr. Lindner), has experienced a severe mental decline over the past 48 hours.\n\nAs the subject exhibits intermittent catatonia and major behavioral disorders, the medical management has decided to proceed with his immediate transfer to the Incurable Ward.\n\nAs of this day, visits are suspended until further notice. The patient's remaining personal effects are being held for you at the facility's reception.\n\n— The Medical Management, Arkham Asylum",
-    "tutoriel_jauges_reaction": "The game relies on two hidden gauges: \n\n• Mental health fluctuates based on your choices, dialogues, and discoveries. If it drops to zero, Laurence commits suicide. To view and evaluate it, smoke a cigarette. You can also drink whisky to stop a crisis, but it increases your exhaustion.\n\n• Cosmic consciousness only rises as you uncover the horror. It is essential for progressing through the investigation.",
+    "tutoriel_jauges_reaction": "The game uses two gauges:\n\n• Lucidity measures Laurence's ability to distinguish observation, memory, and interpretation. At zero, a crisis occurs: the game continues, but some responses become temporarily unavailable.\n\n• Cosmic consciousness represents knowledge of cosmic phenomena. It unlocks observations without guaranteeing a correct interpretation.\n\nWhisky masks a crisis without restoring Lucidity. Tobacco lets Laurence assess their condition.",
     "tutoriel_inventaire": "TUTORIAL: ARCHIVIST'S SATCHEL\n\nYour emotional shock requires an immediate reaction.\n\n• ACCESS: Click on the satchel in the bottom left corner to open it.\n• REQUIRED ACTION: Select the Flask of Whisky and choose 'TAKE A SIP' to soothe your nerves and raise your Mental Health.\n• SLOTS: Key items and clues will also be stored here.",
-    "tutoriel_epuisement": "TUTORIAL: EXHAUSTION & DREAMS\n\nDrinking whisky has soothed Laurence's nerves, but his body pays the price. His Exhaustion gauge has increased.\n\n• MECHANIC: Exhaustion increases with the use of sedatives, mental effort, and the passage of time.\n• IMPACT ON DREAMS: A high level of exhaustion alters the clarity of your sleep phases. It plunges you into darker nightmares and increases the risk of slipping into unconsciousness.\n• EVALUATION: Carefully monitor this balance between mental clarity and physical fatigue.",
     "transition_sommeil": "The vertigo of alcohol mixes with overwhelming fatigue. My eyelids grow heavy... The reality of the office fades away.",
     "q1": "Have you ever wondered what dark secrets our universe conceives?",
     "q2": "Do you truly believe we are safe... alone on a giant sphere in the cosmic void?",

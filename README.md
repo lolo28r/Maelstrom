@@ -6,6 +6,11 @@ Jeu narratif web développé avec Phaser, React, Zustand, TypeScript et i18next.
 
 Le guide [Contexte technique pour une IA textuelle](docs/AI_TECHNICAL_CONTEXT.md) décrit l'architecture, les conventions et les procédures d'implantation du projet. Il peut être copié dans une conversation avec une IA qui n'a pas accès au dépôt.
 
+La documentation de conception est séparée en deux références :
+
+- [Jauges, choix et dialogues](docs/GAMEPLAY_JAUGES_ET_DIALOGUES.md) ;
+- [Bible narrative](docs/BIBLE_NARRATIVE.md).
+
 ## Commandes
 
 ```bash

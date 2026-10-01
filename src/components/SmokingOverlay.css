@@ -30,8 +30,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    /* Espace propre entre la boîte de jauges et le bouton */
+    gap: 14px;
+    width: min(90vw, 520px);
+}
+
+.smoking-timebar {
+    width: min(80%, 360px);
+    height: 2px;
+    overflow: hidden;
+    background: rgba(226, 232, 240, 0.2);
+}
+
+.smoking-timebar-fill {
+    width: 100%;
+    height: 100%;
+    background: #cbd5e1;
+    transform-origin: left;
+    animation: smokingCountdown 8s linear forwards;
+}
+
+.smoking-auto-close-hint {
+    margin: 0;
+    color: rgba(226, 232, 240, 0.78);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-align: center;
 }
 
 .finish-cigarette-btn {
@@ -61,5 +85,21 @@
 
     to {
         opacity: 1;
+    }
+}
+
+@keyframes smokingCountdown {
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        transform: scaleX(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .smoking-timebar-fill {
+        animation: none;
     }
 }

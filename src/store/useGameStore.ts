@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { createChoicesSlice } from './choicesSlice';
 import { createDevSlice, type DevSlice } from './devSlice';
 import { createInventorySlice } from './inventorySlice';
+import { createInvestigationSlice } from './investigationSlice';
 import { createJournalSlice, type JournalSlice } from './journalSlice';
 import { createNarrativeSlice } from './narrativeSlice';
 import { createPersistenceSlice } from './persistenceSlice';
@@ -9,6 +10,7 @@ import { createStatsSlice } from './statsSlice';
 import type {
     ChoicesSlice,
     InventorySlice,
+    InvestigationSlice,
     NarrativeSlice,
     PersistenceSlice,
     StatsSlice,
@@ -18,6 +20,7 @@ import { createWorldSlice } from './worldSlice';
 
 export type GameState = StatsSlice
     & InventorySlice
+    & InvestigationSlice
     & ChoicesSlice
     & WorldSlice
     & NarrativeSlice
@@ -29,15 +32,19 @@ export type {
     ActiveDocumentState,
     Act1Progress,
     ChoiceOption,
+    ChoiceConsequences,
+    InvestigationConclusion,
+    InvestigationFragment,
     Item,
     NarrativeDialogState,
     StatNotification,
-    TrapezohedronState,
 } from './types';
+export type { NarrativeAttitude, NarrativeTendency } from '../game/helper/ChoiceSystem';
 
 export const useGameStore = create<GameState>()((set, get, store) => ({
     ...createStatsSlice(set, get, store),
     ...createInventorySlice(set, get, store),
+    ...createInvestigationSlice(set, get, store),
     ...createChoicesSlice(set, get, store),
     ...createWorldSlice(set, get, store),
     ...createNarrativeSlice(set, get, store),

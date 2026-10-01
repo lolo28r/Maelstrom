@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import i18n from '../../i18n';
 import { useGameStore } from '../../store/useGameStore';
+import { INVESTIGATION_FRAGMENTS } from '../../constants/investigation';
 import './JournalModal.css';
 
 export const JournalModal: React.FC = () => {
@@ -8,13 +10,15 @@ export const JournalModal: React.FC = () => {
     const notes = useGameStore((state) => state.notes);
     const discoveredKeywords = useGameStore((state) => state.discoveredKeywords);
     const documents = useGameStore((state) => state.documents);
+    const investigationConclusions = useGameStore((state) => state.investigationConclusions);
+    const acquiredFragments = useGameStore((state) => state.acquiredFragments);
     const hasNewJournalEntry = useGameStore((state) => state.hasNewJournalEntry);
     const pendingNote = useGameStore((state) => state.pendingNote);
     const commitPendingNote = useGameStore((state) => state.commitPendingNote);
     const markJournalAsRead = useGameStore((state) => state.markJournalAsRead);
 
     const [isOpen, setIsOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState<'notes' | 'keywords' | 'documents'>('notes');
+    const [activeTab, setActiveTab] = useState<'notes' | 'fragments' | 'conclusions' | 'keywords' | 'documents'>('notes');
     const [selectedDoc, setSelectedDoc] = useState<{ title: string; content: string; } | null>(null);
     const [isWritingAnim, setIsWritingAnim] = useState(false);
 
@@ -60,6 +64,18 @@ export const JournalModal: React.FC = () => {
                                 Notes ({notes.length + (pendingNote ? 1 : 0)})
                             </button>
                             <button
+                                className={activeTab === 'fragments' ? 'active' : ''}
+                                onClick={() => { setActiveTab('fragments'); setSelectedDoc(null); }}
+                            >
+                                {i18n.t('investigation.journal.fragments')} ({acquiredFragments.length})
+                            </button>
+                            <button
+                                className={activeTab === 'conclusions' ? 'active' : ''}
+                                onClick={() => { setActiveTab('conclusions'); setSelectedDoc(null); }}
+                            >
+                                {i18n.t('investigation.journal.conclusions')} ({investigationConclusions.length})
+                            </button>
+                            <button
                                 className={activeTab === 'keywords' ? 'active' : ''}
                                 onClick={() => { setActiveTab('keywords'); setSelectedDoc(null); }}
                             >
@@ -99,6 +115,44 @@ export const JournalModal: React.FC = () => {
                                                 <h3 className="journal-note-title">{note.title}</h3>
                                             </div>
                                             <p className="journal-note-content">{note.content}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {activeTab === 'fragments' && (
+                                <div className="journal-notes-list">
+                                    {acquiredFragments.length === 0 ? (
+                                        <p className="journal-empty">{i18n.t('investigation.journal.noFragments')}</p>
+                                    ) : acquiredFragments.map((fragmentId) => {
+                                        const fragment = INVESTIGATION_FRAGMENTS[fragmentId];
+                                        if (!fragment) return null;
+                                        return (
+                                            <div key={fragment.id} className="journal-note-item">
+                                                <div className="journal-note-meta">
+                                                    <span className="conclusion-status">{i18n.t(`investigation.kinds.${fragment.kind}`)}</span>
+                                                    <span className="journal-note-timestamp">{i18n.t(fragment.sourceKey)}</span>
+                                                </div>
+                                                <h3 className="journal-note-title">{i18n.t(fragment.titleKey)}</h3>
+                                                <p className="journal-note-content">{i18n.t(fragment.contentKey)}</p>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+
+                            {activeTab === 'conclusions' && (
+                                <div className="journal-notes-list">
+                                    {investigationConclusions.length === 0 ? (
+                                        <p className="journal-empty">{i18n.t('investigation.journal.noConclusions')}</p>
+                                    ) : investigationConclusions.map((conclusion) => (
+                                        <div key={conclusion.id} className={`journal-note-item conclusion-${conclusion.status}`}>
+                                            <div className="journal-note-meta">
+                                                <span className="journal-note-timestamp">{conclusion.acquiredAt}</span>
+                                                <span className="conclusion-status">{i18n.t(`investigation.status.${conclusion.status}`)}</span>
+                                            </div>
+                                            <h3 className="journal-note-title">{i18n.t(conclusion.titleKey)}</h3>
+                                            <p className="journal-note-content">{i18n.t(conclusion.contentKey)}</p>
                                         </div>
                                     ))}
                                 </div>

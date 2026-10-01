@@ -7,13 +7,8 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     private cityBgGroup!: Phaser.GameObjects.Group;
     private officeBgGroup!: Phaser.GameObjects.Group;
     private normalGroup!: Phaser.GameObjects.Group;
-    private trueViewGroup!: Phaser.GameObjects.Group;
-    private unsubscribeStore?: () => void;
-    private isOfficeVisible: boolean = false;
     private currentAmbientSound: Phaser.Sound.BaseSound | null = null;
     private letterObject?: InteractiveObject;
-    private waitingForConsumption: boolean = false;
-    private waitingForTobaccoConsumption: boolean = false; // Pour l'écoute du tabac
 
     constructor() {
         super('ProfessorOffice');
@@ -55,43 +50,14 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         this.cityBgGroup = this.add.group();
         this.officeBgGroup = this.add.group();
         this.normalGroup = this.add.group();
-        this.trueViewGroup = this.add.group();
 
         this.createCityBackground();
         this.createOfficeBackground();
 
         this.officeBgGroup.setVisible(false);
         this.normalGroup.setVisible(false);
-        this.trueViewGroup.setVisible(false);
 
         this.playAmbientSound('street_rain', 0.2);
-
-        // Surveillance du store Zustand (Trapezoèdre, Whisky et Tabac)
-        this.unsubscribeStore = useGameStore.subscribe((state, prevState) => {
-            if (this.isOfficeVisible) {
-                this.updateTrueViewVisibility(state.trapezohedron?.trueViewActive ?? false);
-            }
-
-            // Détection stricte de la consommation du Whisky pendant le tuto
-            if (this.waitingForConsumption) {
-                const hadWhisky = prevState.inventory.some((item) => item.id === 'whisky');
-                const hasWhisky = state.inventory.some((item) => item.id === 'whisky');
-
-                if (hadWhisky && !hasWhisky) {
-                    this.waitingForConsumption = false;
-                    this.triggerExhaustionTutorial();
-                }
-            }
-
-            // --- Détection de la consommation de Tabac pour le rituel de lucidité ---
-            const hadTobacco = prevState.inventory.some((item) => item.id === 'tobacco');
-            const hasTobacco = state.inventory.some((item) => item.id === 'tobacco');
-
-            // Si le tabac disparaît de l'inventaire (consommé)
-            if (hadTobacco && !hasTobacco) {
-                this.triggerTobaccoRitual();
-            }
-        });
 
         this.time.delayedCall(800, () => {
             this.showLocationIntro(() => {
@@ -127,24 +93,6 @@ export class ProfessorOfficeScene extends Phaser.Scene {
             quantity: 1,
             stackable: true,
             consumable: true
-        });
-    }
-
-    private triggerTobaccoRitual() {
-        const store = useGameStore.getState();
-
-        store.modifyStat('mental', 15);
-        store.modifyStat('exhaustion', 10);
-
-        // Simple lancement du dialogue narratif
-        store.setDialog({
-            speaker: i18next.t('characters.laurence'),
-            textKey: 'intro.tobacco_ritual_steps',
-            type: 'bottom',
-            onComplete: () => {
-                // Une fois le dialogue fini, on active le mode fumette dans le store
-                store.setSmokingActive(true);
-            }
         });
     }
 
@@ -185,10 +133,8 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                         if (!isAlreadyRead) {
                             store.updateAct1Progress({ letterRead: true });
 
-                            const currentConsciousness = store.consciousness || 0;
-                            const mentalDelta = currentConsciousness > 10 ? -10 : -20;
-
-                            store.modifyStat('mental', mentalDelta);
+                            store.grantFragment('asylum_letter_decline');
+                            store.modifyStat('lucidity', -15);
 
                             this.time.delayedCall(600, () => {
                                 store.setDialog({
@@ -197,12 +143,14 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                                     onComplete: () => {
                                         this.time.delayedCall(400, () => {
                                             store.setDialog({
-                                                textKey: 'intro.tutoriel_inventaire',
-                                                type: 'center',
-                                                onComplete: () => {
-                                                    store.setInventoryLocked(false);
-                                                    this.waitingForConsumption = true;
-                                                }
+                                                textKey: 'new_content.office.prompt',
+                                                type: 'bottom',
+                                                choices: [
+                                                    { id: 'office_verify_letter', text: i18next.t('new_content.office.verify'), consequences: {} },
+                                                    { id: 'office_drink_whisky', text: i18next.t('new_content.office.drink'), consequences: {} },
+                                                    { id: 'office_smoke_to_assess', text: i18next.t('new_content.office.smoke'), consequences: {} },
+                                                ],
+                                                onComplete: (choiceId) => this.resolveOfficeCopingChoice(choiceId),
                                             });
                                         });
                                     }
@@ -215,33 +163,33 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         });
         this.normalGroup.add(this.letterObject.getContainer());
 
-        const trueG = this.add.graphics();
-        trueG.fillStyle(0x3b0764, 0.25);
-        trueG.fillRect(0, 0, 1280, 720);
-        this.trueViewGroup.add(trueG);
     }
 
-    private triggerExhaustionTutorial() {
+    private resolveOfficeCopingChoice(choiceId?: string) {
         const store = useGameStore.getState();
-
-        this.time.delayedCall(1200, () => {
-            store.setDialog({
-                textKey: 'intro.tutoriel_epuisement',
-                type: 'center',
-                onComplete: () => {
-                    this.startDreamTransition();
-                }
-            });
+        if (choiceId === 'office_verify_letter') {
+            store.useAnchor('act1_office', 'office_verify_letter', 10);
+        } else if (choiceId === 'office_drink_whisky') {
+            store.suppressCrisis();
+            store.removeItemFromInventory('whisky');
+        } else if (choiceId === 'office_smoke_to_assess') {
+            store.setStatusRevealed(true);
+            store.removeItemFromInventory('tobacco');
+        }
+        store.setInventoryLocked(false);
+        store.setDialog({
+            textKey: choiceId === 'office_drink_whisky'
+                ? 'new_content.office.reactionDrink'
+                : choiceId === 'office_smoke_to_assess'
+                    ? 'new_content.office.reactionSmoke'
+                    : 'new_content.office.reactionVerify',
+            type: 'bottom',
+            onComplete: () => this.startDreamTransition(),
         });
     }
 
     private startDreamTransition() {
         const store = useGameStore.getState();
-
-        if (this.unsubscribeStore) {
-            this.unsubscribeStore();
-            this.unsubscribeStore = undefined;
-        }
 
         this.time.delayedCall(500, () => {
             store.setDialog({
@@ -316,16 +264,12 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     private transitionToOffice() {
         this.cameras.main.fadeOut(800, 0, 0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-            this.isOfficeVisible = true;
             this.cityBgGroup.setVisible(false);
 
             this.officeBgGroup.setVisible(true);
             this.normalGroup.setVisible(true);
 
             this.playAmbientSound('desk_rain', 0.15);
-
-            const isTrueView = useGameStore.getState().trapezohedron?.trueViewActive ?? false;
-            this.updateTrueViewVisibility(isTrueView);
 
             if (typeof useGameStore.getState().saveGame === 'function') {
                 useGameStore.getState().saveGame();
@@ -340,17 +284,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         });
     }
 
-    private updateTrueViewVisibility(active: boolean) {
-        if (this.trueViewGroup) {
-            this.trueViewGroup.setVisible(active);
-        }
-    }
-
     destroy() {
-        if (this.unsubscribeStore) {
-            this.unsubscribeStore();
-            this.unsubscribeStore = undefined;
-        }
         if (this.currentAmbientSound) {
             this.currentAmbientSound.stop();
         }

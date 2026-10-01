@@ -129,7 +129,9 @@ export class CityExplorerScene extends Phaser.Scene {
 
         // Vérification si les 3 actions de la ville sont faites
         const progress = useGameStore.getState().act1Progress;
-        const isCityComplete = progress?.priestEncountered && progress?.listenedToDispute && progress?.metMrBell;
+        const completedLeads = [progress?.priestEncountered, progress?.listenedToDispute, progress?.metMrBell]
+            .filter(Boolean).length;
+        const isCityComplete = completedLeads >= 2;
 
         // Hotspot : Route de l'Asile
         this.addHotspot({
@@ -171,7 +173,7 @@ export class CityExplorerScene extends Phaser.Scene {
             if (!progress.cityFatigueTriggered) {
                 useGameStore.getState().updateAct1Progress({ cityFatigueTriggered: true });
 
-                const store = useGameStore.getState() as any;
+                const store = useGameStore.getState();
                 if (!store.currentDialog) {
                     store.setDialog({
                         textKey: 'act1_city.tired_return_thought',
@@ -294,7 +296,8 @@ export class CityExplorerScene extends Phaser.Scene {
                                                                                     type: 'bottom',
                                                                                     speaker: 'Homme inconnu',
                                                                                     onComplete: () => {
-                                                                                        store.recordChoice('LISTEN_TO_DISPUTE', this.currentLocation, { consciousnessDelta: 3, mentalDelta: -2 });
+                                                                                        store.recordChoice('LISTEN_TO_DISPUTE', this.currentLocation, {});
+                                                                                        store.grantFragment('street_cult_rumor');
                                                                                         store.addJournalNote(
                                                                                             i18n.t('act1_street.journal_note_title'),
                                                                                             i18n.t('act1_street.journal_note_content'),
@@ -514,12 +517,8 @@ export class CityExplorerScene extends Phaser.Scene {
                                                                             type: 'bottom',
                                                                             speaker: 'Monsieur Bell',
                                                                             onComplete: () => {
-                                                                                store.addJournalNote(
-                                                                                    i18n.t('act1_library.journal_note_title'),
-                                                                                    i18n.t('act1_library.journal_note_content'),
-                                                                                    i18n.t('act1_library.journal_timestamp')
-                                                                                );
-                                                                                this.showBellQuestionsMenu(new Set(), false);
+                                                                                const heardTopics = new Set(store.act1Progress.bellTopicsHeard ?? []);
+                                                                                this.showBellQuestionsMenu(heardTopics);
                                                                             }
                                                                         });
                                                                     }
@@ -557,7 +556,7 @@ export class CityExplorerScene extends Phaser.Scene {
         });
     }
 
-    private showBellQuestionsMenu(askedTopics: Set<string>, manuscriptUnlocked: boolean) {
+    private showBellQuestionsMenu(askedTopics: Set<string>) {
         const store = useGameStore.getState();
         const choices: ChoiceOption[] = [];
 
@@ -576,10 +575,6 @@ export class CityExplorerScene extends Phaser.Scene {
         if (askedTopics.has('comportement') && !askedTopics.has('question')) {
             choices.push({ id: 'question', text: i18n.t('act1_library.laurence_ask_strange'), consequences: {} });
         }
-        if (manuscriptUnlocked && !askedTopics.has('manuscrit')) {
-            choices.push({ id: 'manuscrit', text: i18n.t('act1_library.laurence_ask_research'), consequences: {} });
-        }
-
         choices.push({ id: 'leave', text: i18n.t('act1_library.laurence_leave'), consequences: {} });
 
         store.setDialog({
@@ -599,12 +594,13 @@ export class CityExplorerScene extends Phaser.Scene {
                 }
 
                 askedTopics.add(selectedId);
-                this.playBellTopicFlow(selectedId, askedTopics, manuscriptUnlocked);
+                store.updateAct1Progress({ bellTopicsHeard: [...askedTopics] });
+                this.playBellTopicFlow(selectedId, askedTopics);
             }
         });
     }
 
-    private playBellTopicFlow(topicId: string, askedTopics: Set<string>, manuscriptUnlocked: boolean) {
+    private playBellTopicFlow(topicId: string, askedTopics: Set<string>) {
         const store = useGameStore.getState();
 
         if (topicId === 'relation') {
@@ -616,7 +612,7 @@ export class CityExplorerScene extends Phaser.Scene {
                         onComplete: () => {
                             store.setDialog({
                                 textKey: 'act1_library.bell_he_came_often', type: 'bottom', speaker: 'Monsieur Bell',
-                                onComplete: () => this.showBellQuestionsMenu(askedTopics, manuscriptUnlocked)
+                                onComplete: () => this.showBellQuestionsMenu(askedTopics)
                             });
                         }
                     });
@@ -658,7 +654,7 @@ export class CityExplorerScene extends Phaser.Scene {
                                                                                                 onComplete: () => {
                                                                                                     store.setDialog({
                                                                                                         textKey: 'act1_library.bell_symbols_more', type: 'bottom', speaker: 'Monsieur Bell',
-                                                                                                        onComplete: () => this.showBellQuestionsMenu(askedTopics, true)
+                                                                                                        onComplete: () => this.showBellQuestionsMenu(askedTopics)
                                                                                                     });
                                                                                                 }
                                                                                             });
@@ -692,6 +688,7 @@ export class CityExplorerScene extends Phaser.Scene {
                             store.setDialog({
                                 textKey: 'act1_library.bell_around_1921', type: 'bottom', speaker: 'Monsieur Bell',
                                 onComplete: () => {
+                                    store.grantFragment('bell_change_1921');
                                     store.setDialog({
                                         textKey: 'act1_library.laurence_different', type: 'bottom', speaker: 'Laurence Lindner',
                                         onComplete: () => {
@@ -712,7 +709,10 @@ export class CityExplorerScene extends Phaser.Scene {
                                                                                 onComplete: () => {
                                                                                     store.setDialog({
                                                                                         textKey: 'act1_library.bell_verify', type: 'bottom', speaker: 'Monsieur Bell',
-                                                                                        onComplete: () => this.showBellQuestionsMenu(askedTopics, manuscriptUnlocked)
+                                                                                        onComplete: () => {
+                                                                                            store.grantFragment('bell_retained_scholarship');
+                                                                                            this.showBellQuestionsMenu(askedTopics);
+                                                                                        }
                                                                                     });
                                                                                 }
                                                                             });
@@ -765,7 +765,10 @@ export class CityExplorerScene extends Phaser.Scene {
                                                                                         onComplete: () => {
                                                                                             store.setDialog({
                                                                                                 textKey: 'act1_library.bell_speech_description', type: 'bottom', speaker: 'Monsieur Bell',
-                                                                                                onComplete: () => this.showBellQuestionsMenu(askedTopics, manuscriptUnlocked)
+                                                                                                onComplete: () => {
+                                                                                                    store.grantFragment('bell_changed_behavior');
+                                                                                                    this.showBellQuestionsMenu(askedTopics);
+                                                                                                }
                                                                                             });
                                                                                         }
                                                                                     });
@@ -797,6 +800,7 @@ export class CityExplorerScene extends Phaser.Scene {
                             store.setDialog({
                                 textKey: 'act1_library.bell_what_said', type: 'bottom', speaker: 'Monsieur Bell',
                                 onComplete: () => {
+                                    store.grantFragment('bell_mind_ownership_question');
                                     store.setDialog({
                                         textKey: 'act1_library.laurence_answer', type: 'bottom', speaker: 'Laurence Lindner',
                                         onComplete: () => {
@@ -805,77 +809,7 @@ export class CityExplorerScene extends Phaser.Scene {
                                                 onComplete: () => {
                                                     store.setDialog({
                                                         textKey: 'act1_library.bell_after_question', type: 'bottom', speaker: 'Monsieur Bell',
-                                                        onComplete: () => this.showBellQuestionsMenu(askedTopics, manuscriptUnlocked)
-                                                    });
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        } else if (topicId === 'manuscrit') {
-            store.setDialog({
-                textKey: 'act1_library.bell_manuscript_intro', type: 'bottom', speaker: 'Monsieur Bell',
-                onComplete: () => {
-                    store.setDialog({
-                        textKey: 'act1_library.laurence_what_research', type: 'bottom', speaker: 'Laurence Lindner',
-                        onComplete: () => {
-                            store.setDialog({
-                                textKey: 'act1_library.bell_ancient_texts', type: 'bottom', speaker: 'Monsieur Bell',
-                                onComplete: () => {
-                                    store.setDialog({
-                                        textKey: 'act1_library.bell_pattern', type: 'bottom', speaker: 'Monsieur Bell',
-                                        onComplete: () => {
-                                            store.setDialog({
-                                                textKey: 'act1_library.laurence_correspondences', type: 'bottom', speaker: 'Laurence Lindner',
-                                                onComplete: () => {
-                                                    store.setDialog({
-                                                        textKey: 'act1_library.bell_pattern_explain', type: 'bottom', speaker: 'Monsieur Bell',
-                                                        onComplete: () => {
-                                                            store.setDialog({
-                                                                textKey: 'act1_library.laurence_manuscript_found', type: 'bottom', speaker: 'Laurence Lindner',
-                                                                onComplete: () => {
-                                                                    store.setDialog({
-                                                                        textKey: 'act1_library.bell_manuscript', type: 'bottom', speaker: 'Monsieur Bell',
-                                                                        onComplete: () => {
-                                                                            store.setDialog({
-                                                                                textKey: 'act1_library.laurence_what_manuscript', type: 'bottom', speaker: 'Laurence Lindner',
-                                                                                onComplete: () => {
-                                                                                    store.setDialog({
-                                                                                        textKey: 'act1_library.bell_manuscript_description', type: 'bottom', speaker: 'Monsieur Bell',
-                                                                                        onComplete: () => {
-                                                                                            store.setDialog({
-                                                                                                textKey: 'act1_library.laurence_symbol', type: 'bottom', speaker: 'Laurence Lindner',
-                                                                                                onComplete: () => {
-                                                                                                    store.setDialog({
-                                                                                                        textKey: 'act1_library.bell_symbol', type: 'bottom', speaker: 'Monsieur Bell',
-                                                                                                        onComplete: () => {
-                                                                                                            store.setDialog({
-                                                                                                                textKey: 'act1_library.laurence_where_manuscript', type: 'bottom', speaker: 'Laurence Lindner',
-                                                                                                                onComplete: () => {
-                                                                                                                    store.setDialog({
-                                                                                                                        textKey: 'act1_library.bell_where_manuscript', type: 'bottom', speaker: 'Monsieur Bell',
-                                                                                                                        onComplete: () => this.showBellQuestionsMenu(askedTopics, manuscriptUnlocked)
-                                                                                                                    });
-                                                                                                                }
-                                                                                                            });
-                                                                                                        }
-                                                                                                    });
-                                                                                                }
-                                                                                            });
-                                                                                        }
-                                                                                    });
-                                                                                }
-                                                                            });
-                                                                        }
-                                                                    });
-                                                                }
-                                                            });
-                                                        }
+                                                        onComplete: () => this.showBellQuestionsMenu(askedTopics)
                                                     });
                                                 }
                                             });
@@ -997,7 +931,7 @@ export class CityExplorerScene extends Phaser.Scene {
     }
 
     private triggerShopTransaction() {
-        const store = useGameStore.getState() as any;
+        const store = useGameStore.getState();
         const baseUrl = import.meta.env.BASE_URL;
 
         if (store.act1Progress?.storeRationedToday) {
@@ -1099,7 +1033,7 @@ export class CityExplorerScene extends Phaser.Scene {
                                 store.setDialog({
                                     textKey: 'act1_church.cross_lore_part3', type: 'bottom', speaker: 'Laurence Lindner',
                                     onComplete: () => {
-                                        store.recordChoice('EXAMINE_ALTAR_CROSS', this.currentLocation, { mentalDelta: -2 });
+                                        store.recordChoice('EXAMINE_ALTAR_CROSS', this.currentLocation, {});
                                     }
                                 });
                             }
@@ -1151,15 +1085,13 @@ export class CityExplorerScene extends Phaser.Scene {
                         useGameStore.getState().setDialog({
                             textKey: 'act1_church.statue_thought', type: 'bottom',
                             choices: [
-                                { id: 'act1_church_pray_yes', text: i18n.t('act1_church.choice_pray_yes'), consequences: { mentalDelta: 10 } },
-                                { id: 'act1_church_pray_no', text: i18n.t('act1_church.choice_pray_no'), consequences: { mentalDelta: -5 } }
+                                { id: 'act1_church_pray_yes', text: i18n.t('act1_church.choice_pray_yes'), consequences: { attitudeTag: 'faith' } },
+                                { id: 'act1_church_observe_statue', text: i18n.t('new_content.church.observeStatue'), consequences: { attitudeTag: 'skepticism' } }
                             ],
                             onComplete: (selectedChoiceId?: string) => {
                                 const store = useGameStore.getState();
-                                if (selectedChoiceId) {
-                                    const consequences = selectedChoiceId === 'act1_church_pray_yes' ? { mentalDelta: 10 } : { mentalDelta: -5 };
-                                    store.recordChoice(selectedChoiceId, this.currentLocation, consequences);
-                                }
+                                if (selectedChoiceId === 'act1_church_pray_yes') store.useAnchor('act1_city', 'church_prayer', 10);
+                                if (selectedChoiceId === 'act1_church_observe_statue') store.useAnchor('act1_city', 'church_statue_observation', 5);
                                 store.closeDialog();
                             }
                         });
@@ -1302,14 +1234,13 @@ export class CityExplorerScene extends Phaser.Scene {
         store.setDialog({
             textKey: 'act1_church.long_discussion.conclusion_dilemme', type: 'bottom', speaker: 'Père Thomas',
             choices: [
-                { id: 'act1_church_prier_pere', text: "[ S'agenouiller et prier pour le salut de son père ]", consequences: { mentalDelta: 10 } },
-                { id: 'act1_church_refuser_prier', text: "[ Votre foi est ébranlée, vous refusez de prier ]", consequences: { consciousnessDelta: 10, mentalDelta: -10 } }
+                { id: 'act1_church_prier_pere', text: i18n.t('new_content.church.prayForFather'), consequences: { attitudeTag: 'faith' } },
+                { id: 'act1_church_question_thomas', text: i18n.t('new_content.church.questionThomas'), consequences: { attitudeTags: ['skepticism', 'knowledge'] } },
+                { id: 'act1_church_examine_rosary', text: i18n.t('new_content.church.examineRosary'), consequences: { attitudeTag: 'faith' } }
             ],
             onComplete: (selectedChoiceId?: string) => {
-                if (selectedChoiceId) {
-                    const chosenOption = selectedChoiceId === 'act1_church_prier_pere' ? { mentalDelta: 10 } : { consciousnessDelta: 10, mentalDelta: -10 };
-                    store.recordChoice(selectedChoiceId, this.currentLocation, chosenOption);
-                }
+                if (selectedChoiceId === 'act1_church_prier_pere') store.useAnchor('act1_city', 'church_prayer_for_father', 10);
+                if (selectedChoiceId === 'act1_church_examine_rosary') store.useAnchor('act1_city', 'church_rosary_observation', 5);
 
                 store.setDialog({
                     textKey: 'act1_church.long_discussion.offrande_finale', type: 'bottom', speaker: 'Père Thomas',
@@ -1340,7 +1271,7 @@ export class CityExplorerScene extends Phaser.Scene {
         }).setInteractive({ useHandCursor: true });
 
         this.backButton.on('pointerover', () => {
-            const store = useGameStore.getState() as any;
+            const store = useGameStore.getState();
             if (store.currentDialog || store.activeDocument) return;
             this.game.canvas.classList.add('cursor-path');
         });
@@ -1350,7 +1281,7 @@ export class CityExplorerScene extends Phaser.Scene {
         });
 
         this.backButton.on('pointerdown', () => {
-            const store = useGameStore.getState() as any;
+            const store = useGameStore.getState();
             if (store.currentDialog || store.activeDocument) return;
 
             this.game.canvas.classList.remove('cursor-path');

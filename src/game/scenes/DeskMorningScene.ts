@@ -19,6 +19,7 @@ export class DeskMorningScene extends Phaser.Scene {
 
     create() {
         useGameStore.getState().setScene('DeskMorningScene');
+        useGameStore.getState().clearCrisisSuppression();
         this.cameras.main.setBackgroundColor('#000000');
         this.cameras.main.fadeIn(1500, 0, 0, 0);
 
@@ -136,7 +137,6 @@ export class DeskMorningScene extends Phaser.Scene {
             textKey: 'act1_morning.need_fresh_air',
             type: 'bottom',
             onComplete: () => {
-                store.recordChoice('LEAVE_DESK', 'DeskMorningScene', { exhaustionDelta: 5 });
                 this.transitionToDestination();
             }
         });

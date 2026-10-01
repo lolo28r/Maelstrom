@@ -56,16 +56,20 @@
     transition: width 0.5s ease-in-out;
 }
 
-.mental-fill {
+.lucidity-fill {
     background: #38bdf8;
-}
-
-.exhaustion-fill {
-    background: #f87171;
 }
 
 .consciousness-fill {
     background: #c084fc;
+}
+
+.status-muted-note {
+    margin-top: 8px;
+    color: #b7ad9d;
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
 }
 
 /* --- MODIFIÉ POUR LA LISIBILITÉ --- */

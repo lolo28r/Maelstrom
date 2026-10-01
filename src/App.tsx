@@ -12,6 +12,7 @@ import { CenterNarrativeModal } from './components/ui/CenterNarrativeModal';
 import { CosmicStatusHUD } from './components/CosmicStatusHUD';
 import { JournalModal } from './components/ui/JournalModal';
 import { SmokingOverlay } from './components/SmokingOverlay';
+import { ConnectionBoardModal } from './components/investigation/ConnectionBoardModal';
 import './i18n';
 
 export const App: React.FC = () => {
@@ -55,6 +56,7 @@ export const App: React.FC = () => {
             <CosmicStatusHUD />
             <JournalModal />
             <SmokingOverlay /> {/* <-- C'est lui qui affiche le background smokeBackground.jpg */}
+            <ConnectionBoardModal />
 
             {/* Overlays narratifs & Toasts */}
             <NarrativeDialog />

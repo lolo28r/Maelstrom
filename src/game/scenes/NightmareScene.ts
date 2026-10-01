@@ -18,6 +18,7 @@ export class NightmareScene extends Phaser.Scene {
 
     private sequenceStep: number = 0;
     private subStep: number = 0;
+    private unsubscribeConnectionBoard?: () => void;
 
 
     private readonly initialSteps = [
@@ -29,10 +30,10 @@ export class NightmareScene extends Phaser.Scene {
         { image: 'crazy', keys: ['nightmare.crazy_0', 'nightmare.crazy_1', 'nightmare.crazy_2', 'nightmare.crazy_3'], durationPerKey: 4900 },
         { image: 'cursedMary', keys: ['nightmare.cursed_0'], durationPerKey: 5300 },
         { image: 'cult', keys: ['nightmare.cult_0', 'nightmare.cult_1'], durationPerKey: 4900 },
-        { image: 'fish', keys: ['nightmare.fish_0'], durationPerKey: 4900 },
+        { image: 'fish', keys: ['nightmare.fish_0'], durationPerKey: 5100 },
         { image: 'sea', keys: ['nightmare.sea_0'], durationPerKey: 4900 },
-        { image: 'eye', keys: ['nightmare.eye_0', 'nightmare.eye_1'], durationPerKey: 5200 },
-        { image: 'eclipse', keys: ['nightmare.eclipse_0', 'nightmare.eclipse_1'], durationPerKey: 6400 } // Un poil plus de lourdeur sur l'éclipse finale
+        { image: 'eye', keys: ['nightmare.eye_0', 'nightmare.eye_1'], durationPerKey: 5800 },
+        { image: 'dreamEclipse', keys: ['nightmare.eclipse_0', 'nightmare.eclipse_1'], durationPerKey: 6400 }
     ];
 
     constructor() {
@@ -54,8 +55,9 @@ export class NightmareScene extends Phaser.Scene {
         this.load.image('fish', `${baseUrl}assets/fish.png`);
         this.load.image('sea', `${baseUrl}assets/sea.jpg`);
         this.load.image('eye', `${baseUrl}assets/eye.png`);
-        this.load.image('eclipse', `${baseUrl}assets/eclipse.jpg`);
+        this.load.image('dreamEclipse', `${baseUrl}assets/eclipse.jpg`);
         this.load.image('nyarla2', `${baseUrl}assets/nyarla2.jpg`);
+        this.load.image('nyarlaTrueForm', `${baseUrl}assets/nyarlaTrueForm.jpg`);
 
         this.load.audio('prologueMusic', `${baseUrl}assets/Prologue.mp3`);
         this.load.audio('ostNyarla', `${baseUrl}assets/OSTnyarla.mp3`);
@@ -69,6 +71,10 @@ export class NightmareScene extends Phaser.Scene {
 
         this.sequenceStep = 0;
         this.subStep = 0;
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.unsubscribeConnectionBoard?.();
+            this.unsubscribeConnectionBoard = undefined;
+        });
 
         this.flashOverlay = this.add.rectangle(640, 360, 1280, 720, 0xffffff)
             .setAlpha(0)
@@ -179,6 +185,10 @@ export class NightmareScene extends Phaser.Scene {
             this.prologueMusic = undefined;
         }
 
+        const investigation = useGameStore.getState();
+        investigation.grantFragment('father_forgot_name_at_station');
+        investigation.grantFragment('dream_eclipse_vision');
+
         // Lancement de l'OST Nyarla avec effets Web Audio
         const baseUrl = import.meta.env.BASE_URL;
         try {
@@ -232,176 +242,160 @@ export class NightmareScene extends Phaser.Scene {
                     alpha: 1,
                     duration: 2000,
                     onComplete: () => {
-                        this.startScene2Step1();
+                        this.startNyarlathotepIntroduction();
                     }
                 });
             }
         });
     }
 
-    // --- SCÈNE 2 : INTERACTIONS ---
-    private startScene2Step1() {
+    private startNyarlathotepIntroduction() {
         const store = useGameStore.getState();
-        const choicesMap = i18n.t('nightmare.scene_2.step_1_choices', { returnObjects: true }) as Record<string, string>;
-
-        const choices: ChoiceOption[] = [
-            { id: 'choice_visions', text: choicesMap.choice_visions, consequences: { consciousnessDelta: 5 } },
-            { id: 'choice_manipulation', text: choicesMap.choice_manipulation, consequences: { mentalDelta: -3 } },
-            { id: 'choice_stop', text: choicesMap.choice_stop, consequences: { exhaustionDelta: 5 } }
-        ];
-
+        const attitudeKey = store.hasMadeChoice('dream1_seek_truth')
+            ? 'seek_truth'
+            : store.hasMadeChoice('dream1_seek_rest')
+                ? 'seek_rest'
+                : 'resist';
         store.setDialog({
-            textKey: 'nightmare.scene_2.step_1',
+            textKey: attitudeKey === 'seek_truth'
+                ? 'new_content.nightmare.introTruth'
+                : attitudeKey === 'seek_rest'
+                    ? 'new_content.nightmare.introRest'
+                    : 'new_content.nightmare.introResist',
             type: 'bottom',
-            speaker: i18n.t('characters.unknown'),
-            choices: choices,
-            onComplete: (selectedChoiceId?: string) => {
-                if (!selectedChoiceId) {
-                    this.startScene2Step2();
-                    return;
-                }
-                store.setDialog({
-                    textKey: `nightmare.scene_2.step_1_reactions.${selectedChoiceId}`,
-                    type: 'bottom',
-                    speaker: i18n.t('characters.unknown'),
-                    choices: [],
-                    onComplete: () => {
-                        this.startScene2Step2();
-                    }
-                });
-            }
+            speaker: i18n.t('characters.unknownEntity'),
+            onComplete: () => this.openConnectionBoard(),
         });
     }
 
-    private startScene2Step2() {
+    private openConnectionBoard() {
         const store = useGameStore.getState();
-        const choicesMap = i18n.t('nightmare.scene_2.step_2_choices', { returnObjects: true }) as Record<string, string>;
+        const initialRevision = store.connectionBoardRevision;
+        if (this.unsubscribeConnectionBoard) this.unsubscribeConnectionBoard();
+        this.unsubscribeConnectionBoard = useGameStore.subscribe((state) => {
+            if (state.connectionBoardRevision !== initialRevision) {
+                this.unsubscribeConnectionBoard?.();
+                this.unsubscribeConnectionBoard = undefined;
+                this.startNyarlathotepTrap();
+            }
+        });
+        store.openConnectionBoard();
+    }
 
+    private startNyarlathotepTrap() {
+        const store = useGameStore.getState();
         const choices: ChoiceOption[] = [
-            { id: 'choice_father_truth', text: choicesMap.choice_father_truth, consequences: { consciousnessDelta: 5 } },
-            { id: 'choice_father_protect', text: choicesMap.choice_father_protect, consequences: { mentalDelta: 2 } },
-            { id: 'choice_father_fear', text: choicesMap.choice_father_fear, consequences: { mentalDelta: -5 } }
+            { id: 'nightmare_request_vision', text: i18n.t('new_content.nightmare.requestVision'), consequences: { lucidityDelta: -15, attitudeTag: 'knowledge' } },
+            { id: 'nightmare_request_rest', text: i18n.t('new_content.nightmare.requestRest'), consequences: { attitudeTag: 'rest' } },
         ];
+        if (store.lucidity > 0) {
+            choices.push({ id: 'nightmare_reject_imposed_meaning', text: i18n.t('new_content.nightmare.reject'), consequences: { attitudeTags: ['resistance', 'skepticism'] } });
+        }
 
         store.setDialog({
-            textKey: 'nightmare.scene_2.step_2',
+            textKey: 'new_content.nightmare.trapPrompt',
             type: 'bottom',
-            speaker: i18n.t('characters.unknown'),
-            choices: choices,
-            onComplete: (selectedChoiceId?: string) => {
-                if (!selectedChoiceId) {
-                    this.startScene2Step3();
-                    return;
+            speaker: i18n.t('characters.unknownEntity'),
+            choices,
+            onComplete: (choiceId) => {
+                if (!choiceId) return;
+                if (choiceId === 'nightmare_reject_imposed_meaning') {
+                    store.rejectSuggestion(
+                        'nyarlathotep_suffering_is_necessary',
+                        'investigation.suggestions.suffering.title',
+                        'investigation.suggestions.suffering.rejected'
+                    );
+                } else if (choiceId === 'nightmare_request_vision') {
+                    store.addInvestigationConclusion({
+                        id: 'suggestion_nyarlathotep_suffering',
+                        connectionId: 'nyarlathotep_suffering_is_necessary',
+                        status: 'suggestion',
+                        titleKey: 'investigation.suggestions.suffering.title',
+                        contentKey: 'investigation.suggestions.suffering.accepted',
+                        acquiredAt: '1925 - Acte I',
+                    });
                 }
                 store.setDialog({
-                    textKey: `nightmare.scene_2.step_2_reactions.${selectedChoiceId}`,
+                    textKey: choiceId === 'nightmare_request_vision'
+                        ? 'new_content.nightmare.reactionVision'
+                        : choiceId === 'nightmare_request_rest'
+                            ? 'new_content.nightmare.reactionRest'
+                            : 'new_content.nightmare.reactionReject',
                     type: 'bottom',
-                    speaker: i18n.t('characters.unknown'),
-                    choices: [],
-                    onComplete: () => {
-                        this.startScene2Step3();
-                    }
+                    speaker: i18n.t('characters.unknownEntity'),
+                    onComplete: () => this.continueAfterTrap(),
                 });
-            }
+            },
         });
     }
 
-    private startScene2Step3() {
+    private continueAfterTrap() {
         const store = useGameStore.getState();
-        const choicesMap = i18n.t('nightmare.scene_2.step_3_choices', { returnObjects: true }) as Record<string, string>;
-
-        const choices: ChoiceOption[] = [
-            { id: 'choice_eye_meaning', text: choicesMap.choice_eye_meaning, consequences: { consciousnessDelta: 10 } },
-            { id: 'choice_faith', text: choicesMap.choice_faith, consequences: { mentalDelta: 5 } },
-            { id: 'choice_indifference', text: choicesMap.choice_indifference, consequences: { mentalDelta: -5 } }
-        ];
+        if (!store.hasMadeChoice('dream1_ask_true_face')) {
+            this.startOutro();
+            return;
+        }
 
         store.setDialog({
-            textKey: 'nightmare.scene_2.step_3',
+            textKey: 'new_content.nightmare.trueFaceReminder',
             type: 'bottom',
-            speaker: i18n.t('characters.unknown'),
-            choices: choices,
-            onComplete: (selectedChoiceId?: string) => {
-                if (!selectedChoiceId) {
-                    this.startScene2Step4();
+            speaker: i18n.t('characters.unknownEntity'),
+            choices: [
+                {
+                    id: 'nightmare_confirm_true_face',
+                    text: i18n.t('new_content.nightmare.confirmTrueFace'),
+                    consequences: { lucidityDelta: -10, attitudeTag: 'knowledge' },
+                },
+                {
+                    id: 'nightmare_refuse_true_face',
+                    text: i18n.t('new_content.nightmare.refuseTrueFace'),
+                    consequences: { attitudeTags: ['rest', 'resistance'] },
+                },
+            ],
+            onComplete: (choiceId) => {
+                if (choiceId === 'nightmare_confirm_true_face') {
+                    this.triggerTrueFormFlash();
                     return;
                 }
                 store.setDialog({
-                    textKey: `nightmare.scene_2.step_3_reactions.${selectedChoiceId}`,
+                    textKey: 'new_content.nightmare.reactionRefuseTrueFace',
                     type: 'bottom',
-                    speaker: i18n.t('characters.unknown'),
-                    choices: [],
-                    onComplete: () => {
-                        this.startScene2Step4();
-                    }
+                    speaker: i18n.t('characters.unknownEntity'),
+                    onComplete: () => this.startOutro(),
                 });
-            }
+            },
         });
     }
 
-    private startScene2Step4() {
-        const store = useGameStore.getState();
-        const choicesMap = i18n.t('nightmare.scene_2.step_4_choices', { returnObjects: true }) as Record<string, string>;
-
-        const choices: ChoiceOption[] = [
-            { id: 'choice_knowledge', text: choicesMap.choice_knowledge, consequences: { consciousnessDelta: 15 } },
-            { id: 'choice_rest', text: choicesMap.choice_rest, consequences: { exhaustionDelta: -10 } },
-            { id: 'choice_resist', text: choicesMap.choice_resist, consequences: { mentalDelta: 5 } }
-        ];
-
-        store.setDialog({
-            textKey: 'nightmare.scene_2.step_4',
-            type: 'bottom',
-            speaker: i18n.t('characters.unknown'),
-            choices: choices,
-            onComplete: (selectedChoiceId?: string) => {
-                if (!selectedChoiceId) {
-                    this.startScene2Step5();
-                    return;
-                }
-                store.setDialog({
-                    textKey: `nightmare.scene_2.step_4_reactions.${selectedChoiceId}`,
-                    type: 'bottom',
-                    speaker: i18n.t('characters.unknown'),
-                    choices: [],
-                    onComplete: () => {
-                        this.startScene2Step5();
-                    }
-                });
-            }
+    private triggerTrueFormFlash() {
+        const trueFormImage = this.add.image(640, 360, 'nyarlaTrueForm')
+            .setDisplaySize(1280, 720)
+            .setDepth(998)
+            .setAlpha(0);
+        this.cameras.main.shake(650, 0.045);
+        this.tweens.add({
+            targets: trueFormImage,
+            alpha: { from: 0, to: 1 },
+            duration: 70,
+            yoyo: true,
+            repeat: 3,
+            hold: 90,
+            onComplete: () => trueFormImage.destroy(),
         });
-    }
-
-    private startScene2Step5() {
-        const store = useGameStore.getState();
-        const choicesMap = i18n.t('nightmare.scene_2.step_5_choices', { returnObjects: true }) as Record<string, string>;
-
-        const choices: ChoiceOption[] = [
-            { id: 'choice_true_face', text: choicesMap.choice_true_face, consequences: { consciousnessDelta: 10 } },
-            { id: 'choice_identity', text: choicesMap.choice_identity, consequences: { mentalDelta: -3 } },
-            { id: 'choice_wakeup', text: choicesMap.choice_wakeup, consequences: { exhaustionDelta: -10 } }
-        ];
-
-        store.setDialog({
-            textKey: 'nightmare.scene_2.step_5_choices.choice_true_face',
-            type: 'bottom',
-            speaker: i18n.t('characters.unknown'),
-            choices: choices,
-            onComplete: (selectedChoiceId?: string) => {
-                if (!selectedChoiceId) {
-                    this.startOutro();
-                    return;
-                }
-                store.setDialog({
-                    textKey: `nightmare.scene_2.step_5_reactions.${selectedChoiceId}`,
+        this.tweens.add({
+            targets: this.flashOverlay,
+            alpha: { from: 0, to: 0.9 },
+            duration: 80,
+            yoyo: true,
+            repeat: 3,
+            onComplete: () => {
+                useGameStore.getState().setDialog({
+                    textKey: 'new_content.nightmare.reactionTrueFace',
                     type: 'bottom',
-                    speaker: i18n.t('characters.unknown'),
-                    choices: [],
-                    onComplete: () => {
-                        this.startOutro();
-                    }
+                    speaker: i18n.t('characters.unknownEntity'),
+                    onComplete: () => this.startOutro(),
                 });
-            }
+            },
         });
     }
 
@@ -411,7 +405,7 @@ export class NightmareScene extends Phaser.Scene {
         store.setDialog({
             textKey: 'nightmare.scene_2.outro',
             type: 'bottom',
-            speaker: i18n.t('characters.unknown'),
+            speaker: i18n.t('characters.unknownEntity'),
             onComplete: () => {
                 this.triggerClimaxAndWakeUp();
             }
@@ -423,7 +417,6 @@ export class NightmareScene extends Phaser.Scene {
 
         // Fondu audio beaucoup plus long et progressif
         if (this.audioElement) {
-            const initialVolume = this.audioElement.volume;
             const step = 0.01; // Des pas plus petits pour un fondu plus doux
             const fadeAudio = setInterval(() => {
                 if (this.audioElement && this.audioElement.volume > step) {

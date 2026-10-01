@@ -136,6 +136,17 @@
     line-height: 1.5;
 }
 
+.conclusion-status {
+    color: #6d4b7e;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.conclusion-hypothesis { border-left-color: #5d688f; }
+.conclusion-rejected_suggestion { border-left-color: #6d4b7e; }
+
 .journal-keywords-list {
     display: flex;
     flex-direction: column;

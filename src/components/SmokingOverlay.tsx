@@ -1,59 +1,80 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGameStore } from '../store/useGameStore';
 import { CosmicStatusHUD } from './CosmicStatusHUD';
 import './SmokingOverlay.css';
 
+const SMOKING_OVERLAY_DURATION_MS = 8000;
+
 export const SmokingOverlay: React.FC = () => {
+    const { t } = useTranslation();
     const isSmokingActive = useGameStore((state) => state.isSmokingActive);
     const setSmokingActive = useGameStore((state) => state.setSmokingActive);
-    const setStatusRevealed = useGameStore((state) => state.setStatusRevealed);
 
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const baseUrl = import.meta.env.BASE_URL;
 
-    useEffect(() => {
-        if (isSmokingActive) {
-            setStatusRevealed(true);
+    const closeOverlay = useCallback(() => {
+        setSmokingActive(false);
+    }, [setSmokingActive]);
 
-            try {
-                audioRef.current = new Audio(`${baseUrl}assets/smokeVFX.mp3`);
-                audioRef.current.volume = 0.5;
-                audioRef.current.play().catch(err => {
-                    console.warn("Lecture audio bloquée par le navigateur :", err);
-                });
-            } catch (e) {
-                console.warn("Erreur lors de la création de l'audio :", e);
-            }
-        } else {
-            if (audioRef.current) {
-                audioRef.current.pause();
-                audioRef.current = null;
-            }
+    useEffect(() => {
+        if (!isSmokingActive) return;
+
+        try {
+            audioRef.current = new Audio(`${baseUrl}assets/smokeVFX.mp3`);
+            audioRef.current.volume = 0.5;
+            audioRef.current.play().catch((error) => {
+                console.warn('Lecture audio bloquée par le navigateur :', error);
+            });
+        } catch (error) {
+            console.warn("Erreur lors de la création de l'audio :", error);
         }
-    }, [isSmokingActive, setStatusRevealed, baseUrl]);
+
+        const autoCloseTimer = window.setTimeout(closeOverlay, SMOKING_OVERLAY_DURATION_MS);
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') closeOverlay();
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.clearTimeout(autoCloseTimer);
+            window.removeEventListener('keydown', handleKeyDown);
+            audioRef.current?.pause();
+            audioRef.current = null;
+        };
+    }, [isSmokingActive, closeOverlay, baseUrl]);
 
     if (!isSmokingActive) return null;
 
-    const handleFinishCigarette = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setSmokingActive(false);
-        setStatusRevealed(false);
+    const handleFinishCigarette = (event: React.MouseEvent) => {
+        event.stopPropagation();
+        closeOverlay();
     };
 
     return (
-        <div className="smoking-overlay-container" onClick={(e) => e.stopPropagation()}>
+        <div
+            className="smoking-overlay-container"
+            role="dialog"
+            aria-modal="true"
+            aria-label={t('new_content.smoking.title')}
+            onClick={closeOverlay}
+        >
             <img
                 src={`${baseUrl}assets/smokeBackground.jpg`}
-                alt="Rituel tabac"
+                alt=""
                 className="smoking-bg"
                 onError={(e) => console.error(`Erreur de chargement de l'image de fond : ${baseUrl}assets/smokeBackground.jpg`, e)}
             />
 
-            {/* Conteneur centralisé pour les jauges ET le bouton */}
-            <div className="smoking-center-content">
-                <CosmicStatusHUD />
+            <div className="smoking-center-content" onClick={(event) => event.stopPropagation()}>
+                <CosmicStatusHUD embedded />
+                <div className="smoking-timebar" aria-hidden="true">
+                    <div className="smoking-timebar-fill" />
+                </div>
+                <p className="smoking-auto-close-hint">{t('new_content.smoking.autoCloseHint')}</p>
                 <button onClick={handleFinishCigarette} className="finish-cigarette-btn">
-                    [ FINIR LA CIGARETTE ]
+                    {t('new_content.smoking.closeNow')}
                 </button>
             </div>
         </div>

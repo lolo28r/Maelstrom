@@ -42,6 +42,7 @@ src/
     ├── useGameStore.ts         Composition uniquement
     ├── types.ts                Contrats partagés
     ├── statsSlice.ts
+    ├── investigationSlice.ts
     ├── inventorySlice.ts
     ├── choicesSlice.ts
     ├── worldSlice.ts
@@ -57,7 +58,8 @@ Ne pas recréer un second store, un contexte React global ou un gestionnaire par
 
 | Slice | Responsabilité |
 | --- | --- |
-| `statsSlice` | Santé mentale, épuisement, conscience cosmique et notifications |
+| `statsSlice` | Lucidité, conscience cosmique, crises, ancrages et notifications |
+| `investigationSlice` | Fragments, connexions, conclusions et plateau de rapprochement |
 | `inventorySlice` | Objets, quantités, sélection et verrouillage de la sacoche |
 | `choicesSlice` | Historique des choix et application des conséquences |
 | `worldSlice` | Scène courante, progression, Vraie Vue et états du monde |
@@ -203,12 +205,12 @@ store.setDialog({
         {
             id: 'location_accept_offer',
             text: i18n.t('chapter.location.choiceAccept'),
-            consequences: { consciousnessDelta: 5, mentalDelta: -3 },
+            consequences: { consciousnessDelta: 5, lucidityDelta: -3 },
         },
         {
             id: 'location_refuse_offer',
             text: i18n.t('chapter.location.choiceRefuse'),
-            consequences: { mentalDelta: 2 },
+            consequences: { lucidityDelta: 2 },
         },
     ],
     onComplete: (selectedChoiceId) => {

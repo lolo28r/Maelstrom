@@ -4,10 +4,15 @@ import type { GameState } from './useGameStore';
 import type { StatNotification, StatsSlice, StatType } from './types';
 
 const STAT_LABEL_KEYS: Record<StatType, string> = {
-    mental: 'stats.mentalHealth',
-    exhaustion: 'stats.exhaustion',
+    lucidity: 'stats.lucidity',
     consciousness: 'stats.cosmicConsciousness',
 };
+
+const getCrisisState = (lucidity: number) => lucidity === 0
+    ? 'crisis' as const
+    : lucidity <= 30
+        ? 'warning' as const
+        : 'stable' as const;
 
 export const createStatNotification = (type: StatType, delta: number): StatNotification => ({
     id: Date.now(),
@@ -17,35 +22,48 @@ export const createStatNotification = (type: StatType, delta: number): StatNotif
 });
 
 export const createStatsSlice: StateCreator<GameState, [], [], StatsSlice> = (set, get) => ({
-    mentalHealth: 100,
-    exhaustion: 0,
+    lucidity: 100,
     consciousness: 0,
+    crisisState: 'stable',
+    crisisSuppressed: false,
+    usedAnchors: {},
     activeToast: null,
 
-    modifyStat: (stat, delta) => set((state) => ({
-        mentalHealth: stat === 'mental'
-            ? Math.min(100, Math.max(0, state.mentalHealth + delta))
-            : state.mentalHealth,
-        exhaustion: stat === 'exhaustion'
-            ? Math.min(100, Math.max(0, state.exhaustion + delta))
-            : state.exhaustion,
-        consciousness: stat === 'consciousness'
-            ? Math.min(100, Math.max(0, state.consciousness + delta))
-            : state.consciousness,
-        activeToast: createStatNotification(stat, delta),
-    })),
+    modifyStat: (stat, delta) => set((state) => {
+        const lucidity = stat === 'lucidity'
+            ? Math.min(100, Math.max(0, state.lucidity + delta))
+            : state.lucidity;
+        const consciousness = stat === 'consciousness'
+            ? Math.min(100, Math.max(state.consciousness, state.consciousness + Math.max(0, delta)))
+            : state.consciousness;
+        return {
+            lucidity,
+            consciousness,
+            crisisState: getCrisisState(lucidity),
+            activeToast: delta === 0 ? state.activeToast : createStatNotification(stat, delta),
+        };
+    }),
+
+    suppressCrisis: () => set({ crisisSuppressed: true }),
+    clearCrisisSuppression: () => set({ crisisSuppressed: false }),
+    useAnchor: (stageId, anchorId, amount) => {
+        if (get().hasUsedAnchor(stageId, anchorId)) return false;
+        set((state) => ({
+            usedAnchors: {
+                ...state.usedAnchors,
+                [stageId]: [...(state.usedAnchors[stageId] ?? []), anchorId],
+            },
+        }));
+        get().modifyStat('lucidity', Math.max(0, amount));
+        return true;
+    },
+    hasUsedAnchor: (stageId, anchorId) => (get().usedAnchors[stageId] ?? []).includes(anchorId),
 
     // Kept for backward compatibility; new code should call modifyStat with a StatType.
     triggerStatChange: (label, direction) => {
         const normalizedLabel = label.toLocaleLowerCase(i18n.language);
-        const exhaustionLabels = [i18n.t('stats.exhaustion'), i18n.t('stats.fatigue')]
-            .map((value) => value.toLocaleLowerCase(i18n.language));
         const consciousnessLabel = i18n.t('stats.cosmicConsciousness').toLocaleLowerCase(i18n.language);
-        const stat: StatType = exhaustionLabels.some((value) => normalizedLabel.includes(value))
-            ? 'exhaustion'
-            : normalizedLabel.includes(consciousnessLabel)
-                ? 'consciousness'
-                : 'mental';
+        const stat: StatType = normalizedLabel.includes(consciousnessLabel) ? 'consciousness' : 'lucidity';
 
         get().modifyStat(stat, direction === 'up' ? 10 : -10);
     },
