@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGameStore, Item } from '../store/useGameStore';
 import './InventoryHUD.css';
 
@@ -17,6 +17,23 @@ export const InventoryHUD: React.FC = () => {
 
     const totalItemCount = inventory.reduce((acc, item) => acc + (item.quantity || 1), 0);
 
+    const closeExamination = () => {
+        setExaminingItem(null);
+        setSelectedItem(null);
+    };
+
+    const closeInventory = () => {
+        setIsOpen(false);
+        closeExamination();
+    };
+
+    useEffect(() => {
+        if (!isInventoryLocked) return;
+        setIsOpen(false);
+        setExaminingItem(null);
+        setSelectedItem(null);
+    }, [isInventoryLocked, setSelectedItem]);
+
     // Consommation d'un vice (Whisky ou Tabac)
     const handleUseSubstance = (e: React.MouseEvent, item: Item) => {
         e.stopPropagation();
@@ -28,8 +45,7 @@ export const InventoryHUD: React.FC = () => {
             updateInventoryAfterUse(item);
 
         } else if (item.id === 'tobacco') {
-            setExaminingItem(null);
-            setIsOpen(false);
+            closeInventory();
 
             // 1. D'abord les dialogues du rituel
             setDialog({
@@ -67,7 +83,11 @@ export const InventoryHUD: React.FC = () => {
                     onClick={(e) => {
                         e.stopPropagation();
                         if (isInventoryLocked) return; // Empêche l'ouverture si verrouillé
-                        setIsOpen(!isOpen);
+                        if (isOpen) {
+                            closeInventory();
+                        } else {
+                            setIsOpen(true);
+                        }
                     }}
                     className={`inventory-toggle-btn ${isOpen ? 'active' : ''} ${isInventoryLocked ? 'locked' : ''}`}
                     title={isInventoryLocked ? "La sacoche est verrouillée pour l'instant..." : "Ouvrir la sacoche"}
@@ -86,7 +106,7 @@ export const InventoryHUD: React.FC = () => {
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setIsOpen(false);
+                                closeInventory();
                             }}
                             className="close-btn"
                         >
@@ -136,7 +156,7 @@ export const InventoryHUD: React.FC = () => {
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    setExaminingItem(null);
+                                    closeExamination();
                                 }}
                                 className="close-btn"
                             >
@@ -177,7 +197,7 @@ export const InventoryHUD: React.FC = () => {
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    setExaminingItem(null);
+                                    closeExamination();
                                 }}
                                 className="action-btn close-action"
                             >

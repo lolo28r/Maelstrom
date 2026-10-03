@@ -1,11 +1,14 @@
 import Phaser from 'phaser';
 import { useGameStore } from '../../store/useGameStore';
 import i18n from '../../i18n';
+import { configureHtmlAudio } from '../../audio/audioMix';
+import { localizedDialogue } from '../../utils/localizedDialogue';
 
 export class DreamScene extends Phaser.Scene {
     private bgImage!: Phaser.GameObjects.Image;
     private audioElement?: HTMLAudioElement;
     private audioCtx?: AudioContext;
+    private unsubscribeAudioMix?: () => void;
 
     constructor() {
         super('DreamScene');
@@ -43,7 +46,7 @@ export class DreamScene extends Phaser.Scene {
             this.audioCtx = new AudioContextClass();
             this.audioElement = new Audio(`${baseUrl}assets/OSTnyarla.mp3`);
             this.audioElement.loop = true;
-            this.audioElement.volume = 0.35;
+            this.unsubscribeAudioMix = configureHtmlAudio(this.audioElement, 'music');
             this.audioElement.playbackRate = 0.85;
             const source = this.audioCtx.createMediaElementSource(this.audioElement);
             const filter = this.audioCtx.createBiquadFilter();
@@ -63,41 +66,48 @@ export class DreamScene extends Phaser.Scene {
 
     private startEncounter() {
         const store = useGameStore.getState();
-        const openingKey = store.hasMadeChoice('office_drink_whisky')
-            ? 'new_content.dream.openingDrink'
-            : store.hasMadeChoice('office_smoke_to_assess')
-                ? 'new_content.dream.openingSmoke'
-                : 'new_content.dream.openingVerify';
-        store.setDialog({
-            textKey: openingKey,
+        const alcoholLine = store.hasMadeChoice('office_drink_whisky')
+            ? i18n.t('story.dream1.alcoholDrank')
+            : i18n.t('story.dream1.alcoholResisted');
+
+        this.playDialogueSequence([
+            { speaker: i18n.t('characters.unknownEntity'), text: alcoholLine },
+            ...localizedDialogue('story.dream1.opening'),
+        ], () => {
+            store.setDialog({
+                textKey: 'story.dream1.measured',
+                speaker: i18n.t('characters.laurence'),
+                choices: [
+                    { id: 'dream1_nameless_curiosity', text: i18n.t('story.dream1.choices.curiosity'), consequences: { attitudeTag: 'knowledge' } },
+                    { id: 'dream1_nameless_refusal', text: i18n.t('story.dream1.choices.refusal'), consequences: { attitudeTag: 'resistance' } },
+                    { id: 'dream1_nameless_threat', text: i18n.t('story.dream1.choices.threat'), consequences: { attitudeTags: ['skepticism', 'resistance'] } },
+                ],
+                onComplete: (choiceId) => this.answerNamelessChoice(choiceId),
+            });
+        });
+    }
+
+    private answerNamelessChoice(choiceId?: string) {
+        const response = choiceId === 'dream1_nameless_curiosity'
+            ? i18n.t('story.dream1.answers.curiosity')
+            : choiceId === 'dream1_nameless_threat'
+                ? i18n.t('story.dream1.answers.threat')
+                : i18n.t('story.dream1.answers.refusal');
+
+        useGameStore.getState().setDialog({
+            textKey: response,
             speaker: i18n.t('characters.unknownEntity'),
-            choices: [
-                { id: 'dream1_seek_truth', text: i18n.t('new_content.dream.seekTruth'), consequences: { attitudeTag: 'knowledge' } },
-                { id: 'dream1_resist_intrusion', text: i18n.t('new_content.dream.resist'), consequences: { attitudeTags: ['resistance', 'skepticism'] } },
-                { id: 'dream1_seek_rest', text: i18n.t('new_content.dream.seekRest'), consequences: { attitudeTag: 'rest' } },
-            ],
-            onComplete: (choiceId) => {
-                if (!choiceId) return;
-                store.setDialog({
-                    textKey: choiceId === 'dream1_seek_truth'
-                        ? 'new_content.dream.reactionTruth'
-                        : choiceId === 'dream1_seek_rest'
-                            ? 'new_content.dream.reactionRest'
-                            : 'new_content.dream.reactionResist',
-                    speaker: i18n.t('characters.unknownEntity'),
-                    onComplete: () => this.askFirstMeetingQuestion(),
-                });
-            },
+            onComplete: () => this.askFirstMeetingQuestion(),
         });
     }
 
     private askFirstMeetingQuestion() {
         const store = useGameStore.getState();
-        store.setDialog({
-            textKey: 'new_content.dream.firstMeetingPrompt',
-            speaker: i18n.t('characters.unknownEntity'),
+        this.playDialogueSequence(localizedDialogue('story.dream1.temptation'), () => store.setDialog({
+            textKey: 'story.dream1.voiceCloser',
+            speaker: i18n.t('characters.laurence'),
             choices: [
-                { id: 'dream1_ask_true_face', text: i18n.t('new_content.dream.askTrueFace'), consequences: { attitudeTag: 'knowledge' } },
+                { id: 'dream1_ask_true_face', text: i18n.t('story.dream1.choices.face'), consequences: { attitudeTag: 'knowledge' } },
                 { id: 'dream1_ask_identity', text: i18n.t('new_content.dream.askIdentity'), consequences: { attitudeTag: 'skepticism' } },
                 { id: 'dream1_wake_up', text: i18n.t('new_content.dream.askWakeUp'), consequences: { attitudeTag: 'rest' } },
             ],
@@ -113,6 +123,23 @@ export class DreamScene extends Phaser.Scene {
                     onComplete: () => this.startOutro(),
                 });
             },
+        }));
+    }
+
+    private playDialogueSequence(
+        lines: Array<{ speaker: string; text: string }>,
+        onComplete: () => void,
+        index = 0,
+    ) {
+        const line = lines[index];
+        if (!line) {
+            onComplete();
+            return;
+        }
+        useGameStore.getState().setDialog({
+            textKey: line.text,
+            speaker: line.speaker,
+            onComplete: () => this.playDialogueSequence(lines, onComplete, index + 1),
         });
     }
 
@@ -132,6 +159,8 @@ export class DreamScene extends Phaser.Scene {
             this.audioElement.currentTime = 0;
         }
         if (this.audioCtx && this.audioCtx.state !== 'closed') void this.audioCtx.close();
+        this.unsubscribeAudioMix?.();
+        this.unsubscribeAudioMix = undefined;
         this.tweens.add({
             targets: this.bgImage,
             alpha: 0,

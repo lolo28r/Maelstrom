@@ -1,5 +1,5 @@
 import type { StateCreator } from 'zustand';
-import { NIGHTMARE_CONNECTIONS } from '../constants/investigation';
+import { ALL_CONNECTIONS } from '../constants/investigation';
 import type { GameState } from './useGameStore';
 import type { InvestigationSlice } from './types';
 
@@ -8,6 +8,7 @@ export const createInvestigationSlice: StateCreator<GameState, [], [], Investiga
     resolvedConnections: [],
     investigationConclusions: [],
     connectionBoardOpen: false,
+    connectionBoardScope: 'nightmare',
     connectionBoardRevision: 0,
 
     grantFragment: (fragmentId) => set((state) => state.acquiredFragments.includes(fragmentId)
@@ -17,7 +18,7 @@ export const createInvestigationSlice: StateCreator<GameState, [], [], Investiga
     resolveConnection: (connectionId) => {
         const state = get();
         if (state.resolvedConnections.includes(connectionId)) return true;
-        const definition = NIGHTMARE_CONNECTIONS.find((entry) => entry.id === connectionId);
+        const definition = ALL_CONNECTIONS.find((entry) => entry.id === connectionId);
         if (!definition || !definition.requiredFragmentIds.every((id) => state.acquiredFragments.includes(id))) return false;
 
         const conclusion = {
@@ -42,6 +43,10 @@ export const createInvestigationSlice: StateCreator<GameState, [], [], Investiga
     addInvestigationConclusion: (conclusion) => set((state) => state.investigationConclusions.some((item) => item.id === conclusion.id)
         ? state
         : { investigationConclusions: [conclusion, ...state.investigationConclusions], hasNewJournalEntry: true }),
+    upsertInvestigationConclusion: (conclusion) => set((state) => ({
+        investigationConclusions: [conclusion, ...state.investigationConclusions.filter((item) => item.id !== conclusion.id)],
+        hasNewJournalEntry: true,
+    })),
     rejectSuggestion: (suggestionId, titleKey, contentKey) => get().addInvestigationConclusion({
         id: `rejected_${suggestionId}`,
         connectionId: suggestionId,
@@ -50,6 +55,7 @@ export const createInvestigationSlice: StateCreator<GameState, [], [], Investiga
         contentKey,
         acquiredAt: '1925 - Acte I',
     }),
-    openConnectionBoard: () => set({ connectionBoardOpen: true }),
+    openConnectionBoard: (scope = 'nightmare') => set({ connectionBoardOpen: true, connectionBoardScope: scope }),
+    closeConnectionBoard: () => set({ connectionBoardOpen: false }),
     completeConnectionBoard: () => set((state) => ({ connectionBoardOpen: false, connectionBoardRevision: state.connectionBoardRevision + 1 })),
 });

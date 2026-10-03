@@ -1,0 +1,543 @@
+{
+  "story": {
+    "dream1": {
+      "alcoholDrank": "Tu as encore cherché le silence au fond d'un verre. Il n'a pas fermé la porte, Laurence.",
+      "alcoholResisted": "Tu n'as pas bu ce soir. Tu as pourtant senti l'absence du verre à chaque minute.",
+      "opening": [
+        {
+          "speaker": "characters.laurence",
+          "text": "Je ne lui ai jamais parlé de l'alcool."
+        },
+        {
+          "speaker": "characters.unknownEntity",
+          "text": "Il est difficile de cacher une faim à quelqu'un qui vous regarde de l'intérieur."
+        },
+        {
+          "speaker": "characters.unknownEntity",
+          "text": "Ceux qui n'ont pas de noms descendront bientôt sur la Terre."
+        },
+        {
+          "speaker": "characters.unknownEntity",
+          "text": "Ce que vous appelez le ciel ne les retiendra plus. Seras-tu prêt à les accueillir ?"
+        }
+      ],
+      "measured": "Je sens qu'il attend moins une réponse qu'une manière de me mesurer.",
+      "choices": {
+        "curiosity": "« Qui sont-ils ? Et pourquoi me demander cela à moi ? »",
+        "refusal": "« Je n'accueillerai rien. Sors de mon rêve. »",
+        "threat": "« Sors de ma tête avant que je trouve comment t'en arracher. »",
+        "face": "« Montre-moi ton vrai visage. »"
+      },
+      "answers": {
+        "curiosity": "Tu demandes qui ils sont. Demande-toi plutôt ce qu'il reste d'un dieu quand aucun nom ne suffit plus.",
+        "refusal": "Tu refuses déjà. Pourtant tu ne sais encore ni ce qui vient, ni ce que tu lui ouvriras.",
+        "threat": "Tu me menaces dans une pièce dont tu ignores même si elle se trouve dans ton crâne."
+      },
+      "temptation": [
+        {
+          "speaker": "characters.unknownEntity",
+          "text": "Tu veux savoir si ce visage est le mien."
+        },
+        {
+          "speaker": "characters.unknownEntity",
+          "text": "Demande-moi de te montrer ce qu'il cache."
+        }
+      ],
+      "voiceCloser": "Sa voix se rapproche. La silhouette, elle, ne bouge pas."
+    },
+    "office2": {
+      "date": "21 janvier 1925",
+      "intro": [
+        "21 janvier 1925.",
+        "Je me suis réveillé dans le fauteuil. Sa voix était encore dans la pièce.",
+        "Il connaissait le verre. Il connaissait l'envie avant même que je la formule.",
+        "Sous la porte, un télégramme attendait depuis l'aube."
+      ],
+      "telegramTitle": "Télégramme de l'asile d'Arkham",
+      "telegram": "Monsieur Lindner,\n\nVotre père a disparu de sa chambre au cours de la nuit. Aucun transfert n'a été autorisé. Nous vous demandons de vous présenter afin de reconnaître et récupérer ses effets personnels.\n\n— Administration de l'asile d'Arkham",
+      "telegramArchive": "Votre père a disparu de sa chambre au cours de la nuit. Aucun transfert n'a été autorisé.",
+      "afterTelegram": [
+        "Je relis « disparu » trois fois.",
+        "Le mot reste le même. C'est ma façon de le comprendre qui change."
+      ],
+      "actions": {
+        "telegram": "Relire le télégramme et vérifier la date",
+        "books": "Examiner les livres laissés ouverts",
+        "window": "Regarder par la fenêtre"
+      },
+      "anchorFirst": "21 janvier. Remis à six heures vingt. Le papier est humide au bord. Cela, au moins, ne dépend pas de moi.",
+      "anchorRepeat": "Six heures vingt. 21 janvier. Les chiffres ne changent pas.",
+      "articleTitle": "Tiré à part — Société historique du Massachusetts, 1919",
+      "article": "LES PREMIÈRES ROUTES COMMERCIALES DE LA MÉDITERRANÉE ORIENTALE\n\nDr Lindner\n\n« Les ressemblances entre deux rites éloignés ne prouvent pas une origine commune. L'historien doit résister aux parentés trop séduisantes. »\n\nDans la marge : Ne jamais laisser une belle idée remplacer une preuve.",
+      "articleArchiveTitle": "Article du Dr Lindner — 1919",
+      "articleArchive": "Mon père mettait en garde contre les rapprochements séduisants que les preuves ne soutiennent pas.",
+      "windowFirst": "Une douzaine de corneilles attendent sous la neige. Toutes regardent le même clocher.",
+      "windowSecond": "Le toit est vide. Je n'ai pas vu les corneilles partir."
+    },
+    "asylum": {
+      "employee": "Employé de l'asile",
+      "actions": {
+        "enter": "Entrer dans l'asile",
+        "leaveTown": "Reprendre la route vers Arkham",
+        "talk": "Parler au réceptionniste",
+        "suitcase": "Examiner la valise",
+        "room": "Rejoindre la chambre",
+        "door": "Examiner la porte",
+        "bed": "Examiner le lit",
+        "window": "Examiner la fenêtre",
+        "chair": "Regarder sous la chaise",
+        "photo": "Regarder la photographie",
+        "file": "Lire le dossier",
+        "note": "Déplier la note",
+        "closeSuitcase": "← Refermer"
+      },
+      "mustFinish": "Je dois d'abord voir sa chambre et examiner ses affaires.",
+      "roomFirst": "Je devrais d'abord aller voir la chambre de mon père.",
+      "briefing": [
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Monsieur Lindner ? J'allais justement classer votre télégramme."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "J'aurai besoin d'une signature pour les effets personnels."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Je signerai. Dites-moi d'abord ce qui est arrivé à mon père."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "À six heures, il dormait et à huit heures, sa chambre était vide."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Personne ne l'a fait sortir. La porte était encore verrouillée."
+        }
+      ],
+      "menuPrompt": "Le réceptionniste garde un doigt entre les pages du registre.",
+      "menuDone": "Je n'ai rien d'autre à ajouter.",
+      "choices": {
+        "rounds": "« Reprenez depuis la dernière ronde. »",
+        "date": "« Comment se comportait-il ces derniers jours ? »",
+        "suitcase": "« Il tenait à cette valise ? »",
+        "sleep": "« Est-ce qu'il dormait ? »",
+        "leave": "« Je vais voir sa chambre. »"
+      },
+      "rounds": [
+        {
+          "speaker": "story.asylum.employee",
+          "text": "La porte était fermée a chaque passage que nous avons effectué."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "C'est moi qui ai tourné la clé. Vous pouvez l'écrire dans mon rapport."
+        }
+      ],
+      "date": [
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Le premier matin, il a demandé la date complète. Jour, mois, année."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Puis il a demandé quel calendrier nous utilisions."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "J'ai ri et il a ri aussi, mais comme avec un temps de retard, comme si il cherchait à m'imiter."
+        }
+      ],
+      "suitcase": [
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Il la gardait sous son lit. Il vérifiait la serrure chaque soir."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Il y a trois jours, il a cessé de la réclamer."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Il a dit que son contenu avait déjà servi."
+        }
+      ],
+      "sleep": [
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Lors de la journée, presque toujours alors que la nuit, il demandait qu'on laisse la lampe."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Il disait travailler mieux quand la maison dormait."
+        },
+        {
+          "speaker": "story.asylum.employee",
+          "text": "Puis il se corrigeait : quand la ville dormait."
+        }
+      ],
+      "clues": {
+        "door": "La serrure accroche un peu. Ni rayure récente, ni bois fendu.",
+        "bed": "Le drap a gardé le creux d'un corps. Les chaussons attendent dessous.",
+        "window": "Les barreaux ne bougent pas. La neige est intacte jusqu'au mur d'enceinte."
+      },
+      "chairFirst": "Quatre années sont entaillées sous l'assise : 1921, 1936, 1968, 2014.",
+      "chairRepeat": "Les quatre dates sont toujours là.",
+      "sealedRoom": [
+        "La chambre n'a rien d'une scène de fuite.",
+        "Mon père s'est levé sans ses chaussons. Puis la pièce a cessé de savoir où il était."
+      ],
+      "alreadyExamined": "J'ai déjà examiné cet élément.",
+      "effectsDone": "J'ai vu ce que la valise pouvait m'apprendre.",
+      "photo": "Mon père regarde l'objectif. Son regard est encore celui dont je me souviens.",
+      "fileTitle": "Dossier du patient n°402 — Dr Lindner",
+      "file": "Date d'admission : 30 décembre 1924.\n\nLe fils situe en 1921 l'apparition d'une froideur inhabituelle et de brefs troubles de reconnaissance. Le patient conserve ses connaissances historiques, son vocabulaire et ses habitudes de travail. Il vérifie parfois des faits élémentaires, puis récite des textes rares avec une exactitude remarquable.\n\nAucun délire mystique relevé.",
+      "noteTitle": "Papier plié trouvé dans la valise",
+      "note": "Derrière l'église, la porte des morts.\n\nQuatre chiffres : l'année de ton arrivée.",
+      "mustInspect": "Je dois encore examiner la photographie, le dossier et le papier plié.",
+      "journal": {
+        "chairTitle": "Les nombres sous la chaise",
+        "chairContent": "Sous la chaise de mon père : 1921, 1936, 1968, 2014. Les deux derniers chiffres sont plus profondément gravés. Comme s'il avait dû les repasser plusieurs fois.",
+        "beforeTitle": "Avant la disparition",
+        "beforeContent": "À son arrivée, mon père exigeait la date exacte. Il veillait la nuit et protégeait sa valise. Trois jours avant de disparaître, il a décidé que son contenu avait « déjà servi ».",
+        "leadTitle": "Une piste derrière l’église",
+        "leadContent": "Une note trouvée dans la valise désigne le vieux cimetière. Le mot « arrivée » ne parle peut-être pas de l'asile.",
+        "asylumTimestamp": "21 janvier 1925 — Asile",
+        "effectsTimestamp": "21 janvier 1925 — Effets du père"
+      },
+      "archive": {
+        "fileTitle": "Dossier du patient n°402",
+        "fileSummary": "Admis le 30 décembre 1924. Les premiers troubles rapportés remontent à 1921. Ses connaissances historiques sont restées intactes.",
+        "noteTitle": "La porte des morts",
+        "noteSummary": "Derrière l'église. Quatre chiffres : l'année de ton arrivée."
+      }
+    },
+    "city2": {
+      "actions": {
+        "asylum": "Route de l'asile",
+        "district": "Vers le tabac et l'église",
+        "library": "Rue de la bibliothèque",
+        "notes": "Étaler mes notes",
+        "store": "Entrer dans le magasin",
+        "churchWay": "Continuer vers l'église",
+        "shopkeeper": "Parler à la commerçante",
+        "stove": "Examiner le poêle en fonte",
+        "shelves": "Inspecter les étagères",
+        "church": "Entrer dans l'église",
+        "alongChurch": "Longer l'église",
+        "chapel": "Chapelle de la Vierge",
+        "thomas": "Parler au Père Thomas",
+        "virgin": "Regarder la statue",
+        "rosaryVirgin": "Tenir le chapelet face à la statue",
+        "sit": "S'asseoir quelques minutes",
+        "plant": "Examiner la plante",
+        "hoofprints": "Suivre les traces de sabots",
+        "cemetery": "Entrer dans le vieux cimetière",
+        "angel": "Examiner l'ange funéraire",
+        "graves": "Examiner les tombes affaissées",
+        "path": "Examiner le chemin dans la neige",
+        "mausoleum": "Approcher la grande sépulture",
+        "crypt": "Entrer dans la crypte",
+        "altar": "Examiner l'autel vide",
+        "niches": "Examiner les niches de gauche",
+        "dust": "Examiner la poussière au sol"
+      },
+      "libraryDelay": "La bibliothèque ne ferait que retarder les deux pistes qui m'attendent.",
+      "stove": "Le poêle tire mal. Une odeur de terre mouillée revient quand la flamme baisse.",
+      "shelves": "Deux bocaux sont fendus. Des pousses blanches pressent contre le verre, sans terre ni lumière.",
+      "shopkeeperOpening": [
+        {
+          "speaker": "characters.shopkeeper",
+          "text": "Bonjour, monsieur Lindner ! Si c'est pour du tabac, je n'ai toujours pas reçu ma livraison."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Je peux attendre. Le froid vous laisse un peu de répit ?"
+        },
+        {
+          "speaker": "characters.shopkeeper",
+          "text": "Le froid, oui, mais Le voisinage légèrement moins."
+        },
+        {
+          "speaker": "characters.shopkeeper",
+          "text": "Il y a eu du bruit près de l'église cette nuit."
+        },
+        {
+          "speaker": "characters.shopkeeper",
+          "text": "Des pas, et comme des voix qu'on essayait de garder basses."
+        }
+      ],
+      "shopkeeperPrompt": "Elle garde les yeux sur la vitrine.",
+      "shopkeeperDone": "C'est tout ce que je sais.",
+      "shopChoices": {
+        "time": "« À quelle heure ? »",
+        "noise": "« Quel genre de bruit ? »",
+        "people": "« Vous avez vu quelqu'un ? »",
+        "leave": "« Merci. Je ne vous retiens pas. »"
+      },
+      "shopAnswers": {
+        "time": "Après minuit. La cloche venait de sonner trois coups.",
+        "noise": "Des chaussures sur la pierre. Puis quelque temps après, quelque chose de lourd qu'on traînait.",
+        "people": "Je n'ai vu que des ombres passer par la porte latérale."
+      },
+      "rosaryChapelFirst": "Je laisse pendre le chapelet. Rien ne bouge.",
+      "rosaryChapelRepeat": "Le chapelet reste immobile dans ma main.",
+      "rosaryChapelContrast": "Dans la rue, les grains tiraient sur le fil. Ici, ils restent immobiles.",
+      "benchRepeat": "Le banc est toujours froid. Le silence ne m'offre rien de neuf.",
+      "bench": "Le bois craque sous mon poids. Personne ne me demande de comprendre quoi que ce soit.",
+      "benchChoices": {
+        "pray": "[ PRIÈRE ] Réciter les mots appris enfant.",
+        "breathe": "[ ANCRAGE ] Compter mes respirations et garder les yeux ouverts."
+      },
+      "benchPrayer": "Les mots reviennent sans effort. Je ne sais pas qui les écoute.",
+      "benchBreath": "Dix respirations. La pierre reste de la pierre et mon cœur ralentit.",
+      "virginRepeat": "La Vierge baisse les yeux. De la pierre, rien de plus.",
+      "virginVision": [
+        {
+          "speaker": "characters.laurence",
+          "text": "La pierre n'a pas bougé."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Pourtant, je revois l'eau noire autour de sa taille."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "J'ai toujours vu en elle une mère. Pourquoi ce visage me menace-t-il maintenant ?"
+        }
+      ],
+      "thomasGreeting": [
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Vous voilà revenu, monsieur Lindner."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Prenez votre temps. Je vous écoute."
+        }
+      ],
+      "thomasPrompt": "Que voulez-vous me demander ?",
+      "thomasDone": "Thomas attend sans chercher à remplir le silence.",
+      "thomasChoices": {
+        "faith": "« J'ai besoin de croire que le monde a été voulu. »",
+        "cause": "« L'univers peut-il vraiment exister sans cause extérieure ? »",
+        "doubt": "« Une cause à l'univers ne prouve pas que Dieu nous aime. »",
+        "virgin": "« J'ai rêvé de la Sainte Vierge. Elle n'avait rien de bienveillant. »",
+        "plant": "« J'ai vu une plante très étrange près de l'église. »",
+        "night": "« Il y a eu du bruit ici cette nuit. Vous avez entendu quelque chose ? »",
+        "nightProof": "« Elle a entendu des voix et vu la porte latérale s'ouvrir. »",
+        "rosary": "« Le chapelet a bougé près de cette plante. »",
+        "leave": "« Merci, mon Père. Je vais vous laisser. »"
+      },
+      "faith": {
+        "doubt": "Je peux admettre une cause extérieure. Je ne peux pas lui prêter une bonté que rien ne démontre.",
+        "believer": "Quand je regarde le ciel, je refuse de croire que tout cela n'a été voulu par personne.",
+        "neutral": "Quelque chose a dû précéder l'univers. Mais pourquoi appeler cette cause Dieu ?",
+        "thomas1": "Parce qu'une cause première ne reçoit pas l'existence. Elle la donne.",
+        "laurence": "Cela explique peut-être un commencement. Pas une présence qui nous écoute.",
+        "thomas2": "Non. C'est là que la démonstration s'arrête et que la foi commence."
+      },
+      "virginTalk": [
+        {
+          "speaker": "characters.laurence",
+          "text": "Depuis l'enfance, je n'ai jamais vu en elle une reine. Je voyais une mère."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Dans mon rêve, elle se tenait dans une eau noire. Son reflet me regardait."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Un rêve cherche le visage qui peut le mieux nous blesser."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Ce qu'il a fait de votre refuge ne change pas ce que ce refuge fut pour vous."
+        }
+      ],
+      "plantTalk": [
+        {
+          "speaker": "characters.laurence",
+          "text": "Elle fleurit dans la neige. Je ne reconnais ni ses feuilles ni ses fleurs."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Ne la touchez pas."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Je ne comptais pas le faire. Pourquoi ce ton ?"
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Parce que vous êtes épuisé. Une plante inconnue n'est pas un signe."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Laissez-la où elle est, monsieur Lindner."
+        }
+      ],
+      "nightTalk": [
+        {
+          "speaker": "characters.laurence",
+          "text": "La commerçante a entendu des pas et des voix près de l'église."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Les murs portent loin la nuit. Le gel les fait craquer."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Elle sait faire la différence entre le gel et une voix humaine."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Alors elle vous en a déjà dit davantage que moi."
+        }
+      ],
+      "nightPress": [
+        {
+          "speaker": "characters.laurence",
+          "text": "Trois coups après minuit. Des silhouettes par la porte latérale."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Je vous demande ce qui s'est passé."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Quelques fidèles sont venus prier. Ils ne souhaitaient pas être vus."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Et vous les avez laissés entrer."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Nous n'avons rien fait qui..."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Je leur ai seulement ouvert l'église."
+        }
+      ],
+      "rosaryTalk": [
+        {
+          "speaker": "characters.laurence",
+          "text": "Votre chapelet a tiré sur son fil près de la plante."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Alors gardez-le sur vous."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Vous n'avez pas l'air surpris."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "J'ai l'habitude des hommes qui viennent me voir lorsqu'ils ont peur."
+        }
+      ],
+      "rosaryStreet": "Sous ma chemise, les grains se heurtent. Le fil se tend contre ma peau.",
+      "rosaryStreetContrast": "Dans la chapelle, les grains ne bougeaient pas. Ici, ils se heurtent sous ma chemise.",
+      "noCemeteryReason": "Je n'ai aucune raison de fouiller ce cimetière au hasard.",
+      "plantFirst": [
+        "Des fleur, en plein mois de janvier.",
+        "Les corolles sont pâles et charnues. La neige a fondu autour du pied.",
+        "Je ne connais aucun arbre ni plante faite ainsi."
+      ],
+      "plantRepeat": "La plante est toujours là. Le froid ne semble rien lui faire.",
+      "plantChurch": "Elle pousse contre le mur de l'église. Cela ne suffit pas à relier les deux faits.",
+      "hoofFirst": [
+        "Une empreinte de sabot. Puis une autre, plus loin.",
+        "La piste se multiplie sans qu'aucun animal apparaisse.",
+        "Toutes les traces s'arrêtent contre le mur de l'église."
+      ],
+      "hoofRepeat": "La neige retombe. Les empreintes restent nettes dessous.",
+      "cemeteryFirstRosary": "À l'entrée, le chapelet retombe contre ma poitrine. Plus un mouvement.",
+      "cemeteryFirst": "Le bruit de la rue s'éteint. Ici, rien ne pousse entre les tombes.",
+      "angel": "Le gel a mangé son visage. Sur le socle, un nom subsiste : Ward.",
+      "graves": "Les pierres penchent vers l'est. Trois générations portent les mêmes prénoms.",
+      "pathFirst": "Sous la neige, une bande sombre mène à la sépulture. Le sol a été tassé par des passages réguliers.",
+      "pathRepeat": "La neige recouvre le chemin, mais pas les anciennes ornières.",
+      "lockOpen": [
+        "1921. Les roues s'arrêtent.",
+        "Le mot « arrivée » ne parlait pas de l'asile."
+      ],
+      "lockAdmission": "30 décembre 1924. Le cadenas ne bouge pas.",
+      "lockWrong": "Les roues reviennent en place avec un bruit sec.",
+      "altar": "Le rectangle laissé par l'objet est plus propre que la pierre autour.",
+      "niches": "Ces niches sont trop étroites pour des cercueils. Des cylindres y ont reposé.",
+      "dust": "Aucun pas récent. L'objet est resté ici bien plus longtemps que son état ne le laisse croire.",
+      "object": {
+        "name": "Objet noir à contacts métalliques",
+        "description": "Un petit objet manufacturé dont la fonction m'échappe.",
+        "examine": "Le métal et la matière noire sont assemblés avec une précision inconnue. L'objet reste inerte."
+      },
+      "visionClear": "Des galeries immenses. Des cylindres jusqu'à une distance que mon regard refusait de mesurer.",
+      "visionLow": "J'ai reconnu cet endroit avant de me souvenir que je n'y étais jamais allé.",
+      "objectReaction": [
+        "Qu'est-ce qui vient de m'arriver ?",
+        "Et cet objet... Je n'ai jamais rien vu de semblable.",
+        "Du métal, une matière noire, des contacts minuscules. À quoi cela peut-il servir ?"
+      ],
+      "lock": {
+        "clear": "EFFACER",
+        "validate": "[ VALIDER ]"
+      },
+      "journal": {
+        "noiseTitle": "Du bruit après minuit",
+        "noiseContent": "La commerçante a entendu des pas et des voix près de l'église. Après trois coups de cloche, des silhouettes ont pris la porte latérale.",
+        "meetingTitle": "Après la fermeture",
+        "meetingContent": "Thomas reconnaît que quelques fidèles ont prié dans l'église après minuit. Il a commencé par dire « nous ». Puis il est revenu à « ils ».",
+        "visionTitle": "Une archive qui n’était pas la mienne",
+        "visionContent": "Au contact de l'objet, la crypte a disparu. J'ai vu des galeries immenses. Des tables trop hautes. Des rangées de cylindres métalliques. Puis la pierre est revenue sous ma main.",
+        "rosaryTitle": "Le chapelet",
+        "rosaryContent": "Le chapelet reste inerte devant la Vierge. Il réagit dans la rue altérée. La statue n'est donc pas la cause de son mouvement.",
+        "cryptTitle": "Une crypte qui n’en était pas une",
+        "cryptContent": "Les niches ont contenu des cylindres. La table a été taillée pour des objets ronds. La poussière ne montre aucun passage récent. Ce lieu fut une archive avant de devenir une sépulture.",
+        "storeTimestamp": "21 janvier 1925 — Tabac",
+        "churchTimestamp": "21 janvier 1925 — Église",
+        "cryptTimestamp": "21 janvier 1925 — Crypte"
+      }
+    },
+    "dream2": {
+      "opening": {
+        "azathoth": "Des voix montent de mille mondes. Chacune donne un nom différent à ce qu'elle implore.",
+        "cthulhu": "Arkham repose sous une eau noire. Aux fenêtres, les dormeurs remuent dans leurs lits.",
+        "uncertain": "Derrière mes paupières, Arkham se partage en deux. Au-dessus, les cloches appellent."
+      },
+      "greetingCurious": "Tu as regardé sous les chaises, derrière les mots et jusque dans la poussière.",
+      "greeting": "Tu as trouvé une porte fermée par une date. Tu l'as ouverte.",
+      "judgment": "Voilà ce que j'aime chez toi : tu appelles prudence le temps qui sépare deux curiosités.",
+      "choices": {
+        "know": "« Je veux tout savoir, même ce qui ne devrait pas être connu. »",
+        "stop": "« Je veux que tout cela cesse. »",
+        "wait": "« Je refuse encore de choisir avant d'avoir des preuves. »"
+      },
+      "answers": {
+        "know": "Un jour, tu cesseras même de demander qui choisit ce que tu apprends.",
+        "stop": "Tu veux seulement ne plus être là lorsque cela continuera.",
+        "wait": "Une question laissée ouverte est une invitation."
+      }
+    },
+    "church1": {
+      "choices": {
+        "faith": "[ Se laisser guider par la foi ]",
+        "doubt": "[ Admettre que le doute demeure ]",
+        "critical": "[ Refuser de confondre foi et certitude ]"
+      },
+      "answers": {
+        "faith": "Alors priez. Non pour obtenir une réponse, mais pour ne pas porter seul votre peur.",
+        "doubt": "Le doute n'est pas une porte fermée. C'est parfois la seule manière honnête de rester devant elle.",
+        "critical": "Ne me croyez pas sur parole. Une foi imposée ne vaut pas davantage qu'un mensonge."
+      },
+      "rosaryOffer1": "Thomas détache un chapelet sombre de sa ceinture.",
+      "rosaryOffer2": "Prenez-le. Pas comme une preuve. Comme quelque chose à tenir lorsque vos pensées vous échappent.",
+      "rosaryName": "Chapelet du Père Thomas",
+      "rosaryDescription": "Un vieux chapelet sombre offert par le Père Thomas comme point d'ancrage.",
+      "rosaryExamine": "Les grains sont lisses et usés. Ils ont longtemps glissé entre des doigts patients."
+    }
+  }
+}

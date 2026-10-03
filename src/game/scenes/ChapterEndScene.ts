@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import i18n from '../../i18n';
+import { useGameStore } from '../../store/useGameStore';
 
 export class ChapterEndScene extends Phaser.Scene {
     constructor() {
@@ -8,15 +9,18 @@ export class ChapterEndScene extends Phaser.Scene {
 
     create() {
         const { width, height } = this.scale;
+        const store = useGameStore.getState();
+        store.setScene('ChapterEndScene');
+        const day2Complete = store.day2Progress.day2Completed;
         this.cameras.main.setBackgroundColor('#0b0b0c');
 
         // Titre de fin
-        this.add.text(width / 2, height * 0.15, i18n.t('act1_end.title'), {
+        this.add.text(width / 2, height * 0.15, day2Complete ? 'FIN DU JOUR II' : i18n.t('act1_end.title'), {
             fontFamily: 'serif', fontSize: '32px', color: '#f4ebd0', fontStyle: 'bold'
         }).setOrigin(0.5);
 
         // Message de remerciement
-        this.add.text(width / 2, height * 0.25, i18n.t('act1_end.message'), {
+        this.add.text(width / 2, height * 0.25, day2Complete ? "Au matin, la grille de la crypte sera toujours ouverte.\nDans la sacoche de Laurence, l'objet noir attend sans donner le moindre signe de vie." : i18n.t('act1_end.message'), {
             fontFamily: 'serif', fontSize: '18px', color: '#a89f85', align: 'center', lineSpacing: 8
         }).setOrigin(0.5);
 
@@ -100,7 +104,18 @@ export class ChapterEndScene extends Phaser.Scene {
         });
 
         // Bouton pour retourner au menu principal
-        const menuButton = this.add.text(width / 2, height * 0.85, i18n.t('act1_end.menu_btn'), {
+        if (!store.day2Progress.started) {
+            const continueButton = this.add.text(width / 2, height * 0.79, '[ CONTINUER — JOUR II ]', {
+                fontFamily: 'monospace', fontSize: '17px', color: '#d4af37', backgroundColor: '#221f1b', padding: { x: 18, y: 11 }
+            }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+            continueButton.on('pointerdown', () => {
+                element.destroy();
+                store.setScene('Day2OfficeScene');
+                this.scene.start('Day2OfficeScene');
+            });
+        }
+
+        const menuButton = this.add.text(width / 2, height * 0.9, i18n.t('act1_end.menu_btn'), {
             fontFamily: 'monospace', fontSize: '16px', color: '#f4ebd0', backgroundColor: '#221f1b', padding: { x: 15, y: 10 }
         }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 

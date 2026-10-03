@@ -76,6 +76,18 @@
 .connection-actions button:disabled { opacity: .35; cursor: not-allowed; }
 .connection-actions .connect-button { border-color: #cbb979; }
 .connection-actions .finish-button { border-color: #8d6aa2; }
+.board-close-button {
+    display: block;
+    margin: 14px auto 0;
+    padding: 8px 16px;
+    border: 0;
+    background: transparent;
+    color: #b9b0a2;
+    font: 600 15px 'Cormorant Garamond', serif;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.board-close-button:hover { color: #eee7d6; }
 .connection-progress { text-align: center; color: #948c82; margin: 12px 0 0; }
 
 @media (max-width: 700px) {

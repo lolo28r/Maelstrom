@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { getMusicVolume } from '../../audio/audioMix';
 import { useGameStore } from '../../store/useGameStore';
 import i18n from '../../i18n';
 
@@ -23,12 +24,13 @@ export class IntroSequenceScene extends Phaser.Scene {
         this.load.image('introEarth', `${baseUrl}assets/introEarth.jpg`);
         this.load.image('introGalaxy', `${baseUrl}assets/introGalaxy.png`);
         this.load.image('introVoid', `${baseUrl}assets/introVoid.png`);
+        this.load.image('lovecraftPortrait', `${baseUrl}assets/lovecraft.jpg`);
     }
 
     create() {
         useGameStore.getState().setScene('IntroSequence');
         this.cameras.main.setBackgroundColor('#000000');
-        this.cameras.main.fadeIn(1500, 0, 0, 0);
+        this.cameras.main.fadeIn(2500, 0, 0, 0);
         this.userChoices = [];
         this.isSkipping = false;
 
@@ -36,34 +38,6 @@ export class IntroSequenceScene extends Phaser.Scene {
         if (this.sound.get('intro_theme')) {
             this.sound.stopByKey('intro_theme');
         }
-
-        // --- BOUTON PLEIN ÉCRAN (SVG) ---
-        const fsSvg = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-      </svg>
-    `;
-        const fsBlob = new Blob([fsSvg], { type: 'image/svg+xml;charset=utf-8' });
-        const fsUrl = URL.createObjectURL(fsBlob);
-
-        this.load.image('fs_icon_intro', fsUrl);
-        this.load.once('complete', () => {
-            if (this.sys.isActive()) {
-                const fsBtn = this.add.image(1240, 40, 'fs_icon_intro')
-                    .setInteractive({ useHandCursor: true })
-                    .setScale(1.1);
-
-                fsBtn.on('pointerover', () => fsBtn.setTint(0xe2e8f0));
-                fsBtn.on('pointerout', () => fsBtn.clearTint());
-                fsBtn.on('pointerdown', () => {
-                    if (this.scale.isFullscreen) {
-                        this.scale.stopFullscreen();
-                    } else {
-                        this.scale.startFullscreen();
-                    }
-                });
-            }
-        });
 
         // --- BOUTON SKIP (SVG) ---
         const skipSvg = `
@@ -92,9 +66,9 @@ export class IntroSequenceScene extends Phaser.Scene {
 
         try {
             if (this.cache.audio.exists('intro_theme')) {
-                this.currentMusic = this.sound.add('intro_theme', { volume: 0, loop: false });
+                this.currentMusic = this.sound.add('intro_theme', { volume: 0, loop: true });
                 this.currentMusic.play({ seek: 40 });
-                this.tweens.add({ targets: this.currentMusic, volume: 0.5, duration: 3000 });
+                this.tweens.add({ targets: this.currentMusic, volume: getMusicVolume(), duration: 3000 });
             }
         } catch (e) {
             console.warn('Audio play restricted or unavailable:', e);
@@ -471,46 +445,76 @@ export class IntroSequenceScene extends Phaser.Scene {
                     onComplete: () => {
                         if (this.isSkipping) return;
                         homageText2.destroy();
-
-                        const bigTitle = this.add.text(640, 360, i18n.t('branding.title'), {
-                            fontFamily: '"Tangerine", cursive',
-                            fontSize: '120px',
-                            color: '#ffffff',
-                            fontStyle: 'bold'
-                        }).setOrigin(0.5).setAlpha(0);
-
-                        // 👈 Arrêt progressif de la musique de manière sécurisée pendant l'affichage du titre
-                        if (this.currentMusic) {
-                            this.tweens.add({
-                                targets: this.currentMusic,
-                                volume: 0,
-                                duration: 2500,
-                                onComplete: () => {
-                                    if (this.currentMusic) {
-                                        (this.currentMusic as Phaser.Sound.WebAudioSound).stop();
-                                        this.currentMusic.destroy();
-                                        this.currentMusic = null;
-                                    }
-                                }
-                            });
-                        }
-
-                        this.tweens.add({
-                            targets: bigTitle,
-                            alpha: 1,
-                            duration: 2200,
-                            hold: 4000,
-                            yoyo: true,
-                            onComplete: () => {
-                                if (this.isSkipping) return;
-
-                                this.cameras.main.fadeOut(1500, 0, 0, 0);
-                                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-                                    this.stopMusicAndProceed();
-                                });
-                            },
-                        });
+                        this.showLovecraftTribute();
                     }
+                });
+            },
+        });
+    }
+
+    private showLovecraftTribute() {
+        if (this.isSkipping) return;
+
+        const portrait = this.add.image(640, 255, 'lovecraftPortrait')
+            .setDisplaySize(260, 320)
+            .setAlpha(0);
+        const quote = this.add.text(640, 500, i18n.t('intro.credits.lovecraft_quote'), {
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: '28px',
+            fontStyle: 'italic',
+            color: '#d4d0c8',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 1000 },
+        }).setOrigin(0.5).setAlpha(0);
+        const attribution = this.add.text(640, 600, '— H. P. Lovecraft', {
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: '20px',
+            color: '#77736d',
+        }).setOrigin(0.5).setAlpha(0);
+
+        this.tweens.add({
+            targets: [portrait, quote, attribution],
+            alpha: 1,
+            duration: 2500,
+            hold: 6500,
+            yoyo: true,
+            onComplete: () => {
+                if (this.isSkipping) return;
+                portrait.destroy();
+                quote.destroy();
+                attribution.destroy();
+                this.time.delayedCall(700, () => this.showMainTitle());
+            },
+        });
+    }
+
+    private showMainTitle() {
+        if (this.isSkipping) return;
+
+        const bigTitle = this.add.text(640, 360, i18n.t('branding.title'), {
+            fontFamily: '"Tangerine", cursive',
+            fontSize: '120px',
+            color: '#ffffff',
+            fontStyle: 'bold',
+        }).setOrigin(0.5).setAlpha(0);
+
+        this.tweens.add({
+            targets: bigTitle,
+            alpha: 1,
+            duration: 3500,
+            hold: 5000,
+            yoyo: true,
+            onYoyo: () => {
+                if (!this.currentMusic) return;
+                this.tweens.add({ targets: this.currentMusic, volume: 0, duration: 3500 });
+            },
+            onComplete: () => {
+                if (this.isSkipping) return;
+                bigTitle.destroy();
+                this.cameras.main.fadeOut(3000, 0, 0, 0);
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                    this.stopMusicAndProceed();
                 });
             },
         });

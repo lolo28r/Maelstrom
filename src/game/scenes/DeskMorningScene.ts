@@ -1,12 +1,14 @@
 import Phaser from 'phaser';
 import { useGameStore } from '../../store/useGameStore';
 import i18n from '../../i18n';
+import { configureHtmlAudio } from '../../audio/audioMix';
 
 export class DeskMorningScene extends Phaser.Scene {
     private musicOst?: HTMLAudioElement;
     private vinylSound?: HTMLAudioElement;
     private quietRoomSound?: HTMLAudioElement;
     private streetAmbianceSound?: HTMLAudioElement;
+    private audioUnsubscribers: Array<() => void> = [];
 
     constructor() {
         super('DeskMorningScene');
@@ -33,22 +35,22 @@ export class DeskMorningScene extends Phaser.Scene {
         try {
             this.musicOst = new Audio(`${baseUrl}assets/ostDeskDay.mp3`);
             this.musicOst.loop = true;
-            this.musicOst.volume = 0.18;
+            this.audioUnsubscribers.push(configureHtmlAudio(this.musicOst, 'music'));
             this.musicOst.play().catch(err => console.warn("Lecture ostDeskDay bloquée :", err));
 
             this.vinylSound = new Audio(`${baseUrl}assets/vinyl.mp3`);
             this.vinylSound.loop = true;
-            this.vinylSound.volume = 0.06;
+            this.audioUnsubscribers.push(configureHtmlAudio(this.vinylSound, 'sfx', 0.18));
             this.vinylSound.play().catch(err => console.warn("Lecture vinyl bloquée :", err));
 
             this.quietRoomSound = new Audio(`${baseUrl}assets/quietRoom.mp3`);
             this.quietRoomSound.loop = true;
-            this.quietRoomSound.volume = 0.05;
+            this.audioUnsubscribers.push(configureHtmlAudio(this.quietRoomSound, 'sfx', 0.15));
             this.quietRoomSound.play().catch(err => console.warn("Lecture quietRoom bloquée :", err));
 
             this.streetAmbianceSound = new Audio(`${baseUrl}assets/streetAmbiance.mp3`);
             this.streetAmbianceSound.loop = true;
-            this.streetAmbianceSound.volume = 0.01;
+            this.audioUnsubscribers.push(configureHtmlAudio(this.streetAmbianceSound, 'sfx', 0.06));
             this.streetAmbianceSound.play().catch(err => console.warn("Lecture streetAmbiance bloquée :", err));
 
         } catch (e) {
@@ -148,6 +150,8 @@ export class DeskMorningScene extends Phaser.Scene {
         if (this.vinylSound) { this.vinylSound.pause(); this.vinylSound.currentTime = 0; }
         if (this.quietRoomSound) { this.quietRoomSound.pause(); this.quietRoomSound.currentTime = 0; }
         if (this.streetAmbianceSound) { this.streetAmbianceSound.pause(); this.streetAmbianceSound.currentTime = 0; }
+        this.audioUnsubscribers.forEach((unsubscribe) => unsubscribe());
+        this.audioUnsubscribers = [];
 
         this.cameras.main.fadeOut(1000, 0, 0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {

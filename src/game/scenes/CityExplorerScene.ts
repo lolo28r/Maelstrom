@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { getMusicVolume, getSfxVolume } from '../../audio/audioMix';
 import { useGameStore, ChoiceOption } from '../../store/useGameStore';
 import { HotspotZone } from '../helper/HotSpotZone';
 import i18n from '../../i18n';
@@ -14,6 +15,7 @@ export class CityExplorerScene extends Phaser.Scene {
     private churchMusic?: Phaser.Sound.BaseSound;
     private storeMusic?: Phaser.Sound.BaseSound;
     private salonMusic?: Phaser.Sound.BaseSound;
+    private hotelBellSpamCount: number = 0; // Compteur pour énerver le bibliothécaire
 
     private hasVisitedChurch: boolean = false;
     private hasSeenStatue: boolean = false;
@@ -42,6 +44,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.load.audio('streetOst', `${baseUrl}assets/streetOst.mp3`);
         this.load.audio('ostSalon', `${baseUrl}assets/ostSalon.mp3`);
         this.load.audio('ostEglise', `${baseUrl}assets/ostEglise.mp3`);
+        this.load.audio('hotelBellSfx', `${baseUrl}assets/hotelBellSfx.mp3`);
         this.load.audio('ostStore', `${baseUrl}assets/ostStore.mp3`);
     }
 
@@ -69,7 +72,7 @@ export class CityExplorerScene extends Phaser.Scene {
 
     private playStreetMusic() {
         if (!this.streetMusic) {
-            this.streetMusic = this.sound.add('streetOst', { loop: true, volume: 0.2 });
+            this.streetMusic = this.sound.add('streetOst', { loop: true, volume: getMusicVolume() });
             this.streetMusic.play();
         }
     }
@@ -365,11 +368,54 @@ export class CityExplorerScene extends Phaser.Scene {
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'entreeLib').setDisplaySize(width, height);
 
+        // 1. HOTSPOT DE LA CLOCHE D'HÔTEL
         this.addHotspot({
-            scene: this, x: width * 0.5, y: height * 0.5, width: 200, height: 350,
-            type: 'inspect', actionLabel: "Parler au bibliothécaire",
+            scene: this,
+            x: 315,
+            y: 296,
+            width: 130,
+            height: 130,
+            type: 'inspect',
+            actionLabel: "Sonner la cloche",
             onClick: () => {
                 const store = useGameStore.getState();
+
+                // Jouer le son de la cloche proprement via Phaser
+                if (this.sound.get('hotelBellSfx')) {
+                    this.sound.play('hotelBellSfx', { volume: getSfxVolume() });
+                } else {
+                    // Fallback de sécurité si l'audio n'est pas préchargé
+                    this.sound.add('hotelBellSfx', { volume: getSfxVolume() }).play();
+                }
+
+                this.hotelBellSpamCount++;
+
+                // Si on spam la cloche (4 fois ou plus), le bibliothécaire s'énerve
+                if (this.hotelBellSpamCount >= 4) {
+                    store.setDialog({
+                        textKey: 'act1_library.librarian_annoyed',
+                        type: 'bottom',
+                        speaker: 'Bibliothécaire',
+                    });
+                }
+                // Sinon : aucun texte affiché, juste le son de la cloche !
+            }
+        });
+
+        // 2. HOTSPOT DU BIBLIOTHÉCAIRE
+        this.addHotspot({
+            scene: this,
+            x: width * 0.5,
+            y: height * 0.5,
+            width: 200,
+            height: 350,
+            type: 'inspect',
+            actionLabel: "Parler au bibliothécaire",
+            onClick: () => {
+                const store = useGameStore.getState();
+
+                // Dès qu'on lui parle, on remet le compteur de spam à zéro
+                this.hotelBellSpamCount = 0;
 
                 store.setDialog({
                     textKey: 'act1_library.laurence_excuse',
@@ -447,7 +493,6 @@ export class CityExplorerScene extends Phaser.Scene {
 
         this.createBackButton(() => this.enterLibraryDoor());
     }
-
     private enterLibrarySalon() {
         this.stopStreetMusic();
         this.stopChurchMusic();
@@ -466,7 +511,7 @@ export class CityExplorerScene extends Phaser.Scene {
             // Fondu en ouverture progressif sur 1 seconde
             this.tweens.add({
                 targets: this.salonMusic,
-                volume: 0.25,
+                volume: getMusicVolume(),
                 duration: 1000
             });
         }
@@ -866,7 +911,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.currentBg = this.add.image(width / 2, height / 2, 'interieurStore').setDisplaySize(width, height);
 
         if (!this.storeMusic) {
-            this.storeMusic = this.sound.add('ostStore', { loop: true, volume: 0.15 });
+            this.storeMusic = this.sound.add('ostStore', { loop: true, volume: getMusicVolume() });
             this.storeMusic.play();
         }
 
@@ -1006,7 +1051,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.currentBg = this.add.image(width / 2, height / 2, 'eglise').setDisplaySize(width, height);
 
         if (!this.churchMusic) {
-            this.churchMusic = this.sound.add('ostEglise', { loop: true, volume: 0.4 });
+            this.churchMusic = this.sound.add('ostEglise', { loop: true, volume: getMusicVolume() });
             this.churchMusic.play();
         }
 
@@ -1187,13 +1232,13 @@ export class CityExplorerScene extends Phaser.Scene {
         const choices: ChoiceOption[] = [];
 
         if (!askedThemes.has('theme_1_horloger')) {
-            choices.push({ id: 'theme_1_horloger', text: "1. Est-ce que c'est vraiment le hasard ou Dieu nous a créés, avec tout ce que ça implique ?", consequences: {} });
+            choices.push({ id: 'theme_1_horloger', text: "1. Est-ce que c'est vraiment le hasard ou Dieu nous a créés, avec tout ce que ça implique ?", consequences: { attitudeTags: ['faith', 'knowledge'] } });
         }
         if (!askedThemes.has('theme_2_creation_souffrance')) {
-            choices.push({ id: 'theme_2_creation_souffrance', text: "2. Si Dieu est bon, pourquoi nous avoir créés pour souffrir ainsi ?", consequences: {} });
+            choices.push({ id: 'theme_2_creation_souffrance', text: "2. Si Dieu est bon, pourquoi nous avoir créés pour souffrir ainsi ?", consequences: { attitudeTag: 'skepticism' } });
         }
         if (!askedThemes.has('theme_3_origine_dieu')) {
-            choices.push({ id: 'theme_3_origine_dieu', text: "3. Et si tout doit avoir une cause... qui a créé Dieu ?", consequences: {} });
+            choices.push({ id: 'theme_3_origine_dieu', text: "3. Et si tout doit avoir une cause... qui a créé Dieu ?", consequences: { attitudeTags: ['skepticism', 'knowledge'] } });
         }
 
         choices.push({ id: 'conclure_discussion', text: "— Ne rien dire de plus et écouter le prêtre.", consequences: {} });
@@ -1232,33 +1277,46 @@ export class CityExplorerScene extends Phaser.Scene {
         const store = useGameStore.getState();
 
         store.setDialog({
-            textKey: 'act1_church.long_discussion.conclusion_dilemme', type: 'bottom', speaker: 'Père Thomas',
+            textKey: 'act1_church.long_discussion.conclusion_dilemme', type: 'bottom', speaker: i18n.t('characters.fatherThomas'),
             choices: [
-                { id: 'act1_church_prier_pere', text: i18n.t('new_content.church.prayForFather'), consequences: { attitudeTag: 'faith' } },
-                { id: 'act1_church_question_thomas', text: i18n.t('new_content.church.questionThomas'), consequences: { attitudeTags: ['skepticism', 'knowledge'] } },
-                { id: 'act1_church_examine_rosary', text: i18n.t('new_content.church.examineRosary'), consequences: { attitudeTag: 'faith' } }
+                { id: 'act1_church_accept_faith', text: i18n.t('story.church1.choices.faith'), consequences: { attitudeTag: 'faith' } },
+                { id: 'act1_church_remain_uncertain', text: i18n.t('story.church1.choices.doubt'), consequences: { attitudeTag: 'knowledge' } },
+                { id: 'act1_church_critical', text: i18n.t('story.church1.choices.critical'), consequences: { attitudeTags: ['skepticism', 'resistance'] } },
             ],
             onComplete: (selectedChoiceId?: string) => {
-                if (selectedChoiceId === 'act1_church_prier_pere') store.useAnchor('act1_city', 'church_prayer_for_father', 10);
-                if (selectedChoiceId === 'act1_church_examine_rosary') store.useAnchor('act1_city', 'church_rosary_observation', 5);
+                const responseKey = selectedChoiceId === 'act1_church_accept_faith'
+                    ? 'story.church1.answers.faith'
+                    : selectedChoiceId === 'act1_church_critical'
+                        ? 'story.church1.answers.critical'
+                        : 'story.church1.answers.doubt';
+                if (selectedChoiceId === 'act1_church_accept_faith') store.useAnchor('act1_city', 'church_prayer_for_father', 10);
 
                 store.setDialog({
-                    textKey: 'act1_church.long_discussion.offrande_finale', type: 'bottom', speaker: 'Père Thomas',
+                    textKey: responseKey, type: 'bottom', speaker: i18n.t('characters.fatherThomas'),
                     onComplete: () => {
-                        store.addItem({
-                            id: 'chapelet',
-                            name: 'Chapelet du Père Thomas',
-                            icon: 'chapelet_icon',
-                            description: 'Un vieux chapelet sombre offert par le Père Thomas comme point d’ancrage.',
-                            examineText: 'Les grains usés glissent entre mes doigts. Une tiédeur étrange s’en dégage, ou est-ce simplement le fruit de mon imagination ?'
+                        store.setDialog({
+                            textKey: 'story.church1.rosaryOffer1', type: 'bottom', speaker: i18n.t('characters.fatherThomas'),
+                            onComplete: () => {
+                                store.setDialog({
+                                    textKey: 'story.church1.rosaryOffer2', type: 'bottom', speaker: i18n.t('characters.fatherThomas'),
+                                    onComplete: () => {
+                                        store.addItem({
+                                            id: 'chapelet',
+                                            name: i18n.t('story.church1.rosaryName'),
+                                            icon: `${import.meta.env.BASE_URL}assets/chapelet.png`,
+                                            description: i18n.t('story.church1.rosaryDescription'),
+                                            examineText: i18n.t('story.church1.rosaryExamine'),
+                                        });
+                                        store.addJournalNote(
+                                            i18n.t('act1_church.journal_note_title'),
+                                            i18n.t('act1_church.journal_note_content'),
+                                            i18n.t('act1_church.journal_timestamp')
+                                        );
+                                        store.updateAct1Progress({ priestEncountered: true });
+                                    },
+                                });
+                            },
                         });
-                        store.addJournalNote(
-                            i18n.t('act1_church.journal_note_title'),
-                            i18n.t('act1_church.journal_note_content'),
-                            i18n.t('act1_church.journal_timestamp')
-                        );
-
-                        store.updateAct1Progress({ priestEncountered: true });
                     }
                 });
             }

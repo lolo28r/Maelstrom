@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { getSfxVolume } from '../../audio/audioMix';
 import { useGameStore } from '../../store/useGameStore';
 import { InteractiveObject } from '../helper/InteractiveObject.ts';
 import i18next from 'i18next';
@@ -57,7 +58,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
         this.officeBgGroup.setVisible(false);
         this.normalGroup.setVisible(false);
 
-        this.playAmbientSound('street_rain', 0.2);
+        this.playAmbientSound('street_rain', 0.3);
 
         this.time.delayedCall(800, () => {
             this.showLocationIntro(() => {
@@ -173,7 +174,8 @@ export class ProfessorOfficeScene extends Phaser.Scene {
             store.suppressCrisis();
             store.removeItemFromInventory('whisky');
         } else if (choiceId === 'office_smoke_to_assess') {
-            store.setStatusRevealed(true);
+            store.setStatusRevealed(false);
+            store.setSmokingActive(true);
             store.removeItemFromInventory('tobacco');
         }
         store.setInventoryLocked(false);
@@ -252,7 +254,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
                 this.currentAmbientSound.play();
                 this.tweens.add({
                     targets: this.currentAmbientSound,
-                    volume: volume,
+                    volume: getSfxVolume() * volume,
                     duration: 2000,
                 });
             }
@@ -269,7 +271,7 @@ export class ProfessorOfficeScene extends Phaser.Scene {
             this.officeBgGroup.setVisible(true);
             this.normalGroup.setVisible(true);
 
-            this.playAmbientSound('desk_rain', 0.15);
+            this.playAmbientSound('desk_rain', 0.22);
 
             if (typeof useGameStore.getState().saveGame === 'function') {
                 useGameStore.getState().saveGame();

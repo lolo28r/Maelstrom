@@ -7,7 +7,9 @@ import { createJournalSlice, type JournalSlice } from './journalSlice';
 import { createNarrativeSlice } from './narrativeSlice';
 import { createPersistenceSlice } from './persistenceSlice';
 import { createStatsSlice } from './statsSlice';
+import { createAudioSlice } from './audioSlice';
 import type {
+    AudioSlice,
     ChoicesSlice,
     InventorySlice,
     InvestigationSlice,
@@ -26,11 +28,13 @@ export type GameState = StatsSlice
     & NarrativeSlice
     & JournalSlice
     & DevSlice
-    & PersistenceSlice;
+    & PersistenceSlice
+    & AudioSlice;
 
 export type {
     ActiveDocumentState,
     Act1Progress,
+    Day2Progress,
     ChoiceOption,
     ChoiceConsequences,
     InvestigationConclusion,
@@ -51,4 +55,5 @@ export const useGameStore = create<GameState>()((set, get, store) => ({
     ...createJournalSlice(set, get, store),
     ...createDevSlice(set, get, store),
     ...createPersistenceSlice(set, get, store),
+    ...createAudioSlice(set, get, store),
 }));

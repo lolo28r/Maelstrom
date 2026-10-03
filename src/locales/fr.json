@@ -26,6 +26,49 @@
     "initialDate": "20 janvier 1925",
     "officeArchiveTimestamp": "Acte I - Bureau"
   },
+  "day2": {
+    "sources": {
+      "asylum": "Source : asile d'Arkham",
+      "suitcase": "Source : effets personnels du père",
+      "crypt": "Source : crypte du vieux cimetière",
+      "vision": "Source : vision imposée",
+      "thomas": "Source : Père Thomas",
+      "street": "Source : rue derrière l'église",
+      "shopkeeper": "Source : commerçante du tabac"
+    },
+    "fragments": {
+      "sealedRoom": { "title": "Une chambre sans issue", "content": "La porte était verrouillée et la neige intacte sous la fenêtre barrée." },
+      "undisturbedRoom": { "title": "Aucune lutte", "content": "Le lit est seulement froissé ; les chaussons sont rangés et rien dans la chambre n'a été renversé." },
+      "noDeparture": { "title": "Aucun départ enregistré", "content": "Le registre ne mentionne ni sortie, ni visite, ni transfert après la dernière ronde." },
+      "admission1924": { "title": "Admis le 30 décembre 1924", "content": "Le père de Laurence est entré à l'asile moins d'un mois avant sa disparition." },
+      "change1921": { "title": "Rupture documentée en 1921", "content": "Le dossier médical situe les premiers changements brusques de comportement en 1921." },
+      "familyPhoto": { "title": "Une photographie d'avant 1921", "content": "Sur une ancienne photographie, Laurence reconnaît sans hésiter le regard de son père." },
+      "cacheNote": { "title": "La porte des morts", "content": "Une note cachée indique le cimetière derrière l'église et précise : « quatre chiffres, l'année de ton arrivée »." },
+      "cacheFound": { "title": "Une cache préparée", "content": "Le code 1921 ouvre une crypte contenant un objet déposé à l'avance." },
+      "futureObject": { "title": "Objet noir à contacts métalliques", "content": "Sa matière et sa fabrication ne correspondent à rien que Laurence connaisse en 1925." },
+      "yithLibrary": { "title": "L'archive renversée", "content": "Le contact a imposé la vision d'une bibliothèque cyclopéenne remplie de cylindres métalliques." },
+      "cultMeeting": { "title": "Après la fermeture", "content": "Après avoir d'abord esquivé la question, Thomas reconnaît que quelques fidèles sont venus prier après minuit." },
+      "nightBell": { "title": "Trois coups après minuit", "content": "La commerçante a entendu des pas et des voix, puis aperçu des silhouettes près de la porte latérale de l'église." },
+      "organicGrowth": { "title": "Floraison dans la neige", "content": "Une plante inconnue aux fleurs pâles et charnues s'épanouit malgré le gel." },
+      "hoofprints": { "title": "La piste qui se multiplie", "content": "Une unique empreinte de sabot se divise en dizaines de traces qui s'arrêtent au mur de l'église." },
+      "virginMemory": { "title": "La Vierge du marais", "content": "La statue de la chapelle est intacte, mais sa vue rappelle à Laurence la Vierge immergée de son rêve." },
+      "rosaryReaction": { "title": "Le chapelet en mouvement", "content": "Le chapelet vibre près des excroissances de la rue, puis s'immobilise à l'entrée du cimetière." },
+      "thomasSlip": { "title": "« Nous n'avons rien fait... »", "content": "Thomas s'inclut dans la prière nocturne avant de prétendre avoir seulement ouvert l'église." }
+    },
+    "connections": {
+      "disappearance": { "title": "CONSTAT — Il n'est pas sorti", "content": "La chambre était fermée, intacte, et aucun départ n'a été consigné. Une fuite ordinaire n'explique pas sa disparition." },
+      "cache": { "title": "HYPOTHÈSE — 1921 désigne une autre arrivée", "content": "La rupture de 1921 fournit le code laissé dans les affaires du père et ouvre une cache préparée pour quelqu'un qui connaissait cette date." },
+      "object": { "title": "HYPOTHÈSE — Un objet fait pour transmettre", "content": "L'objet anachronique, la cache et la vision d'archives semblent appartenir au même moyen de conserver ou déplacer un savoir." },
+      "growth": { "title": "HYPOTHÈSE — Quelque chose a suivi la veillée", "content": "Les prières nocturnes précèdent la floraison et les traces. Rien ne dit encore si elles les ont appelées ou contenues." },
+      "thomas": { "title": "HYPOTHÈSE — Thomas a pris part à la veillée", "content": "La commerçante place plusieurs personnes à l'église après minuit ; le lapsus de Thomas l'inclut parmi elles. Cela ne révèle ni son rôle ni le but du rite." }
+    },
+    "board": {
+      "instructions": "Choisissez deux ou trois fragments. Certains se répondent sans mener à une conclusion ; d'autres ne prennent sens qu'à trois.",
+      "selectTwoOrThree": "Il faut sélectionner deux ou trois fragments avant de tenter un rapprochement.",
+      "resumeInvestigation": "Reprendre l'enquête",
+      "separateThreads": "La proximité des lieux ne constitue pas une preuve de relation. Rien ne relie encore la secte à l'objet de la crypte."
+    }
+  },
   "new_content": {
     "whiskyUse": "La peur ne disparaît pas. Ses contours deviennent seulement moins nets.",
     "smoking": {
@@ -173,7 +216,7 @@
       },
       "dream1_unknown_entity": {
         "title": "L'inconnu du rêve",
-        "content": "Une silhouette presque humaine connaissait mes habitudes et mon père."
+        "content": "Une silhouette presque humaine connaissait mon besoin d'alcool. Elle a annoncé la venue prochaine de ceux qui n'ont pas de noms."
       },
       "father_forgot_name_at_station": {
         "title": "Le quai",
@@ -241,7 +284,9 @@
     "audioRecommendation": "Ce jeu se vit de préférence avec le son activé\net un casque audio pour une immersion optimale.",
     "officeLocation": "Arkham, Massachusetts — Janvier 1925",
     "exit": "➔ Sortir",
-    "back": "← Retour"
+    "back": "← Retour",
+    "fullscreenEnter": "Passer en plein écran",
+    "fullscreenExit": "Quitter le plein écran"
   },
   "menu_dialogs": {
     "settings": "Configuration : rendu 16:9.\nSystème de sauvegarde automatique activé.",
@@ -380,7 +425,8 @@
       "author": "Écrit, développé et imaginé par Laurien Roche",
       "ai": "Avec l'aide de l'Intelligence Artificielle",
       "homage_line_1": "Inspiré par l'œuvre immortelle de Howard Phillips Lovecraft (1890–1937),",
-      "homage_line_2": "en profond hommage à son univers et à la fascination qu'il continue d'exercer sur nos esprits."
+      "homage_line_2": "en profond hommage à son univers et à la fascination qu'il continue d'exercer sur nos esprits.",
+      "lovecraft_quote": "N'est pas mort ce qui semble à jamais dormir,\nen d'étranges éternités, la mort même peut mourir."
     }
   },
   "dream": {
@@ -614,6 +660,8 @@
     "shopkeeper_already_bought": "« Ne poussez pas mémé dans les orties, je vous ai déjà ravitaillé aujourd'hui. On ne se ravitaille qu'une seule fois par jour ici ! »"
   },
   "act1_library": {
+    "bell_ring": "La cloche tinte dans le silence de la bibliothèque.",
+    "librarian_annoyed": "Je suis juste là, jeune homme. Pas besoin de réduire cette cloche en miettes.",
     "laurence_excuse": "Excusez-moi.",
     "librarian_greeting": "Oui ?",
     "laurence_father_search": "Je cherche quelqu'un qui aurait connu mon père.\nIl s'appelait Lindner. Un historien.",

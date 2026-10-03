@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { configureHtmlAudio, getMusicVolume } from '../../audio/audioMix';
 import { useGameStore, type ChoiceOption } from '../../store/useGameStore';
 import i18n from '../../i18n';
 
@@ -15,6 +16,7 @@ export class NightmareScene extends Phaser.Scene {
     private audioCtx?: AudioContext;
     private sourceNode?: MediaElementAudioSourceNode;
     private filterNode?: BiquadFilterNode;
+    private unsubscribeAudioMix?: () => void;
 
     private sequenceStep: number = 0;
     private subStep: number = 0;
@@ -74,6 +76,8 @@ export class NightmareScene extends Phaser.Scene {
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.unsubscribeConnectionBoard?.();
             this.unsubscribeConnectionBoard = undefined;
+            this.unsubscribeAudioMix?.();
+            this.unsubscribeAudioMix = undefined;
         });
 
         this.flashOverlay = this.add.rectangle(640, 360, 1280, 720, 0xffffff)
@@ -89,7 +93,7 @@ export class NightmareScene extends Phaser.Scene {
 
                 // Lancement du Prologue dans le noir
                 if (!this.prologueMusic) {
-                    this.prologueMusic = this.sound.add('prologueMusic', { loop: true, volume: 0.3 });
+                    this.prologueMusic = this.sound.add('prologueMusic', { loop: true, volume: getMusicVolume() });
                     this.prologueMusic.play();
                 }
 
@@ -201,7 +205,7 @@ export class NightmareScene extends Phaser.Scene {
 
                 this.audioElement = new Audio(`${baseUrl}assets/OSTnyarla.mp3`);
                 this.audioElement.loop = true;
-                this.audioElement.volume = 0.35;
+                this.unsubscribeAudioMix = configureHtmlAudio(this.audioElement, 'music');
                 this.audioElement.playbackRate = 0.85;
 
                 this.sourceNode = this.audioCtx.createMediaElementSource(this.audioElement);
@@ -251,9 +255,9 @@ export class NightmareScene extends Phaser.Scene {
 
     private startNyarlathotepIntroduction() {
         const store = useGameStore.getState();
-        const attitudeKey = store.hasMadeChoice('dream1_seek_truth')
+        const attitudeKey = store.hasMadeChoice('dream1_nameless_curiosity')
             ? 'seek_truth'
-            : store.hasMadeChoice('dream1_seek_rest')
+            : store.hasMadeChoice('dream1_wake_up')
                 ? 'seek_rest'
                 : 'resist';
         store.setDialog({

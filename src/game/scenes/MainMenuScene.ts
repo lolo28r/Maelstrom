@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { getMusicVolume } from '../../audio/audioMix';
 import { useGameStore } from '../../store/useGameStore';
 import i18n from '../../i18n';
 
@@ -70,7 +71,7 @@ export class MainMenuScene extends Phaser.Scene {
                 }
 
                 if (!this.sound.get('menu_music')) {
-                    const music = this.sound.add('menu_music', { volume: 0.35, loop: true });
+                    const music = this.sound.add('menu_music', { volume: getMusicVolume(), loop: true });
                     music.play();
                 }
             } catch (e) {
@@ -223,6 +224,11 @@ export class MainMenuScene extends Phaser.Scene {
                     consequences: {},
                 },
                 {
+                    id: 'dev_day2',
+                    text: '7. Jour II — Bureau et asile',
+                    consequences: {},
+                },
+                {
                     id: 'dev_close',
                     text: i18n.t('menu_dialogs.devClose'),
                     consequences: {},
@@ -242,6 +248,7 @@ export class MainMenuScene extends Phaser.Scene {
                 if (selectedChoiceId === 'dev_city') targetScene = 'CityExplorerScene';
                 if (selectedChoiceId === 'dev_end') targetScene = 'ChapterEndScene';
                 if (selectedChoiceId === 'dev_nightmare') targetScene = 'NightmareScene';
+                if (selectedChoiceId === 'dev_day2') targetScene = 'Day2OfficeScene';
                 store.closeDialog();
                 this.cameras.main.fadeOut(500, 0, 0, 0);
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {

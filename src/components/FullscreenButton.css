@@ -1,0 +1,46 @@
+.fullscreen-toggle {
+    position: fixed;
+    z-index: 100000;
+    top: 50%;
+    right: max(12px, env(safe-area-inset-right));
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    border: 1px solid rgba(203, 213, 225, 0.42);
+    border-radius: 4px;
+    background: rgba(3, 4, 7, 0.62);
+    color: #cbd5e1;
+    opacity: 0.58;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: opacity 160ms ease, color 160ms ease, border-color 160ms ease, background 160ms ease;
+    backdrop-filter: blur(4px);
+}
+
+.fullscreen-toggle:hover,
+.fullscreen-toggle:focus-visible {
+    opacity: 1;
+    color: #ffffff;
+    border-color: rgba(244, 235, 208, 0.9);
+    background: rgba(3, 4, 7, 0.9);
+    outline: none;
+}
+
+.fullscreen-toggle svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (max-width: 700px) {
+    .fullscreen-toggle {
+        top: 72px;
+        width: 38px;
+        height: 38px;
+    }
+}

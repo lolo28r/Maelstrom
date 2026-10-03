@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useGameStore } from '../store/useGameStore';
 import { CosmicStatusHUD } from './CosmicStatusHUD';
 import './SmokingOverlay.css';
+import { configureHtmlAudio } from '../audio/audioMix';
 
 const SMOKING_OVERLAY_DURATION_MS = 8000;
 
@@ -10,20 +11,24 @@ export const SmokingOverlay: React.FC = () => {
     const { t } = useTranslation();
     const isSmokingActive = useGameStore((state) => state.isSmokingActive);
     const setSmokingActive = useGameStore((state) => state.setSmokingActive);
+    const setStatusRevealed = useGameStore((state) => state.setStatusRevealed);
 
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const baseUrl = import.meta.env.BASE_URL;
 
     const closeOverlay = useCallback(() => {
         setSmokingActive(false);
-    }, [setSmokingActive]);
+        setStatusRevealed(false);
+    }, [setSmokingActive, setStatusRevealed]);
 
     useEffect(() => {
         if (!isSmokingActive) return;
 
+        let unsubscribeAudioMix: (() => void) | undefined;
+
         try {
             audioRef.current = new Audio(`${baseUrl}assets/smokeVFX.mp3`);
-            audioRef.current.volume = 0.5;
+            unsubscribeAudioMix = configureHtmlAudio(audioRef.current, 'sfx');
             audioRef.current.play().catch((error) => {
                 console.warn('Lecture audio bloquée par le navigateur :', error);
             });
@@ -42,6 +47,7 @@ export const SmokingOverlay: React.FC = () => {
             window.removeEventListener('keydown', handleKeyDown);
             audioRef.current?.pause();
             audioRef.current = null;
+            unsubscribeAudioMix?.();
         };
     }, [isSmokingActive, closeOverlay, baseUrl]);
 

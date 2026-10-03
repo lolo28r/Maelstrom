@@ -78,6 +78,34 @@ export interface Act1Progress {
     bellTopicsHeard: string[];
 }
 
+export interface Day2Progress {
+    started: boolean;
+    officeIntroSeen: boolean;
+    asylumVisited: boolean;
+    asylumReceptionBriefed: boolean;
+    roomClues: string[];
+    disappearanceConfirmed: boolean;
+    suitcaseItems: string[];
+    fatherEffectsCollected: boolean;
+    cemeteryLeadKnown: boolean;
+    virginMemoryTriggered: boolean;
+    thomasConversationCompleted: boolean;
+    thomasTopicsAsked: string[];
+    thomasNightDeflectionHeard: boolean;
+    shopkeeperRumorHeard: boolean;
+    cultMeetingKnown: boolean;
+    organicAnomalies: string[];
+    optionalDiscoveries: string[];
+    organicShockApplied: boolean;
+    cemeteryVisited: boolean;
+    mausoleumUnlocked: boolean;
+    yithCacheOpened: boolean;
+    futureObjectRecovered: boolean;
+    yithVisionSeen: boolean;
+    finalConnectionsCompleted: boolean;
+    day2Completed: boolean;
+}
+
 export interface StatNotification {
     id: number;
     statName: string;
@@ -106,14 +134,17 @@ export interface InvestigationSlice {
     resolvedConnections: string[];
     investigationConclusions: InvestigationConclusion[];
     connectionBoardOpen: boolean;
+    connectionBoardScope: 'nightmare' | 'day2';
     connectionBoardRevision: number;
     grantFragment: (fragmentId: string) => void;
     hasFragment: (fragmentId: string) => boolean;
     resolveConnection: (connectionId: string) => boolean;
     hasResolvedConnection: (connectionId: string) => boolean;
     addInvestigationConclusion: (conclusion: InvestigationConclusion) => void;
+    upsertInvestigationConclusion: (conclusion: InvestigationConclusion) => void;
     rejectSuggestion: (suggestionId: string, titleKey: string, contentKey: string) => void;
-    openConnectionBoard: () => void;
+    openConnectionBoard: (scope?: 'nightmare' | 'day2') => void;
+    closeConnectionBoard: () => void;
     completeConnectionBoard: () => void;
 }
 
@@ -142,10 +173,12 @@ export interface WorldSlice {
     isStatusRevealed: boolean;
     isSmokingActive: boolean;
     act1Progress: Act1Progress;
+    day2Progress: Day2Progress;
     setScene: (scene: string) => void;
     setStatusRevealed: (revealed: boolean) => void;
     setSmokingActive: (active: boolean) => void;
     updateAct1Progress: (updates: Partial<Act1Progress>) => void;
+    updateDay2Progress: (updates: Partial<Day2Progress>) => void;
 }
 
 export interface NarrativeSlice {
@@ -166,4 +199,15 @@ export interface PersistenceSlice {
     loadGame: () => boolean;
     hasSave: () => boolean;
     resetGame: () => void;
+}
+
+export interface AudioSlice {
+    masterVolume: number;
+    musicVolume: number;
+    sfxVolume: number;
+    audioSettingsOpen: boolean;
+    setMasterVolume: (volume: number) => void;
+    setMusicVolume: (volume: number) => void;
+    setSfxVolume: (volume: number) => void;
+    setAudioSettingsOpen: (open: boolean) => void;
 }

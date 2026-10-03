@@ -1,7 +1,7 @@
 import type { StateCreator } from 'zustand';
 import type { GameState } from './useGameStore';
 import type { PersistenceSlice } from './types';
-import { initialAct1Progress } from './worldSlice';
+import { initialAct1Progress, initialDay2Progress } from './worldSlice';
 
 const SAVE_KEY = 'maelstrom_save_v2';
 
@@ -17,6 +17,7 @@ type SavedGame = Partial<Pick<GameState,
     | 'currentScene'
     | 'inventory'
     | 'act1Progress'
+    | 'day2Progress'
     | 'choicesHistory'
     | 'journalUnlocked'
     | 'currentDate'
@@ -41,6 +42,7 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
                 currentScene: state.currentScene,
                 inventory: state.inventory,
                 act1Progress: state.act1Progress,
+                day2Progress: state.day2Progress,
                 choicesHistory: state.choicesHistory,
                 journalUnlocked: state.journalUnlocked,
                 currentDate: state.currentDate,
@@ -70,11 +72,13 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
                 resolvedConnections: data.resolvedConnections ?? [],
                 investigationConclusions: data.investigationConclusions ?? [],
                 connectionBoardOpen: false,
+                connectionBoardScope: 'nightmare',
                 connectionBoardRevision: 0,
                 currentScene: data.currentScene ?? 'ProfessorOffice',
                 inventory: data.inventory ?? [],
                 selectedItem: null,
                 act1Progress: data.act1Progress ?? { ...initialAct1Progress },
+                day2Progress: { ...initialDay2Progress, ...(data.day2Progress ?? {}) },
                 choicesHistory: data.choicesHistory ?? {},
                 journalUnlocked: data.journalUnlocked ?? false,
                 currentDate: data.currentDate ?? get().currentDate,
@@ -110,6 +114,7 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
         resolvedConnections: [],
         investigationConclusions: [],
         connectionBoardOpen: false,
+        connectionBoardScope: 'nightmare',
         connectionBoardRevision: 0,
         activeToast: null,
         currentScene: 'MainMenu',
@@ -120,6 +125,7 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
         isStatusRevealed: false,
         isSmokingActive: false,
         act1Progress: { ...initialAct1Progress },
+        day2Progress: { ...initialDay2Progress },
         currentDialog: null,
         activeDocument: null,
         isEyelidsClosing: false,

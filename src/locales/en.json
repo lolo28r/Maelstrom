@@ -85,7 +85,7 @@
     "kinds": { "memory": "Memory", "observation": "Observation", "testimony": "Testimony", "document": "Document", "vision": "Vision" },
     "fragments": {
       "asylum_letter_decline": { "title": "The asylum letter", "content": "Father's condition deteriorated over the last forty-eight hours." },
-      "dream1_unknown_entity": { "title": "The dream stranger", "content": "An almost human figure knew my habits and my father." },
+      "dream1_unknown_entity": { "title": "The dream stranger", "content": "An almost human figure knew my need for alcohol. It announced the coming of those who have no names." },
       "father_forgot_name_at_station": { "title": "The platform", "content": "My father turned around and asked me my name." },
       "bell_change_1921": { "title": "The change in 1921", "content": "Bell places the change in my father around 1921." },
       "bell_changed_behavior": { "title": "Foreign behavior", "content": "His gaze, voice, and habit of checking his own knowledge had changed." },
@@ -109,7 +109,9 @@
     "audioRecommendation": "This game is best experienced with sound enabled\nand headphones for optimal immersion.",
     "officeLocation": "Arkham, Massachusetts — January 1925",
     "exit": "➔ Leave",
-    "back": "← Back"
+    "back": "← Back",
+    "fullscreenEnter": "Enter fullscreen",
+    "fullscreenExit": "Exit fullscreen"
   },
   "menu_dialogs": {
     "settings": "Configuration: 16:9 rendering.\nAutomatic saves enabled.",
@@ -247,7 +249,8 @@
       "author": "Written, developed, and imagined by Laurien Roche",
       "ai": "With the assistance of Artificial Intelligence",
       "homage_line_1": "Inspired by the immortal work of Howard Phillips Lovecraft (1890–1937),",
-      "homage_line_2": "in deep homage to his universe and the fascination it continues to hold over our minds."
+      "homage_line_2": "in deep homage to his universe and the fascination it continues to hold over our minds.",
+      "lovecraft_quote": "That is not dead which can eternal lie,\nand with strange aeons even death may die."
     }
   },
   "dream": {
