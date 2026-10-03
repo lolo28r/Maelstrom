@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DAY2_CONNECTIONS, DAY2_FRAGMENT_IDS, INVESTIGATION_FRAGMENTS, NIGHTMARE_CONNECTIONS } from '../../constants/investigation';
+import { DAY2_COMPLETION_GROUPS, DAY2_CONNECTIONS, DAY2_FRAGMENT_IDS, INVESTIGATION_FRAGMENTS, NIGHTMARE_CONNECTIONS } from '../../constants/investigation';
 import { useGameStore } from '../../store/useGameStore';
 import './ConnectionBoardModal.css';
 
@@ -19,24 +19,41 @@ export const ConnectionBoardModal: React.FC = () => {
     const resolveConnection = useGameStore((state) => state.resolveConnection);
     const closeConnectionBoard = useGameStore((state) => state.closeConnectionBoard);
     const completeConnectionBoard = useGameStore((state) => state.completeConnectionBoard);
+    const consciousness = useGameStore((state) => state.consciousness);
+    const futureObjectRecovered = useGameStore((state) => state.day2Progress.futureObjectRecovered);
+    const consumeInsight = useGameStore((state) => state.useInsight);
+    const insightUsed = useGameStore((state) => state.usedInsights.includes('day2_connection_board'));
     const [selected, setSelected] = useState<string[]>([]);
     const [feedbackKey, setFeedbackKey] = useState('investigation.board.instructions');
     const [lastResult, setLastResult] = useState<string | null>(null);
+    const [lastAttemptFailed, setLastAttemptFailed] = useState(false);
+    const [hintedFragmentId, setHintedFragmentId] = useState<string | null>(null);
 
     const scopedConnections = scope === 'day2' ? DAY2_CONNECTIONS : NIGHTMARE_CONNECTIONS;
     const scopedFragmentIds = scope === 'day2' ? DAY2_FRAGMENT_IDS : NIGHTMARE_FRAGMENT_IDS;
     const maximumSelection = scope === 'day2' ? 3 : 2;
     const instructionKey = scope === 'day2' ? 'day2.board.instructions' : 'investigation.board.instructions';
+    const unresolvedConnections = scopedConnections.filter((connection) => !resolvedConnections.includes(connection.id));
+    const fragmentsStillNeeded = new Set(unresolvedConnections.flatMap((connection) => connection.requiredFragmentIds));
+    const fragmentsUsedByResolvedConnections = new Set(
+        scopedConnections
+            .filter((connection) => resolvedConnections.includes(connection.id))
+            .flatMap((connection) => connection.requiredFragmentIds),
+    );
     const visibleFragments = scopedFragmentIds
         .filter((id) => acquiredFragments.includes(id))
+        .filter((id) => !fragmentsUsedByResolvedConnections.has(id) || fragmentsStillNeeded.has(id))
         .map((id) => INVESTIGATION_FRAGMENTS[id]);
 
     const solvableConnections = scopedConnections.filter((connection) =>
         connection.requiredFragmentIds.every((id) => acquiredFragments.includes(id))
     );
     const solvedAvailableCount = solvableConnections.filter((connection) => resolvedConnections.includes(connection.id)).length;
+    const completedDay2Groups = DAY2_COMPLETION_GROUPS.filter((group) =>
+        group.some((connectionId) => resolvedConnections.includes(connectionId))
+    ).length;
     const canFinish = scope === 'day2'
-        ? solvedAvailableCount === scopedConnections.length
+        ? futureObjectRecovered && completedDay2Groups === DAY2_COMPLETION_GROUPS.length
         : solvedAvailableCount === solvableConnections.length;
     const missingTestimony = scope === 'nightmare' && NIGHTMARE_CONNECTIONS.some((connection) =>
         connection.requiredFragmentIds.some((id) => !acquiredFragments.includes(id))
@@ -46,6 +63,8 @@ export const ConnectionBoardModal: React.FC = () => {
         if (!isOpen) return;
         setSelected([]);
         setLastResult(null);
+        setLastAttemptFailed(false);
+        setHintedFragmentId(null);
         setFeedbackKey(instructionKey);
     }, [isOpen, instructionKey]);
 
@@ -75,12 +94,29 @@ export const ConnectionBoardModal: React.FC = () => {
             const crossesThreads = selected.some((id) => cultFragments.includes(id)) && selected.some((id) => yithFragments.includes(id));
             setFeedbackKey(crossesThreads ? 'day2.board.separateThreads' : 'investigation.board.insufficient');
             setLastResult(null);
+            setLastAttemptFailed(true);
+            setHintedFragmentId(null);
             return;
         }
         resolveConnection(match.id);
         setFeedbackKey(match.contentKey);
         setLastResult(match.id);
+        setLastAttemptFailed(false);
+        setHintedFragmentId(null);
         setSelected([]);
+    };
+
+    const requestInsight = () => {
+        if (scope !== 'day2' || consciousness < 20 || insightUsed || !consumeInsight('day2_connection_board')) return;
+        const candidate = selected.length === 0
+            ? unresolvedConnections[0]
+            : unresolvedConnections.find((connection) => selected.some((id) => connection.requiredFragmentIds.includes(id)));
+        const hintedId = candidate?.requiredFragmentIds.find((id) =>
+            acquiredFragments.includes(id) && !selected.includes(id)
+        );
+        setHintedFragmentId(hintedId ?? null);
+        setFeedbackKey(hintedId ? 'day2.board.insightShown' : 'day2.board.insightUnavailable');
+        setLastAttemptFailed(false);
     };
 
     return (
@@ -98,7 +134,7 @@ export const ConnectionBoardModal: React.FC = () => {
                         return (
                             <button
                                 key={fragment.id}
-                                className={`fragment-card ${isSelected ? 'selected' : ''}`}
+                                className={`fragment-card ${isSelected ? 'selected' : ''} ${hintedFragmentId === fragment.id ? 'hinted' : ''}`}
                                 onClick={() => toggleFragment(fragment.id)}
                                 aria-pressed={isSelected}
                             >
@@ -134,12 +170,20 @@ export const ConnectionBoardModal: React.FC = () => {
                         {missingTestimony ? t('investigation.board.admitMissing') : t('investigation.board.finish')}
                     </button>
                 </footer>
+                {scope === 'day2' && lastAttemptFailed && consciousness >= 20 && !insightUsed && (
+                    <button className="board-insight-button" onClick={requestInsight}>
+                        {t('day2.board.useInsight')}
+                    </button>
+                )}
                 {scope === 'day2' && (
                     <button className="board-close-button" onClick={closeConnectionBoard}>
                         {t('day2.board.resumeInvestigation')}
                     </button>
                 )}
-                <p className="connection-progress">{t('investigation.board.progress', { solved: solvedAvailableCount, total: scope === 'day2' ? scopedConnections.length : solvableConnections.length })}</p>
+                <p className="connection-progress">{t('investigation.board.progress', {
+                    solved: scope === 'day2' ? completedDay2Groups : solvedAvailableCount,
+                    total: scope === 'day2' ? DAY2_COMPLETION_GROUPS.length : solvableConnections.length,
+                })}</p>
             </div>
         </div>
     );

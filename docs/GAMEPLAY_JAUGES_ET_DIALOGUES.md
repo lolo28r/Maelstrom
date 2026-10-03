@@ -29,7 +29,8 @@ La Lucidité représente la distance critique de Laurence : reconnaître la diff
 Elle est comprise entre 0 et 100 :
 
 - **31–100 : stable** ;
-- **1–30 : avertissement** ;
+- **16–30 : fragile**, avec tremblements et répétitions ;
+- **1–15 : critique**, avec mots manquants et paroles hallucinées ;
 - **0 : crise**.
 
 La crise n’est ni une mort ni un écran d’échec. Le jeu continue avec une conséquence précise et identifiable.
@@ -51,7 +52,7 @@ Une association incorrecte dans le mini-jeu de connexions ne retire rien. Le jou
 
 ### Que produit une crise
 
-À 0, choisir une conséquence adaptée à la scène :
+À 0, le joueur choisit entre quitter la scène ou céder provisoirement à une suggestion adaptée à la scène :
 
 - Laurence ne peut plus formuler une objection complexe ;
 - une option permettant de contester Nyarlathotep disparaît temporairement ;
@@ -115,6 +116,12 @@ Le simple fait de ramasser un document ne doit pas toujours augmenter la jauge. 
 
 ### Ce qu’elle débloque
 
+La Conscience cosmique autorise une intuition sans consommer de points. Chaque intuition ne fonctionne qu’une fois par énigme.
+
+- **10 points** : intuition sur le cadenas du cimetière après une erreur ;
+- **20 points** : mise en évidence d’un fragment compatible après une mauvaise connexion ;
+- **35 points** : lecture facultative de la fonction d’archive de la crypte.
+
 Selon la scène, elle peut :
 
 - ajouter une observation facultative sur une image fixe ;
@@ -155,6 +162,8 @@ La connexion reste acquise même si Laurence refuse l’interprétation.
 
 Les choix les plus intéressants ne sont pas « bonne réponse / mauvaise réponse ». Ils expriment une méthode et produisent une conséquence lisible.
 
+Les attitudes servent aux réactions locales. Elles ne calculent plus les fins. Seuls les grands dilemmes peuvent enregistrer un `routeSignal` égal à `azathoth` ou `cthulhu`.
+
 ### Attitudes persistantes
 
 - **Foi** : Laurence conserve ou recherche un cadre religieux.
@@ -171,6 +180,8 @@ Deux tendances peuvent préparer du contenu futur :
 - **Esprit critique + désir que tout cesse → tendance Cthulhu**.
 
 Une tendance peut choisir un rêve, une formulation ou une tentation particulière. Elle ne doit pas sélectionner automatiquement la fin. Si les deux tendances sont à égalité, le parcours reste indéterminé jusqu’à un nouveau choix significatif.
+
+Le choix final reste souverain : accepter la technologie yithienne mène à Azathoth ; la refuser mène à Cthulhu. Les signaux antérieurs modifient seulement le ton.
 
 ### Règles pratiques
 
@@ -222,6 +233,14 @@ Utiliser un ancrage une seule fois pour une étape :
 store.useAnchor('act2_asylum', 'family_photograph', 10);
 ```
 
+Mobiliser une intuition sans diminuer la Conscience cosmique :
+
+```ts
+if (store.consciousness >= 20 && store.useInsight('act2_connection_board')) {
+    // Montrer une aide partielle, une seule fois.
+}
+```
+
 Un choix visible dans un dialogue peut enregistrer automatiquement ses conséquences :
 
 ```ts
@@ -231,6 +250,7 @@ Un choix visible dans un dialogue peut enregistrer automatiquement ses conséque
     consequences: {
         lucidityDelta: -5,
         attitudeTag: 'knowledge',
+        routeSignal: 'azathoth', // uniquement pour un grand dilemme
     },
 }
 ```

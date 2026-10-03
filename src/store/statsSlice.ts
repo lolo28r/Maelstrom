@@ -27,6 +27,8 @@ export const createStatsSlice: StateCreator<GameState, [], [], StatsSlice> = (se
     crisisState: 'stable',
     crisisSuppressed: false,
     usedAnchors: {},
+    usedInsights: [],
+    handledCrises: [],
     activeToast: null,
 
     modifyStat: (stat, delta) => set((state) => {
@@ -58,6 +60,19 @@ export const createStatsSlice: StateCreator<GameState, [], [], StatsSlice> = (se
         return true;
     },
     hasUsedAnchor: (stageId, anchorId) => (get().usedAnchors[stageId] ?? []).includes(anchorId),
+    useInsight: (insightId) => {
+        if (get().usedInsights.includes(insightId)) return false;
+        set((state) => ({ usedInsights: [...state.usedInsights, insightId] }));
+        get().saveGame();
+        return true;
+    },
+    hasUsedInsight: (insightId) => get().usedInsights.includes(insightId),
+    markCrisisHandled: (crisisId) => {
+        if (get().handledCrises.includes(crisisId)) return;
+        set((state) => ({ handledCrises: [...state.handledCrises, crisisId] }));
+        get().saveGame();
+    },
+    hasHandledCrisis: (crisisId) => get().handledCrises.includes(crisisId),
 
     // Kept for backward compatibility; new code should call modifyStat with a StatType.
     triggerStatChange: (label, direction) => {

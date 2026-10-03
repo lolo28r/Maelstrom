@@ -236,7 +236,7 @@ export class Day2CityScene extends Phaser.Scene {
                 store.setDialog({ textKey: replyKey, speaker: i18n.t('characters.shopkeeper'), type: 'bottom', onComplete: () => {
                     const latest = useGameStore.getState();
                     const completed = ['shopkeeper_time', 'shopkeeper_noise', 'shopkeeper_people']
-                        .every((id) => latest.day2Progress.optionalDiscoveries.includes(id));
+                        .filter((id) => latest.day2Progress.optionalDiscoveries.includes(id)).length >= 2;
                     if (completed && this.markOptional('shopkeeper_interview_complete')) {
                         latest.grantFragment('shopkeeper_night_bell');
                         latest.addJournalNote(
@@ -332,7 +332,32 @@ export class Day2CityScene extends Phaser.Scene {
             targets: flash, alpha: { from: 0, to: 1 }, duration: 100, yoyo: true, repeat: 2, hold: 100,
             onComplete: () => {
                 flash.destroy();
-                this.playDialogueSequence(localizedDialogue('story.city2.virginVision'), () => undefined);
+                this.playDialogueSequence(localizedDialogue('story.city2.virginVision'), () => this.handleVirginCrisis());
+            },
+        });
+    }
+
+    private handleVirginCrisis() {
+        const store = useGameStore.getState();
+        if (store.lucidity > 0 || store.hasHandledCrisis('day2_virgin')) return;
+        store.setDialog({
+            textKey: 'story.city2.crisis.virginPrompt', type: 'bottom', distortible: true,
+            hallucinationKey: 'story.city2.crisis.virginHallucination',
+            choices: [
+                { id: 'day2_virgin_crisis_leave', text: i18n.t('story.city2.crisis.leaveChapel'), consequences: { attitudeTag: 'rest' } },
+                { id: 'day2_virgin_crisis_yield', text: i18n.t('story.city2.crisis.yieldVirgin'), consequences: { attitudeTag: 'faith' } },
+            ],
+            onComplete: (choiceId) => {
+                store.markCrisisHandled('day2_virgin');
+                if (choiceId === 'day2_virgin_crisis_leave') {
+                    this.enterChurch();
+                    return;
+                }
+                store.addInvestigationConclusion({
+                    id: 'suggestion_corrupted_mother', connectionId: 'corrupted_mother', status: 'suggestion',
+                    titleKey: 'story.city2.crisis.virginSuggestionTitle',
+                    contentKey: 'story.city2.crisis.virginSuggestionContent', acquiredAt: i18n.t('story.office2.date'),
+                });
             },
         });
     }
@@ -377,7 +402,7 @@ export class Day2CityScene extends Phaser.Scene {
             choices.push({ id: 'day2_thomas_plant', text: i18n.t('story.city2.thomasChoices.plant'), consequences: {} });
         }
         const shopkeeperDetailsKnown = ['shopkeeper_time', 'shopkeeper_noise', 'shopkeeper_people']
-            .every((id) => store.day2Progress.optionalDiscoveries.includes(id));
+            .filter((id) => store.day2Progress.optionalDiscoveries.includes(id)).length >= 2;
         const canAskAboutNight = store.day2Progress.shopkeeperRumorHeard
             && !store.day2Progress.cultMeetingKnown
             && (!store.day2Progress.thomasNightDeflectionHeard || shopkeeperDetailsKnown);
@@ -577,6 +602,7 @@ export class Day2CityScene extends Phaser.Scene {
 
     private createCombinationPad() {
         let code = '';
+        let failedOnce = false;
         const panel = this.add.rectangle(640, 612, 900, 170, 0x020408, 0.92).setStrokeStyle(1, 0x8a7b5a).setDepth(900);
         const lockCover = this.add.rectangle(640, 405, 190, 125, 0x100d08, 0.96).setStrokeStyle(2, 0x8a6f3f).setDepth(900);
         const display = this.add.text(640, 405, '____', { fontFamily: 'monospace', fontSize: '34px', color: '#f4ebd0', backgroundColor: '#151517', padding: { x: 18, y: 8 } }).setOrigin(0.5).setDepth(901);
@@ -591,6 +617,15 @@ export class Day2CityScene extends Phaser.Scene {
             makeButton(String(digit), 315 + digit * 65, () => { if (code.length < 4) { code += digit; refresh(); } });
         }
         makeButton(i18n.t('story.city2.lock.clear'), 1040, () => { code = ''; refresh(); });
+        const insight = this.add.text(640, 574, i18n.t('story.city2.lock.insight'), {
+            fontFamily: 'monospace', fontSize: '15px', color: '#c8e5e8', backgroundColor: '#18292ddd', padding: { x: 12, y: 6 },
+        }).setOrigin(0.5).setInteractive({ useHandCursor: true }).setDepth(902).setVisible(false);
+        insight.on('pointerdown', () => {
+            const store = useGameStore.getState();
+            if (!store.useInsight('day2_mausoleum_lock')) return;
+            insight.setVisible(false);
+            store.startDialogue({ text: i18n.t('story.city2.lockInsight') });
+        });
         const validate = this.add.text(640, 700, i18n.t('story.city2.lock.validate'), { fontFamily: 'monospace', fontSize: '18px', color: '#d4af37', backgroundColor: '#17130c', padding: { x: 16, y: 6 } }).setOrigin(0.5).setInteractive({ useHandCursor: true }).setDepth(902);
         validate.on('pointerdown', () => {
             const store = useGameStore.getState();
@@ -602,10 +637,12 @@ export class Day2CityScene extends Phaser.Scene {
             }
             const admissionGuess = code === '1924' || code === '3012';
             store.startDialogue({ text: i18n.t(admissionGuess ? 'story.city2.lockAdmission' : 'story.city2.lockWrong') });
+            failedOnce = true;
+            if (failedOnce && store.consciousness >= 10 && !store.hasUsedInsight('day2_mausoleum_lock')) insight.setVisible(true);
             code = '';
             refresh();
         });
-        this.uiObjects.push(validate);
+        this.uiObjects.push(validate, insight);
     }
 
     private enterCrypt() {
@@ -629,6 +666,10 @@ export class Day2CityScene extends Phaser.Scene {
         this.addHotspot({ scene: this, x: 175, y: 355, width: 300, height: 430, type: 'inspect', actionLabel: i18n.t('story.city2.actions.niches'), onClick: () => {
             this.markOptional('crypt_shelves');
             this.checkCryptSurvey();
+            if (store.consciousness >= 35 && store.useInsight('day2_crypt_archive')) {
+                this.playTranslatedSequence('story.city2.cryptInsight', () => undefined);
+                return;
+            }
             store.startDialogue({ text: i18n.t('story.city2.niches') });
         } });
         this.addHotspot({ scene: this, x: 650, y: 625, width: 550, height: 150, type: 'inspect', actionLabel: i18n.t('story.city2.actions.dust'), onClick: () => {
@@ -671,8 +712,37 @@ export class Day2CityScene extends Phaser.Scene {
                     : i18n.t('story.city2.visionLow');
                 const reaction = this.localizedMonologue('story.city2.objectReaction');
                 reaction.splice(1, 0, { speaker: i18n.t('characters.laurence'), text: visionLine });
-                this.playDialogueSequence(reaction, () => this.enterCrypt());
+                this.playDialogueSequence(reaction, () => this.handleObjectCrisis());
                 store.saveGame();
+            },
+        });
+    }
+
+    private handleObjectCrisis() {
+        const store = useGameStore.getState();
+        if (store.lucidity > 0 || store.hasHandledCrisis('day2_future_object')) {
+            this.enterCrypt();
+            return;
+        }
+        store.setDialog({
+            textKey: 'story.city2.crisis.objectPrompt', type: 'bottom', distortible: true,
+            hallucinationKey: 'story.city2.crisis.objectHallucination',
+            choices: [
+                { id: 'day2_object_crisis_leave', text: i18n.t('story.city2.crisis.leaveCrypt'), consequences: { attitudeTag: 'rest' } },
+                { id: 'day2_object_crisis_yield', text: i18n.t('story.city2.crisis.yieldObject'), consequences: { attitudeTag: 'knowledge' } },
+            ],
+            onComplete: (choiceId) => {
+                store.markCrisisHandled('day2_future_object');
+                if (choiceId === 'day2_object_crisis_leave') {
+                    this.enterCemetery();
+                    return;
+                }
+                store.addInvestigationConclusion({
+                    id: 'suggestion_father_chose_exchange', connectionId: 'father_chose_exchange', status: 'suggestion',
+                    titleKey: 'story.city2.crisis.objectSuggestionTitle',
+                    contentKey: 'story.city2.crisis.objectSuggestionContent', acquiredAt: i18n.t('story.office2.date'),
+                });
+                this.enterCrypt();
             },
         });
     }

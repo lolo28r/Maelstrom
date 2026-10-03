@@ -48,6 +48,10 @@
     transform: translateY(-2px);
 }
 .fragment-card.selected { background: rgba(70, 58, 35, .78); }
+.fragment-card.hinted {
+  border-color: #87a6aa;
+  box-shadow: 0 0 18px rgba(112, 170, 180, 0.42);
+}
 .fragment-card strong, .fragment-card span, .fragment-card small { display: block; }
 .fragment-card strong { margin: 8px 0; font-size: 20px; }
 .fragment-card small { margin-top: 12px; color: #a9a197; }
@@ -76,6 +80,16 @@
 .connection-actions button:disabled { opacity: .35; cursor: not-allowed; }
 .connection-actions .connect-button { border-color: #cbb979; }
 .connection-actions .finish-button { border-color: #8d6aa2; }
+.board-insight-button {
+  display: block;
+  margin: 12px auto 0;
+  border: 1px solid #708f94;
+  background: rgba(28, 47, 51, .9);
+  color: #d6eeee;
+  padding: 9px 16px;
+  cursor: pointer;
+  font-family: inherit;
+}
 .board-close-button {
     display: block;
     margin: 14px auto 0;

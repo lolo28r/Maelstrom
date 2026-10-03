@@ -91,7 +91,9 @@ Bell est un témoin, pas un spécialiste de l’occulte. Son rôle consiste à �
 
 ### Le père Thomas
 
-Le père Thomas représente une présence humaine et spirituelle qui ne doit pas être réduite à la naïveté. Il peut offrir un ancrage, questionner la secte et admettre les limites de son savoir. Sa foi n’apporte pas une réponse cosmologique automatique.
+Le père Thomas dirige secrètement la secte. Il reste pourtant capable d’écoute et peut servir d’ancrage humain à Laurence. Cette sincérité ne l’innocente pas.
+
+Thomas croit avoir retrouvé une foi antérieure aux formes chrétiennes modernes. Il interprète Shub-Niggurath comme une mère primordiale dissimulée derrière certains symboles religieux. Ses rites produisent des effets réels, mais cela ne prouve pas que sa doctrine soit juste. Il croit protéger Arkham alors qu’il étend l’influence qu’il prétend contenir.
 
 ## 5. Cosmologie : les idoles ne sont pas ce que l’on croit
 
@@ -99,7 +101,9 @@ Une représentation religieuse, une idole ou un nom divin n’est pas nécessair
 
 Cela ne signifie pas que chaque statue est secrètement vivante ou maléfique. La statue de la Vierge reste matériellement une statue. Le danger se trouve dans la destination invisible de certaines pratiques, dans la manière dont une intelligence peut répondre, imiter ou détourner l’attente humaine.
 
-La secte croit pouvoir atteindre la puissance située derrière les formes. Nyarlathotep sait que le besoin humain de donner un visage à l’inconnu est exploitable. Les Yith, eux, relèvent d’un autre registre : ils utilisent une technologie et une science du temps que les humains peuvent prendre pour du divin.
+La secte croit pouvoir atteindre la puissance située derrière les formes. Ses rites dirigent effectivement quelque chose vers Shub-Niggurath. Marie n’est toutefois pas secrètement Shub-Niggurath : la secte détourne une figure maternelle humaine pour donner un visage acceptable à ce qu’elle appelle.
+
+Nyarlathotep sait que le besoin humain de donner un visage à l’inconnu est exploitable. Les Yith, eux, relèvent d’un autre registre : ils utilisent une technologie et une science du temps que les humains peuvent prendre pour du divin.
 
 Cette distinction doit rester claire :
 
@@ -216,6 +220,8 @@ Objectif : relier l’enquête familiale à un phénomène collectif.
 
 Révélation de fin d’acte : les noms et les idoles utilisés par le culte sont des façades. Une autre présence exploite la dévotion ou répond à sa place.
 
+Le jour 2 ne fait que préparer cette révélation. Le nom de Shub-Niggurath, la doctrine de Thomas et la structure de la secte appartiennent au jour 3.
+
 La statue de la Vierge de la chapelle ne doit pas être rétroactivement transformée en indice monstrueux. Le contraste vient précisément de son apparence ordinaire et du doute sur la destination des prières.
 
 ### Acte IV — Les Yith : l’échange des corps
@@ -246,7 +252,7 @@ Le choix final n’est pas déterminé par les jauges : Laurence accepte ou refu
 
 ### Fin A — Accepter la technologie yithienne
 
-Laurence utilise le dispositif afin d’atteindre la vérité, le père ou le mécanisme qui menace les corps. Il obtient une connaissance inaccessible autrement, mais accepte le risque de traiter sa propre identité comme un moyen de transport.
+Cette décision mène à la fin **Azathoth**. Laurence utilise le dispositif pour atteindre la vérité et remonter vers la cause située derrière les formes religieuses. Sa conscience traverse les époques et ne parvient plus à redevenir individuelle.
 
 Les attitudes passées modifient le ton :
 
@@ -256,7 +262,7 @@ Les attitudes passées modifient le ton :
 
 ### Fin B — Refuser la technologie yithienne
 
-Laurence refuse que la compréhension exige l’abandon de son corps ou de son autonomie. Ce refus ne signifie pas qu’il nie les Yith. Il choisit une limite et agit contre la secte avec les moyens encore humains dont il dispose.
+Cette décision mène à la fin **Cthulhu**. Laurence refuse que la compréhension exige l’abandon de son corps. Il cherche le silence et tente de fermer la porte. Après l’éclipse, ce désir de repos le rend accessible à un sommeil dont il ne revient pas complètement.
 
 Les attitudes passées modifient là encore la lecture :
 
@@ -315,10 +321,9 @@ Avant d’écrire les derniers actes, il faudra fixer :
 1. l’état exact de la conscience humaine du père pendant son internement ;
 2. l’objectif précis du Yith qui l’a choisi ;
 3. ce que la secte veut accomplir pendant l’éclipse ;
-4. quelle puissance reçoit ou détourne ses prières ;
-5. l’intérêt exact de Nyarlathotep pour Laurence ;
-6. ce que la technologie finale permet concrètement de sauver, fermer ou échanger ;
-7. le sort du père dans chacune des deux fins.
+4. l’intérêt exact de Nyarlathotep pour Laurence ;
+5. ce que la technologie finale permet concrètement de sauver, fermer ou échanger ;
+6. le sort du père dans chacune des deux fins.
 
 Ces réponses doivent rester compatibles avec la règle fondamentale : le père n’a pas provoqué l’histoire en découvrant un symbole. Il a été utilisé parce qu’il constituait un hôte intellectuel approprié.
 

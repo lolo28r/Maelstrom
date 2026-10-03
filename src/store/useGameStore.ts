@@ -43,7 +43,7 @@ export type {
     NarrativeDialogState,
     StatNotification,
 } from './types';
-export type { NarrativeAttitude, NarrativeTendency } from '../game/helper/ChoiceSystem';
+export type { NarrativeAttitude, NarrativeTendency, RouteSignal } from '../game/helper/ChoiceSystem';
 
 export const useGameStore = create<GameState>()((set, get, store) => ({
     ...createStatsSlice(set, get, store),

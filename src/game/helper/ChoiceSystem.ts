@@ -2,6 +2,7 @@
 
 export type NarrativeAttitude = 'faith' | 'skepticism' | 'knowledge' | 'rest' | 'resistance';
 export type NarrativeTendency = 'azathoth' | 'cthulhu' | 'undetermined';
+export type RouteSignal = 'azathoth' | 'cthulhu';
 
 export interface RecordedChoice {
     id: string;             // Identifiant unique du choix
@@ -12,6 +13,7 @@ export interface RecordedChoice {
         consciousnessDelta?: number;
         attitudeTag?: NarrativeAttitude;
         attitudeTags?: NarrativeAttitude[];
+        routeSignal?: RouteSignal;
         customPayload?: string | number;
     };
     customPayload?: string | number;
@@ -41,19 +43,9 @@ export class ChoiceSystem {
     }
 
     static getNarrativeTendency(history: Record<string, RecordedChoice>): NarrativeTendency {
-        const faith = this.getAttitudeScore(history, 'faith');
-        const knowledge = this.getAttitudeScore(history, 'knowledge');
-        const skepticism = this.getAttitudeScore(history, 'skepticism');
-        const rest = this.getAttitudeScore(history, 'rest');
-        const azathothReady = faith > 0 && knowledge > 0;
-        const cthulhuReady = skepticism > 0 && rest > 0;
-
-        if (azathothReady && !cthulhuReady) return 'azathoth';
-        if (cthulhuReady && !azathothReady) return 'cthulhu';
-        if (!azathothReady && !cthulhuReady) return 'undetermined';
-
-        const azathothScore = faith + knowledge;
-        const cthulhuScore = skepticism + rest;
+        const choices = Object.values(history);
+        const azathothScore = choices.filter((choice) => choice.consequences.routeSignal === 'azathoth').length;
+        const cthulhuScore = choices.filter((choice) => choice.consequences.routeSignal === 'cthulhu').length;
         if (azathothScore === cthulhuScore) return 'undetermined';
         return azathothScore > cthulhuScore ? 'azathoth' : 'cthulhu';
     }

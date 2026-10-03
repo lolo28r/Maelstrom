@@ -66,6 +66,12 @@ export const DAY2_CONNECTIONS: ConnectionDefinition[] = [
     { id: 'day2_thomas_involved', requiredFragmentIds: ['shopkeeper_night_bell', 'thomas_slip'], status: 'hypothesis', titleKey: 'day2.connections.thomas.title', contentKey: 'day2.connections.thomas.content', consciousnessReward: 0, scope: 'day2' },
 ];
 
+export const DAY2_COMPLETION_GROUPS = [
+    ['day2_disappearance_not_escape', 'day2_father_knew_cache'],
+    ['day2_object_and_archive'],
+    ['day2_rite_and_growth', 'day2_thomas_involved'],
+] as const;
+
 export const DAY2_FRAGMENT_IDS = [
     'asylum_sealed_room',
     'asylum_room_undisturbed',

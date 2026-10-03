@@ -6,13 +6,14 @@ import i18n from '../../i18n';
 import { localizedDialogue } from '../../utils/localizedDialogue';
 
 type AsylumLocation = 'EXTERIOR' | 'RECEPTION' | 'ROOM' | 'SUITCASE';
+const ASYLUM_MUSIC_LOOP_END_SECONDS = 91;
 
 export class AsylumScene extends Phaser.Scene {
     private background?: Phaser.GameObjects.Image;
     private hotspots: HotspotZone[] = [];
     private backButton?: Phaser.GameObjects.Text;
     private location: AsylumLocation = 'EXTERIOR';
-    private asylumMusic?: Phaser.Sound.BaseSound;
+    private asylumMusic?: Phaser.Sound.WebAudioSound | Phaser.Sound.HTML5AudioSound;
 
     constructor() {
         super({ key: 'AsylumScene' });
@@ -30,7 +31,8 @@ export class AsylumScene extends Phaser.Scene {
     create() {
         useGameStore.getState().setScene('AsylumScene');
         this.cameras.main.fadeIn(700, 0, 0, 0);
-        this.asylumMusic = this.sound.add('day2AsylumMusic', { loop: true, volume: getMusicVolume() });
+        this.asylumMusic = this.sound.add('day2AsylumMusic', { loop: true, volume: getMusicVolume() }) as
+            Phaser.Sound.WebAudioSound | Phaser.Sound.HTML5AudioSound;
         this.asylumMusic.play();
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.clearInteractive();
@@ -38,6 +40,12 @@ export class AsylumScene extends Phaser.Scene {
             this.asylumMusic?.destroy();
         });
         this.enterExterior();
+    }
+
+    update() {
+        if (this.asylumMusic?.isPlaying && this.asylumMusic.seek >= ASYLUM_MUSIC_LOOP_END_SECONDS) {
+            this.asylumMusic.setSeek(0);
+        }
     }
 
     private showBackground(key: string) {

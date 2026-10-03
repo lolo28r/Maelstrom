@@ -44,12 +44,13 @@ export const initialDay2Progress: Day2Progress = {
     day2Completed: false,
 };
 
-export const createWorldSlice: StateCreator<GameState, [], [], WorldSlice> = (set) => ({
+export const createWorldSlice: StateCreator<GameState, [], [], WorldSlice> = (set, get) => ({
     currentScene: 'MainMenu',
     isStatusRevealed: false,
     isSmokingActive: false,
     act1Progress: { ...initialAct1Progress },
     day2Progress: { ...initialDay2Progress },
+    endingDecision: 'undecided',
 
     setScene: (scene) => set({ currentScene: scene }),
     setStatusRevealed: (revealed) => set({ isStatusRevealed: revealed }),
@@ -60,4 +61,8 @@ export const createWorldSlice: StateCreator<GameState, [], [], WorldSlice> = (se
     updateDay2Progress: (updates) => set((state) => ({
         day2Progress: { ...state.day2Progress, ...updates },
     })),
+    setEndingDecision: (endingDecision) => {
+        set({ endingDecision });
+        get().saveGame();
+    },
 });

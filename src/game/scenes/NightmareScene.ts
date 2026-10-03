@@ -268,6 +268,8 @@ export class NightmareScene extends Phaser.Scene {
                     : 'new_content.nightmare.introResist',
             type: 'bottom',
             speaker: i18n.t('characters.unknownEntity'),
+            distortible: true,
+            hallucinationKey: 'story.hallucinations.nyarl',
             onComplete: () => this.openConnectionBoard(),
         });
     }
@@ -289,8 +291,8 @@ export class NightmareScene extends Phaser.Scene {
     private startNyarlathotepTrap() {
         const store = useGameStore.getState();
         const choices: ChoiceOption[] = [
-            { id: 'nightmare_request_vision', text: i18n.t('new_content.nightmare.requestVision'), consequences: { lucidityDelta: -15, attitudeTag: 'knowledge' } },
-            { id: 'nightmare_request_rest', text: i18n.t('new_content.nightmare.requestRest'), consequences: { attitudeTag: 'rest' } },
+            { id: 'nightmare_request_vision', text: i18n.t('new_content.nightmare.requestVision'), consequences: { lucidityDelta: -15, attitudeTag: 'knowledge', routeSignal: 'azathoth' } },
+            { id: 'nightmare_request_rest', text: i18n.t('new_content.nightmare.requestRest'), consequences: { attitudeTag: 'rest', routeSignal: 'cthulhu' } },
         ];
         if (store.lucidity > 0) {
             choices.push({ id: 'nightmare_reject_imposed_meaning', text: i18n.t('new_content.nightmare.reject'), consequences: { attitudeTags: ['resistance', 'skepticism'] } });
@@ -300,6 +302,8 @@ export class NightmareScene extends Phaser.Scene {
             textKey: 'new_content.nightmare.trapPrompt',
             type: 'bottom',
             speaker: i18n.t('characters.unknownEntity'),
+            distortible: true,
+            hallucinationKey: 'story.hallucinations.nyarl',
             choices,
             onComplete: (choiceId) => {
                 if (!choiceId) return;
@@ -327,6 +331,8 @@ export class NightmareScene extends Phaser.Scene {
                             : 'new_content.nightmare.reactionReject',
                     type: 'bottom',
                     speaker: i18n.t('characters.unknownEntity'),
+                    distortible: true,
+                    hallucinationKey: 'story.hallucinations.nyarl',
                     onComplete: () => this.continueAfterTrap(),
                 });
             },
@@ -344,6 +350,8 @@ export class NightmareScene extends Phaser.Scene {
             textKey: 'new_content.nightmare.trueFaceReminder',
             type: 'bottom',
             speaker: i18n.t('characters.unknownEntity'),
+            distortible: true,
+            hallucinationKey: 'story.hallucinations.nyarl',
             choices: [
                 {
                     id: 'nightmare_confirm_true_face',

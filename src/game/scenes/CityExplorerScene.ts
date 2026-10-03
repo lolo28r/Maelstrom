@@ -1279,9 +1279,9 @@ export class CityExplorerScene extends Phaser.Scene {
         store.setDialog({
             textKey: 'act1_church.long_discussion.conclusion_dilemme', type: 'bottom', speaker: i18n.t('characters.fatherThomas'),
             choices: [
-                { id: 'act1_church_accept_faith', text: i18n.t('story.church1.choices.faith'), consequences: { attitudeTag: 'faith' } },
+                { id: 'act1_church_accept_faith', text: i18n.t('story.church1.choices.faith'), consequences: { attitudeTag: 'faith', routeSignal: 'azathoth' } },
                 { id: 'act1_church_remain_uncertain', text: i18n.t('story.church1.choices.doubt'), consequences: { attitudeTag: 'knowledge' } },
-                { id: 'act1_church_critical', text: i18n.t('story.church1.choices.critical'), consequences: { attitudeTags: ['skepticism', 'resistance'] } },
+                { id: 'act1_church_critical', text: i18n.t('story.church1.choices.critical'), consequences: { attitudeTags: ['skepticism', 'resistance'], routeSignal: 'cthulhu' } },
             ],
             onComplete: (selectedChoiceId?: string) => {
                 const responseKey = selectedChoiceId === 'act1_church_accept_faith'

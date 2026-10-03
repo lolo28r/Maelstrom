@@ -108,6 +108,38 @@
   width: 100%;
 }
 
+.narrative-dialog-container.lucidity-warning .narrative-dialog-text {
+  animation: lucidity-text-drift 2.8s steps(2, end) infinite;
+}
+
+.narrative-dialog-container.lucidity-critical .narrative-dialog-box {
+  animation: lucidity-box-shiver 700ms steps(2, end) infinite;
+  border-color: rgba(150, 128, 116, 0.45) !important;
+}
+
+.narrative-dialog-container.lucidity-critical .narrative-dialog-text {
+  text-shadow: -1px 0 rgba(130, 40, 45, 0.55), 1px 0 rgba(70, 105, 115, 0.45);
+}
+
+@keyframes lucidity-text-drift {
+  0%, 100% { transform: translateX(0); }
+  42% { transform: translateX(-0.6px); }
+  68% { transform: translateX(0.8px); }
+}
+
+@keyframes lucidity-box-shiver {
+  0%, 100% { transform: translate(0, 0); }
+  35% { transform: translate(-1px, 0.5px); }
+  72% { transform: translate(1px, -0.5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .narrative-dialog-container.lucidity-warning .narrative-dialog-text,
+  .narrative-dialog-container.lucidity-critical .narrative-dialog-box {
+    animation: none;
+  }
+}
+
 /* --- Conteneur des choix à impact --- */
 .narrative-choices-container {
   margin-top: 1.25rem !important;

@@ -1,5 +1,8 @@
 {
   "story": {
+    "hallucinations": {
+      "nyarl": "Il parle avec la voix de quelqu'un que je connais. Je ne retrouve plus qui."
+    },
     "dream1": {
       "alcoholDrank": "Tu as encore cherché le silence au fond d'un verre. Il n'a pas fermé la porte, Laurence.",
       "alcoholResisted": "Tu n'as pas bu ce soir. Tu as pourtant senti l'absence du verre à chaque minute.",
@@ -467,8 +470,10 @@
       ],
       "lockAdmission": "30 décembre 1924. Le cadenas ne bouge pas.",
       "lockWrong": "Les roues reviennent en place avec un bruit sec.",
+      "lockInsight": "L'admission date de 1924. Pourtant, la rupture a commencé plus tôt. Le mot « arrivée » désigne peut-être autre chose.",
       "altar": "Le rectangle laissé par l'objet est plus propre que la pierre autour.",
       "niches": "Ces niches sont trop étroites pour des cercueils. Des cylindres y ont reposé.",
+      "cryptInsight": ["Les niches suivent une logique de classement.", "Cette pièce a servi d'archive avant de devenir une sépulture."],
       "dust": "Aucun pas récent. L'objet est resté ici bien plus longtemps que son état ne le laisse croire.",
       "object": {
         "name": "Objet noir à contacts métalliques",
@@ -482,9 +487,24 @@
         "Et cet objet... Je n'ai jamais rien vu de semblable.",
         "Du métal, une matière noire, des contacts minuscules. À quoi cela peut-il servir ?"
       ],
+      "crisis": {
+        "virginPrompt": "Le visage de pierre se défait dans mon regard. Une pensée cherche à prendre la place de mon souvenir.",
+        "virginHallucination": "Elle ne vous a jamais protégé.",
+        "leaveChapel": "[ QUITTER ] Sortir de la chapelle.",
+        "yieldVirgin": "[ CÉDER ] Laisser cette pensée entrer.",
+        "virginSuggestionTitle": "SUGGESTION — La mère mensongère",
+        "virginSuggestionContent": "Dans la crise, j'ai accepté l'idée que la figure maternelle avait toujours caché autre chose. Je n'en ai aucune preuve.",
+        "objectPrompt": "La crypte revient par fragments. Une idée étrangère insiste : mon père aurait voulu ce qui lui est arrivé.",
+        "objectHallucination": "Il est parti parce qu'il savait.",
+        "leaveCrypt": "[ QUITTER ] Remonter immédiatement.",
+        "yieldObject": "[ CÉDER ] Accepter cette explication pour l'instant.",
+        "objectSuggestionTitle": "SUGGESTION — Un abandon volontaire",
+        "objectSuggestionContent": "Dans la crise, j'ai admis que mon père avait peut-être choisi de perdre son identité. Rien dans mes preuves ne démontre un choix volontaire."
+      },
       "lock": {
         "clear": "EFFACER",
-        "validate": "[ VALIDER ]"
+        "validate": "[ VALIDER ]",
+        "insight": "[ INTUITION ]"
       },
       "journal": {
         "noiseTitle": "Du bruit après minuit",
@@ -504,23 +524,50 @@
     },
     "dream2": {
       "opening": {
-        "azathoth": "Des voix montent de mille mondes. Chacune donne un nom différent à ce qu'elle implore.",
-        "cthulhu": "Arkham repose sous une eau noire. Aux fenêtres, les dormeurs remuent dans leurs lits.",
-        "uncertain": "Derrière mes paupières, Arkham se partage en deux. Au-dessus, les cloches appellent."
+        "azathoth": "Des voix prient dans des langues inconnues. Toutes cherchent une réponse au même endroit.",
+        "cthulhu": "Arkham repose sous une eau noire. Aux fenêtres, les dormeurs parlent sans se réveiller.",
+        "uncertain": "Derrière mes paupières, Arkham se partage en deux. Les cloches sonnent, puis s'arrêtent ensemble."
       },
-      "greetingCurious": "Tu as regardé sous les chaises, derrière les mots et jusque dans la poussière.",
-      "greeting": "Tu as trouvé une porte fermée par une date. Tu l'as ouverte.",
-      "judgment": "Voilà ce que j'aime chez toi : tu appelles prudence le temps qui sépare deux curiosités.",
+      "greetingCurious": "Tu regardes partout, Laurence. Sous les chaises. Derrière les mots. Jusque dans la poussière.",
+      "greeting": "Tu as ouvert une porte fermée par une date.",
+      "knowsFather": "Je sais où se trouve ton père.",
+      "laurenceWhere": "Alors dites-le-moi.",
+      "askIntroduce": "Nous parlons depuis quelque temps. Puis-je enfin me présenter ?",
+      "introductionPrompt": "Il sait que je ne peux pas partir sans entendre la suite.",
+      "introductionChoices": {
+        "listen": "« Je vous écoute. »",
+        "father": "« Mon père d'abord. Où est-il ? »",
+        "refuse": "« Je ne vous ai jamais invité ici. »"
+      },
+      "introductionAnswers": {
+        "listen": "Quelle politesse. Même maintenant.",
+        "father": "Tu recevras une réponse. Mais tu dois savoir qui te la propose.",
+        "refuse": "Non. Mais tu m'écoutes depuis la première nuit."
+      },
+      "thousandNames": "Les hommes m'ont donné mille noms. Ils avaient besoin de me ranger quelque part.",
+      "manInBlack": "L'Homme en noir",
+      "name": "Celui qu'ils emploient le plus souvent est l'Homme en noir.",
+      "angelClaim": "Certains m'ont appelé ange. D'autres, envoyé de Dieu. Si ta foi exige un titre, prends celui-là.",
+      "promiseFather": "Je peux te conduire jusqu'à ton père. Pas par une route que tes pieds connaissent.",
+      "promiseKnowledge": "Je peux aussi répondre aux questions que tu portes depuis l'enfance. Celles que tes livres évitent.",
+      "prayerTemptation": "Tu as entendu des prières. Tu as vu ce qui pousse après leur passage. Tu ignores encore ce qui écoute.",
+      "desirePrompt": "Dis-moi seulement ce que tu veux, Laurence.",
+      "hallucination": "La pierre respirait. Non. Ce n'est pas arrivé.",
       "choices": {
-        "know": "« Je veux tout savoir, même ce qui ne devrait pas être connu. »",
-        "stop": "« Je veux que tout cela cesse. »",
-        "wait": "« Je refuse encore de choisir avant d'avoir des preuves. »"
+        "know": "« Je veux savoir où il est. Et je veux savoir ce que vous savez. »",
+        "father": "« Je veux seulement retrouver mon père. »",
+        "stop": "« Vous n'êtes pas un ange. Je veux que tout cela cesse. »"
       },
       "answers": {
-        "know": "Un jour, tu cesseras même de demander qui choisit ce que tu apprends.",
-        "stop": "Tu veux seulement ne plus être là lorsque cela continuera.",
-        "wait": "Une question laissée ouverte est une invitation."
+        "know": "Alors je te montrerai des portes que ton père a déjà franchies.",
+        "father": "Seulement ton père. Tu mens mieux lorsque tu as peur.",
+        "stop": "Tu demandes le silence à la seule créature qui te répond."
       }
+    },
+    "day2End": {
+      "title": "FIN DU JOUR II",
+      "message": "Au matin, la grille de la crypte sera toujours ouverte.\nDans la sacoche de Laurence, l'objet noir attend sans donner le moindre signe de vie.",
+      "continue": "[ CONTINUER — JOUR II ]"
     },
     "church1": {
       "choices": {

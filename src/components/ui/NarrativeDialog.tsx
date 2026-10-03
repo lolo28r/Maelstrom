@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useEffect, useCallback, useState, useRef, useMemo } from 'react';
 import { useGameStore, ChoiceOption } from '../../store/useGameStore';
 import './NarrativeDialog.css';
 import i18n from '../../i18n';
@@ -24,12 +24,28 @@ function resolveSteps(textKey: string): string[] {
     return [textKey];
 }
 
+function obscureWords(text: string, seed: string): string {
+    const offset = seed.length % 6;
+    return text.split(' ').map((word, index) => {
+        if ((index + offset) % 6 !== 0 || !/[A-Za-zÀ-ÿ]{5,}/.test(word)) return word;
+        return word.replace(/[A-Za-zÀ-ÿ]{5,}/, '……');
+    }).join(' ');
+}
+
+function shouldInsertHallucination(dialogKey: string): boolean {
+    if (dialogKey.includes('.crisis.')) return true;
+    const score = [...dialogKey].reduce((total, character) => total + character.charCodeAt(0), 0);
+    return score % 4 === 0;
+}
+
 export const NarrativeDialog: React.FC = () => {
     const currentDialog = useGameStore((state) => state.currentDialog);
     const closeDialog = useGameStore((state) => state.closeDialog);
     const recordChoice = useGameStore((state) => state.recordChoice);
     const currentScene = useGameStore((state) => state.currentScene);
     const hasMadeChoice = useGameStore((state) => state.hasMadeChoice);
+    const lucidity = useGameStore((state) => state.lucidity);
+    const crisisSuppressed = useGameStore((state) => state.crisisSuppressed);
 
     const [currentStep, setCurrentStep] = useState(0);
     const [displayedCharCount, setDisplayedCharCount] = useState(0);
@@ -40,7 +56,18 @@ export const NarrativeDialog: React.FC = () => {
     const speakerName = currentDialog?.speaker ?? i18n.t('characters.laurence');
     const choices = currentDialog?.choices ?? [];
 
-    const steps = resolveSteps(dialogKey);
+    const steps = useMemo(() => {
+        const resolved = resolveSteps(dialogKey);
+        if (!currentDialog?.distortible || crisisSuppressed) return resolved;
+        const distorted = lucidity <= 15
+            ? resolved.map((step, index) => obscureWords(step, `${dialogKey}_${index}`))
+            : resolved;
+        if (lucidity <= 15 && currentDialog.hallucinationKey && shouldInsertHallucination(dialogKey)) {
+            const hallucination = i18n.t(currentDialog.hallucinationKey);
+            if (typeof hallucination === 'string') distorted.push(hallucination);
+        }
+        return distorted;
+    }, [dialogKey, currentDialog?.distortible, currentDialog?.hallucinationKey, crisisSuppressed, lucidity]);
     const currentFullText = steps[currentStep] || '';
     const isTypewriterComplete = displayedCharCount >= currentFullText.length;
 
@@ -111,7 +138,7 @@ export const NarrativeDialog: React.FC = () => {
     return (
         <div
             onClick={(e) => { e.stopPropagation(); handleAdvance(); }}
-            className="narrative-dialog-container"
+            className={`narrative-dialog-container ${currentDialog.distortible && lucidity <= 30 ? 'lucidity-warning' : ''} ${currentDialog.distortible && lucidity <= 15 && !crisisSuppressed ? 'lucidity-critical' : ''}`}
         >
             <div className="narrative-dialog-box" onClick={(e) => e.stopPropagation()}>
                 <div className="narrative-dialog-header">

@@ -11,6 +11,8 @@ type SavedGame = Partial<Pick<GameState,
     | 'crisisState'
     | 'crisisSuppressed'
     | 'usedAnchors'
+    | 'usedInsights'
+    | 'handledCrises'
     | 'acquiredFragments'
     | 'resolvedConnections'
     | 'investigationConclusions'
@@ -18,6 +20,7 @@ type SavedGame = Partial<Pick<GameState,
     | 'inventory'
     | 'act1Progress'
     | 'day2Progress'
+    | 'endingDecision'
     | 'choicesHistory'
     | 'journalUnlocked'
     | 'currentDate'
@@ -36,6 +39,8 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
                 crisisState: state.crisisState,
                 crisisSuppressed: state.crisisSuppressed,
                 usedAnchors: state.usedAnchors,
+                usedInsights: state.usedInsights,
+                handledCrises: state.handledCrises,
                 acquiredFragments: state.acquiredFragments,
                 resolvedConnections: state.resolvedConnections,
                 investigationConclusions: state.investigationConclusions,
@@ -43,6 +48,7 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
                 inventory: state.inventory,
                 act1Progress: state.act1Progress,
                 day2Progress: state.day2Progress,
+                endingDecision: state.endingDecision,
                 choicesHistory: state.choicesHistory,
                 journalUnlocked: state.journalUnlocked,
                 currentDate: state.currentDate,
@@ -68,6 +74,8 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
                 crisisState: data.crisisState ?? 'stable',
                 crisisSuppressed: data.crisisSuppressed ?? false,
                 usedAnchors: data.usedAnchors ?? {},
+                usedInsights: data.usedInsights ?? [],
+                handledCrises: data.handledCrises ?? [],
                 acquiredFragments: data.acquiredFragments ?? [],
                 resolvedConnections: data.resolvedConnections ?? [],
                 investigationConclusions: data.investigationConclusions ?? [],
@@ -79,6 +87,7 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
                 selectedItem: null,
                 act1Progress: data.act1Progress ?? { ...initialAct1Progress },
                 day2Progress: { ...initialDay2Progress, ...(data.day2Progress ?? {}) },
+                endingDecision: data.endingDecision ?? 'undecided',
                 choicesHistory: data.choicesHistory ?? {},
                 journalUnlocked: data.journalUnlocked ?? false,
                 currentDate: data.currentDate ?? get().currentDate,
@@ -110,6 +119,8 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
         crisisState: 'stable',
         crisisSuppressed: false,
         usedAnchors: {},
+        usedInsights: [],
+        handledCrises: [],
         acquiredFragments: [],
         resolvedConnections: [],
         investigationConclusions: [],
@@ -126,6 +137,7 @@ export const createPersistenceSlice: StateCreator<GameState, [], [], Persistence
         isSmokingActive: false,
         act1Progress: { ...initialAct1Progress },
         day2Progress: { ...initialDay2Progress },
+        endingDecision: 'undecided',
         currentDialog: null,
         activeDocument: null,
         isEyelidsClosing: false,

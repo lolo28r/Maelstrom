@@ -66,7 +66,10 @@
       "instructions": "Choisissez deux ou trois fragments. Certains se répondent sans mener à une conclusion ; d'autres ne prennent sens qu'à trois.",
       "selectTwoOrThree": "Il faut sélectionner deux ou trois fragments avant de tenter un rapprochement.",
       "resumeInvestigation": "Reprendre l'enquête",
-      "separateThreads": "La proximité des lieux ne constitue pas une preuve de relation. Rien ne relie encore la secte à l'objet de la crypte."
+      "separateThreads": "La proximité des lieux ne constitue pas une preuve de relation. Rien ne relie encore la secte à l'objet de la crypte.",
+      "useInsight": "Mobiliser une intuition",
+      "insightShown": "Un fragment compatible se détache du reste. Cela ne prouve pas encore la conclusion.",
+      "insightUnavailable": "Il me manque encore un fait observé, pas une interprétation supplémentaire."
     }
   },
   "new_content": {

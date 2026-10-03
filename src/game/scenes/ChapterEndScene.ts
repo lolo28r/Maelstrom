@@ -15,12 +15,12 @@ export class ChapterEndScene extends Phaser.Scene {
         this.cameras.main.setBackgroundColor('#0b0b0c');
 
         // Titre de fin
-        this.add.text(width / 2, height * 0.15, day2Complete ? 'FIN DU JOUR II' : i18n.t('act1_end.title'), {
+        this.add.text(width / 2, height * 0.15, day2Complete ? i18n.t('story.day2End.title') : i18n.t('act1_end.title'), {
             fontFamily: 'serif', fontSize: '32px', color: '#f4ebd0', fontStyle: 'bold'
         }).setOrigin(0.5);
 
         // Message de remerciement
-        this.add.text(width / 2, height * 0.25, day2Complete ? "Au matin, la grille de la crypte sera toujours ouverte.\nDans la sacoche de Laurence, l'objet noir attend sans donner le moindre signe de vie." : i18n.t('act1_end.message'), {
+        this.add.text(width / 2, height * 0.25, day2Complete ? i18n.t('story.day2End.message') : i18n.t('act1_end.message'), {
             fontFamily: 'serif', fontSize: '18px', color: '#a89f85', align: 'center', lineSpacing: 8
         }).setOrigin(0.5);
 
@@ -105,7 +105,7 @@ export class ChapterEndScene extends Phaser.Scene {
 
         // Bouton pour retourner au menu principal
         if (!store.day2Progress.started) {
-            const continueButton = this.add.text(width / 2, height * 0.79, '[ CONTINUER — JOUR II ]', {
+            const continueButton = this.add.text(width / 2, height * 0.79, i18n.t('story.day2End.continue'), {
                 fontFamily: 'monospace', fontSize: '17px', color: '#d4af37', backgroundColor: '#221f1b', padding: { x: 18, y: 11 }
             }).setOrigin(0.5).setInteractive({ useHandCursor: true });
             continueButton.on('pointerdown', () => {

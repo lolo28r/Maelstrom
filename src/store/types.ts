@@ -1,4 +1,4 @@
-import type { NarrativeAttitude, NarrativeTendency, RecordedChoice } from '../game/helper/ChoiceSystem';
+import type { NarrativeAttitude, NarrativeTendency, RecordedChoice, RouteSignal } from '../game/helper/ChoiceSystem';
 
 export type StatType = 'lucidity' | 'consciousness';
 
@@ -39,6 +39,7 @@ export interface ChoiceConsequences {
     consciousnessDelta?: number;
     attitudeTag?: NarrativeAttitude;
     attitudeTags?: NarrativeAttitude[];
+    routeSignal?: RouteSignal;
     customPayload?: string | number;
 }
 
@@ -54,6 +55,8 @@ export interface NarrativeDialogState {
     type?: 'bottom' | 'center';
     speaker?: string;
     choices?: ChoiceOption[];
+    distortible?: boolean;
+    hallucinationKey?: string;
     onSelectChoice?: (choice: ChoiceOption) => void;
     onComplete?: (selectedChoiceId?: string) => void;
 }
@@ -119,12 +122,18 @@ export interface StatsSlice {
     crisisState: CrisisState;
     crisisSuppressed: boolean;
     usedAnchors: Record<string, string[]>;
+    usedInsights: string[];
+    handledCrises: string[];
     activeToast: StatNotification | null;
     modifyStat: (stat: StatType, delta: number) => void;
     suppressCrisis: () => void;
     clearCrisisSuppression: () => void;
     useAnchor: (stageId: string, anchorId: string, amount: number) => boolean;
     hasUsedAnchor: (stageId: string, anchorId: string) => boolean;
+    useInsight: (insightId: string) => boolean;
+    hasUsedInsight: (insightId: string) => boolean;
+    markCrisisHandled: (crisisId: string) => void;
+    hasHandledCrisis: (crisisId: string) => boolean;
     triggerStatChange: (label: string, type: 'up' | 'down', color: 'red' | 'green' | 'purple') => void;
     clearToast: () => void;
 }
@@ -174,11 +183,13 @@ export interface WorldSlice {
     isSmokingActive: boolean;
     act1Progress: Act1Progress;
     day2Progress: Day2Progress;
+    endingDecision: 'undecided' | 'accept_yith_technology' | 'refuse_yith_technology';
     setScene: (scene: string) => void;
     setStatusRevealed: (revealed: boolean) => void;
     setSmokingActive: (active: boolean) => void;
     updateAct1Progress: (updates: Partial<Act1Progress>) => void;
     updateDay2Progress: (updates: Partial<Day2Progress>) => void;
+    setEndingDecision: (decision: WorldSlice['endingDecision']) => void;
 }
 
 export interface NarrativeSlice {

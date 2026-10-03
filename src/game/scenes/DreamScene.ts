@@ -77,6 +77,8 @@ export class DreamScene extends Phaser.Scene {
             store.setDialog({
                 textKey: 'story.dream1.measured',
                 speaker: i18n.t('characters.laurence'),
+                distortible: true,
+                hallucinationKey: 'story.hallucinations.nyarl',
                 choices: [
                     { id: 'dream1_nameless_curiosity', text: i18n.t('story.dream1.choices.curiosity'), consequences: { attitudeTag: 'knowledge' } },
                     { id: 'dream1_nameless_refusal', text: i18n.t('story.dream1.choices.refusal'), consequences: { attitudeTag: 'resistance' } },
@@ -97,6 +99,8 @@ export class DreamScene extends Phaser.Scene {
         useGameStore.getState().setDialog({
             textKey: response,
             speaker: i18n.t('characters.unknownEntity'),
+            distortible: true,
+            hallucinationKey: 'story.hallucinations.nyarl',
             onComplete: () => this.askFirstMeetingQuestion(),
         });
     }
@@ -106,6 +110,8 @@ export class DreamScene extends Phaser.Scene {
         this.playDialogueSequence(localizedDialogue('story.dream1.temptation'), () => store.setDialog({
             textKey: 'story.dream1.voiceCloser',
             speaker: i18n.t('characters.laurence'),
+            distortible: true,
+            hallucinationKey: 'story.hallucinations.nyarl',
             choices: [
                 { id: 'dream1_ask_true_face', text: i18n.t('story.dream1.choices.face'), consequences: { attitudeTag: 'knowledge' } },
                 { id: 'dream1_ask_identity', text: i18n.t('new_content.dream.askIdentity'), consequences: { attitudeTag: 'skepticism' } },
@@ -139,6 +145,8 @@ export class DreamScene extends Phaser.Scene {
         useGameStore.getState().setDialog({
             textKey: line.text,
             speaker: line.speaker,
+            distortible: true,
+            hallucinationKey: 'story.hallucinations.nyarl',
             onComplete: () => this.playDialogueSequence(lines, onComplete, index + 1),
         });
     }
