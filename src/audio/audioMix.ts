@@ -14,6 +14,8 @@ const MUSIC_KEYS = new Set([
     'day2StoreMusic',
     'day2ChurchMusic',
     'day2DreamMusic',
+    'day2OfficeMusic',
+    'day3OfficeMusic',
     'prologueMusic',
     'ostNyarla',
 ]);

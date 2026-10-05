@@ -303,6 +303,7 @@
     "devCity": "5. Exploration d'Arkham / Ville (CityExplorerScene)",
     "devNightmare": "5.1 Cauchemar / Rencontre (NightmareScene)",
     "devEnd": "6. Fin du Chapitre 1 (ChapterEndScene)",
+    "devDay3": "8. Jour III — Voyage et forêt",
     "devClose": "Fermer le mode dev"
   },
   "scene_choices": {

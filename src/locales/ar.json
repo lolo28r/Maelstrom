@@ -124,6 +124,7 @@
         "devMorning": "4. الاستيقاظ والاختفاء / اليومية (DeskMorningScene)",
         "devCity": "5. استكشاف أركام / المدينة (CityExplorerScene)",
         "devEnd": "6. نهاية الفصل الأول (ChapterEndScene)",
+        "devDay3": "8. اليوم الثالث — الرحلة والغابة",
         "devClose": "إغلاق وضع المطور"
     },
     "scene_choices": {

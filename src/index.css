@@ -37,6 +37,11 @@ body,
     background: #000;
 }
 
+/* Frontière de propagation entre l'interface React et le canvas Phaser. */
+.game-ui-event-boundary {
+    display: contents;
+}
+
 #phaser-container,
 #phaser-container > canvas,
 #phaser-container > div {

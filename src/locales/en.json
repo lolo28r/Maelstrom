@@ -124,6 +124,7 @@
     "devMorning": "4. Awakening & Disappearance / Journal (DeskMorningScene)",
     "devCity": "5. Exploring Arkham / City (CityExplorerScene)",
     "devEnd": "6. End of Chapter 1 (ChapterEndScene)",
+    "devDay3": "8. Day III — Journey and forest",
     "devClose": "Close developer mode"
   },
   "scene_choices": {

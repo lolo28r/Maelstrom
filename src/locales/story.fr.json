@@ -569,6 +569,32 @@
       "message": "Au matin, la grille de la crypte sera toujours ouverte.\nDans la sacoche de Laurence, l'objet noir attend sans donner le moindre signe de vie.",
       "continue": "[ CONTINUER — JOUR II ]"
     },
+    "day3": {
+      "date": "22 janvier 1925",
+      "intro": [
+        "L'Homme en noir m'a indiqué une forêt à l'ouest d'Arkham.",
+        "Je sais qu'il me conduit quelque part.",
+        "Je ne sais simplement pas encore où.",
+        "Pour cette fois, je vais lui faire confiance.",
+        "Si mon père est au bout de cette piste, je dois la suivre."
+      ],
+      "marshUnavailable": "La piste descend vers le marais. Je n'irai pas plus loin pour l'instant.",
+      "actions": {
+        "leaveOffice": "➔ Sortir",
+        "takeTicket": "Prendre le billet",
+        "continueJourney": "Poursuivre le voyage",
+        "followTrack": "Suivre les ornières",
+        "devotionalPath": "Prendre le sentier de gauche",
+        "oldTrack": "Suivre l'ancienne piste",
+        "backToEntrance": "Revenir vers l'entrée",
+        "backToCrossroads": "Revenir au carrefour",
+        "loggingCamp": "Prendre le chemin du camp",
+        "marshRoad": "Continuer vers le marais",
+        "enterCabin": "Entrer dans la cabane",
+        "backToLoggerCrossroads": "Revenir au carrefour",
+        "leaveCabin": "← Sortir de la cabane"
+      }
+    },
     "church1": {
       "choices": {
         "faith": "[ Se laisser guider par la foi ]",

@@ -19,6 +19,10 @@ import { AudioSettings } from './components/AudioSettings';
 import { applyPhaserAudioMix } from './audio/audioMix';
 import './i18n';
 
+const stopUiEventPropagation = (event: React.SyntheticEvent) => {
+    event.stopPropagation();
+};
+
 export const App: React.FC = () => {
     const gameRef = useRef<Phaser.Game | null>(null);
     const isEyelidsClosing = useGameStore((state) => state.isEyelidsClosing);
@@ -84,6 +88,20 @@ export const App: React.FC = () => {
 
             {/* HUD React */}
 
+            <div
+                className="game-ui-event-boundary"
+                onClick={stopUiEventPropagation}
+                onDoubleClick={stopUiEventPropagation}
+                onContextMenu={stopUiEventPropagation}
+                onPointerDown={stopUiEventPropagation}
+                onPointerUp={stopUiEventPropagation}
+                onPointerMove={stopUiEventPropagation}
+                onMouseDown={stopUiEventPropagation}
+                onMouseUp={stopUiEventPropagation}
+                onTouchStart={stopUiEventPropagation}
+                onTouchEnd={stopUiEventPropagation}
+                onWheel={stopUiEventPropagation}
+            >
             <InventoryHUD />
             <CosmicStatusHUD />
             <JournalModal />
@@ -100,6 +118,7 @@ export const App: React.FC = () => {
             <EyelidsOverlay isClosing={isEyelidsClosing} />
             <FullscreenButton isFullscreen={isFullscreen} />
             <AudioSettings />
+            </div>
         </div>
     );
 };
