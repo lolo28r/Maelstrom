@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { CityOutdoorAudio } from '../../audio/cityOutdoorAudio';
 import { getMusicVolume } from '../../audio/audioMix';
 import { useGameStore, type ChoiceOption } from '../../store/useGameStore';
 import { HotspotZone } from '../helper/HotSpotZone';
@@ -20,11 +21,14 @@ export class Day2CityScene extends Phaser.Scene {
     private churchMusic?: Phaser.Sound.BaseSound;
     private graveyardMusic?: Phaser.Sound.BaseSound;
 
+    private outdoorAudio?: CityOutdoorAudio;
+
     constructor() {
         super({ key: 'Day2CityScene' });
     }
 
     preload() {
+        CityOutdoorAudio.preload(this);
         const base = import.meta.env.BASE_URL;
         this.load.image('day2Carrefour', `${base}assets/carrefour.jpg`);
         this.load.image('day2Tabac', `${base}assets/tabac1.jpg`);
@@ -47,6 +51,11 @@ export class Day2CityScene extends Phaser.Scene {
     }
 
     create() {
+        this.outdoorAudio = new CityOutdoorAudio(this);
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.outdoorAudio?.destroy();
+            this.outdoorAudio = undefined;
+        });
         const store = useGameStore.getState();
         store.setScene('Day2CityScene');
         store.setCurrentDate(i18n.t('story.office2.date'));
@@ -54,12 +63,20 @@ export class Day2CityScene extends Phaser.Scene {
         this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             this.clearInteractive();
             this.unsubscribeBoard?.();
-            this.sound.stopAll();
+            for (const music of [this.streetMusic, this.storeMusic, this.churchMusic, this.graveyardMusic]) {
+                music?.stop();
+                music?.destroy();
+            }
+            this.streetMusic = undefined;
+            this.storeMusic = undefined;
+            this.churchMusic = undefined;
+            this.graveyardMusic = undefined;
         });
         this.enterCarrefour();
     }
 
     private showBackground(key: string) {
+        this.outdoorAudio?.enter(this.location, ['CARREFOUR', 'TABAC', 'CHURCH_EXT', 'ORGANIC_STREET', 'CEMETERY', 'LOCK'].includes(this.location));
         this.clearInteractive();
         this.background?.destroy();
         this.background = this.add.image(640, 360, key).setDisplaySize(1280, 720);
@@ -109,6 +126,8 @@ export class Day2CityScene extends Phaser.Scene {
         } else if (this.streetMusic.isPaused) {
             (this.streetMusic as Phaser.Sound.BaseSound & { setVolume?: (volume: number) => unknown }).setVolume?.(getMusicVolume());
             this.streetMusic.resume();
+        } else if (!this.streetMusic.isPlaying) {
+            this.streetMusic.play();
         }
     }
 

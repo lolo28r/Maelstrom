@@ -9,7 +9,7 @@
       "opening": [
         {
           "speaker": "characters.laurence",
-          "text": "Je ne lui ai jamais parlé de l'alcool."
+          "text": "Qui est tu ?"
         },
         {
           "speaker": "characters.unknownEntity",
@@ -32,19 +32,19 @@
         "face": "« Montre-moi ton vrai visage. »"
       },
       "answers": {
-        "curiosity": "Tu demandes qui ils sont. Demande-toi plutôt ce qu'il reste d'un dieu quand aucun nom ne suffit plus.",
-        "refusal": "Tu refuses déjà. Pourtant tu ne sais encore ni ce qui vient, ni ce que tu lui ouvriras.",
-        "threat": "Tu me menaces dans une pièce dont tu ignores même si elle se trouve dans ton crâne."
+        "curiosity": "Qui ils sont ?. Ceux qui someillent au dela des astres.",
+        "refusal": "Tu refuses déjà. Pourtant tu ne connais rien.",
+        "threat": "Tu croit vraiment être en mesure de te menacer toi meme ?"
       },
       "temptation": [
         {
           "speaker": "characters.unknownEntity",
-          "text": "Tu veux savoir si ce visage est le mien."
+          "text": "Tu veux savoir ce qui se cache derrière mon visage."
         },
         {
           "speaker": "characters.unknownEntity",
-          "text": "Demande-moi de te montrer ce qu'il cache."
-        }
+          "text": "Si tu veux voir, il suffit d'en exprimer la requête."
+        } 
       ],
       "voiceCloser": "Sa voix se rapproche. La silhouette, elle, ne bouge pas."
     },
@@ -550,7 +550,7 @@
       "angelClaim": "Certains m'ont appelé ange. D'autres, envoyé de Dieu. Si ta foi exige un titre, prends celui-là.",
       "promiseFather": "Je peux te conduire jusqu'à ton père. Pas par une route que tes pieds connaissent.",
       "promiseKnowledge": "Je peux aussi répondre aux questions que tu portes depuis l'enfance. Celles que tes livres évitent.",
-      "prayerTemptation": "Tu as entendu des prières. Tu as vu ce qui pousse après leur passage. Tu ignores encore ce qui écoute.",
+      "prayerTemptation": "Avoue le Laurence, tu brûle d'envie de connaitre la vérité.",
       "desirePrompt": "Dis-moi seulement ce que tu veux, Laurence.",
       "hallucination": "La pierre respirait. Non. Ce n'est pas arrivé.",
       "choices": {
@@ -578,7 +578,192 @@
         "Pour cette fois, je vais lui faire confiance.",
         "Si mon père est au bout de cette piste, je dois la suivre."
       ],
-      "marshUnavailable": "La piste descend vers le marais. Je n'irai pas plus loin pour l'instant.",
+      "travel": {
+        "ticketOffice": [
+          "Je me dirigeai donc vers la gare d'Arkham et pris le premier billet pour les abords de la forêt, à la périphérie de la vieille ville."
+        ],
+        "train": [
+          "Les dernières maisons disparurent derrière la vitre.",
+          "Bientôt, il ne resta que la neige et les arbres.",
+          "Evidemment, je ne repensais qu'à mon père.",
+          "Qu'espérais-je trouver là-bas ?"
+        ]
+      },
+      "arrivals": {
+        "forestEntrance": [
+          "Sous les arbres, le silence est presque entier.",
+          "Ni voix, ni coup de hache.",
+          "Seulement la neige qui touche les branches et le bruit de mes pas.",
+          "Des ornières s'enfoncent dans la forêt."
+        ],
+        "loggingCamp": [
+          "Je m'arrête devant les bâtiments.",
+          "Un homme est étendu dans la neige.",
+          "Une longue traînée de sang relie son corps à la porte ouverte de la cabane."
+        ],
+        "cabinInterior": [
+          "La lampe brûle encore.",
+          "Des chaises sont renversées et le coffre est ouvert.",
+          "Sur la table, un cahier et une feuille.",
+          "Personne ne répond lorsque j'appelle."
+        ]
+      },
+      "observations": {
+        "ribbons": {
+          "label": "Examiner les morceaux de tissu",
+          "text": [
+          "Les morceaux de tissu sont noués aux branches.",
+          "Ils n'ont pas été accrochés ici par le vent : quelqu'un les a placés volontairement.",
+          "Certains sont devenus presque noirs à force de prendre l'humidité."
+        ]
+        },
+        "stone": {
+          "label": "Examiner la pierre dressée",
+          "text": [
+          "Une pierre dressée borde la piste.",
+          "Sa surface est sombre et rugueuse.",
+          "Je ne distingue aucune inscription qui me permette d'en comprendre la présence."
+        ]
+        },
+        "forestPrayer": {
+          "label": "Lire la feuille sous le toit",
+          "title": "Prière pour traverser les bois",
+          "text": "Esprits oubliés qui veillez sous les branches,\nForces anciennes que nos maisons n'ont pas chassées,\nRecevez nos paroles et laissez-nous passer.\nGardez nos pas des chemins sans retour,\nNos mains de ce qui dort sous l'écorce,\nEt nos foyers de ce qui nous suivrait hors des bois.\nNous prendrons seulement ce qui nous sera accordé.\nNous laisserons votre part au pied des arbres."
+        },
+        "crosses": {
+          "label": "Examiner les croix et les couronnes",
+          "text": [
+          "Des croix de bois bordent le sentier.",
+          "Des couronnes de brindilles et des liens pendent aux traverses.",
+          "Après la prière lue au carrefour, je ne sais plus à qui ces signes s'adressent."
+        ]
+        },
+        "offerings": {
+          "label": "Examiner la boîte et les feuilles",
+          "text": [
+          "Des feuilles ont été déposées dans une boîte ouverte sous un petit toit.",
+          "L'humidité en a brouillé l'écriture.",
+          "Je distingue des demandes de protection et quelques noms, mais pas assez pour reconstituer les phrases."
+        ]
+        },
+        "skull": {
+          "label": "Examiner le crâne",
+          "text": [
+          "Un crâne repose dans la neige, près d'une écuelle.",
+          "Je ne saurais dire de quel animal il provient.",
+          "Sa présence au milieu des bougies ressemble à un dépôt volontaire."
+        ]
+        },
+        "candles": {
+          "label": "Examiner les bougies",
+          "text": [
+          "Plusieurs bougies brûlent encore au pied des croix.",
+          "La neige tombe autour des flammes.",
+          "Quelqu'un est venu ici assez récemment pour les allumer."
+        ]
+        },
+        "crate": {
+          "label": "Examiner la caisse",
+          "text": [
+          "Une caisse de chantier a été laissée sous le panneau.",
+          "Une étiquette est fixée sur le bois, mais elle ne m'apprend rien sur ceux qui l'ont déposée."
+        ]
+        },
+        "signpost": {
+          "label": "Examiner le panneau",
+          "text": [
+          "Les flèches indiquent deux directions.",
+          "À gauche, des souches et du matériel de coupe.",
+          "À droite, les ornières continuent entre les arbres vers les terres basses."
+        ]
+        },
+        "body": {
+          "label": "Examiner le cadavre",
+          "text": [
+          "L'homme ne bouge plus.",
+          "Un sac lui couvre la tête.",
+          "La traînée dans la neige laisse penser qu'il a été tiré depuis la cabane jusqu'ici.",
+          "Des sortes de branches noires semblent pousser de son corps ; je n'arrive pas à distinguer où finit le vêtement et où commence cette matière.",
+          "Je recule sans le toucher."
+        ]
+        },
+        "outsideBlood": {
+          "label": "Examiner la traînée de sang",
+          "text": [
+          "Le sang forme de longues stries entre la porte et le corps.",
+          "La neige a été raclée dans la même direction.",
+          "Il semble qu'on ait traîné cet homme hors de la cabane."
+        ]
+        },
+        "saw": {
+          "label": "Examiner la scie",
+          "text": [
+          "La grande scie est immobile sous son abri.",
+          "Du bois attend encore sur l'établi.",
+          "Rien ne me permet d'attribuer à la machine ce qui est arrivé à cet homme."
+        ]
+        },
+        "notices": {
+          "label": "Lire les affiches du camp",
+          "title": "Camp de b?cherons ? Consignes et tableau de service",
+          "text": "EXPLOITATION FORESTI?RE ? SECTEUR OUEST D?ARKHAM\n\nCamp de b?cherons\nAbattage, d?bitage et transport du bois.\n\nTABLEAU DE SERVICE\n?quipe du nord : abattage sur la parcelle haute.\n?quipe de la lisi?re : d?gagement de la piste et chargement.\n?quipe de coupe : d?bitage des troncs ? la scierie du camp.\n\nCONSIGNES\nV?rifier les manches des haches avant le d?part.\nNe pas travailler seul ? la scie.\nLaisser la piste libre pour les chargements.\nRapporter les outils ? la fin de chaque journ?e.\nInscrire les quantit?s de bois coup?, les incidents et les besoins en mat?riel dans le cahier d?activit? conserv? sur la table de la cabane.\n\nLes couchettes sont r?serv?es aux ?quipes affect?es au chantier. Le coffre sert au rangement des effets et objets recueillis sur les parcelles."
+        },
+        "activityBook": {
+          "label": "Lire le cahier d'activité",
+          "title": "Cahier d'activité du camp",
+          "text": "12 janvier 1925 — Équipe du nord\nSix troncs débités. Affûtage de la scie à prévoir. Le gel ralentit le transport.\n\n14 janvier — Équipe de la lisière\nReprise de la coupe après midi. Deux manches remplacés. Rien à signaler sur la piste.\n\n16 janvier — Équipe du nord\nTrouvé plusieurs animaux morts entre les arbres. Des oiseaux, puis deux petits mammifères. Aucun pris dans nos pièges. Nous les avons laissés sur place.\n\n18 janvier — Équipe de la lisière\nEncore des cadavres aujourd'hui. Beaucoup trop pour la saison. Certains ne portent aucune blessure visible. Les hommes demandent à changer de parcelle.\n\n19 janvier — Équipe de coupe\nUne odeur étrange se dégage quand on entame les arbres dont l'écorce est la plus noire. Une odeur douce d'abord, puis celle d'une viande oubliée. Elle reste sur les outils.\n\n20 janvier — Équipe du nord\nMême odeur sur notre parcelle. Nous avons arrêté la coupe des troncs noirs en attendant les instructions.\n\n21 janvier — Note de fin de journée\nJ'ai trouvé une petite statue près d'un arbre noir. Elle représente une chose que je ne connais pas. Je l'ai ramenée dans le coffre de la cabane. Que personne ne la jette avant que les autres l'aient vue."
+        },
+        "loosePage": {
+          "label": "Examiner la feuille sur la table",
+          "text": [
+          "Une feuille de comptes est restée près du cahier : quantités de bois, outils à remplacer, fournitures.",
+          "Aucun message n'explique le désordre de la pièce."
+        ]
+        },
+        "chest": {
+          "label": "Examiner le coffre ouvert",
+          "beforeBook": [
+          "Le coffre est ouvert.",
+          "Des affaires et quelques livres sont encore à l'intérieur.",
+          "Je ne sais pas si quelqu'un y a cherché quelque chose."
+        ],
+          "text": [
+          "Le coffre contient encore des affaires et quelques livres.",
+          "Je ne trouve aucune petite statue.",
+          "Le couvercle est resté ouvert.",
+          "Quelqu'un l'a-t-il reprise ?"
+        ]
+        },
+        "insideBlood": {
+          "label": "Examiner les traces au sol",
+          "text": [
+          "Des traces sombres souillent le plancher près du coffre et des chaises renversées.",
+          "En me penchant, je reconnais du sang.",
+          "Elles semblent se prolonger vers la sortie.",
+          "C'est donc ici que cela aurait commencé."
+        ]
+        },
+        "beds": {
+          "label": "Examiner les couchettes",
+          "text": [
+          "Les couvertures sont encore sur les couchettes.",
+          "Les hommes vivaient à plusieurs dans cette pièce.",
+          "Rien n'évoque un départ soigneusement préparé."
+        ]
+        },
+        "lamp": {
+          "label": "Examiner la lampe",
+          "text": [
+          "La lampe éclaire toujours la table.",
+          "On l'a laissée allumée en quittant la pièce.",
+          "Sa lumière rend les coins de la cabane plus sombres encore."
+        ]
+        }
+      },
+      "marshUnavailable": [
+          "La piste descend vers le marais.",
+          "Je n'irai pas plus loin pour l'instant."
+        ],
       "actions": {
         "leaveOffice": "➔ Sortir",
         "takeTicket": "Prendre le billet",
@@ -607,7 +792,7 @@
         "critical": "Ne me croyez pas sur parole. Une foi imposée ne vaut pas davantage qu'un mensonge."
       },
       "rosaryOffer1": "Thomas détache un chapelet sombre de sa ceinture.",
-      "rosaryOffer2": "Prenez-le. Pas comme une preuve. Comme quelque chose à tenir lorsque vos pensées vous échappent.",
+      "rosaryOffer2": "Prenez-le. Cela ne constitue pas une preuve, mais vous aurez quelque chose à tenir lorsque vos pensées vous échappent.",
       "rosaryName": "Chapelet du Père Thomas",
       "rosaryDescription": "Un vieux chapelet sombre offert par le Père Thomas comme point d'ancrage.",
       "rosaryExamine": "Les grains sont lisses et usés. Ils ont longtemps glissé entre des doigts patients."

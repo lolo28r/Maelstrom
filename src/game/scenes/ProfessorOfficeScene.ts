@@ -37,6 +37,14 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     }
 
     create() {
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            if (this.currentAmbientSound) {
+                this.tweens.killTweensOf(this.currentAmbientSound);
+                this.currentAmbientSound.stop();
+                this.currentAmbientSound.destroy();
+                this.currentAmbientSound = null;
+            }
+        });
         const store = useGameStore.getState();
         store.setScene('ProfessorOffice');
 
@@ -247,7 +255,10 @@ export class ProfessorOfficeScene extends Phaser.Scene {
     private playAmbientSound(key: string, volume: number) {
         try {
             if (this.currentAmbientSound) {
+                this.tweens.killTweensOf(this.currentAmbientSound);
                 this.currentAmbientSound.stop();
+                this.currentAmbientSound.destroy();
+                this.currentAmbientSound = null;
             }
             if (this.cache.audio.exists(key)) {
                 this.currentAmbientSound = this.sound.add(key, { volume: 0, loop: true });

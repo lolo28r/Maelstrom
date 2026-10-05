@@ -17,6 +17,10 @@
 }
 
 .document-viewer-parchment {
+  max-height: calc(100dvh - 2rem);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   position: relative;
   width: 100%;
   max-width: 34rem;
@@ -66,6 +70,8 @@
 }
 
 .document-viewer-content {
+  min-height: 0;
+  overflow-y: auto;
   font-size: 0.95rem;
   line-height: 1.65;
   white-space: pre-line;
@@ -74,10 +80,31 @@
 }
 
 .document-viewer-footer {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
   display: flex;
   justify-content: flex-end;
   padding-top: 0.75rem;
   border-top: 1px solid #332b22;
+}
+
+.document-viewer-header,
+.document-viewer-footer {
+  flex-shrink: 0;
+}
+
+.document-viewer-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-right: auto;
+  font-size: 0.8rem;
+}
+
+.document-viewer-action-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .document-viewer-action-btn {

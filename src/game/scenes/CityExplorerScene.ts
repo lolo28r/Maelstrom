@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { CityOutdoorAudio } from '../../audio/cityOutdoorAudio';
 import { getMusicVolume, getSfxVolume } from '../../audio/audioMix';
 import { useGameStore, ChoiceOption } from '../../store/useGameStore';
 import { HotspotZone } from '../helper/HotSpotZone';
@@ -22,11 +23,14 @@ export class CityExplorerScene extends Phaser.Scene {
 
     private currentLocation: CityLocation = 'CARREFOUR';
 
+    private outdoorAudio?: CityOutdoorAudio;
+
     constructor() {
         super({ key: 'CityExplorerScene' });
     }
 
     preload() {
+        CityOutdoorAudio.preload(this);
         const baseUrl = import.meta.env.BASE_URL;
 
         this.load.image('carrefour', `${baseUrl}assets/carrefour.jpg`);
@@ -49,9 +53,22 @@ export class CityExplorerScene extends Phaser.Scene {
     }
 
     create() {
+        this.outdoorAudio = new CityOutdoorAudio(this);
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.outdoorAudio?.destroy();
+            this.outdoorAudio = undefined;
+        });
         useGameStore.getState().setScene('CityExplorerScene');
         this.cameras.main.setBackgroundColor('#000000');
         this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.stopStreetMusic();
+            this.stopChurchMusic();
+            this.stopStoreMusic();
+            this.stopSalonMusic();
+            this.clearSceneElements();
+        });
 
         this.enterCarrefour();
     }
@@ -73,6 +90,8 @@ export class CityExplorerScene extends Phaser.Scene {
     private playStreetMusic() {
         if (!this.streetMusic) {
             this.streetMusic = this.sound.add('streetOst', { loop: true, volume: getMusicVolume() });
+            this.streetMusic.play();
+        } else if (!this.streetMusic.isPlaying) {
             this.streetMusic.play();
         }
     }
@@ -125,6 +144,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.playStreetMusic();
         this.clearSceneElements();
         this.currentLocation = 'CARREFOUR';
+        this.outdoorAudio?.enter('CARREFOUR', true);
         const { width, height } = this.scale;
 
         if (this.currentBg) this.currentBg.destroy();
@@ -218,6 +238,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.playStreetMusic();
         this.clearSceneElements();
         this.currentLocation = 'JOURNAL_STREET';
+        this.outdoorAudio?.enter('JOURNAL_STREET', true);
         const { width, height } = this.scale;
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'journal').setDisplaySize(width, height);
@@ -344,6 +365,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.playStreetMusic();
         this.clearSceneElements();
         this.currentLocation = 'PORTE_LIB';
+        this.outdoorAudio?.enter('PORTE_LIB', true);
         const { width, height } = this.scale;
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'porteLib').setDisplaySize(width, height);
@@ -364,6 +386,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.stopSalonMusic();
         this.clearSceneElements();
         this.currentLocation = 'ENTREE_LIB';
+        this.outdoorAudio?.enter('ENTREE_LIB', false);
         const { width, height } = this.scale;
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'entreeLib').setDisplaySize(width, height);
@@ -499,6 +522,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.stopStoreMusic();
         this.clearSceneElements();
         this.currentLocation = 'SALON';
+        this.outdoorAudio?.enter('SALON', false);
         const { width, height } = this.scale;
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'salon').setDisplaySize(width, height);
@@ -879,6 +903,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.playStreetMusic();
         this.clearSceneElements();
         this.currentLocation = 'TABAC';
+        this.outdoorAudio?.enter('TABAC', true);
         const { width, height } = this.scale;
 
         if (this.currentBg) this.currentBg.destroy();
@@ -905,6 +930,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.stopSalonMusic();
         this.clearSceneElements();
         this.currentLocation = 'TABAC_INT';
+        this.outdoorAudio?.enter('TABAC_INT', false);
         const { width, height } = this.scale;
 
         if (this.currentBg) this.currentBg.destroy();
@@ -1027,6 +1053,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.playStreetMusic();
         this.clearSceneElements();
         this.currentLocation = 'EGLISE_EXT';
+        this.outdoorAudio?.enter('EGLISE_EXT', true);
         const { width, height } = this.scale;
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'egliseExt').setDisplaySize(width, height);
@@ -1046,6 +1073,7 @@ export class CityExplorerScene extends Phaser.Scene {
         this.stopSalonMusic();
         this.clearSceneElements();
         this.currentLocation = 'EGLISE_INT';
+        this.outdoorAudio?.enter('EGLISE_INT', false);
         const { width, height } = this.scale;
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'eglise').setDisplaySize(width, height);
@@ -1106,6 +1134,7 @@ export class CityExplorerScene extends Phaser.Scene {
     private enterChapel() {
         this.clearSceneElements();
         this.currentLocation = 'CHAPELLE';
+        this.outdoorAudio?.enter('CHAPELLE', false);
         const { width, height } = this.scale;
         if (this.currentBg) this.currentBg.destroy();
         this.currentBg = this.add.image(width / 2, height / 2, 'chapelleVierge').setDisplaySize(width, height);
@@ -1173,6 +1202,7 @@ export class CityExplorerScene extends Phaser.Scene {
 
     private enterPriestEncounterShort() {
         this.currentLocation = 'SEPULCRE';
+        this.outdoorAudio?.enter('SEPULCRE', false);
         const { width, height } = this.scale;
 
         if (this.currentBg) this.currentBg.destroy();
@@ -1190,6 +1220,7 @@ export class CityExplorerScene extends Phaser.Scene {
 
     private enterPriestEncounter() {
         this.currentLocation = 'SEPULCRE';
+        this.outdoorAudio?.enter('SEPULCRE', false);
         const { width, height } = this.scale;
 
         if (this.currentBg) this.currentBg.destroy();

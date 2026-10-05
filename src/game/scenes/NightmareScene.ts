@@ -93,7 +93,7 @@ export class NightmareScene extends Phaser.Scene {
 
                 // Lancement du Prologue dans le noir
                 if (!this.prologueMusic) {
-                    this.prologueMusic = this.sound.add('prologueMusic', { loop: true, volume: getMusicVolume() });
+                    this.prologueMusic = this.sound.add('prologueMusic', { loop: true, volume: getMusicVolume('prologueMusic') });
                     this.prologueMusic.play();
                 }
 

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { CityOutdoorAudio } from '../../audio/cityOutdoorAudio';
 import { useGameStore } from '../../store/useGameStore';
 import { HotspotZone } from '../helper/HotSpotZone';
 import { getMusicVolume } from '../../audio/audioMix';
@@ -15,11 +16,14 @@ export class AsylumScene extends Phaser.Scene {
     private location: AsylumLocation = 'EXTERIOR';
     private asylumMusic?: Phaser.Sound.WebAudioSound | Phaser.Sound.HTML5AudioSound;
 
+    private outdoorAudio?: CityOutdoorAudio;
+
     constructor() {
         super({ key: 'AsylumScene' });
     }
 
     preload() {
+        CityOutdoorAudio.preload(this);
         const base = import.meta.env.BASE_URL;
         this.load.image('day2AsylumExterior', `${base}assets/asileExt.jpg`);
         this.load.image('day2AsylumReception', `${base}assets/asileInt.jpg`);
@@ -29,6 +33,11 @@ export class AsylumScene extends Phaser.Scene {
     }
 
     create() {
+        this.outdoorAudio = new CityOutdoorAudio(this);
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.outdoorAudio?.destroy();
+            this.outdoorAudio = undefined;
+        });
         useGameStore.getState().setScene('AsylumScene');
         this.cameras.main.fadeIn(700, 0, 0, 0);
         this.asylumMusic = this.sound.add('day2AsylumMusic', { loop: true, volume: getMusicVolume() }) as
@@ -79,6 +88,7 @@ export class AsylumScene extends Phaser.Scene {
 
     private enterExterior() {
         this.location = 'EXTERIOR';
+        this.outdoorAudio?.enter('ASYLE_EXTERIOR', true, false);
         this.showBackground('day2AsylumExterior');
         this.addHotspot({
             scene: this, x: 640, y: 390, width: 300, height: 370,
@@ -103,6 +113,7 @@ export class AsylumScene extends Phaser.Scene {
 
     private enterReception() {
         this.location = 'RECEPTION';
+        this.outdoorAudio?.enter('ASYLE_RECEPTION', false);
         this.showBackground('day2AsylumReception');
         const store = useGameStore.getState();
 

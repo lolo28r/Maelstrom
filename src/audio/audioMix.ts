@@ -15,17 +15,26 @@ const MUSIC_KEYS = new Set([
     'day2ChurchMusic',
     'day2DreamMusic',
     'day2OfficeMusic',
+    'day2AsylumMusic',
+    'day2GraveyardMusic',
     'day3OfficeMusic',
+    'day3ForestMusic',
     'prologueMusic',
     'ostNyarla',
 ]);
 
 const SFX_RELATIVE_GAINS: Record<string, number> = {
+    day3TrainSfx: 0.5,
     street_rain: 0.3,
     desk_rain: 0.22,
+    day3ForestAmbience: 0.2,
 };
 
-export const getMusicVolume = () => useGameStore.getState().musicVolume;
+const MUSIC_RELATIVE_GAINS: Record<string, number> = {
+    prologueMusic: 2,
+};
+
+export const getMusicVolume = (key?: string) => useGameStore.getState().musicVolume * (key ? MUSIC_RELATIVE_GAINS[key] ?? 1 : 1);
 export const getSfxVolume = () => useGameStore.getState().sfxVolume;
 
 export const applyPhaserAudioMix = (game: Phaser.Game) => {
@@ -34,7 +43,7 @@ export const applyPhaserAudioMix = (game: Phaser.Game) => {
 
     for (const sound of game.sound.getAllPlaying()) {
         const channelVolume = MUSIC_KEYS.has(sound.key)
-            ? musicVolume
+            ? musicVolume * (MUSIC_RELATIVE_GAINS[sound.key] ?? 1)
             : sfxVolume * (SFX_RELATIVE_GAINS[sound.key] ?? 1);
         const adjustableSound = sound as Phaser.Sound.BaseSound & { setVolume?: (volume: number) => unknown };
         adjustableSound.setVolume?.(channelVolume);
