@@ -4,16 +4,28 @@
       "nyarl": "Il parle avec la voix de quelqu'un que je connais. Je ne retrouve plus qui."
     },
     "dream1": {
-      "alcoholDrank": "Tu as encore cherché le silence au fond d'un verre. Il n'a pas fermé la porte, Laurence.",
-      "alcoholResisted": "Tu n'as pas bu ce soir. Tu as pourtant senti l'absence du verre à chaque minute.",
+      "alcoholDrank": "Tu as bu pour trouver un peu de silence. Je sais que tu n'en as pas trouvé, Laurence.",
+      "alcoholResisted": "Tu as laissé le verre sur la table ce soir. Cela t'a demandé plus d'effort que tu ne veux l'admettre.",
       "opening": [
         {
           "speaker": "characters.laurence",
-          "text": "Qui est tu ?"
+          "text": "Qui êtes-vous ?"
         },
         {
           "speaker": "characters.unknownEntity",
-          "text": "Il est difficile de cacher une faim à quelqu'un qui vous regarde de l'intérieur."
+          "text": "Quelqu'un qui t'a entendu."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Je n'ai appelé personne."
+        },
+        {
+          "speaker": "characters.unknownEntity",
+          "text": "Tu as prié pour ton père. Ensuite, tu as bu pour supporter le silence."
+        },
+        {
+          "speaker": "characters.unknownEntity",
+          "text": "Je porte un avertissement, Laurence. Écoute-le avant de décider ce que je suis."
         },
         {
           "speaker": "characters.unknownEntity",
@@ -21,32 +33,32 @@
         },
         {
           "speaker": "characters.unknownEntity",
-          "text": "Ce que vous appelez le ciel ne les retiendra plus. Seras-tu prêt à les accueillir ?"
+          "text": "Le ciel ne les retiendra plus très longtemps. Me laisseras-tu te préparer à leur venue ?"
         }
       ],
-      "measured": "Je sens qu'il attend moins une réponse qu'une manière de me mesurer.",
+      "measured": "Il parle comme s'il connaissait mes prières. Peut-être qu'il les a trouvées dans ma mémoire.",
       "choices": {
-        "curiosity": "« Qui sont-ils ? Et pourquoi me demander cela à moi ? »",
-        "refusal": "« Je n'accueillerai rien. Sors de mon rêve. »",
-        "threat": "« Sors de ma tête avant que je trouve comment t'en arracher. »",
+        "curiosity": "« Qu'est-ce qu'ils veulent ? »",
+        "refusal": "« Vous n'êtes pas envoyé par Dieu. »",
+        "threat": "« Sortez de ma tête. »",
         "face": "« Montre-moi ton vrai visage. »"
       },
       "answers": {
-        "curiosity": "Qui ils sont ?. Ceux qui someillent au dela des astres.",
-        "refusal": "Tu refuses déjà. Pourtant tu ne connais rien.",
-        "threat": "Tu croit vraiment être en mesure de te menacer toi meme ?"
+        "curiosity": "Ils attendent depuis bien avant ta naissance. Leur venue changera jusqu'au sens du mot humain.",
+        "refusal": "Tu as raison de douter. La confiance vient après la preuve, et je peux t'en donner une.",
+        "threat": "Je partirai bientôt. Tu garderas malgré tout ce que tu viens d'entendre."
       },
       "temptation": [
         {
           "speaker": "characters.unknownEntity",
-          "text": "Tu veux savoir ce qui se cache derrière mon visage."
+          "text": "Tu observes mon visage depuis que je suis apparu."
         },
         {
           "speaker": "characters.unknownEntity",
-          "text": "Si tu veux voir, il suffit d'en exprimer la requête."
-        } 
+          "text": "Tu sais déjà que je l'ai choisi pour toi. Veux-tu me demander ce que je cache ?"
+        }
       ],
-      "voiceCloser": "Sa voix se rapproche. La silhouette, elle, ne bouge pas."
+      "voiceCloser": "Sa voix semble venir de tout près. La silhouette n'a pourtant pas bougé."
     },
     "office2": {
       "date": "21 janvier 1925",
@@ -473,7 +485,10 @@
       "lockInsight": "L'admission date de 1924. Pourtant, la rupture a commencé plus tôt. Le mot « arrivée » désigne peut-être autre chose.",
       "altar": "Le rectangle laissé par l'objet est plus propre que la pierre autour.",
       "niches": "Ces niches sont trop étroites pour des cercueils. Des cylindres y ont reposé.",
-      "cryptInsight": ["Les niches suivent une logique de classement.", "Cette pièce a servi d'archive avant de devenir une sépulture."],
+      "cryptInsight": [
+        "Les niches suivent une logique de classement.",
+        "Cette pièce a servi d'archive avant de devenir une sépulture."
+      ],
       "dust": "Aucun pas récent. L'objet est resté ici bien plus longtemps que son état ne le laisse croire.",
       "object": {
         "name": "Objet noir à contacts métalliques",
@@ -528,29 +543,32 @@
         "cthulhu": "Arkham repose sous une eau noire. Aux fenêtres, les dormeurs parlent sans se réveiller.",
         "uncertain": "Derrière mes paupières, Arkham se partage en deux. Les cloches sonnent, puis s'arrêtent ensemble."
       },
-      "greetingCurious": "Tu regardes partout, Laurence. Sous les chaises. Derrière les mots. Jusque dans la poussière.",
-      "greeting": "Tu as ouvert une porte fermée par une date.",
+      "greetingCurious": "Tu as fouillé chaque pièce et relu chaque mot. Ton père aurait reconnu cette obstination.",
+      "greeting": "Tu as continué malgré la peur. Je savais que tu le ferais.",
       "knowsFather": "Je sais où se trouve ton père.",
       "laurenceWhere": "Alors dites-le-moi.",
-      "askIntroduce": "Nous parlons depuis quelque temps. Puis-je enfin me présenter ?",
-      "introductionPrompt": "Il sait que je ne peux pas partir sans entendre la suite.",
+      "askIntroduce": "Nous parlons depuis plusieurs nuits. Tu devrais enfin savoir qui te guide.",
+      "introductionPrompt": "Il sait où trouver mon père. Je dois l'entendre, même si chaque mot peut être un piège.",
       "introductionChoices": {
         "listen": "« Je vous écoute. »",
         "father": "« Mon père d'abord. Où est-il ? »",
         "refuse": "« Je ne vous ai jamais invité ici. »"
       },
       "introductionAnswers": {
-        "listen": "Quelle politesse. Même maintenant.",
-        "father": "Tu recevras une réponse. Mais tu dois savoir qui te la propose.",
-        "refuse": "Non. Mais tu m'écoutes depuis la première nuit."
+        "listen": "Merci, Laurence. J'espérais que nous pourrions enfin parler sans nous menacer.",
+        "father": "Je vais t'y conduire. Écoute encore un instant.",
+        "refuse": "Je comprends. La confiance demande du temps, et tu m'as déjà accordé ton attention."
       },
-      "thousandNames": "Les hommes m'ont donné mille noms. Ils avaient besoin de me ranger quelque part.",
+      "thousandNames": "Les hommes m'ont donné beaucoup de noms. Chacun décrivait une part de ma fonction.",
       "manInBlack": "L'Homme en noir",
-      "name": "Celui qu'ils emploient le plus souvent est l'Homme en noir.",
-      "angelClaim": "Certains m'ont appelé ange. D'autres, envoyé de Dieu. Si ta foi exige un titre, prends celui-là.",
-      "promiseFather": "Je peux te conduire jusqu'à ton père. Pas par une route que tes pieds connaissent.",
-      "promiseKnowledge": "Je peux aussi répondre aux questions que tu portes depuis l'enfance. Celles que tes livres évitent.",
-      "prayerTemptation": "Avoue le Laurence, tu brûle d'envie de connaitre la vérité.",
+      "name": "Tu peux m'appeler l'Homme en noir.",
+      "angelClaim": [
+        "Certains m'ont appelé ange. D'autres ont compris ma fonction : je suis un messager.",
+        "Je porte la parole de Dieu jusqu'à ceux qu'il ne visite plus en personne."
+      ],
+      "promiseFather": "Je sais où commencer tes recherches. Elles peuvent encore te conduire jusqu'à ton père.",
+      "promiseKnowledge": "Je répondrai aussi aux questions que tes livres évitent depuis toujours.",
+      "prayerTemptation": "Tu as entendu parler de prières dites derrière des portes closes. Tu veux savoir qui leur répond.",
       "desirePrompt": "Dis-moi seulement ce que tu veux, Laurence.",
       "hallucination": "La pierre respirait. Non. Ce n'est pas arrivé.",
       "choices": {
@@ -559,15 +577,61 @@
         "stop": "« Vous n'êtes pas un ange. Je veux que tout cela cesse. »"
       },
       "answers": {
-        "know": "Alors je te montrerai des portes que ton père a déjà franchies.",
-        "father": "Seulement ton père. Tu mens mieux lorsque tu as peur.",
-        "stop": "Tu demandes le silence à la seule créature qui te répond."
+        "know": [
+          "Alors écoute-moi.",
+          "À l'ouest d'Arkham, une forêt borde les anciens marais.",
+          "Des hommes y conservent des récits qu'ils ne montrent à personne.",
+          "L'un d'eux te rappellera ton père."
+        ],
+        "father": [
+          "Alors commence par lui.",
+          "À l'ouest d'Arkham, une forêt borde les anciens marais.",
+          "Des hommes y conservent des récits qu'ils ne montrent à personne.",
+          "L'un d'eux te rappellera ton père."
+        ],
+        "stop": [
+          "Je peux t'aider à refermer cette porte.",
+          "Tu dois d'abord découvrir laquelle.",
+          "À l'ouest d'Arkham, cherche la forêt qui borde les anciens marais."
+        ]
       }
     },
     "day2End": {
       "title": "FIN DU JOUR II",
       "message": "Au matin, la grille de la crypte sera toujours ouverte.\nDans la sacoche de Laurence, l'objet noir attend sans donner le moindre signe de vie.",
       "continue": "[ CONTINUER — JOUR II ]"
+    },
+    "dream4": {
+      "title": "QUATRIÈME NUIT",
+      "waiting": [
+        "Le même noir m'entoure.",
+        "J'attends sa voix.",
+        "La musique s'est tue.",
+        "Il ne vient pas."
+      ],
+      "firstCall": {
+        "knowledge": "Vous m'avez conduit jusqu'à cette forêt. Maintenant, répondez-moi.",
+        "father": "J'ai trouvé le récit. Qu'est-ce que cela a à voir avec mon père ?",
+        "rest": "Vous aviez dit que vous pouviez m'aider à refermer cette porte.",
+        "resistance": "Je sais que vous êtes là. Montrez-vous."
+      },
+      "silence": [
+        "Aucune réponse.",
+        "J'attends encore.",
+        "Le silence ne bouge pas."
+      ],
+      "choices": {
+        "callAgain": "« Répondez-moi. »",
+        "pray": "Prier Dieu.",
+        "wake": "Essayer de se réveiller."
+      },
+      "reactions": {
+        "callAgain": "Répondez-moi. Vous m'avez conduit jusqu'ici.",
+        "pray": "Mon Dieu, si vous m'entendez encore, ne me laissez pas seul ici.",
+        "wake": "Il suffit d'ouvrir les yeux. Je n'ai besoin de personne."
+      },
+      "answer": "Tu vois, Laurence ? Cette fois, c'est toi qui m'as appelé.",
+      "endCard": "FIN DE LA QUATRIÈME NUIT"
     },
     "day3": {
       "date": "22 janvier 1925",
@@ -589,11 +653,28 @@
           "Qu'espérais-je trouver là-bas ?"
         ]
       },
+      "marshJourney": {
+        "marshShore": [
+          "La coque touche enfin la rive opposée.",
+          "Je tire la barque contre la berge.",
+          "Un sentier quitte l'eau et disparaît entre les arbres."
+        ],
+        "marshCrossing": [
+          "Les ornières s'arrêtent au bord du marais. Une barque y est attachée.",
+          "Je détache la corde et la pousse sur l'eau.",
+          "Le marais devient presque noir entre les roseaux.",
+          "Après quelques minutes, je ne distingue déjà plus la rive."
+        ],
+        "strangeSun": [
+          "Je lève les yeux.",
+          "Le soleil a pris une teinte très étrange.",
+          "Une pâleur sale que la brume ne suffit pas à expliquer."
+        ]
+      },
       "arrivals": {
         "forestEntrance": [
           "Sous les arbres, le silence est presque entier.",
-          "Ni voix, ni coup de hache.",
-          "Seulement la neige qui touche les branches et le bruit de mes pas.",
+          "Aucune voix, rien que le bruit du vent qui siffle dans les branches.",
           "Des ornières s'enfoncent dans la forêt."
         ],
         "loggingCamp": [
@@ -605,25 +686,96 @@
           "La lampe brûle encore.",
           "Des chaises sont renversées et le coffre est ouvert.",
           "Sur la table, un cahier et une feuille.",
-          "Personne ne répond lorsque j'appelle."
+          "je ne percois aucun signe de présence."
+        ],
+        "campEntrance": [
+          "Le sentier de l'autre rive aboutit à une enceinte de bois.",
+          "La neige a fondu là où des hommes sont passés.",
+          "Ce lieu n'est pas abandonné depuis longtemps."
+        ],
+        "campHub": [
+          "Derrière l'enceinte, le chemin s'ouvre sur une petite cour.",
+          "Un bâtiment bas, une chapelle et un sentier entre les roseaux.",
+          "Tout est silencieux. Trop bien rangé pour avoir été déserté."
+        ],
+        "archives": [
+          "Ca semble être un dépôt de documents.",
+          "Les liasses ont été classées une à une."
+        ],
+        "sectChapel": [
+          "La chapelle est plus discrète que celle d'Arkham.",
+          "Lorsque mon regard se pose sur elle, je sens un frisson.",
+          "Comme un profond sentiment de malaise."
+        ],
+        "ritualPit": [
+          "La neige a été dégagée avec soin.",
+          "Les cordes, la pierre et la fosse ont été préparées à l'avance.",
+          "Tout semble méticuleusement organisé."
+        ],
+        "darkMotherRoom": [
+          "L'odeur de terre humide me prend à la gorge.",
+          "Puis je lève les yeux.",
+          "Mon premier mouvement est de détourner le regard.",
+          "Je n'y parviens pas."
         ]
+      },
+      "secretPrayer": {
+        "ariaLabel": "Prononcer la prière",
+        "kneel": [
+          "Je m'agenouille devant la statue.",
+          "La formule revient dans plusieurs textes du camp.",
+          "Si ces mots ouvrent quelque chose, ce sera ici."
+        ],
+        "prompt": "Prononcer la prière",
+        "placeholder": "Saisissez la formule...",
+        "answer": "Mère qui veille derrière toute naissance, recevez-moi entre vos mains.",
+        "coreWords": ["mère", "veille", "naissance", "recevez", "mains"],
+        "submit": "Prononcer",
+        "cancel": "Se relever",
+        "wrong": "Le silence ne change pas. Ce ne sont pas les bons mots.",
+        "trapdoor": [
+          "Un déclic étouffé répond sous mes genoux.",
+          "Une dalle se déplace derrière l'autel.",
+          "Une trappe vient de s'ouvrir.",
+          "Je tends l'oreille. Toujours personne.",
+          "Je descends sans faire de bruit."
+        ]
+      },
+      "ending": {
+        "voices": [
+          "Je remonte dans la chapelle.",
+          "Des voix traversent soudain la cour.",
+          "Plusieurs hommes. Ils approchent.",
+          "Je cours."
+        ],
+        "train": [
+          "Je ne me retourne pas avant la gare.",
+          "Je monte dans le premier train qui quitte le quai.",
+          "Mes mains tremblent encore.",
+          "Ce n'était pas seulement une idole.",
+          "Ils avaient cloué des chapelets autour d'elle.",
+          "Ils avaient donné à la Vierge le corps de cette chose.",
+          "La colère me soulève encore le cœur.",
+          "Et sous la colère, il y a la peur."
+        ],
+        "endCard": "FIN DU JOUR 3"
       },
       "observations": {
         "ribbons": {
           "label": "Examiner les morceaux de tissu",
           "text": [
-          "Les morceaux de tissu sont noués aux branches.",
-          "Ils n'ont pas été accrochés ici par le vent : quelqu'un les a placés volontairement.",
-          "Certains sont devenus presque noirs à force de prendre l'humidité."
-        ]
+            "Les morceaux de tissu sont noués aux branches.",
+            "Ils n'ont pas été accrochés ici par le vent : quelqu'un les a placés volontairement.",
+            "Certains sont devenus presque noirs à force de prendre l'humidité."
+          ]
         },
         "stone": {
           "label": "Examiner la pierre dressée",
           "text": [
-          "Une pierre dressée borde la piste.",
-          "Sa surface est sombre et rugueuse.",
-          "Je ne distingue aucune inscription qui me permette d'en comprendre la présence."
-        ]
+            "Une pierre dressée borde la piste.",
+            "Sa surface est sombre et rugueuse.",
+            "Je ne distingue aucune inscription qui me permette d'en comprendre la présence."
+          ]
         },
         "forestPrayer": {
           "label": "Lire la feuille sous le toit",
@@ -633,80 +785,80 @@
         "crosses": {
           "label": "Examiner les croix et les couronnes",
           "text": [
-          "Des croix de bois bordent le sentier.",
-          "Des couronnes de brindilles et des liens pendent aux traverses.",
-          "Après la prière lue au carrefour, je ne sais plus à qui ces signes s'adressent."
-        ]
+            "Des croix de bois bordent le sentier.",
+            "Des couronnes de brindilles et des liens pendent aux traverses.",
+            "Après la prière lue au carrefour, je ne sais plus à qui ces signes s'adressent."
+          ]
         },
         "offerings": {
           "label": "Examiner la boîte et les feuilles",
           "text": [
-          "Des feuilles ont été déposées dans une boîte ouverte sous un petit toit.",
-          "L'humidité en a brouillé l'écriture.",
-          "Je distingue des demandes de protection et quelques noms, mais pas assez pour reconstituer les phrases."
-        ]
+            "Des feuilles ont été déposées dans une boîte ouverte sous un petit toit.",
+            "L'humidité en a brouillé l'écriture.",
+            "Je distingue des demandes de protection et quelques noms, mais pas assez pour reconstituer les phrases."
+          ]
         },
         "skull": {
           "label": "Examiner le crâne",
           "text": [
-          "Un crâne repose dans la neige, près d'une écuelle.",
-          "Je ne saurais dire de quel animal il provient.",
-          "Sa présence au milieu des bougies ressemble à un dépôt volontaire."
-        ]
+            "Un crâne repose dans la neige, près d'une écuelle.",
+            "Je ne saurais dire de quel animal il provient.",
+            "Sa présence au milieu des bougies ressemble à un dépôt volontaire."
+          ]
         },
         "candles": {
           "label": "Examiner les bougies",
           "text": [
-          "Plusieurs bougies brûlent encore au pied des croix.",
-          "La neige tombe autour des flammes.",
-          "Quelqu'un est venu ici assez récemment pour les allumer."
-        ]
+            "Plusieurs bougies brûlent encore au pied des croix.",
+            "La neige tombe autour des flammes.",
+            "Quelqu'un est venu ici assez récemment pour les allumer."
+          ]
         },
         "crate": {
           "label": "Examiner la caisse",
           "text": [
-          "Une caisse de chantier a été laissée sous le panneau.",
-          "Une étiquette est fixée sur le bois, mais elle ne m'apprend rien sur ceux qui l'ont déposée."
-        ]
+            "Une caisse de chantier a été laissée sous le panneau.",
+            "Une étiquette est fixée sur le bois, mais elle ne m'apprend rien sur ceux qui l'ont déposée."
+          ]
         },
         "signpost": {
           "label": "Examiner le panneau",
           "text": [
-          "Les flèches indiquent deux directions.",
-          "À gauche, des souches et du matériel de coupe.",
-          "À droite, les ornières continuent entre les arbres vers les terres basses."
-        ]
+            "Les flèches indiquent deux directions.",
+            "À gauche, des souches et du matériel de coupe.",
+            "À droite, les ornières continuent entre les arbres vers les terres basses."
+          ]
         },
         "body": {
           "label": "Examiner le cadavre",
           "text": [
-          "L'homme ne bouge plus.",
-          "Un sac lui couvre la tête.",
-          "La traînée dans la neige laisse penser qu'il a été tiré depuis la cabane jusqu'ici.",
-          "Des sortes de branches noires semblent pousser de son corps ; je n'arrive pas à distinguer où finit le vêtement et où commence cette matière.",
-          "Je recule sans le toucher."
-        ]
+            "L'homme ne bouge plus.",
+            "Un sac lui couvre la tête.",
+            "La traînée dans la neige laisse penser qu'il a été tiré depuis la cabane jusqu'ici.",
+            "Des sortes de branches noires semblent pousser de son corps ; je n'arrive pas à distinguer où finit le vêtement et où commence cette matière.",
+            "Je recule sans le toucher."
+          ]
         },
         "outsideBlood": {
           "label": "Examiner la traînée de sang",
           "text": [
-          "Le sang forme de longues stries entre la porte et le corps.",
-          "La neige a été raclée dans la même direction.",
-          "Il semble qu'on ait traîné cet homme hors de la cabane."
-        ]
+            "Le sang forme de longues stries entre la porte et le corps.",
+            "La neige a été raclée dans la même direction.",
+            "Il semble qu'on ait traîné cet homme hors de la cabane."
+          ]
         },
         "saw": {
           "label": "Examiner la scie",
           "text": [
-          "La grande scie est immobile sous son abri.",
-          "Du bois attend encore sur l'établi.",
-          "Rien ne me permet d'attribuer à la machine ce qui est arrivé à cet homme."
-        ]
+            "La grande scie est immobile sous son abri.",
+            "Du bois attend encore sur l'établi.",
+            "Rien ne me permet d'attribuer à la machine ce qui est arrivé à cet homme."
+          ]
         },
         "notices": {
           "label": "Lire les affiches du camp",
-          "title": "Camp de b?cherons ? Consignes et tableau de service",
-          "text": "EXPLOITATION FORESTI?RE ? SECTEUR OUEST D?ARKHAM\n\nCamp de b?cherons\nAbattage, d?bitage et transport du bois.\n\nTABLEAU DE SERVICE\n?quipe du nord : abattage sur la parcelle haute.\n?quipe de la lisi?re : d?gagement de la piste et chargement.\n?quipe de coupe : d?bitage des troncs ? la scierie du camp.\n\nCONSIGNES\nV?rifier les manches des haches avant le d?part.\nNe pas travailler seul ? la scie.\nLaisser la piste libre pour les chargements.\nRapporter les outils ? la fin de chaque journ?e.\nInscrire les quantit?s de bois coup?, les incidents et les besoins en mat?riel dans le cahier d?activit? conserv? sur la table de la cabane.\n\nLes couchettes sont r?serv?es aux ?quipes affect?es au chantier. Le coffre sert au rangement des effets et objets recueillis sur les parcelles."
+          "title": "Camp de bûcherons — Consignes et tableau de service",
+          "text": "EXPLOITATION FORESTIÈRE — SECTEUR OUEST D’ARKHAM\n\nCamp de bûcherons\nAbattage, débitage et transport du bois.\n\nTABLEAU DE SERVICE\nÉquipe du nord : abattage sur la parcelle haute.\nÉquipe de la lisière : dégagement de la piste et chargement.\nÉquipe de coupe : débitage des troncs à la scierie du camp.\n\nCONSIGNES\nVérifier les manches des haches avant le départ.\nNe pas travailler seul à la scie.\nLaisser la piste libre pour les chargements.\nRapporter les outils à la fin de chaque journée.\nInscrire les quantités de bois coupé, les incidents et les besoins en matériel dans le cahier d’activité conservé sur la table de la cabane.\n\nLes couchettes sont réservées aux équipes affectées au chantier. Le coffre sert au rangement des effets et objets recueillis sur les parcelles."
         },
         "activityBook": {
           "label": "Lire le cahier d'activité",
@@ -716,54 +868,240 @@
         "loosePage": {
           "label": "Examiner la feuille sur la table",
           "text": [
-          "Une feuille de comptes est restée près du cahier : quantités de bois, outils à remplacer, fournitures.",
-          "Aucun message n'explique le désordre de la pièce."
-        ]
+            "Une feuille de comptes est restée près du cahier : quantités de bois, outils à remplacer, fournitures.",
+            "Aucun message n'explique le désordre de la pièce."
+          ]
         },
         "chest": {
           "label": "Examiner le coffre ouvert",
           "beforeBook": [
-          "Le coffre est ouvert.",
-          "Des affaires et quelques livres sont encore à l'intérieur.",
-          "Je ne sais pas si quelqu'un y a cherché quelque chose."
-        ],
+            "Le coffre est ouvert.",
+            "Des affaires et quelques livres sont encore à l'intérieur.",
+            "Je ne sais pas si quelqu'un y a cherché quelque chose."
+          ],
           "text": [
-          "Le coffre contient encore des affaires et quelques livres.",
-          "Je ne trouve aucune petite statue.",
-          "Le couvercle est resté ouvert.",
-          "Quelqu'un l'a-t-il reprise ?"
-        ]
+            "Le coffre contient encore des affaires et quelques livres.",
+            "Je ne trouve aucune petite statue.",
+            "Le couvercle est resté ouvert.",
+            "Quelqu'un l'a-t-il reprise ?"
+          ]
         },
         "insideBlood": {
           "label": "Examiner les traces au sol",
           "text": [
-          "Des traces sombres souillent le plancher près du coffre et des chaises renversées.",
-          "En me penchant, je reconnais du sang.",
-          "Elles semblent se prolonger vers la sortie.",
-          "C'est donc ici que cela aurait commencé."
-        ]
+            "Des traces sombres souillent le plancher près du coffre et des chaises renversées.",
+            "En me penchant, je reconnais du sang.",
+            "Elles semblent se prolonger vers la sortie.",
+            "C'est donc ici que cela aurait commencé."
+          ]
         },
         "beds": {
           "label": "Examiner les couchettes",
           "text": [
-          "Les couvertures sont encore sur les couchettes.",
-          "Les hommes vivaient à plusieurs dans cette pièce.",
-          "Rien n'évoque un départ soigneusement préparé."
-        ]
+            "Les couvertures sont encore sur les couchettes.",
+            "Les hommes vivaient à plusieurs dans cette pièce.",
+            "Rien n'évoque un départ soigneusement préparé."
+          ]
         },
         "lamp": {
           "label": "Examiner la lampe",
           "text": [
-          "La lampe éclaire toujours la table.",
-          "On l'a laissée allumée en quittant la pièce.",
-          "Sa lumière rend les coins de la cabane plus sombres encore."
-        ]
+            "La lampe éclaire toujours la table.",
+            "On l'a laissée allumée en quittant la pièce.",
+            "Sa lumière rend les coins de la cabane plus sombres encore."
+          ]
+        },
+        "watchShelter": {
+          "label": "Examiner la guérite",
+          "text": [
+            "La porte a été laissée ouverte.",
+            "À l'intérieur, une chaise et des traces de boue encore humides.",
+            "Quelqu'un surveillait ce passage récemment."
+          ]
+        },
+        "coldBrazier": {
+          "label": "Examiner le brasero",
+          "text": [
+            "Les cendres sont grises en surface.",
+            "En dessous, elles conservent encore un peu de chaleur.",
+            "Ils sont partis ce matin. Peut-être plus tard."
+          ]
+        },
+        "campFireRing": {
+          "label": "Examiner le foyer",
+          "text": [
+            "Les bûches ont brûlé jusqu'au bout.",
+            "Autour du foyer, plusieurs empreintes se recouvrent.",
+            "Assez pour une réunion, pas pour une famille."
+          ]
+        },
+        "supplyCrates": {
+          "label": "Examiner les caisses",
+          "text": [
+            "Des vivres, de la cire et des couvertures.",
+            "Rien de clandestin en soi.",
+            "Seulement de quoi accueillir beaucoup de monde pendant une nuit."
+          ]
+        },
+        "testimonyLedger": {
+          "label": "Lire le grand recueil",
+          "title": "Recueil de témoignages — troisième volume",
+          "text": "Les feuillets proviennent de mains et d’époques différentes. Une même personne les a numérotés, recopiés et classés. Aucun nom n’identifie le compilateur.\n\nSous le titre, une formule revient : « Mère qui veille derrière toute naissance, recevez-moi entre vos mains. »\n\nCAS 41 — NOVEMBRE 1687\nDéposition d’Abigail Marsh. Pendant trois nuits, elle entendit un nourrisson pleurer sous la glace de l’étang. La glace était intacte. Le quatrième matin, l’eau était tiède autour de sa maison. Aucune autre habitation ne fut touchée.\n\nCAS 58 — AVRIL 1724\nDéposition de Margaret Hale au sujet de son époux, Samuel Hale, professeur d’histoire ancienne.\n\n« Mon époux nous reconnaissait encore. Pourtant, il nous regardait comme s’il cherchait à comprendre l’usage que l’on fait d’une épouse et d’un fils. »\n\n« Il hésitait devant des objets ordinaires. Il me demandait la date complète, le nom de notre gouverneur et jusqu’où s’étendaient les frontières du pays. »\n\n« La nuit, il couvrait des pages de figures et d’une langue que je ne lui avais jamais vue employer. L’écriture était bien la sienne. Je l’aurais juré devant Dieu. »\n\n« Lorsque je lui demandai ce qu’il découvrait, il répondit qu’il ne découvrait rien. Il se souvenait. »\n\nDans la marge, le compilateur a seulement ajouté : « changement sans perte du savoir acquis ».\n\nCAS 76 — AOÛT 1813\nTrois habitants affirmèrent avoir rêvé de la même maison bâtie sous un ciel vert. Aucun ne put s’accorder sur le nombre de ses portes."
+        },
+        "archiveShelves": {
+          "label": "Examiner les liasses classées",
+          "title": "Feuillet de classement",
+          "text": "Les témoignages doivent être datés, numérotés puis rangés sans correction. Ne retranchez rien aux paroles recueillies. Ne donnez aucun nom à ce que le témoin ne sait pas nommer.\n\nAvant de déposer un nouveau récit, agenouillez-vous et prononcez :\n\n« Mère qui veille derrière toute naissance, recevez-moi entre vos mains. »"
+        },
+        "hiddenCoat": {
+          "label": "Examiner les manteaux",
+          "first": [
+            "Des manteaux de tailles différentes. Aucun nom dans les cols.",
+            "La doublure de celui-ci est plus lourde d'un côté.",
+            "Quelque chose froisse sous le tissu."
+          ],
+          "afterNote": "La doublure déchirée est maintenant vide."
+        },
+        "madNote": {
+          "title": "Feuille cousue dans une doublure",
+          "text": "JE NE DORS PLUS LORSQUE LE CIEL DORT\n\nLa chèvre appelle dans les bois sans bouche\nSHUB-NIGGURATH\nce n'est pas son nom\nc'est le bruit de la porte lorsqu'elle enfante\n\nla Mère n'a jamais porté d'enfant\nnous sommes encore à l'intérieur\n\nNYARLATHOTEP marche entre les prières\nil change les mots avant qu'ils arrivent\n\nYOG-SOTHOTH n'est pas derrière la porte\nla porte est autour de lui\nautour de moi aussi maintenant\n\nle centre est aveugle\nle centre joue de la musique\nAZATHOTH AZATHOTH AZ—\n\nCTHULHU rêve avec nos yeux sous l'eau\nR'LYEH n'est pas où ils disent\n\nje me suis couché comme il me l'a montré\ndepuis quelque chose rêve à ma place"
+        },
+        "sectVirgin": {
+          "label": "Regarder la statue de la Vierge",
+          "text": [
+            "Son visage est doux. Ses mains sont ouvertes.",
+            "La même image maternelle que j'ai connue enfant.",
+            "Rien dans la pierre ne justifie ce malaise."
+          ]
+        },
+        "sectPrayer": {
+          "label": "Lire la feuille de prière",
+          "title": "Prière laissée dans la chapelle",
+          "text": "Sainte Marie, Mère qui veille derrière toute naissance,\nrecevez ce que nous remettons entre vos mains.\n\nMère qui veille derrière toute naissance, recevez-moi entre vos mains.\n\nQue la chair confiée à la terre ne soit pas perdue.\nQue la racine retrouve ce qui fut séparé.\nQue l’enfant reconnaisse enfin la voix de sa mère.\n\nLorsque le ciel se fermera, rassemblez-nous.\nNous garderons les yeux baissés jusqu’à votre réponse.\n\nMère qui veille derrière toute naissance, recevez-moi entre vos mains."
+        },
+        "soilBowls": {
+          "label": "Examiner les coupelles",
+          "text": [
+            "La terre est noire et humide.",
+            "De petites pousses la traversent malgré le froid et l'absence de fenêtre.",
+            "Elles ont été placées ici comme des offrandes."
+          ],
+          "rosaryReaction": [
+            "Quelque chose remue contre ma poitrine.",
+            "Je sors le chapelet. Les grains tremblent contre mes doigts.",
+            "Le mouvement cesse lorsque je l'éloigne des coupelles.",
+            "Il ne vient pas de la statue."
+          ]
+        },
+        "coveredStone": {
+          "label": "Examiner la pierre couverte",
+          "text": [
+            "Sous la toile, mes doigts rencontrent une pierre plate.",
+            "Les taches brunes sont anciennes.",
+            "Je préfère ne pas leur donner un nom sans preuve."
+          ]
+        },
+        "ritualRopes": {
+          "label": "Examiner les cordes",
+          "text": [
+            "Les nœuds sont déjà préparés.",
+            "Les longueurs correspondent aux poteaux autour de la pierre.",
+            "Tout pourra être installé rapidement."
+          ]
+        },
+        "emptyTrench": {
+          "label": "Examiner la fosse",
+          "text": [
+            "La fosse est récente et encore vide.",
+            "Elle est trop régulière pour recueillir l'eau du marais.",
+            "De minuscules pousses apparaissent seulement dans la terre retournée."
+          ]
+        },
+        "shovel": {
+          "label": "Examiner la pelle",
+          "text": [
+            "La terre collée au fer n'a pas encore gelé.",
+            "Le travail a été interrompu récemment.",
+            "Ils comptent revenir."
+          ]
+        },
+        "darkMotherStatue": {
+          "label": "Regarder la statue",
+          "text": [
+            "La tête voilée reprend celle d'une Vierge.",
+            "Ses bras sont ouverts comme pour accueillir un enfant.",
+            "Mais sous la robe, la pierre se prolonge en membres qui rampent sur le sol.",
+            "Ils n'ont pas placé une idole face à Marie.",
+            "Ils ont façonné Marie ainsi."
+          ],
+          "withMadNote": [
+            "La tête voilée reprend celle d'une Vierge.",
+            "Sous la robe, la pierre se prolonge en membres qui rampent sur le sol.",
+            "Un nom me revient malgré moi.",
+            "Shub-Niggurath.",
+            "Je l'ai lu sur la feuille cousue dans le manteau.",
+            "Cela ne m'explique rien. Mais quelqu'un ici connaissait ce nom."
+          ]
+        },
+        "darkMotherLimbs": {
+          "label": "Examiner les longs membres",
+          "text": [
+            "Quatre membres épais sortent de la robe.",
+            "La pierre a été polie par des mains à certains endroits.",
+            "Des fidèles les ont touchés assez souvent pour user leur surface.",
+            "Je retire ma main avant de les effleurer."
+          ]
+        },
+        "darkMotherDevotions": {
+          "label": "Examiner les objets pieux",
+          "text": [
+            "Des chapelets entourent la statue.",
+            "Des médailles de la Vierge ont été clouées dans la pierre.",
+            "Ce ne sont pas des objets pris au hasard.",
+            "Ceux qui viennent ici se croient encore en prière."
+          ]
+        },
+        "darkMotherAltar": {
+          "label": "Examiner l'autel",
+          "text": [
+            "Les bougies ont brûlé récemment.",
+            "Le bol contient une boue noire mêlée de cire.",
+            "Aucun sang visible.",
+            "Seulement cette odeur douce qui me rappelle les arbres coupés."
+          ]
+        },
+        "darkMotherSoil": {
+          "label": "Examiner la terre",
+          "text": [
+            "De la terre humide couvre les dalles.",
+            "Elle descend de l'autel jusqu'aux longs membres de la statue.",
+            "De fines racines blanches y forment un réseau.",
+            "Elles sont vivantes sous cette chapelle gelée."
+          ]
         }
       },
-      "marshUnavailable": [
-          "La piste descend vers le marais.",
-          "Je n'irai pas plus loin pour l'instant."
-        ],
+      "fragments": {
+        "historicalChange": {
+          "title": "Le cas de 1724",
+          "content": "Un historien du XVIIIe siècle a conservé son écriture et son savoir tout en se comportant comme un étranger au milieu de sa propre vie.",
+          "source": "Recueil découvert dans le camp"
+        },
+        "marianPrayer": {
+          "title": "La prière de la chapelle",
+          "content": "Une prière adressée à Marie associe la Mère, la chair rendue à la terre et un rassemblement lorsque le ciel se fermera.",
+          "source": "Chapelle du camp"
+        },
+        "rosaryReaction": {
+          "title": "Le chapelet et la terre noire",
+          "content": "Le chapelet a réagi aux coupelles de terre et non à la statue de la Vierge.",
+          "source": "Chapelle du camp"
+        },
+        "darkMotherRoom": {
+          "title": "La pièce sous la chapelle",
+          "content": "Une salle cachée renferme une statue qui mêle volontairement la figure de la Vierge à un corps inhumain. Des chapelets et des médailles mariales l'entourent.",
+          "source": "Sous la chapelle du camp"
+        }
+      },
       "actions": {
         "leaveOffice": "➔ Sortir",
         "takeTicket": "Prendre le billet",
@@ -777,7 +1115,18 @@
         "marshRoad": "Continuer vers le marais",
         "enterCabin": "Entrer dans la cabane",
         "backToLoggerCrossroads": "Revenir au carrefour",
-        "leaveCabin": "← Sortir de la cabane"
+        "leaveCabin": "← Sortir de la cabane",
+        "enterSectCamp": "Passer l'enceinte",
+        "returnAcrossMarsh": "Revenir vers la forêt",
+        "enterArchives": "Entrer dans le bâtiment bas",
+        "enterSectChapel": "Entrer dans la chapelle",
+        "ritualPath": "Suivre le sentier entre les roseaux",
+        "backToCampEntrance": "Revenir à l'entrée du camp",
+        "backToCampHub": "Revenir à la cour",
+        "leaveArchives": "← Sortir des archives",
+        "leaveSectChapel": "← Sortir de la chapelle",
+        "kneel": "S'agenouiller devant la Vierge",
+        "leaveDarkMotherRoom": "Remonter dans la chapelle"
       }
     },
     "church1": {

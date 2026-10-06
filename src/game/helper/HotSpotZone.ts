@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { useGameStore } from '../../store/useGameStore';
+import { isSceneInteractionBlocked } from './SceneNavigationButton';
 
 interface HotspotConfig {
     scene: Phaser.Scene;
@@ -260,15 +261,7 @@ export class HotspotZone {
     }
 
     private isInteractionBlocked(): boolean {
-        const store = useGameStore.getState();
-        if (
-            store.currentDialog ||
-            store.activeDocument ||
-            store.selectedItem !== null
-        ) {
-            return true;
-        }
-        return false;
+        return isSceneInteractionBlocked();
     }
 
     public setVisible(visible: boolean) {

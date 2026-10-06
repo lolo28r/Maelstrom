@@ -5,6 +5,7 @@ import { useGameStore, type ChoiceOption } from '../../store/useGameStore';
 import { HotspotZone } from '../helper/HotSpotZone';
 import i18n from '../../i18n';
 import { localizedDialogue } from '../../utils/localizedDialogue';
+import { createSceneNavigationButton } from '../helper/SceneNavigationButton';
 
 type Day2Location = 'CARREFOUR' | 'TABAC' | 'TABAC_INT' | 'CHURCH_EXT' | 'CHURCH_INT' | 'CHAPEL' | 'THOMAS' | 'ORGANIC_STREET' | 'CEMETERY' | 'LOCK' | 'CRYPT';
 
@@ -99,14 +100,8 @@ export class Day2CityScene extends Phaser.Scene {
         return hotspot;
     }
 
-    private addBack(callback: () => void, label = i18n.t('scene_ui.back')) {
-        this.backButton = this.add.text(80, 50, label, {
-            fontFamily: 'monospace', fontSize: '16px', color: '#f4ebd0', backgroundColor: '#000000cc', padding: { x: 10, y: 6 },
-        }).setInteractive({ useHandCursor: true }).setDepth(1001);
-        this.backButton.on('pointerdown', () => {
-            const store = useGameStore.getState();
-            if (!store.currentDialog && !store.activeDocument) callback();
-        });
+    private addBack(callback: () => void) {
+        this.backButton = createSceneNavigationButton({ scene: this, kind: 'back', label: i18n.t('scene_ui.back'), onClick: callback });
     }
 
     private playOutdoorMusic() {
@@ -211,7 +206,7 @@ export class Day2CityScene extends Phaser.Scene {
             this.markOptional('store_split_jars');
             useGameStore.getState().startDialogue({ text: i18n.t('story.city2.shelves') });
         } });
-        this.addBack(() => this.enterTobacco(), i18n.t('scene_ui.exit'));
+        this.addBack(() => this.enterTobacco());
     }
 
     private talkToShopkeeper() {

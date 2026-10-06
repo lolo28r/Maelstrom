@@ -234,6 +234,11 @@ export class MainMenuScene extends Phaser.Scene {
                     consequences: {},
                 },
                 {
+                    id: 'dev_dream4',
+                    text: i18n.t('menu_dialogs.devDream4'),
+                    consequences: {},
+                },
+                {
                     id: 'dev_close',
                     text: i18n.t('menu_dialogs.devClose'),
                     consequences: {},
@@ -255,6 +260,7 @@ export class MainMenuScene extends Phaser.Scene {
                 if (selectedChoiceId === 'dev_nightmare') targetScene = 'NightmareScene';
                 if (selectedChoiceId === 'dev_day2') targetScene = 'Day2OfficeScene';
                 if (selectedChoiceId === 'dev_day3') targetScene = 'Day3ForestScene';
+                if (selectedChoiceId === 'dev_dream4') targetScene = 'Day3SilentDreamScene';
                 if (selectedChoiceId === 'dev_day3' && store.devMode) store.toggleDevMode();
                 store.closeDialog();
                 this.cameras.main.fadeOut(500, 0, 0, 0);

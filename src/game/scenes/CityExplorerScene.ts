@@ -4,6 +4,7 @@ import { getMusicVolume, getSfxVolume } from '../../audio/audioMix';
 import { useGameStore, ChoiceOption } from '../../store/useGameStore';
 import { HotspotZone } from '../helper/HotSpotZone';
 import i18n from '../../i18n';
+import { createSceneNavigationButton } from '../helper/SceneNavigationButton';
 
 type CityLocation = 'CARREFOUR' | 'JOURNAL_STREET' | 'PORTE_LIB' | 'ENTREE_LIB' | 'SALON' | 'TABAC' | 'TABAC_INT' | 'EGLISE_EXT' | 'EGLISE_INT' | 'CHAPELLE' | 'SEPULCRE';
 
@@ -962,10 +963,20 @@ export class CityExplorerScene extends Phaser.Scene {
                                 type: 'bottom',
                                 speaker: 'Commerçante',
                                 onComplete: () => {
-                                    this.triggerShopTransaction();
+                                    store.setDialog({
+                                        textKey: 'act1_store.shopkeeper_dialog',
+                                        type: 'bottom',
+                                        speaker: 'Commerçante',
+                                        choices: [
+                                            { id: 'buy_supplies', text: i18n.t('act1_store.dialog_shop_intent'), consequences: {} },
+                                        ],
+                                        onComplete: (nextChoiceId?: string) => {
+                                            if (nextChoiceId === 'buy_supplies') this.triggerShopTransaction();
+                                        },
+                                    });
                                 }
                             });
-                        } else {
+                        } else if (selectedChoiceId === 'buy_supplies') {
                             this.triggerShopTransaction();
                         }
                     }
@@ -1355,26 +1366,11 @@ export class CityExplorerScene extends Phaser.Scene {
     }
 
     private createBackButton(callback: () => void) {
-        this.backButton = this.add.text(80, 50, "← Retour", {
-            fontFamily: 'monospace', fontSize: '16px', color: '#f4ebd0', backgroundColor: '#000000', padding: { x: 10, y: 5 }
-        }).setInteractive({ useHandCursor: true });
-
-        this.backButton.on('pointerover', () => {
-            const store = useGameStore.getState();
-            if (store.currentDialog || store.activeDocument) return;
-            this.game.canvas.classList.add('cursor-path');
-        });
-
-        this.backButton.on('pointerout', () => {
-            this.game.canvas.classList.remove('cursor-path');
-        });
-
-        this.backButton.on('pointerdown', () => {
-            const store = useGameStore.getState();
-            if (store.currentDialog || store.activeDocument) return;
-
-            this.game.canvas.classList.remove('cursor-path');
-            callback();
+        this.backButton = createSceneNavigationButton({
+            scene: this,
+            kind: 'back',
+            label: i18n.t('scene_ui.back'),
+            onClick: callback,
         });
     }
 }

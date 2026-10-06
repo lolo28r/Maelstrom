@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { useGameStore } from '../../store/useGameStore';
 import i18n from '../../i18n';
+import { createSceneNavigationButton } from '../helper/SceneNavigationButton';
 import { configureHtmlAudio } from '../../audio/audioMix';
 
 export class DeskMorningScene extends Phaser.Scene {
@@ -103,31 +104,11 @@ export class DeskMorningScene extends Phaser.Scene {
     }
 
     setupExitHotspot() {
-        // Zone interactive discrète pour laisser le joueur explorer son inventaire avant de partir
-        const exitZone = this.add.zone(1150, 650, 120, 60)
-            .setInteractive({ useHandCursor: false }); // On gère via nos curseurs CSS
-
-        const exitText = this.add.text(1150, 650, i18n.t('scene_ui.exit'), {
-            fontFamily: 'serif',
-            fontSize: '18px',
-            color: '#aaaaaa'
-        }).setOrigin(0.5);
-
-        exitZone.on('pointerover', () => {
-            exitText.setColor('#ffffff');
-            this.game.canvas.classList.add('cursor-path');
-        });
-
-        exitZone.on('pointerout', () => {
-            exitText.setColor('#aaaaaa');
-            this.game.canvas.classList.remove('cursor-path');
-        });
-
-        exitZone.on('pointerdown', () => {
-            this.game.canvas.classList.remove('cursor-path');
-            exitZone.disableInteractive();
-            exitText.destroy();
-            this.triggerFreshAirThought();
+        createSceneNavigationButton({
+            scene: this,
+            kind: 'forward',
+            label: i18n.t('scene_ui.exit'),
+            onClick: () => this.triggerFreshAirThought(),
         });
     }
 

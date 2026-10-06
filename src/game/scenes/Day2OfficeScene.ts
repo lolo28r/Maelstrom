@@ -3,6 +3,7 @@ import { useGameStore } from '../../store/useGameStore';
 import { HotspotZone } from '../helper/HotSpotZone';
 import { getMusicVolume } from '../../audio/audioMix';
 import i18n from '../../i18n';
+import { createSceneNavigationButton } from '../helper/SceneNavigationButton';
 
 export class Day2OfficeScene extends Phaser.Scene {
     private hotspots: HotspotZone[] = [];
@@ -83,20 +84,14 @@ export class Day2OfficeScene extends Phaser.Scene {
             },
         }));
 
-        const exitButton = this.add.text(1150, 650, i18n.t('scene_ui.exit'), {
-            fontFamily: 'serif', fontSize: '18px', color: '#aaaaaa', backgroundColor: '#00000099', padding: { x: 14, y: 8 },
-        }).setOrigin(0.5).setInteractive({ useHandCursor: true }).setDepth(1001);
-        exitButton.on('pointerover', () => exitButton.setColor('#ffffff'));
-        exitButton.on('pointerout', () => exitButton.setColor('#aaaaaa'));
-        exitButton.on('pointerdown', () => {
+        createSceneNavigationButton({ scene: this, kind: 'forward', label: i18n.t('scene_ui.exit'), onClick: () => {
             const current = useGameStore.getState();
-            if (current.currentDialog || current.activeDocument) return;
             this.cameras.main.fadeOut(700, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
                 current.setScene('AsylumScene');
                 this.scene.start('AsylumScene');
             });
-        });
+        } });
     }
 
     private markOptional(id: string) {

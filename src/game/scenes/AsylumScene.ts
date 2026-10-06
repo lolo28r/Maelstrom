@@ -5,6 +5,7 @@ import { HotspotZone } from '../helper/HotSpotZone';
 import { getMusicVolume } from '../../audio/audioMix';
 import i18n from '../../i18n';
 import { localizedDialogue } from '../../utils/localizedDialogue';
+import { createSceneNavigationButton } from '../helper/SceneNavigationButton';
 
 type AsylumLocation = 'EXTERIOR' | 'RECEPTION' | 'ROOM' | 'SUITCASE';
 const ASYLUM_MUSIC_LOOP_END_SECONDS = 91;
@@ -76,14 +77,8 @@ export class AsylumScene extends Phaser.Scene {
         return hotspot;
     }
 
-    private addBack(callback: () => void, label = i18n.t('scene_ui.back')) {
-        this.backButton = this.add.text(80, 50, label, {
-            fontFamily: 'monospace', fontSize: '16px', color: '#f4ebd0', backgroundColor: '#000000cc', padding: { x: 10, y: 6 },
-        }).setInteractive({ useHandCursor: true }).setDepth(1001);
-        this.backButton.on('pointerdown', () => {
-            const store = useGameStore.getState();
-            if (!store.currentDialog && !store.activeDocument) callback();
-        });
+    private addBack(callback: () => void) {
+        this.backButton = createSceneNavigationButton({ scene: this, kind: 'back', label: i18n.t('scene_ui.back'), onClick: callback });
     }
 
     private enterExterior() {
@@ -140,7 +135,7 @@ export class AsylumScene extends Phaser.Scene {
             type: 'path', actionLabel: i18n.t('story.asylum.actions.room'),
             onClick: () => this.enterRoom(),
         });
-        this.addBack(() => this.enterExterior(), i18n.t('scene_ui.exit'));
+        this.addBack(() => this.enterExterior());
     }
 
     private enterRoom() {
@@ -263,7 +258,7 @@ export class AsylumScene extends Phaser.Scene {
         this.addSuitcaseItem('photo', 230, 385, 250, 330, i18n.t('story.asylum.actions.photo'), () => this.inspectPhoto());
         this.addSuitcaseItem('dossier', 620, 390, 390, 390, i18n.t('story.asylum.actions.file'), () => this.readDossier());
         this.addSuitcaseItem('note', 915, 365, 150, 280, i18n.t('story.asylum.actions.note'), () => this.readNote());
-        this.addBack(() => this.leaveSuitcase(), i18n.t('story.asylum.actions.closeSuitcase'));
+        this.addBack(() => this.leaveSuitcase());
     }
 
     private addSuitcaseItem(id: string, x: number, y: number, width: number, height: number, label: string, action: () => void) {

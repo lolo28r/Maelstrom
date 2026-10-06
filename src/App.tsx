@@ -27,6 +27,7 @@ export const App: React.FC = () => {
     const gameRef = useRef<Phaser.Game | null>(null);
     const isEyelidsClosing = useGameStore((state) => state.isEyelidsClosing);
     const [isFullscreen, setIsFullscreen] = useState(false);
+    const [rightControlsVisible, setRightControlsVisible] = useState(true);
     const masterVolume = useGameStore((state) => state.masterVolume);
     const musicVolume = useGameStore((state) => state.musicVolume);
     const sfxVolume = useGameStore((state) => state.sfxVolume);
@@ -116,8 +117,25 @@ export const App: React.FC = () => {
 
             {/* Overlay paupières (z-index max) */}
             <EyelidsOverlay isClosing={isEyelidsClosing} />
-            <FullscreenButton isFullscreen={isFullscreen} />
-            <AudioSettings />
+            <button
+                type="button"
+                className={`right-controls-toggle ${rightControlsVisible ? 'expanded' : 'collapsed'}`}
+                onClick={() => {
+                    if (rightControlsVisible) useGameStore.getState().setAudioSettingsOpen(false);
+                    setRightControlsVisible((visible) => !visible);
+                }}
+                aria-expanded={rightControlsVisible}
+                aria-label={rightControlsVisible ? 'Masquer les réglages' : 'Afficher les réglages'}
+                title={rightControlsVisible ? 'Masquer les réglages' : 'Afficher les réglages'}
+            >
+                {rightControlsVisible ? '›' : '‹'}
+            </button>
+            {rightControlsVisible && (
+                <>
+                    <FullscreenButton isFullscreen={isFullscreen} />
+                    <AudioSettings />
+                </>
+            )}
             </div>
         </div>
     );

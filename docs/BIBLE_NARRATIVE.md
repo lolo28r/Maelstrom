@@ -68,6 +68,15 @@ Il agit selon trois règles :
 
 Il veut rendre Laurence dépendant de lui comme interprète. Plus Laurence pense avoir besoin de Nyarlathotep pour donner du sens aux fragments, plus celui-ci gagne.
 
+Sa stratégie de confiance progresse par étapes :
+
+1. lors de la première rencontre, il se présente seulement comme quelqu’un qui a entendu les prières de Laurence ;
+2. pendant le cauchemar, il l’aide à rapprocher des souvenirs réels et se comporte comme un guide attentif ;
+3. à la fin du jour 2, il adopte explicitement le rôle de l’Homme en noir et prétend porter la parole de Dieu ;
+4. après le jour 3, il ne vient pas. Il attend que Laurence le cherche et transforme cet appel en preuve de leur prétendue proximité.
+
+Le titre de « messager de Dieu » est une identité calculée, pas une confirmation cosmologique. Nyarlathotep emploie le vocabulaire religieux que Laurence est prêt à entendre afin de rendre ses interventions familières et presque rassurantes.
+
 ### La Grande Race de Yith
 
 Les Yith ne sont pas des dieux et ne cherchent pas nécessairement à être adorés. Leur horreur vient de leur rapport instrumental aux individus : un corps, une époque et une vie humaine peuvent devenir des moyens d’observation ou de conservation du savoir.
@@ -188,6 +197,18 @@ Nyarlathotep propose alors une conclusion que les faits ne justifient pas : puis
 
 Si Laurence avait demandé le vrai visage lors du premier rêve, Nyarlathotep s’en souvient et lui demande de confirmer. La transformation n’est montrée que si le joueur répond oui une seconde fois. Un refus est lui aussi mémorisé comme une limite volontaire.
 
+### Troisième rencontre — Le messager
+
+Après l’enquête du jour 2, Nyarlathotep se montre plus chaleureux. Il demande la permission de se présenter, choisit le nom de l’Homme en noir et affirme que certains l’ont appelé ange ou messager. Il prétend porter la parole de Dieu jusqu’à ceux que Dieu ne visite plus directement.
+
+Il ne donne aucune réponse sur les Yith ou sur la secte. Il oriente Laurence vers une forêt à l’ouest d’Arkham, près des anciens marais, où des hommes conservent des témoignages. Il promet seulement que l’un de ces récits lui rappellera son père.
+
+### Quatrième nuit — L’absence
+
+Après la fuite du lieu de culte, Nyarlathotep ne se présente pas. Le rêve reste noir et sa musique s’interrompt presque aussitôt. Laurence attend, puis l’appelle d’une manière adaptée à ses choix précédents.
+
+Le joueur peut l’appeler de nouveau, prier dans le silence ou tenter de se réveiller. Ce choix enregistre une attitude et une forme de dépendance, mais ne verrouille aucune fin. Quelle que soit la réaction, Nyarlathotep répond seulement depuis l’obscurité : « Tu vois, Laurence ? Cette fois, c’est toi qui m’as appelé. »
+
 ## 8. Trajectoire proposée pour la suite
 
 ### Acte II — L’asile : la personne discontinue
@@ -296,6 +317,9 @@ Chaque étape doit fournir assez de preuves pour la connexion correspondante, ma
 - Il formule d’abord une vérité partielle, puis ajoute un « donc » injustifié.
 - Il ne ment pas nécessairement sur le fait ; il manipule la conclusion.
 - Il se montre plus doux lorsque Laurence demande du repos, plus généreux en visions lorsqu’il demande le savoir et plus provocateur lorsqu’il résiste.
+- Il cherche d’abord à devenir utile, puis familier, avant de réclamer la confiance de Laurence.
+- Lorsqu’il se dit messager de Dieu, le jeu présente cette affirmation comme sa parole et jamais comme un fait établi.
+- Il peut manipuler par l’absence : laisser Laurence attendre ou l’appeler est parfois plus efficace qu’une nouvelle apparition.
 - Il ne devient jamais un simple tutoriel parlant ou un distributeur d’indices.
 
 Formule type :

@@ -109,26 +109,26 @@
       "resist": "« Je ne te dois aucune réponse. »",
       "seekRest": "« Je veux seulement réussir à dormir. »",
       "reactionTruth": [
-        "Bien.",
-        "La prochaine fois, je ne te donnerai pas de réponse.",
-        "Je te montrerai comment tu les fabriques."
+        "Tu as retrouvé la date et rapproché les témoignages sans mon aide.",
+        "Je peux t'accompagner pour la suite.",
+        "Tu resteras libre de juger ce que je te montre."
       ],
-      "reactionResist": "Tu crois qu'une question cesse d'exister lorsque tu refuses d'y répondre.",
+      "reactionResist": "Je comprends. Garde tes questions pour toi jusqu'à ce que tu sois prêt à les entendre.",
       "reactionRest": [
-        "Le repos est une forme de réponse.",
-        "Certaines choses dorment depuis bien plus longtemps que toi."
+        "Tu as besoin de repos.",
+        "Je peux au moins tenir tes cauchemars à distance pour cette nuit."
       ],
-      "firstMeetingPrompt": "Avant de te réveiller, Laurence, quelle question veux-tu réellement me poser ?",
+      "firstMeetingPrompt": "Avant ton réveil, il reste une question entre nous. Laquelle veux-tu poser ?",
       "askTrueFace": "« Montre-moi ton vrai visage. »",
       "askIdentity": "« Qui es-tu, et pourquoi t'intéresses-tu à moi ? »",
       "askWakeUp": "« Je ne veux rien de plus. Laisse-moi me réveiller. »",
       "reactionTrueFace": [
-        "Pas encore.",
-        "Si tu me le demandes encore lorsque nous nous reverrons, je ne détournerai pas les yeux à ta place."
+        "Je pourrais te le montrer maintenant, mais tu n'es pas prêt.",
+        "Demande-le-moi encore lorsque nous nous reverrons. Je tiendrai parole."
       ],
-      "reactionIdentity": "Un nom te donnerait l'impression de me comprendre. Pour l'instant, observe seulement qui pose les questions.",
-      "reactionWakeUp": "Alors réveille-toi. Nous verrons si ce refus existe encore lorsque tu refermeras les yeux.",
-      "outro": "Lorsque tu te réveilleras, demande-toi quelle partie de ceci venait réellement de moi."
+      "reactionIdentity": "Je porte des paroles que les hommes n'entendent plus seuls. Tu connaîtras bientôt le nom qu'ils m'ont donné.",
+      "reactionWakeUp": "D'accord, Laurence. Ouvre les yeux. Je serai là si tu as de nouveau besoin d'une réponse.",
+      "outro": "Au réveil, souviens-toi seulement que quelqu'un t'a enfin répondu."
     },
     "church": {
       "observeStatue": "[ Prendre un moment pour contempler la statue ]",
@@ -138,39 +138,40 @@
     },
     "nightmare": {
       "introTruth": [
-        "Tu as dit vouloir savoir.",
-        "Voyons ce que tu fais des choses que tu sais déjà.",
+        "Tu voulais savoir ce qui était arrivé à ton père.",
+        "Tu as retrouvé une date et rapproché deux souvenirs.",
         "Qu'as-tu compris, Laurence ?"
       ],
       "introRest": [
-        "Tu voulais dormir.",
-        "Pourtant, même ici, tu continues de chercher ton père.",
-        "Qu'as-tu compris ?"
+        "Tu voulais enfin dormir, et je t'ai laissé le temps de reprendre ton souffle.",
+        "Ton père t'a tout de même ramené jusqu'ici.",
+        "Dis-moi ce que tu as compris."
       ],
       "introResist": [
-        "Tu ne me devais aucune réponse.",
-        "Mais tu continues de répondre à mes questions dans ta tête.",
-        "Qu'as-tu compris ?"
+        "Tu as poursuivi seul, comme tu l'avais promis.",
+        "Cela ne m'offense pas.",
+        "Qu'as-tu compris, Laurence ?"
       ],
       "trapPrompt": [
-        "Le corps de ton père était toujours devant toi, mais sa manière d'être avait changé.",
-        "Tu veux comprendre cette rupture.",
-        "Alors comprendre exige de risquer la même rupture."
+        "Ton père a découvert quelque chose qui l'a laissé méconnaissable.",
+        "Tu veux encore le rejoindre.",
+        "Il faudra peut-être passer par le même endroit que lui."
       ],
       "requestVision": "« Montre-moi ce qu'il a vu. »",
       "requestRest": "« Je veux que cela cesse pour cette nuit. »",
       "reject": "« Non. Les faits ne prouvent pas cela. »",
       "reactionVision": [
-        "Voilà.",
-        "Tu vois comme il est facile de confondre courage et faim."
+        "Je savais que tu aurais le courage de le demander.",
+        "Je te montrerai seulement ce que tu peux supporter."
       ],
       "reactionRest": [
-        "Pour cette nuit.",
-        "Tu choisis déjà soigneusement tes mots."
+        "Repose-toi pour cette nuit.",
+        "Je garderai le reste jusqu'à ton retour."
       ],
       "reactionReject": [
-        "Non.",
-        "Mais ils t'ont conduit exactement là où je voulais."
+        "Garde cette prudence.",
+        "Elle t'a conduit plus loin que ta peur.",
+        "Nous verrons combien de temps elle te suffira."
       ],
       "trueFaceReminder": [
         "Lors de notre première rencontre, tu m'as demandé mon vrai visage.",
@@ -179,8 +180,12 @@
       ],
       "confirmTrueFace": "« Oui. Montre-le-moi. »",
       "refuseTrueFace": "« Non. Je ne te laisserai pas choisir ce que je dois voir. »",
-      "reactionTrueFace": "Tu l'as demandé deux fois. Souviens-toi également que je ne t'ai jamais forcé à regarder.",
-      "reactionRefuseTrueFace": "Tu désirais une réponse. Maintenant, tu choisis une limite. Voilà une autre chose dont je me souviendrai."
+      "reactionTrueFace": [
+        "Je t'avais prévenu.",
+        "Certaines vérités blessent avant même qu'on les comprenne.",
+        "Reprends ton souffle, Laurence."
+      ],
+      "reactionRefuseTrueFace": "Tu as choisi ta limite. Je la respecterai, Laurence."
     }
   },
   "investigation": {
@@ -304,6 +309,7 @@
     "devNightmare": "5.1 Cauchemar / Rencontre (NightmareScene)",
     "devEnd": "6. Fin du Chapitre 1 (ChapterEndScene)",
     "devDay3": "8. Jour III — Voyage et forêt",
+    "devDream4": "8.1 Quatrième nuit — Le silence",
     "devClose": "Fermer le mode dev"
   },
   "scene_choices": {
@@ -914,8 +920,8 @@
         ]
       },
       "outro": [
-        "Lorsque tu regarderas le ciel demain...",
-        "Essaie de retrouver ce que tu y voyais avant."
+        "Demain, regarde le ciel.",
+        "Essaie de te rappeler ce qu'il représentait avant cette nuit."
       ]
     }
   }

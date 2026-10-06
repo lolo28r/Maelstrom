@@ -37,6 +37,10 @@ export const INVESTIGATION_FRAGMENTS: Record<string, InvestigationFragment> = {
     virgin_dream_memory: { id: 'virgin_dream_memory', kind: 'vision', titleKey: 'day2.fragments.virginMemory.title', contentKey: 'day2.fragments.virginMemory.content', sourceKey: 'day2.sources.vision' },
     rosary_street_reaction: { id: 'rosary_street_reaction', kind: 'observation', titleKey: 'day2.fragments.rosaryReaction.title', contentKey: 'day2.fragments.rosaryReaction.content', sourceKey: 'day2.sources.street' },
     thomas_slip: { id: 'thomas_slip', kind: 'testimony', titleKey: 'day2.fragments.thomasSlip.title', contentKey: 'day2.fragments.thomasSlip.content', sourceKey: 'day2.sources.thomas' },
+    historical_change_1724: { id: 'historical_change_1724', kind: 'testimony', titleKey: 'story.day3.fragments.historicalChange.title', contentKey: 'story.day3.fragments.historicalChange.content', sourceKey: 'story.day3.fragments.historicalChange.source' },
+    day3_marian_prayer: { id: 'day3_marian_prayer', kind: 'document', titleKey: 'story.day3.fragments.marianPrayer.title', contentKey: 'story.day3.fragments.marianPrayer.content', sourceKey: 'story.day3.fragments.marianPrayer.source' },
+    day3_rosary_chapel_reaction: { id: 'day3_rosary_chapel_reaction', kind: 'observation', titleKey: 'story.day3.fragments.rosaryReaction.title', contentKey: 'story.day3.fragments.rosaryReaction.content', sourceKey: 'story.day3.fragments.rosaryReaction.source' },
+    day3_dark_mother_room: { id: 'day3_dark_mother_room', kind: 'observation', titleKey: 'story.day3.fragments.darkMotherRoom.title', contentKey: 'story.day3.fragments.darkMotherRoom.content', sourceKey: 'story.day3.fragments.darkMotherRoom.source' },
 };
 
 export const NIGHTMARE_CONNECTIONS: ConnectionDefinition[] = [

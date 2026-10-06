@@ -133,7 +133,9 @@ export class NightmareScene extends Phaser.Scene {
             store.setDialog({
                 textKey: textKey,
                 type: 'bottom',
-                speaker: i18n.t('characters.laurence')
+                speaker: i18n.t(textKey.startsWith('nightmare.eye_')
+                    ? 'characters.unknownEntity'
+                    : 'characters.laurence')
             });
 
             this.currentTimer = this.time.delayedCall(currentData.durationPerKey, () => {

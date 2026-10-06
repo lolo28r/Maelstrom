@@ -7,6 +7,73 @@
     user-select: none;
 }
 
+.day3-prayer-input {
+  width: min(620px, 78vw);
+  box-sizing: border-box;
+  padding: 26px 30px 22px;
+  border: 1px solid rgba(192, 174, 139, 0.62);
+  background: rgba(7, 8, 9, 0.96);
+  color: #ddd2bd;
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.8);
+  font-family: "Cormorant Garamond", serif;
+  pointer-events: auto;
+}
+
+.day3-prayer-input label {
+  display: block;
+  font-size: 25px;
+  letter-spacing: 0.035em;
+  text-align: center;
+}
+
+.day3-prayer-input input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 1px solid rgba(192, 174, 139, 0.5);
+  outline: none;
+  background: #111316;
+  color: #f1eadc;
+  font: 20px "Cormorant Garamond", serif;
+}
+
+.day3-prayer-input input:focus {
+  border-color: #d7c39d;
+  box-shadow: 0 0 0 1px rgba(215, 195, 157, 0.32);
+}
+
+.day3-prayer-input p {
+  min-height: 24px;
+  margin: 12px 0 2px;
+  color: #a66f67;
+  font-size: 17px;
+  text-align: center;
+}
+
+.day3-prayer-input div {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.day3-prayer-input button {
+  min-width: 125px;
+  padding: 9px 15px;
+  border: 1px solid rgba(192, 174, 139, 0.45);
+  background: #151719;
+  color: #d8cfbd;
+  font: 18px "Cormorant Garamond", serif;
+  cursor: pointer;
+}
+
+.day3-prayer-input button:hover,
+.day3-prayer-input button:focus-visible {
+  border-color: #d7c39d;
+  color: #fff;
+}
+
 html,
 body,
 #root {
@@ -35,6 +102,53 @@ body,
     width: 100vw;
     height: 100vh;
     background: #000;
+}
+
+.right-controls-toggle {
+    position: fixed;
+    z-index: 100003;
+    top: 50%;
+    width: 22px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid rgba(203, 213, 225, 0.38);
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+    background: rgba(3, 4, 7, 0.72);
+    color: #cbd5e1;
+    font: 24px/1 Georgia, serif;
+    opacity: 0.62;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: right 180ms ease, opacity 160ms ease, color 160ms ease, background 160ms ease;
+    backdrop-filter: blur(4px);
+}
+
+.right-controls-toggle.expanded {
+    right: max(58px, calc(env(safe-area-inset-right) + 58px));
+}
+
+.right-controls-toggle.collapsed {
+    right: 0;
+}
+
+.right-controls-toggle:hover,
+.right-controls-toggle:focus-visible {
+    opacity: 1;
+    color: #fff;
+    background: rgba(3, 4, 7, 0.94);
+    outline: none;
+}
+
+@media (max-width: 700px) {
+    .right-controls-toggle {
+        top: 72px;
+        height: 38px;
+    }
+
+    .right-controls-toggle.expanded {
+        right: max(54px, calc(env(safe-area-inset-right) + 54px));
+    }
 }
 
 /* Frontière de propagation entre l'interface React et le canvas Phaser. */
