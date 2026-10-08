@@ -50,7 +50,7 @@
       "cultMeeting": { "title": "Après la fermeture", "content": "Après avoir d'abord esquivé la question, Thomas reconnaît que quelques fidèles sont venus prier après minuit." },
       "nightBell": { "title": "Trois coups après minuit", "content": "La commerçante a entendu des pas et des voix, puis aperçu des silhouettes près de la porte latérale de l'église." },
       "organicGrowth": { "title": "Floraison dans la neige", "content": "Une plante inconnue aux fleurs pâles et charnues s'épanouit malgré le gel." },
-      "hoofprints": { "title": "La piste qui se multiplie", "content": "Une unique empreinte de sabot se divise en dizaines de traces qui s'arrêtent au mur de l'église." },
+      "hoofprints": { "title": "La piste qui se multiplie", "content": "Des empreintes de sabots se multiplient et se chevauchent dans la neige. Toutes s'arrêtent au mur de l'église." },
       "virginMemory": { "title": "La Vierge du marais", "content": "La statue de la chapelle est intacte, mais sa vue rappelle à Laurence la Vierge immergée de son rêve." },
       "rosaryReaction": { "title": "Le chapelet en mouvement", "content": "Le chapelet vibre près des excroissances de la rue, puis s'immobilise à l'entrée du cimetière." },
       "thomasSlip": { "title": "« Nous n'avons rien fait... »", "content": "Thomas s'inclut dans la prière nocturne avant de prétendre avoir seulement ouvert l'église." }
@@ -86,7 +86,7 @@
       "smoke": "[ TABAC — révèle votre état, ne restaure rien ] Rouler une cigarette et faire le point.",
       "reactionVerify": "La date, la signature, le papier. Ces choses sont réelles. Je peux partir de là.",
       "reactionDrink": "La peur ne disparaît pas. Elle recule juste assez pour me laisser dormir.",
-      "reactionSmoke": "Je nomme chaque sensation sans lui inventer de cause. Pour l'instant, cela suffit."
+      "reactionSmoke": "Mes doigts sont froids. J'ai la bouche sèche. Je roule ma cigarette en essayant de ne pas déchirer le papier."
     },
     "dream": {
       "openingVerify": [
@@ -94,8 +94,8 @@
         "Même éveillé, tu cherchais déjà ce qui était réel."
       ],
       "openingSmoke": [
-        "Tu as nommé chaque sensation pour ne pas lui inventer de cause.",
-        "Voyons combien de temps les noms te protégeront."
+        "Tu as mis longtemps à rouler cette cigarette. Tes doigts tremblaient.",
+        "Ils tremblent encore. Approche."
       ],
       "openingDrink": [
         "Tu as bu pour faire taire ce que tu ressentais.",
@@ -106,22 +106,22 @@
         "Pourtant, quelque chose en toi refuse le silence."
       ],
       "seekTruth": "« Je veux savoir ce qui est arrivé à mon père. »",
-      "resist": "« Je ne te dois aucune réponse. »",
+      "resist": "« Je ne vous dois aucune réponse. »",
       "seekRest": "« Je veux seulement réussir à dormir. »",
       "reactionTruth": [
         "Tu as retrouvé la date et rapproché les témoignages sans mon aide.",
         "Je peux t'accompagner pour la suite.",
-        "Tu resteras libre de juger ce que je te montre."
+        "Regarde d'abord. Tu me diras ensuite si tu veux continuer."
       ],
-      "reactionResist": "Je comprends. Garde tes questions pour toi jusqu'à ce que tu sois prêt à les entendre.",
+      "reactionResist": "Alors ne réponds pas. Tu peux au moins écouter.",
       "reactionRest": [
         "Tu as besoin de repos.",
         "Je peux au moins tenir tes cauchemars à distance pour cette nuit."
       ],
       "firstMeetingPrompt": "Avant ton réveil, il reste une question entre nous. Laquelle veux-tu poser ?",
-      "askTrueFace": "« Montre-moi ton vrai visage. »",
-      "askIdentity": "« Qui es-tu, et pourquoi t'intéresses-tu à moi ? »",
-      "askWakeUp": "« Je ne veux rien de plus. Laisse-moi me réveiller. »",
+      "askTrueFace": "« Montrez-moi votre vrai visage. »",
+      "askIdentity": "« Qui êtes-vous, et pourquoi vous intéressez-vous à moi ? »",
+      "askWakeUp": "« Je ne veux rien de plus. Laissez-moi me réveiller. »",
       "reactionTrueFace": [
         "Je pourrais te le montrer maintenant, mais tu n'es pas prêt.",
         "Demande-le-moi encore lorsque nous nous reverrons. Je tiendrai parole."
@@ -159,7 +159,7 @@
       ],
       "requestVision": "« Montre-moi ce qu'il a vu. »",
       "requestRest": "« Je veux que cela cesse pour cette nuit. »",
-      "reject": "« Non. Les faits ne prouvent pas cela. »",
+      "reject": "« Vous ne savez pas ce qui lui est arrivé. Moi non plus. »",
       "reactionVision": [
         "Je savais que tu aurais le courage de le demander.",
         "Je te montrerai seulement ce que tu peux supporter."
@@ -169,9 +169,9 @@
         "Je garderai le reste jusqu'à ton retour."
       ],
       "reactionReject": [
-        "Garde cette prudence.",
-        "Elle t'a conduit plus loin que ta peur.",
-        "Nous verrons combien de temps elle te suffira."
+        "Tu parlais comme cela sur le quai ?",
+        "Quand il ne reconnaissait plus ton visage ?",
+        "Tu aurais écouté le premier venu qui t'aurait promis de te le rendre."
       ],
       "trueFaceReminder": [
         "Lors de notre première rencontre, tu m'as demandé mon vrai visage.",
@@ -182,10 +182,10 @@
       "refuseTrueFace": "« Non. Je ne te laisserai pas choisir ce que je dois voir. »",
       "reactionTrueFace": [
         "Je t'avais prévenu.",
-        "Certaines vérités blessent avant même qu'on les comprenne.",
+        "Respire. Tu voulais voir, souviens-toi.",
         "Reprends ton souffle, Laurence."
       ],
-      "reactionRefuseTrueFace": "Tu as choisi ta limite. Je la respecterai, Laurence."
+      "reactionRefuseTrueFace": "Alors je garde ce visage. Tu le regardes plus volontiers."
     }
   },
   "investigation": {
@@ -545,8 +545,8 @@
     "dispute_intro": "Je m'arrête un instant, retenant ma respiration près d'une façade. Derrière la porte close, des voix s'élèvent, rendues étouffées par le bois.",
     "dispute_f1": "Tu m'avais promis que tu n'irais plus là-bas !",
     "dispute_h1": "Tu ne comprends pas ce que nous avons découvert.",
-    "dispute_f2": "Ce n'est pas une découverte. C'est une secte.",
-    "dispute_h2": "Ne prononce jamais ce mot ici.",
+    "dispute_f2": "Tu appelles ça une découverte ? C'est une secte !",
+    "dispute_h2": "Baisse la voix. Et ne redis pas ça.",
     "dispute_f3": "Alors comment dois-je appeler ça ? Tes réunions ? Tes prières ? Cet homme qui vous parle comme s'il était envoyé par Dieu ?",
     "dispute_h3": "Il nous montre ce que l'Église nous a caché... Il sait qui est derrière les prières.",
     "dispute_f4": "Un bruit sourd résonne à l'intérieur, comme un meuble bousculé, suivi d'un silence lourd. La voix de la femme tremble : — Tu devrais avoir peur de lui...",
@@ -556,14 +556,14 @@
     "speaker": "Père Thomas",
     "first_entry": [
       "La lourde porte en chêne s'est refermée derrière moi, coupant net le sifflement glacial du vent d'Arkham.",
-      "Si je me suis tourné vers la religion, ce n'est pas par habitude, mais par cette question lancinante qui me hante depuis toujours : pourquoi sommes-nous là ?",
-      "J'ai épluché tant de dogmes, cherchant désespérément une réponse sur la véritable apparition de l'univers, sur l'étincelle initiale...",
-      "Mais plus je cherche, plus le silence de ces vieilles pierres résonne avec le vide abyssal du cosmos."
+      "Je viens parfois dans les églises quand je n'arrive plus à travailler.",
+      "J'ai lu des livres de théologie jusqu'à m'en faire mal aux yeux, à chercher comment tout avait commencé.",
+      "Aujourd'hui, je voudrais seulement pouvoir m'asseoir et prier pour mon père."
     ],
     "first_statue_gaze": [
       "En avançant dans la nef, mon regard accroche la silhouette de la Vierge, drapée dans sa pierre froide.",
-      "Une étrange tiédeur m'enveloppe soudain. Cette présence maternelle m'offre un répit inespéré.",
-      "Une main tendue dans l'obscurité, un instant d'apaisement pur où mes angoisses s'effacent, ne serait-ce qu'un instant."
+      "Mes épaules se relâchent un peu. Je connais ce visage depuis l'enfance.",
+      "Je reste devant elle, les mains jointes, sans encore trouver les mots."
     ],
     "statue_thought": "Devrais-je m'agenouiller un instant et tenter de prier... pour apaiser ce tumulte ?",
     "choice_pray_yes": "[ Prier et chercher l'apaisement ]",
@@ -574,84 +574,84 @@
       "Dans la pénombre de la chapelle du Saint-Sépulcre, une silhouette se tient immobile près du tombeau de pierre."
     ],
     "priest_dialog": [
-      "Ah... un visage nouveau dans ces cryptes, mais déjà si consumé...",
-      "Le regard fuyant, les traits creusés par l'insomnie...",
-      "Approchez, mon enfant. Qu'est-ce qui pèse ainsi sur vos épaules ?"
+      "Bonjour. Vous cherchez quelqu'un ?",
+      "Vous avez l'air épuisé.",
+      "Approchez. Vous pouvez vous asseoir ici."
     ],
     "long_discussion": {
       "introduction": [
-        "Mon enfant, venez... Asseyez-vous.",
-        "Le monde extérieur est trop dur pour un porteur d'ombres de votre acabit.",
-        "Laissez-moi vous écouter."
+        "Prenez ce banc, il est près du poêle.",
+        "Vous avez encore vos gants. Vous venez de loin ?",
+        "Je vous écoute."
       ],
       "laurence_contexte": [
         "C'est mon père...",
-        "Vous ne le connaissez pas, il vivait retiré, c'était un esprit brillant et cartésien.",
+        "Il vivait retiré. Il passait ses journées dans ses livres d'histoire.",
         "Mais du jour au lendemain, il a cessé d'être lui-même.",
-        "Ses yeux... Ce n'est plus mon père derrière ce regard.",
-        "C'est une autre conscience, froide, calculatrice.",
-        "Un étranger a pris possession de son corps.",
+        "Il me regarde et attend que je me présente.",
+        "Il se souvient de pages entières de ses livres. De moi, rien.",
+        "Par moments, j'ai l'impression qu'un étranger a pris sa place.",
         "Je ne sais plus quoi faire, je perds la tête."
       ],
       "pere_thomas_ecoute": [
-        "C'est une terrible épreuve, mon fils, mais ne voyez pas là le néant.",
-        "Dieu ne nous abandonne jamais, Il éprouve notre foi pour mieux nous ramener vers Son amour.",
-        "Votre père est peut-être prisonnier de la tourmente, mais l'âme humaine échappe aux lois de la matière.",
-        "La prière est le seul pont capable de traverser les ténèbres. Confiez-le à Celui qui a vaincu la mort.",
-        "Écoutez votre cœur : n'y a-t-il pas une justice et une lumière qui guident nos pas, même dans l'épreuve ?"
+        "Vous allez le voir souvent ?",
+        "Pardonnez-moi. Vous venez chercher du secours et je vous pose des questions.",
+        "Je crois que votre père est encore là, même quand il ne parvient plus à vous reconnaître.",
+        "Je peux prier pour lui avec vous. Je voudrais pouvoir vous proposer davantage.",
+        "Est-ce que vous arrivez encore à prier ?"
       ],
-      "invite_reflexion": "Qu'est-ce qui consume encore votre esprit ?",
+      "invite_reflexion": "Il y a une question que je voudrais vous poser.",
       "themes_philosophiques": {
         "theme_1_horloger": {
           "laurence": [
             "Dites-moi, Père...",
-            "Est-ce que c'est vraiment le hasard ou Dieu nous a créés, avec tout ce que ça implique ?"
+            "Vous croyez vraiment que Dieu a voulu tout cela ? Nous, cette vie ?"
           ],
           "pere_thomas": [
-            "Regardez la beauté de la Création, mon fils. La complexité d'une vie, l'harmonie des saisons...",
-            "L'idée que tout cela soit né du néant et du hasard pur relève de l'absurde.",
-            "Dieu est le Créateur souverain, et chaque homme a une place unique et voulue dans Son grand dessein.",
-            "Le doute vient de notre impuissance à voir le tableau tout entier, mais l'amour de Dieu, lui, ne faillit jamais."
+            "Oui. C'est ce que je crois quand je baptise un enfant, quand je m'assieds auprès d'un mourant.",
+            "J'ai du mal à penser que ces vies ne doivent leur existence qu'au hasard.",
+            "Pour moi, chacun a été voulu. Votre père aussi.",
+            "Cela vous paraît peut-être facile à dire, assis ici. J'essaie aussi de le croire les jours où je n'arrive à soulager personne."
           ]
         },
         "theme_2_creation_souffrance": {
           "laurence": [
             "Si Dieu est tout-puissant et bon, pourquoi nous avoir créés pour souffrir ainsi ?",
-            "Pourquoi ce deuil, cette pourriture qui ronge les esprits de l'intérieur ?"
+            "Mon père n'a rien demandé. Pourquoi lui faire subir cela ?"
           ],
           "pere_thomas": [
-            "C'est le mystère du libre arbitre et de la chute, mon enfant.",
-            "Dieu nous a créés par amour, libres de choisir le bien ou de nous en détourner.",
-            "La souffrance n'est pas voulue pour elle-même ; elle est la conséquence de notre séparation d'avec la source divine.",
-            "Mais le Christ a souffert sur la croix pour nous montrer que la douleur n'a pas le dernier mot. Elle est rachetée par l'espérance."
+            "Je pourrais vous parler du libre arbitre, de la chute. C'est ce qu'on m'a appris à répondre.",
+            "Nous sommes libres de faire du mal, et nous en faisons assez aux autres.",
+            "Mais votre père est malade. Je ne vais pas vous dire qu'il l'a mérité.",
+            "Quand je prie pour un malade, je pense au Christ qui a souffert lui aussi. C'est à lui que je m'adresse. Je n'ai jamais su accepter que Dieu laisse faire."
           ]
         },
         "theme_3_origine_dieu": {
           "laurence": [
             "Et si tout doit avoir une cause... qui a créé Dieu ?",
-            "Où s'arrête cette chaîne infinie d'existences ?",
-            "Ne sommes-nous pas juste prisonniers d'une boucle sans fin ?"
+            "Pourquoi s'arrêter à lui ?",
+            "Je tourne cette question dans ma tête depuis des années."
           ],
           "pere_thomas": [
-            "Vous appliquez la logique des choses créées à Celui qui est incréé, mon fils.",
-            "Tout ce qui commence a une cause, certes. Mais Dieu est l'Être par essence, l'Alpha et l'Oméga, Celui qui Est de toute éternité.",
-            "S'il fallait un créateur à Dieu, il faudrait un créateur à ce créateur, à l'infini... ce qui n'aurait aucun sens.",
-            "La foi consiste précisément à reconnaître qu'il existe une source première, un amour absolu qui transcende notre petite raison."
+            "Parce que je ne crois pas que Dieu ait commencé à exister.",
+            "Quand je dis créateur, je parle de ce dont tout le reste dépend, même le temps.",
+            "Lui chercher un créateur me ramènerait à votre question. Je ne saurais jamais où m'arrêter.",
+            "Mais vous voulez aussi savoir s'il vous entend. Là, je ne peux vous répondre qu'en croyant."
           ]
         }
       },
       "conclusion_dilemme": [
-        "Vous êtes venu ici pour fuir le néant, Laurence.",
-        "Alors, dites-moi...",
-        "Cet échange a-t-il apaisé vos tourments et conforté votre foi dans le dessein sacré...",
-        "Ou vous a-t-il laissé aux prises avec le froid du doute ?"
+        "Je vous ai beaucoup parlé, Laurence.",
+        "Nous pouvons en rester là pour aujourd'hui.",
+        "Voulez-vous que nous priions pour votre père ?",
+        "Ou préférez-vous rester assis un moment ?"
       ],
       "choice_prier_pere": "[ S'agenouiller et prier pour le salut de son père ]",
       "choice_refuser_prier": "[ Votre foi est ébranlée, vous refusez de prier ]",
       "offrande_finale": [
         "Prenez ceci. Ce chapelet a traversé les années.",
-        "Qu'il vous serve de point d'ancrage et de bouclier quand le monde extérieur vous paraîtra trop menaçant.",
-        "Revenez me voir dès que le silence pèsera trop lourd."
+        "Gardez-le dans votre poche. Les grains sont usés, mais le fil tient encore.",
+        "Vous pourrez revenir me parler. Je suis ici presque tous les jours."
       ]
     },
     "cross_lore_part1": "Jésus de Nazareth... Le Fils de Dieu, descendu parmi les hommes pour guider l'humanité égarée vers la lumière et le salut éternel.",
@@ -659,7 +659,7 @@
     "cross_lore_part3": "Au fond de moi, j'ai toujours voulu y croire. Mais en levant les yeux vers ce bois sculpté... Est-ce que c'était vraiment Lui ? Et si le poids de nos fautes était bien trop lourd pour un seul homme ?",
     "bench_thought": "Je m'affaisse un instant sur le bois froid et vernis d'un banc. Le silence de la nef m'enveloppe, lourd et solennel. Mes jambes me portent à peine... Ici, loin du monde, le temps semble suspendu, mais le poids de mes pensées ne me quitte pas pour autant.",
     "journal_note_title": "L'ombre du Sépulcre",
-    "journal_note_content": "Le Père Thomas... Ses paroles m'ont troublé. Dans ce lieu qui prétend offrir le salut, j'ai l'impression de voir les fissures d'une foi qui se meurt face à ce qui arrive.",
+    "journal_note_content": "J'ai parlé de mon père au père Thomas. Il m'a proposé de prier avec lui. Nous avons aussi parlé de Dieu et de la souffrance ; je suis reparti avec ses réponses en tête, sans parvenir à m'en contenter.",
     "journal_timestamp": "1925 - Acte I"
   },
   "act1_store": {
@@ -670,7 +670,7 @@
     "shopkeeper_unknown_father": "« Un Lindner ? Non, ça ne me dit rien. Je viens tout juste de m'installer en ville, je ne connais pas encore grand monde dans ce bourg glacial. »",
     "dialog_shop_intent": "« Je voudrais me ravitailler en alcool et en tabac. »",
     "shopkeeper_sell_success": "« Voilà pour vous. Surveillez bien vos réserves, le temps ne va pas s'arranger. »",
-    "shopkeeper_already_bought": "« Ne poussez pas mémé dans les orties, je vous ai déjà ravitaillé aujourd'hui. On ne se ravitaille qu'une seule fois par jour ici ! »"
+    "shopkeeper_already_bought": "« Vous avez déjà pris votre ration aujourd'hui. Il faut que j'en garde pour les autres. Repassez demain. »"
   },
   "act1_library": {
     "bell_ring": "La cloche tinte dans le silence de la bibliothèque.",
@@ -714,7 +714,7 @@
     "laurence_when_change": "Quand ?",
     "bell_around_1921": "Vers 1921.\nJe ne pourrais pas vous donner une date précise, mais c'est à cette époque que j'ai commencé à le trouver... différent.",
     "laurence_different": "Différent comment ?",
-    "bell_different": "Il était toujours lui-même.\nC'est justement ce qui rendait les choses étranges.",
+    "bell_different": "Il reconnaissait les gens et retrouvait ses livres sans aide.\nAu début, je me suis dit qu'il était simplement fatigué.",
     "laurence_explain_different": "Je ne comprends pas.",
     "bell_explain_different": "Il connaissait toujours ses livres. Ses auteurs. Ses théories.\nMais il recommençait à étudier des choses qu'il connaissait déjà.",
     "laurence_forgot": "Comme s'il les avait oubliées ?",
@@ -723,15 +723,15 @@
     "laurence_behavior": "Comment se comportait-il ?",
     "bell_behavior": "Il était devenu plus silencieux.",
     "laurence_father_always_distant": "Mon père a toujours été assez distant.",
-    "bell_before_after": "Oui.\nMais avant, il était distant parce qu'il réfléchissait.",
-    "bell_after": "Après... c'était différent.",
+    "bell_before_after": "Je sais. Avant, il finissait tout de même par lever le nez de ses livres pour me répondre.",
+    "bell_after": "Ensuite, il me laissait attendre devant sa table.",
     "laurence_what_changed": "Qu'est-ce qui avait changé ?",
     "bell_gaze": "Son regard.",
     "laurence_gaze": "Son regard ?",
     "bell_gaze_description": "Il pouvait vous regarder longtemps sans avoir l'air de vraiment vous voir.",
     "bell_speech": "Et sa façon de parler avait changé aussi.",
     "laurence_speech": "Comment ça ?",
-    "bell_speech_description": "Ses phrases étaient devenues étrangement précises.\nParfois froides.",
+    "bell_speech_description": "Il choisissait ses mots avec soin, même pour demander une chaise.\nJe n'osais plus plaisanter avec lui.",
     "laurence_strange_question": "Il vous a déjà dit quelque chose d'étrange ?",
     "bell_strange_question": "Une fois.",
     "laurence_what_said": "Quoi ?",
@@ -768,7 +768,7 @@
     "lit_1": "Mais chaque fois que je ferme les yeux, je reviens à toi.",
     "ruins_0": "Tu ne riais jamais de mes questions.",
     "ruins_1": "Tu m’écoutais comme si chaque idée méritait d’être suivie.",
-    "ruins_2": "Quand tu m'a amené dans les vieilles ruines ce jour-là.",
+    "ruins_2": "Quand tu m'as amené dans les vieilles ruines, ce jour-là.",
     "ruins_3": "J’ai cru que nous chercherions toujours ensemble.",
     "station_0": "Puis il y a eu cette nuit-là.",
     "train_0": "Personne ne savait pourquoi tu partais.",
@@ -786,10 +786,10 @@
     "cursed_0": "Pourquoi est-ce que je ne trouve plus les mots pour prier ?",
     "cult_0": "Ce ne sont plus mes souvenirs.",
     "cult_1": "Qui me montre cela ?",
-    "fish_0": "Qu'est ce que je suis en train de regarder ?",
+    "fish_0": "Qu'est-ce que je suis en train de regarder ?",
     "sea_0": "...",
-    "eye_0": "Regarde le ciel Laurence.",
-    "eye_1": "Va-y lève les yeux.",
+    "eye_0": "Regarde le ciel, Laurence.",
+    "eye_1": "Vas-y, lève les yeux.",
     "eclipse_0": "Ton père a regardé le premier.",
     "eclipse_1": "À ton tour.",
     "scene_2": {

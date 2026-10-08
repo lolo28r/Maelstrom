@@ -24,9 +24,18 @@ const TABLEAUX: Day4Tableau[] = [
     { texture: 'day4ShubMary', file: 'shub.png', dialogueKey: 'story.day4Thomas.cinematic.shubMary' },
 ];
 
+const QUESTION_TOPICS = {
+    shub: ['nature', 'mary', 'growth'],
+    messenger: ['chosen', 'trust'],
+    ritual: ['pit', 'eclipse', 'stop'],
+} as const;
+
+type QuestionTopic = keyof typeof QUESTION_TOPICS;
+
 export class Day4ThomasScene extends Phaser.Scene {
     private background!: Phaser.GameObjects.Image;
     private churchMusic?: Phaser.Sound.BaseSound;
+    private loreMusic?: Phaser.Sound.BaseSound;
     private churchMusicVolume = 0;
     private changingTableau = false;
 
@@ -41,6 +50,7 @@ export class Day4ThomasScene extends Phaser.Scene {
         if (!this.cache.audio.exists('ostEglise')) {
             this.load.audio('ostEglise', `${baseUrl}assets/ostEglise.mp3`);
         }
+        this.load.audio('loreThomasExplanation', `${baseUrl}assets/loreThomasExplanation.mp3`);
     }
 
     create() {
@@ -72,6 +82,8 @@ export class Day4ThomasScene extends Phaser.Scene {
             useGameStore.getState().closeDialog();
             this.churchMusic?.stop();
             this.churchMusic?.destroy();
+            this.loreMusic?.stop();
+            this.loreMusic?.destroy();
         });
     }
 
@@ -95,7 +107,7 @@ export class Day4ThomasScene extends Phaser.Scene {
     }
 
     private beginCinematic() {
-        this.setChurchMusicVolume(getMusicVolume('ostEglise') * 0.38);
+        this.churchMusic?.stop();
         this.showTableau(0);
     }
 
@@ -108,35 +120,131 @@ export class Day4ThomasScene extends Phaser.Scene {
         }
 
         this.changingTableau = true;
-        this.cameras.main.fadeOut(750, 0, 0, 0);
+        const firstTableau = index === 0;
+        const openingDuration = firstTableau ? 3000 : 950;
+        this.cameras.main.fadeOut(firstTableau ? 3000 : 750, 0, 0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
             this.background.setTexture(tableau.texture).setDisplaySize(1280, 720);
-            this.cameras.main.fadeIn(950, 0, 0, 0);
-            this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, () => {
-                this.changingTableau = false;
-                this.playDialogueSequence(
-                    localizedDialogue(tableau.dialogueKey),
-                    () => this.showTableau(index + 1),
-                );
-            });
+            const reveal = () => {
+                if (firstTableau) {
+                    this.loreMusic = this.sound.add('loreThomasExplanation', { loop: true, volume: 0 });
+                    this.loreMusic.play();
+                    this.fadeLoreMusic(0, 1, openingDuration);
+                }
+                this.cameras.main.fadeIn(openingDuration, 0, 0, 0);
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, () => {
+                    this.changingTableau = false;
+                    this.playDialogueSequence(
+                        localizedDialogue(tableau.dialogueKey),
+                        () => this.showTableau(index + 1),
+                    );
+                });
+            };
+            if (firstTableau) this.time.delayedCall(700, reveal);
+            else reveal();
+        });
+    }
+
+    private fadeLoreMusic(from: number, to: number, duration: number) {
+        this.tweens.addCounter({
+            from, to, duration,
+            onUpdate: (tween) => {
+                const sound = this.loreMusic as Phaser.Sound.BaseSound & {
+                    setVolume?: (volume: number) => unknown;
+                };
+                sound?.setVolume?.(getMusicVolume('loreThomasExplanation') * (tween.getValue() ?? 0));
+            },
         });
     }
 
     private returnToThomas() {
         if (this.changingTableau) return;
         this.changingTableau = true;
+        this.fadeLoreMusic(1, 0, 900);
         this.cameras.main.fadeOut(900, 0, 0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+            this.loreMusic?.stop();
+            this.loreMusic?.destroy();
+            this.loreMusic = undefined;
             this.background.setTexture('day4Priest').setDisplaySize(1280, 720);
             this.setChurchMusicVolume(getMusicVolume('ostEglise') * 0.68);
+            this.churchMusic?.play();
             this.cameras.main.fadeIn(1100, 0, 0, 0);
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, () => {
                 this.changingTableau = false;
                 this.playDialogueSequence(
                     localizedDialogue('story.day4Thomas.returnToThomas'),
-                    () => this.offerFinalChoice(),
+                    () => this.offerQuestions(),
                 );
             });
+        });
+    }
+
+    private offerQuestions() {
+        const choices: ChoiceOption[] = (Object.keys(QUESTION_TOPICS) as QuestionTopic[])
+            .filter((topic) => this.remainingQuestions(topic).length > 0)
+            .map((topic) => ({
+                id: `day4_topic_${topic}`,
+                text: i18n.t(`story.day4Thomas.questions.topics.${topic}`),
+                consequences: {},
+            }));
+        choices.push({
+            id: 'day4_questions_done',
+            text: i18n.t('story.day4Thomas.questions.done'),
+            consequences: {},
+        });
+        useGameStore.getState().setDialog({
+            textKey: 'story.day4Thomas.questions.prompt',
+            speaker: i18n.t('characters.fatherThomas'),
+            type: 'bottom',
+            choices,
+            onComplete: (choiceId) => {
+                const topic = (Object.keys(QUESTION_TOPICS) as QuestionTopic[])
+                    .find((key) => choiceId === `day4_topic_${key}`);
+                if (topic) this.offerTopicQuestions(topic);
+                else this.offerFinalChoice();
+            },
+        });
+    }
+
+    private remainingQuestions(topic: QuestionTopic) {
+        return QUESTION_TOPICS[topic].filter((question) => (
+            !useGameStore.getState().hasMadeChoice(`day4_question_${question}`)
+        ));
+    }
+
+    private offerTopicQuestions(topic: QuestionTopic) {
+        const questions = this.remainingQuestions(topic);
+        if (questions.length === 0) {
+            this.offerQuestions();
+            return;
+        }
+        const choices: ChoiceOption[] = questions.map((question) => ({
+            id: `day4_question_${question}`,
+            text: i18n.t(`story.day4Thomas.questions.entries.${question}.label`),
+            consequences: {},
+        }));
+        choices.push({
+            id: 'day4_questions_back',
+            text: i18n.t('story.day4Thomas.questions.back'),
+            consequences: {},
+        });
+        useGameStore.getState().setDialog({
+            textKey: 'story.day4Thomas.questions.topicPrompt',
+            speaker: i18n.t('characters.fatherThomas'),
+            type: 'bottom',
+            choices,
+            onComplete: (choiceId) => {
+                const question = questions.find((key) => choiceId === `day4_question_${key}`);
+                if (!question) {
+                    this.offerQuestions();
+                    return;
+                }
+                this.playDialogueSequence(
+                    localizedDialogue(`story.day4Thomas.questions.entries.${question}.dialogue`),
+                    () => this.offerTopicQuestions(topic),
+                );
+            },
         });
     }
 
@@ -148,6 +256,14 @@ export class Day4ThomasScene extends Phaser.Scene {
                 consequences: {
                     attitudeTag: 'faith',
                     customPayload: 'thomas_non_interference',
+                },
+            },
+            {
+                id: 'day4_thomas_observe',
+                text: i18n.t('story.day4Thomas.choices.observe'),
+                consequences: {
+                    attitudeTag: 'skepticism',
+                    customPayload: 'watch_thomas',
                 },
             },
             {
@@ -166,9 +282,10 @@ export class Day4ThomasScene extends Phaser.Scene {
             type: 'bottom',
             choices,
             onComplete: (choiceId) => {
-                const responseKey = choiceId === 'day4_thomas_stand_aside'
-                    ? 'story.day4Thomas.responses.standAside'
-                    : 'story.day4Thomas.responses.refuse';
+                const response = choiceId === 'day4_thomas_stand_aside'
+                    ? 'standAside'
+                    : choiceId === 'day4_thomas_observe' ? 'observe' : 'refuse';
+                const responseKey = `story.day4Thomas.responses.${response}`;
                 this.playDialogueSequence(localizedDialogue(responseKey), () => this.showEndCard());
             },
         });

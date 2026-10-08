@@ -77,7 +77,7 @@ export class Day2CityScene extends Phaser.Scene {
     }
 
     private showBackground(key: string) {
-        this.outdoorAudio?.enter(this.location, ['CARREFOUR', 'TABAC', 'CHURCH_EXT', 'ORGANIC_STREET', 'CEMETERY', 'LOCK'].includes(this.location));
+        this.outdoorAudio?.enter(this.location, ['CARREFOUR', 'TABAC', 'CHURCH_EXT', 'ORGANIC_STREET'].includes(this.location));
         this.clearInteractive();
         this.background?.destroy();
         this.background = this.add.image(640, 360, key).setDisplaySize(1280, 720);

@@ -21,11 +21,11 @@
         },
         {
           "speaker": "characters.unknownEntity",
-          "text": "Tu as prié pour ton père. Ensuite, tu as bu pour supporter le silence."
+          "text": "Tu as prié pour ton père. Tu pensais que personne ne t'entendait ?"
         },
         {
           "speaker": "characters.unknownEntity",
-          "text": "Je porte un avertissement, Laurence. Écoute-le avant de décider ce que je suis."
+          "text": "Écoute-moi, Laurence. Tu pourras me chasser ensuite."
         },
         {
           "speaker": "characters.unknownEntity",
@@ -41,11 +41,11 @@
         "curiosity": "« Qu'est-ce qu'ils veulent ? »",
         "refusal": "« Vous n'êtes pas envoyé par Dieu. »",
         "threat": "« Sortez de ma tête. »",
-        "face": "« Montre-moi ton vrai visage. »"
+        "face": "« Montrez-moi votre vrai visage. »"
       },
       "answers": {
         "curiosity": "Ils attendent depuis bien avant ta naissance. Leur venue changera jusqu'au sens du mot humain.",
-        "refusal": "Tu as raison de douter. La confiance vient après la preuve, et je peux t'en donner une.",
+        "refusal": "Tu attendais quelqu'un d'autre ? Regarde ce que je peux te montrer.",
         "threat": "Je partirai bientôt. Tu garderas malgré tout ce que tu viens d'entendre."
       },
       "temptation": [
@@ -73,15 +73,15 @@
       "telegramArchive": "Votre père a disparu de sa chambre au cours de la nuit. Aucun transfert n'a été autorisé.",
       "afterTelegram": [
         "Je relis « disparu » trois fois.",
-        "Le mot reste le même. C'est ma façon de le comprendre qui change."
+        "Je cherche une adresse, un nom, quelqu'un à qui demander où ils l'ont cherché."
       ],
       "actions": {
         "telegram": "Relire le télégramme et vérifier la date",
         "books": "Examiner les livres laissés ouverts",
         "window": "Regarder par la fenêtre"
       },
-      "anchorFirst": "21 janvier. Remis à six heures vingt. Le papier est humide au bord. Cela, au moins, ne dépend pas de moi.",
-      "anchorRepeat": "Six heures vingt. 21 janvier. Les chiffres ne changent pas.",
+      "anchorFirst": "21 janvier. Remis à six heures vingt. Le bord du papier est encore humide.",
+      "anchorRepeat": "Le cachet indique bien le 21 janvier, à six heures vingt.",
       "articleTitle": "Tiré à part — Société historique du Massachusetts, 1919",
       "article": "LES PREMIÈRES ROUTES COMMERCIALES DE LA MÉDITERRANÉE ORIENTALE\n\nDr Lindner\n\n« Les ressemblances entre deux rites éloignés ne prouvent pas une origine commune. L'historien doit résister aux parentés trop séduisantes. »\n\nDans la marge : Ne jamais laisser une belle idée remplacer une preuve.",
       "articleArchiveTitle": "Article du Dr Lindner — 1919",
@@ -111,7 +111,7 @@
       "briefing": [
         {
           "speaker": "story.asylum.employee",
-          "text": "Monsieur Lindner ? J'allais justement classer votre télégramme."
+          "text": "Monsieur Lindner ? Vous venez pour le télégramme ?"
         },
         {
           "speaker": "story.asylum.employee",
@@ -123,7 +123,7 @@
         },
         {
           "speaker": "story.asylum.employee",
-          "text": "À six heures, il dormait et à huit heures, sa chambre était vide."
+          "text": "À quatre heures, il dormait encore. À cinq heures, sa chambre était vide."
         },
         {
           "speaker": "story.asylum.employee",
@@ -142,11 +142,11 @@
       "rounds": [
         {
           "speaker": "story.asylum.employee",
-          "text": "La porte était fermée a chaque passage que nous avons effectué."
+          "text": "La porte était verrouillée à chaque ronde."
         },
         {
           "speaker": "story.asylum.employee",
-          "text": "C'est moi qui ai tourné la clé. Vous pouvez l'écrire dans mon rapport."
+          "text": "C'est moi qui ai tourné la clé. Je l'ai écrit dans mon rapport."
         }
       ],
       "date": [
@@ -160,7 +160,7 @@
         },
         {
           "speaker": "story.asylum.employee",
-          "text": "J'ai ri et il a ri aussi, mais comme avec un temps de retard, comme si il cherchait à m'imiter."
+          "text": "J'ai ri. Il a ri à son tour, avec un temps de retard, comme s'il cherchait à m'imiter."
         }
       ],
       "suitcase": [
@@ -180,7 +180,7 @@
       "sleep": [
         {
           "speaker": "story.asylum.employee",
-          "text": "Lors de la journée, presque toujours alors que la nuit, il demandait qu'on laisse la lampe."
+          "text": "Le jour, presque toujours. La nuit, il demandait qu'on laisse la lampe allumée."
         },
         {
           "speaker": "story.asylum.employee",
@@ -200,7 +200,7 @@
       "chairRepeat": "Les quatre dates sont toujours là.",
       "sealedRoom": [
         "La chambre n'a rien d'une scène de fuite.",
-        "Mon père s'est levé sans ses chaussons. Puis la pièce a cessé de savoir où il était."
+        "Ses chaussons sont encore sous le lit. Où serait-il allé pieds nus, par ce froid ?"
       ],
       "alreadyExamined": "J'ai déjà examiné cet élément.",
       "effectsDone": "J'ai vu ce que la valise pouvait m'apprendre.",
@@ -210,23 +210,23 @@
         "J'avais souri exprès.",
         "Lui aussi, finalement."
       ],
-      "fileTitle": "Dossier du patient n°402 — Dr Lindner",
+      "fileTitle": "Dossier du patient n° 402 — Dr Lindner",
       "file": "Date d'admission : 30 décembre 1924.\n\nLe fils situe en 1921 l'apparition d'une froideur inhabituelle et de brefs troubles de reconnaissance. Le patient conserve ses connaissances historiques, son vocabulaire et ses habitudes de travail. Il vérifie parfois des faits élémentaires, puis récite des textes rares avec une exactitude remarquable.\n\nAucun délire mystique relevé.",
       "noteTitle": "Papier plié trouvé dans la valise",
       "note": "Derrière l'église, la porte des morts.\n\nQuatre chiffres : l'année de ton arrivée.",
       "mustInspect": "Je dois encore examiner la photographie, le dossier et le papier plié.",
       "journal": {
         "chairTitle": "Les nombres sous la chaise",
-        "chairContent": "Sous la chaise de mon père : 1921, 1936, 1968, 2014. Les deux derniers chiffres sont plus profondément gravés. Comme s'il avait dû les repasser plusieurs fois.",
+        "chairContent": "Sous la chaise de mon père : 1921, 1936, 1968, 2014. Les deux dernières dates sont plus profondément gravées, comme s'il avait dû les repasser plusieurs fois.",
         "beforeTitle": "Avant la disparition",
         "beforeContent": "À son arrivée, mon père exigeait la date exacte. Il veillait la nuit et protégeait sa valise. Trois jours avant de disparaître, il a décidé que son contenu avait « déjà servi ».",
         "leadTitle": "Une piste derrière l’église",
-        "leadContent": "Une note trouvée dans la valise désigne le vieux cimetière. Le mot « arrivée » ne parle peut-être pas de l'asile.",
+        "leadContent": "Une note trouvée dans la valise désigne le vieux cimetière. L'« arrivée » désigne peut-être autre chose que son admission à l'asile.",
         "asylumTimestamp": "21 janvier 1925 — Asile",
         "effectsTimestamp": "21 janvier 1925 — Effets du père"
       },
       "archive": {
-        "fileTitle": "Dossier du patient n°402",
+        "fileTitle": "Dossier du patient n° 402",
         "fileSummary": "Admis le 30 décembre 1924. Les premiers troubles rapportés remontent à 1921. Ses connaissances historiques sont restées intactes.",
         "noteTitle": "La porte des morts",
         "noteSummary": "Derrière l'église. Quatre chiffres : l'année de ton arrivée."
@@ -262,9 +262,9 @@
         "niches": "Examiner les niches de gauche",
         "dust": "Examiner la poussière au sol"
       },
-      "libraryDelay": "La bibliothèque ne ferait que retarder les deux pistes qui m'attendent.",
+      "libraryDelay": "Je dois d'abord retourner à l'église et suivre la note de mon père.",
       "stove": "Le poêle tire mal. Une odeur de terre mouillée revient quand la flamme baisse.",
-      "shelves": "Deux bocaux sont fendus. Des pousses blanches pressent contre le verre, sans terre ni lumière.",
+      "shelves": "Deux bocaux sont fendus. Des pousses blanches se pressent contre le verre, sans terre ni lumière.",
       "shopkeeperOpening": [
         {
           "speaker": "characters.shopkeeper",
@@ -276,7 +276,7 @@
         },
         {
           "speaker": "characters.shopkeeper",
-          "text": "Le froid, oui, mais Le voisinage légèrement moins."
+          "text": "Le froid, oui. Les voisins, un peu moins."
         },
         {
           "speaker": "characters.shopkeeper",
@@ -303,15 +303,15 @@
       "rosaryChapelFirst": "Je laisse pendre le chapelet. Rien ne bouge.",
       "rosaryChapelRepeat": "Le chapelet reste immobile dans ma main.",
       "rosaryChapelContrast": "Dans la rue, les grains tiraient sur le fil. Ici, ils restent immobiles.",
-      "benchRepeat": "Le banc est toujours froid. Le silence ne m'offre rien de neuf.",
+      "benchRepeat": "Je m'assieds de nouveau sur le banc froid.",
       "bench": "Le bois craque sous mon poids. Personne ne me demande de comprendre quoi que ce soit.",
       "benchChoices": {
         "pray": "[ PRIÈRE ] Réciter les mots appris enfant.",
         "breathe": "[ ANCRAGE ] Compter mes respirations et garder les yeux ouverts."
       },
       "benchPrayer": "Les mots reviennent sans effort. Je ne sais pas qui les écoute.",
-      "benchBreath": "Dix respirations. La pierre reste de la pierre et mon cœur ralentit.",
-      "virginRepeat": "La Vierge baisse les yeux. De la pierre, rien de plus.",
+      "benchBreath": "Je compte dix respirations. Mon cœur ralentit.",
+      "virginRepeat": "La statue garde les yeux baissés.",
       "virginVision": [
         {
           "speaker": "characters.laurence",
@@ -350,17 +350,17 @@
         "leave": "« Merci, mon Père. Je vais vous laisser. »"
       },
       "faith": {
-        "doubt": "Je peux admettre une cause extérieure. Je ne peux pas lui prêter une bonté que rien ne démontre.",
+        "doubt": "Pourquoi serait-il bon ? Regardez ce qui arrive à mon père.",
         "believer": "Quand je regarde le ciel, je refuse de croire que tout cela n'a été voulu par personne.",
-        "neutral": "Quelque chose a dû précéder l'univers. Mais pourquoi appeler cette cause Dieu ?",
-        "thomas1": "Parce qu'une cause première ne reçoit pas l'existence. Elle la donne.",
-        "laurence": "Cela explique peut-être un commencement. Pas une présence qui nous écoute.",
-        "thomas2": "Non. C'est là que la démonstration s'arrête et que la foi commence."
+        "neutral": "Pourquoi appeler Dieu ce qui a précédé l'univers ?",
+        "thomas1": "Pour moi, tout commence avec lui. Je ne saurais pas prier un hasard ou une loi de la nature.",
+        "laurence": "Et vous avez le sentiment qu'il vous entend ?",
+        "thomas2": "Pas chaque jour. Il m'arrive de rester ici longtemps sans parvenir à dire une prière. Je reviens quand même."
       },
       "virginTalk": [
         {
           "speaker": "characters.laurence",
-          "text": "Depuis l'enfance, je n'ai jamais vu en elle une reine. Je voyais une mère."
+          "text": "Enfant, je venais prier devant elle quand j'avais peur. Je pensais qu'elle me protégerait."
         },
         {
           "speaker": "characters.laurence",
@@ -368,11 +368,11 @@
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Un rêve cherche le visage qui peut le mieux nous blesser."
+          "text": "Vous dormez mal depuis combien de temps ?"
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Ce qu'il a fait de votre refuge ne change pas ce que ce refuge fut pour vous."
+          "text": "Venez vous asseoir. Vous pouvez rester près d'elle sans vous forcer à prier."
         }
       ],
       "plantTalk": [
@@ -390,7 +390,7 @@
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Parce que vous êtes épuisé. Une plante inconnue n'est pas un signe."
+          "text": "Vous êtes épuisé, et vous vous arrêtez devant tout ce qui pousse. Vous avez besoin de repos."
         },
         {
           "speaker": "characters.fatherThomas",
@@ -404,7 +404,7 @@
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Les murs portent loin la nuit. Le gel les fait craquer."
+          "text": "Les bruits portent loin, la nuit. Avec le gel, ces vieux murs craquent sans arrêt."
         },
         {
           "speaker": "characters.laurence",
@@ -444,7 +444,7 @@
       "rosaryTalk": [
         {
           "speaker": "characters.laurence",
-          "text": "Votre chapelet a tiré sur son fil près de la plante."
+          "text": "Près de la plante, les grains de votre chapelet se sont mis à trembler contre ma peau."
         },
         {
           "speaker": "characters.fatherThomas",
@@ -456,22 +456,22 @@
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "J'ai l'habitude des hommes qui viennent me voir lorsqu'ils ont peur."
+          "text": "Vous me l'avez déjà fait remarquer. Gardez-le, je vous en prie."
         }
       ],
       "rosaryStreet": "Sous ma chemise, les grains se heurtent. Le fil se tend contre ma peau.",
       "rosaryStreetContrast": "Dans la chapelle, les grains ne bougeaient pas. Ici, ils se heurtent sous ma chemise.",
       "noCemeteryReason": "Je n'ai aucune raison de fouiller ce cimetière au hasard.",
       "plantFirst": [
-        "Des fleur, en plein mois de janvier.",
+        "Des fleurs, en plein mois de janvier.",
         "Les corolles sont pâles et charnues. La neige a fondu autour du pied.",
-        "Je ne connais aucun arbre ni plante faite ainsi."
+        "Je n'ai jamais vu de plante de ce genre."
       ],
       "plantRepeat": "La plante est toujours là. Le froid ne semble rien lui faire.",
-      "plantChurch": "Elle pousse contre le mur de l'église. Cela ne suffit pas à relier les deux faits.",
+      "plantChurch": "Je longe le mur de l'église pour regarder où elle prend racine.",
       "hoofFirst": [
         "Une empreinte de sabot. Puis une autre, plus loin.",
-        "La piste se multiplie sans qu'aucun animal apparaisse.",
+        "Plus loin, les empreintes se chevauchent. Aucun animal en vue.",
         "Toutes les traces s'arrêtent contre le mur de l'église."
       ],
       "hoofRepeat": "La neige retombe. Les empreintes restent nettes dessous.",
@@ -494,11 +494,11 @@
         "Les niches suivent une logique de classement.",
         "Cette pièce a servi d'archive avant de devenir une sépulture."
       ],
-      "dust": "Aucun pas récent. L'objet est resté ici bien plus longtemps que son état ne le laisse croire.",
+      "dust": "La poussière ne porte aucune trace de pas récente. Je regarde de nouveau l'objet : pas une tache de rouille.",
       "object": {
         "name": "Objet noir à contacts métalliques",
         "description": "Un petit objet manufacturé dont la fonction m'échappe.",
-        "examine": "Le métal et la matière noire sont assemblés avec une précision inconnue. L'objet reste inerte."
+        "examine": "À la jonction du métal et de la matière noire, je distingue à peine un joint. Aucun mécanisme ne se met en marche."
       },
       "visionClear": "Des galeries immenses. Des cylindres jusqu'à une distance que mon regard refusait de mesurer.",
       "visionLow": "J'ai reconnu cet endroit avant de me souvenir que je n'y étais jamais allé.",
@@ -519,7 +519,7 @@
         "leaveCrypt": "[ QUITTER ] Remonter immédiatement.",
         "yieldObject": "[ CÉDER ] Accepter cette explication pour l'instant.",
         "objectSuggestionTitle": "SUGGESTION — Un abandon volontaire",
-        "objectSuggestionContent": "Dans la crise, j'ai admis que mon père avait peut-être choisi de perdre son identité. Rien dans mes preuves ne démontre un choix volontaire."
+        "objectSuggestionContent": "Dans la crise, j'ai admis que mon père avait peut-être choisi de perdre son identité. Je n'ai pourtant rien trouvé qui indique ce qu'il voulait."
       },
       "lock": {
         "clear": "EFFACER",
@@ -534,7 +534,7 @@
         "visionTitle": "Une archive qui n’était pas la mienne",
         "visionContent": "Au contact de l'objet, la crypte a disparu. J'ai vu des galeries immenses. Des tables trop hautes. Des rangées de cylindres métalliques. Puis la pierre est revenue sous ma main.",
         "rosaryTitle": "Le chapelet",
-        "rosaryContent": "Le chapelet reste inerte devant la Vierge. Il réagit dans la rue altérée. La statue n'est donc pas la cause de son mouvement.",
+        "rosaryContent": "Le chapelet reste inerte devant la Vierge et s'agite dans la rue, près des pousses. Il semble réagir à autre chose que la statue.",
         "cryptTitle": "Une crypte qui n’en était pas une",
         "cryptContent": "Les niches ont contenu des cylindres. La table a été taillée pour des objets ronds. La poussière ne montre aucun passage récent. Ce lieu fut une archive avant de devenir une sépulture.",
         "storeTimestamp": "21 janvier 1925 — Tabac",
@@ -560,9 +560,9 @@
         "refuse": "« Je ne vous ai jamais invité ici. »"
       },
       "introductionAnswers": {
-        "listen": "Merci, Laurence. J'espérais que nous pourrions enfin parler sans nous menacer.",
+        "listen": "Enfin. Reste près de moi, Laurence.",
         "father": "Je vais t'y conduire. Écoute encore un instant.",
-        "refuse": "Je comprends. La confiance demande du temps, et tu m'as déjà accordé ton attention."
+        "refuse": "Tu pourrais te réveiller. Pourtant, tu es encore là."
       },
       "thousandNames": "Les hommes m'ont donné beaucoup de noms. Chacun décrivait une part de ma fonction.",
       "manInBlack": "L'Homme en noir",
@@ -595,8 +595,8 @@
           "L'un d'eux te rappellera ton père."
         ],
         "stop": [
-          "Je peux t'aider à refermer cette porte.",
-          "Tu dois d'abord découvrir laquelle.",
+          "Tu veux que cela cesse ? Alors écoute bien.",
+          "Il te faudra aller voir ce qui se passe là-bas.",
           "À l'ouest d'Arkham, cherche la forêt qui borde les anciens marais."
         ]
       }
@@ -604,7 +604,7 @@
     "day2End": {
       "title": "FIN DU JOUR II",
       "message": "Au matin, la grille de la crypte sera toujours ouverte.\nDans la sacoche de Laurence, l'objet noir attend sans donner le moindre signe de vie.",
-      "continue": "[ CONTINUER — JOUR II ]"
+      "continue": "[ CONTINUER — JOUR III ]"
     },
     "dream4": {
       "title": "QUATRIÈME NUIT",
@@ -623,7 +623,7 @@
       "silence": [
         "Aucune réponse.",
         "J'attends encore.",
-        "Le silence ne bouge pas."
+        "Je ne distingue toujours personne dans le noir."
       ],
       "choices": {
         "callAgain": "« Répondez-moi. »",
@@ -633,7 +633,7 @@
       "reactions": {
         "callAgain": "Répondez-moi. Vous m'avez conduit jusqu'ici.",
         "pray": "Mon Dieu, si vous m'entendez encore, ne me laissez pas seul ici.",
-        "wake": "Il suffit d'ouvrir les yeux. Je n'ai besoin de personne."
+        "wake": "J'essaie d'ouvrir les yeux. Pourquoi est-ce que je n'y arrive pas ?"
       },
       "answer": "Tu vois, Laurence ? Cette fois, c'est toi qui m'as appelé.",
       "endCard": "FIN DE LA QUATRIÈME NUIT"
@@ -649,12 +649,12 @@
       ],
       "travel": {
         "ticketOffice": [
-          "Je me dirigeai donc vers la gare d'Arkham et pris le premier billet pour les abords de la forêt, à la périphérie de la vieille ville."
+          "À la gare d'Arkham, je prends un billet pour les abords de la forêt, à la périphérie de la vieille ville."
         ],
         "train": [
-          "Les dernières maisons disparurent derrière la vitre.",
-          "Bientôt, il ne resta que la neige et les arbres.",
-          "Evidemment, je ne repensais qu'à mon père.",
+          "Les dernières maisons disparaissent derrière la vitre.",
+          "Bientôt, je ne vois plus que la neige et les arbres.",
+          "Je ne pense qu'à mon père.",
           "Qu'espérais-je trouver là-bas ?"
         ]
       },
@@ -691,12 +691,12 @@
           "La lampe brûle encore.",
           "Des chaises sont renversées et le coffre est ouvert.",
           "Sur la table, un cahier et une feuille.",
-          "je ne percois aucun signe de présence."
+          "Je tends l'oreille. Personne ne répond au bruit de mes pas."
         ],
         "campEntrance": [
           "Le sentier de l'autre rive aboutit à une enceinte de bois.",
           "La neige a fondu là où des hommes sont passés.",
-          "Ce lieu n'est pas abandonné depuis longtemps."
+          "Quelqu'un était encore ici récemment."
         ],
         "campHub": [
           "Derrière l'enceinte, le chemin s'ouvre sur une petite cour.",
@@ -704,7 +704,7 @@
           "Tout est silencieux. Trop bien rangé pour avoir été déserté."
         ],
         "archives": [
-          "Ca semble être un dépôt de documents.",
+          "Ça semble être un dépôt de documents.",
           "Les liasses ont été classées une à une."
         ],
         "sectChapel": [
@@ -715,7 +715,7 @@
         "ritualPit": [
           "La neige a été dégagée avec soin.",
           "Les cordes, la pierre et la fosse ont été préparées à l'avance.",
-          "Tout semble méticuleusement organisé."
+          "Je reste au bord, les mains dans les poches, sans oser avancer."
         ],
         "darkMotherRoom": [
           "L'odeur de terre humide me prend à la gorge.",
@@ -926,7 +926,7 @@
           "label": "Examiner la lampe",
           "text": [
             "La lampe éclaire toujours la table.",
-            "On l'a laissée allumée en quittant la pièce.",
+            "Je regarde autour de moi, en retenant mon souffle.",
             "Sa lumière rend les coins de la cabane plus sombres encore."
           ]
         },
@@ -951,7 +951,7 @@
           "text": [
             "Les bûches ont brûlé jusqu'au bout.",
             "Autour du foyer, plusieurs empreintes se recouvrent.",
-            "Assez pour une réunion, pas pour une famille."
+            "Je n'arrive pas à compter combien de personnes se sont tenues là."
           ]
         },
         "supplyCrates": {
@@ -977,7 +977,7 @@
           "first": [
             "Des manteaux de tailles différentes. Aucun nom dans les cols.",
             "La doublure de celui-ci est plus lourde d'un côté.",
-            "Quelque chose froisse sous le tissu."
+            "J'entends un froissement de papier sous la doublure."
           ],
           "afterNote": "La doublure déchirée est maintenant vide."
         },
@@ -1009,7 +1009,7 @@
             "Quelque chose remue contre ma poitrine.",
             "Je sors le chapelet. Les grains tremblent contre mes doigts.",
             "Le mouvement cesse lorsque je l'éloigne des coupelles.",
-            "Il ne vient pas de la statue."
+            "Je le rapproche de la terre : les grains tremblent de nouveau."
           ]
         },
         "coveredStone": {
@@ -1017,7 +1017,7 @@
           "text": [
             "Sous la toile, mes doigts rencontrent une pierre plate.",
             "Les taches brunes sont anciennes.",
-            "Je préfère ne pas leur donner un nom sans preuve."
+            "Du sang ? Je laisse retomber la toile."
           ]
         },
         "ritualRopes": {
@@ -1032,7 +1032,7 @@
           "label": "Examiner la fosse",
           "text": [
             "La fosse est récente et encore vide.",
-            "Elle est trop régulière pour recueillir l'eau du marais.",
+            "Ses bords sont droits, taillés à la pelle.",
             "De minuscules pousses apparaissent seulement dans la terre retournée."
           ]
         },
@@ -1041,25 +1041,25 @@
           "text": [
             "La terre collée au fer n'a pas encore gelé.",
             "Le travail a été interrompu récemment.",
-            "Ils comptent revenir."
+            "Je m'écarte du sentier pour regarder si quelqu'un approche."
           ]
         },
         "darkMotherStatue": {
           "label": "Regarder la statue",
           "text": [
-            "La tête voilée reprend celle d'une Vierge.",
+            "La tête voilée ressemble à celle des statues de la Vierge.",
             "Ses bras sont ouverts comme pour accueillir un enfant.",
             "Mais sous la robe, la pierre se prolonge en membres qui rampent sur le sol.",
-            "Ils n'ont pas placé une idole face à Marie.",
-            "Ils ont façonné Marie ainsi."
+            "Je cherche du regard l'enfant qu'elle devrait porter.",
+            "Il n'y en a pas. Ces membres sortent de sa robe."
           ],
           "withMadNote": [
-            "La tête voilée reprend celle d'une Vierge.",
+            "La tête voilée ressemble à celle des statues de la Vierge.",
             "Sous la robe, la pierre se prolonge en membres qui rampent sur le sol.",
             "Un nom me revient malgré moi.",
             "Shub-Niggurath.",
             "Je l'ai lu sur la feuille cousue dans le manteau.",
-            "Cela ne m'explique rien. Mais quelqu'un ici connaissait ce nom."
+            "Je sors la feuille pour relire ce nom."
           ]
         },
         "darkMotherLimbs": {
@@ -1067,7 +1067,7 @@
           "text": [
             "Quatre membres épais sortent de la robe.",
             "La pierre a été polie par des mains à certains endroits.",
-            "Des fidèles les ont touchés assez souvent pour user leur surface.",
+            "Les parties lisses sont à hauteur de main.",
             "Je retire ma main avant de les effleurer."
           ]
         },
@@ -1075,9 +1075,9 @@
           "label": "Examiner les objets pieux",
           "text": [
             "Des chapelets entourent la statue.",
-            "Des médailles de la Vierge ont été clouées dans la pierre.",
-            "Ce ne sont pas des objets pris au hasard.",
-            "Ceux qui viennent ici se croient encore en prière."
+            "Des médailles de la Vierge pendent à des clous fichés dans les joints du socle.",
+            "Je reconnais les mêmes médailles que celles vendues près de l'église.",
+            "Je n'arrive pas à imaginer quelqu'un agenouillé devant ce corps."
           ]
         },
         "darkMotherAltar": {
@@ -1112,12 +1112,12 @@
         },
         "rosaryReaction": {
           "title": "Le chapelet et la terre noire",
-          "content": "Le chapelet a réagi aux coupelles de terre et non à la statue de la Vierge.",
+          "content": "Les grains du chapelet tremblent près des coupelles de terre et s'immobilisent lorsqu'on les en éloigne.",
           "source": "Chapelle du camp"
         },
         "darkMotherRoom": {
           "title": "La pièce sous la chapelle",
-          "content": "Une salle cachée renferme une statue qui mêle volontairement la figure de la Vierge à un corps inhumain. Des chapelets et des médailles mariales l'entourent.",
+          "content": "Une salle cachée renferme une statue qui mêle la figure de la Vierge à un corps inhumain. Des chapelets et des médailles mariales l'entourent.",
           "source": "Sous la chapelle du camp"
         }
       },
@@ -1156,126 +1156,118 @@
       "opening": [
         {
           "speaker": "characters.laurence",
-          "text": "J'ai suivi le chemin dans la forêt."
+          "text": "Je reviens du camp. J'ai vu les registres et la fosse derrière la chapelle."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Vous êtes descendu sous la chapelle ?"
         },
         {
           "speaker": "characters.laurence",
-          "text": "J'ai trouvé le camp. Les registres. La fosse."
+          "text": "Vous savez donc ce qu'il y a en bas."
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Vous n'auriez pas dû y aller seul."
+          "text": "Ne haussez pas la voix. Qu'avez-vous vu en bas ?"
         },
         {
           "speaker": "characters.laurence",
-          "text": "J'ai récité la prière."
+          "text": "Une statue. J'ai récité la prière et la trappe s'est ouverte. C'est à elle que vos fidèles s'adressent ?"
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Oui. C'est moi qui ai consacré cette salle."
         },
         {
           "speaker": "characters.laurence",
-          "text": "Une trappe s'est ouverte sous la chapelle."
+          "text": "Et le camp ?"
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Je leur ai demandé de se réunir là-bas. C'est moi qui organise les prières et les cérémonies."
         },
         {
           "speaker": "characters.laurence",
-          "text": "Il y avait une statue en dessous."
+          "text": "Quand je vous ai parlé des gens qui venaient la nuit, vous m'avez dit que vous leur aviez seulement ouvert l'église."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Vous vouliez que je vous raconte cela au milieu de l'église ?"
         },
         {
           "speaker": "characters.laurence",
-          "text": "Dites-moi que vous ignoriez cette salle."
+          "text": "Vous m'avez laissé vous raconter tout ce que je trouvais. Vous saviez depuis le début."
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Je ne vous mentirai plus."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "C'est moi qui ai réuni ces gens."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "J'ai recueilli leurs témoignages. J'ai établi les rites."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "Je connais cette salle. C'est moi qui l'ai consacrée."
+          "text": "Je voulais vous tenir à l'écart. Vous étiez déjà assez éprouvé par votre père."
         },
         {
           "speaker": "characters.laurence",
-          "text": "Vous dirigez cette secte."
+          "text": "Vous pensiez pouvoir régler cela seul ? Regardez ce qui se passe dans cette ville !"
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Oui."
+          "text": "C'est justement pour cela qu'il est venu me trouver."
         },
         {
           "speaker": "characters.laurence",
-          "text": "Et vous appelez cela protéger Arkham ?"
+          "text": "Qui est venu ?"
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "C'est la seule raison pour laquelle je continue."
+          "text": "Je l'appelle le Messager. Il dit que c'est lui qui s'est présenté à Marie. Je l'ai d'abord pris pour un ange, moi aussi."
         },
         {
           "speaker": "characters.laurence",
-          "text": "Ça n'a aucun sens."
+          "text": "Vous vous rendez compte de ce que vous dites ?"
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Parce qu'on vous a raconté cette histoire en commençant par la fin."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "Asseyez-vous. Écoutez-la depuis le début."
+          "text": "Asseyez-vous, Laurence. Si vous voulez comprendre, laissez-moi finir."
         }
       ],
       "cinematic": {
         "village": [
           {
             "speaker": "characters.fatherThomas",
-            "text": "Il y a près de deux mille ans, en Judée, vivait une femme nommée Marie."
+            "text": "Vous connaissez le récit. Marie vivait en Judée, il y a près de deux mille ans."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Elle vivait dans un village dont le monde n'aurait jamais retenu le nom."
+            "text": "Je l'ai raconté si souvent à l'église que je pourrais encore vous le réciter sans ouvrir ma Bible."
           }
         ],
         "mary": [
           {
             "speaker": "characters.fatherThomas",
-            "text": "Elle n'était ni reine, ni prophétesse."
+            "text": "Je me demandais parfois pourquoi Dieu l'avait choisie, elle."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "C'était une femme ordinaire."
+            "text": "On nous apprenait à admirer son obéissance. On parlait moins de ce qu'elle avait dû éprouver quand il était entré chez elle."
           }
         ],
         "annunciation": [
           {
             "speaker": "characters.fatherThomas",
-            "text": "Une nuit, un messager vint à elle."
+            "text": "Les Écritures disent que Gabriel lui est apparu."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Les Écritures l'appellent Gabriel."
+            "text": "Le Messager affirme que c'était lui, ce jour-là. Il ne m'a jamais donné son nom."
           }
         ],
         "chosenMary": [
           {
             "speaker": "story.day4Thomas.speakers.messenger",
-            "text": "N'aie pas peur, Marie."
-          },
-          {
-            "speaker": "story.day4Thomas.speakers.messenger",
-            "text": "Tu as trouvé grâce auprès de Dieu."
+            "text": "N'aie pas peur, Marie. Tu as trouvé grâce auprès de Dieu."
           }
         ],
         "cradle": [
           {
             "speaker": "story.day4Thomas.speakers.messenger",
-            "text": "Tu concevras un fils."
-          },
-          {
-            "speaker": "story.day4Thomas.speakers.messenger",
-            "text": "Tu lui donneras le nom de Jésus."
+            "text": "Tu concevras un fils et tu lui donneras le nom de Jésus."
           },
           {
             "speaker": "story.day4Thomas.speakers.messenger",
@@ -1289,73 +1281,53 @@
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Sur ce point, le Messager ne mentait pas."
-          },
-          {
-            "speaker": "characters.fatherThomas",
-            "text": "Il mentait seulement sur le nom."
+            "text": "Marie pouvait-elle comprendre ce qu'il lui annonçait ? J'ai lu ces mots pendant des années sans jamais m'en inquiéter."
           }
         ],
         "birth": [
           {
             "speaker": "characters.fatherThomas",
-            "text": "L'enfant naquit humain."
+            "text": "D'après lui, Jésus était bien un enfant humain."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Mais il avait été touché avant de venir au monde."
+            "text": "Mais la puissance qui avait permis sa naissance continuait d'agir en lui."
           }
         ],
         "miracle": [
           {
             "speaker": "characters.fatherThomas",
-            "text": "Près de lui, la chair se refermait."
+            "text": "Les malades guérissaient à son contact. Des hommes que l'on croyait perdus se relevaient."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "La vie s'accrochait là où elle aurait dû céder."
-          },
-          {
-            "speaker": "characters.fatherThomas",
-            "text": "Les hommes appelèrent cela des miracles."
+            "text": "Je racontais ces guérisons aux malades qui venaient me voir. Je leur disais de garder confiance."
           }
         ],
         "crucifixion": [
           {
             "speaker": "characters.fatherThomas",
-            "text": "Sa mort fut humaine."
+            "text": "Ils l'ont crucifié. Tout ce qu'il avait fait pour eux ne l'a pas sauvé."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Ce qui suivit ne nous est parvenu qu'à travers la foi."
-          },
-          {
-            "speaker": "characters.fatherThomas",
-            "text": "Je ne prétendrai pas savoir ce que je ne sais pas."
+            "text": "J'ai demandé au Messager ce qu'il en était de la Résurrection. Il ne m'a pas répondu."
           }
         ],
         "scribe": [
           {
             "speaker": "characters.fatherThomas",
-            "text": "Des siècles plus tard, d'autres recopièrent l'histoire."
+            "text": "Ceux qui ont transmis ce récit parlaient d'un ange, d'un Père céleste. Je croyais que le Messager m'avait choisi pour rendre la foi à ces gens. Alors j'ai fait ce qu'il me demandait."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Ils donnèrent un père à la puissance qui avait répondu."
-          },
-          {
-            "speaker": "characters.fatherThomas",
-            "text": "Ils firent du Messager un ange."
+            "text": "Et nos prières ont reçu une réponse. Mais ce qui nous répondait… ce n'était pas le Dieu que la chrétienté m'avait enseigné."
           }
         ],
         "shubMary": [
           {
             "speaker": "characters.fatherThomas",
-            "text": "Mais derrière leurs mots, quelque chose demeurait."
-          },
-          {
-            "speaker": "characters.fatherThomas",
-            "text": "Une présence que les hommes avaient habillée du visage d'une mère."
+            "text": "J'ai longtemps refusé de le croire. Même après ce qu'il m'avait montré. Cette présence, là-bas, aux confins de l'univers… elle nous entendait."
           },
           {
             "speaker": "characters.fatherThomas",
@@ -1366,75 +1338,56 @@
       "returnToThomas": [
         {
           "speaker": "characters.laurence",
-          "text": "Vous dites que la Vierge est cette chose."
+          "text": "Vous avez cru ce qu'il vous racontait ?"
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Non. Marie était humaine."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "C'est nous qui avons posé son visage sur ce que nous ne pouvions pas regarder."
+          "text": "Il connaissait des choses que je n'avais dites à personne. J'ai voulu savoir pourquoi il venait me voir, moi. Il aurait pu s'adresser à n'importe qui."
         },
         {
           "speaker": "characters.laurence",
-          "text": "Et vous la priez ?"
+          "text": "Qu'est-ce qu'il vous a répondu ?"
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Je prie pour qu'Arkham survive à ce qui arrive."
+          "text": "Que j'avais été élu pour préparer ces gens à ce qui nous attend. J'ai passé ma vie à les guider. Il savait que je ne les abandonnerais pas."
         },
         {
           "speaker": "characters.laurence",
-          "text": "La plante. La fosse. Cette salle... C'est votre protection ?"
+          "text": "Et vous avez accepté de lui obéir."
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Ce ne sont que les bords du phénomène."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "Nos rites lui donnent une forme. Sans eux, je ne sais pas ce qui entrerait."
+          "text": "Que vouliez-vous que je fasse ? J'avais peur pour Arkham. Lui, au moins, me proposait d'agir. Je prépare ce qu'il m'a demandé pour l'éclipse de demain."
         },
         {
           "speaker": "characters.laurence",
-          "text": "Vous n'en savez rien."
+          "text": "Je ne vous ai pas dit que je vous laisserais faire. D'abord, vous allez répondre à mes questions."
         },
         {
           "speaker": "characters.fatherThomas",
-          "text": "Non."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "Mais l'éclipse aura lieu demain."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "Je ne vous demande pas de nous aider."
-        },
-        {
-          "speaker": "characters.fatherThomas",
-          "text": "Je vous demande de ne pas nous arrêter."
+          "text": "Baissez la voix. Je suis devant vous."
         }
       ],
-      "choicePrompt": "Laissez-nous achever ce que nous avons commencé.",
+      "choicePrompt": "Laissez-nous terminer les préparatifs. Je vous demande seulement cela.",
       "choices": {
-        "standAside": "Je ne ferai rien contre vous.",
-        "refuse": "Je ne vous laisserai pas continuer."
+        "standAside": "Je vous laisse continuer.",
+        "refuse": "Je ne vous laisserai pas continuer.",
+        "observe": "Je viendrai surveiller ce que vous faites."
       },
       "responses": {
         "standAside": [
           {
             "speaker": "characters.laurence",
-            "text": "Je ne ferai rien contre vous."
+            "text": "Je ne m'opposerai pas aux préparatifs."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Merci."
+            "text": "Merci. Je vais retourner auprès d'eux."
           },
           {
             "speaker": "characters.laurence",
-            "text": "Ne me remerciez pas encore."
+            "text": "Mais allez leur dire ce que vous venez de m'avouer. Tout, cette fois."
           }
         ],
         "refuse": [
@@ -1444,15 +1397,298 @@
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Alors nous agirons sans vous."
+            "text": "Et comment ? Vous allez chercher la police ?"
+          },
+          {
+            "speaker": "characters.laurence",
+            "text": "S'il le faut. Je vais commencer par dire à ces gens ce que vous venez de m'avouer."
           },
           {
             "speaker": "characters.fatherThomas",
-            "text": "Et demain, nous verrons lequel de nous s'est trompé."
+            "text": "Ils savent qui nous prions. Vous pouvez leur parler, mais je serai au camp demain. Ceux qui voudront rester resteront."
+          }
+        ],
+        "observe": [
+          {
+            "speaker": "characters.laurence",
+            "text": "Je viendrai au camp. Je veux parler aux fidèles et voir les préparatifs avant que vous commenciez."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Vous pourrez leur parler. Je leur dirai de vous attendre."
+          },
+          {
+            "speaker": "characters.laurence",
+            "text": "Si je vois quelqu'un attaché qui demande à partir, je le détache. Vous m'entendez ?"
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Je ne retiendrai personne de force. Venez dès le matin si vous y tenez."
           }
         ]
       },
-      "endCard": "LA VEILLE DE L'ÉCLIPSE"
+      "endCard": "LA VEILLE DE L'ÉCLIPSE",
+      "questions": {
+        "prompt": "Je vous écoute. Vous vouliez parler de quoi ?",
+        "topicPrompt": "Qu'est-ce qui vous inquiète ?",
+        "done": "J'en ai assez entendu. Parlons de demain.",
+        "back": "Je veux revenir sur autre chose.",
+        "topics": {
+          "shub": "Cette créature que vous appelez Shub-Niggurath.",
+          "messenger": "Le Messager et ce qu'il attend de vous.",
+          "ritual": "Le camp et les préparatifs de l'éclipse."
+        },
+        "entries": {
+          "nature": {
+            "label": "Qu'est-ce que Shub-Niggurath, exactement ?",
+            "dialogue": [
+              {
+                "speaker": "characters.laurence",
+                "text": "Shub-Niggurath. Qu'est-ce que je suis censé comprendre avec ce nom ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Le Messager parle d'une puissance capable d'engendrer la vie. Il dit qu'elle existait bien avant nous. Quand je lui ai demandé ce qui pouvait naître d'elle, il m'a dit de regarder la terre du camp."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Pourquoi lui donner le nom de mère ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "C'est le mot qu'il a employé. Une mère, je pouvais encore le comprendre. Puis j'ai vu ce qui poussait dans la terre du camp... Je m'attendais à autre chose."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous avez quand même installé ses fidèles là-bas."
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Ils sont venus avec moi. Nous apprenons à l'approcher. Cela ne se fait pas en un jour."
+              }
+            ]
+          },
+          "mary": {
+            "label": "Quel rapport y a-t-il entre elle et Marie ?",
+            "dialogue": [
+              {
+                "speaker": "characters.laurence",
+                "text": "Marie était une femme ou une apparence de cette chose ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Une femme. D'après ce qu'il m'a montré, c'est Shub-Niggurath qui aurait rendu la naissance possible. Marie aurait porté l'enfant sans savoir à quelle puissance elle le devait."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Alors pourquoi votre statue a-t-elle le visage de la Vierge ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Les gens qui venaient me voir priaient déjà Marie. Moi aussi. Quand je leur ai parlé d'une mère à l'origine de toute vie, ils ont continué à s'adresser à elle avec les mots qu'ils connaissaient."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous les avez laissés croire qu'ils priaient toujours la même personne ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Ils connaissent son nom maintenant. Je le leur ai dit. Au début... au début, je ne savais pas moi-même où était la différence."
+              }
+            ]
+          },
+          "growth": {
+            "label": "La plante et les racines viennent d'elle ?",
+            "dialogue": [
+              {
+                "speaker": "characters.laurence",
+                "text": "Il y a des racines vivantes sous la chapelle. Et cette plante qui fleurit dans la neige..."
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "J'en ai vu pousser après les premières prières. La terre restait humide alors que tout gelait autour. C'est pour cela que je vous ai dit de ne pas toucher la plante."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous m'avez surtout dit que j'étais épuisé."
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Et vous auriez fait quoi ? Vous auriez arraché la plante pour voir ce qu'il y avait dessous ? Je voulais vous éloigner."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Est-ce qu'elle peut faire la même chose à un corps humain ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il parle de guérisons, de naissances. Je n'en ai pas vu. Mais les racines, Laurence, vous les avez vues aussi. Elles poussent dans une terre gelée."
+              }
+            ]
+          },
+          "chosen": {
+            "label": "Pourquoi pensez-vous qu'il vous a choisi ?",
+            "dialogue": [
+              {
+                "speaker": "characters.laurence",
+                "text": "Qu'avez-vous de particulier pour qu'il vous choisisse ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il m'a dit que j'avais été élu. Que ces gens me faisaient confiance et que je saurais les réunir. J'attendais depuis des années de savoir ce que Dieu voulait de moi."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Il avait besoin d'un prêtre qu'on écouterait."
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il connaissait mes doutes. Même les choses dont j'avais honte. Il m'a laissé parler, et il est revenu. Je ne peux pas croire qu'il ait fait tout cela pour se servir de moi."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous ne pouvez pas le croire, ou vous ne voulez pas ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Je n'ai pas rêvé sa visite, Laurence. Il m'a confié ces gens. Ils ont quitté leur maison pour me suivre, et je les conduirai jusqu'au bout."
+              }
+            ]
+          },
+          "trust": {
+            "label": "Et s'il vous mentait comme il a menti à Marie ?",
+            "dialogue": [
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous dites qu'il s'est fait passer pour un ange auprès de Marie. Pourquoi serait-il honnête avec vous ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il m'a montré ce qu'il avait caché à d'autres. Pourquoi me révéler cela si je devais seulement lui servir d'instrument ?"
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Et vous l'avez cru sur parole ? Vous avez pu vérifier quoi que ce soit ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il m'a annoncé des choses qui sont arrivées ensuite. Les prières ont fait pousser des racines dans la terre du camp. Vous voulez que je ferme les yeux là-dessus ?"
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Je vous demande pourquoi vous lui faites confiance. Il pourrait faire pousser toute une forêt pour vous attirer là-bas."
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Vous avez une autre façon de protéger ces gens ? Dites-la-moi. Ils m'attendent au camp, et demain je devrai leur parler."
+              }
+            ]
+          },
+          "pit": {
+            "label": "À quoi servent la fosse, la pierre et les cordes ?",
+            "dialogue": [
+              {
+                "speaker": "characters.laurence",
+                "text": "La fosse est vide, mais elle est prête. Il y a une pierre tachée et des cordes. Que comptez-vous y faire ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Nous devons nous réunir autour de la pierre. Les cordes serviront à retenir ceux qui risquent de s'agiter pendant les prières. Il m'a demandé que personne ne quitte le cercle avant la fin."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous comptez attacher des gens ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Ils sont prévenus. Je n'ai pas caché les cordes."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Et la fosse ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il nous a demandé de la creuser près de la pierre et de laisser la terre à découvert. Les pousses sont apparues ensuite. Je ne sais pas ce qui doit y naître."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous préparez cela sans savoir ce qui va en sortir ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il m'a dit que je comprendrais le moment venu. Ne me regardez pas comme cela. Je vous réponds."
+              }
+            ]
+          },
+          "eclipse": {
+            "label": "Que doit-il se passer pendant l'éclipse ?",
+            "dialogue": [
+              {
+                "speaker": "characters.laurence",
+                "text": "Pourquoi faut-il attendre l'éclipse ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "D'après lui, Shub-Niggurath pourra agir ici plus directement à ce moment-là. Les prières doivent commencer avant que le soleil soit entièrement couvert."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous cherchez à la faire venir ou à l'empêcher de venir ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il dit que sa présence est déjà là. Le rite doit lui donner un endroit où se manifester, au camp, pour épargner le reste d'Arkham."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Et les gens qui seront au camp ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Il m'a assuré qu'ils seraient reconnus comme ses fidèles. Je resterai avec eux."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Et s'il vous a menti ? Vous serez au milieu d'eux quand cela arrivera."
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Oui, j'y serai. Je leur ai demandé de venir. Vous me voyez les laisser là-bas et m'enfermer dans ma sacristie ?"
+              }
+            ]
+          },
+          "stop": {
+            "label": "Pourquoi ne pas annuler et faire partir les fidèles ?",
+            "dialogue": [
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous pourriez encore leur dire de partir. Pourquoi ne pas évacuer le camp ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Parce que l'éclipse aura lieu avec ou sans nous. Si ce qu'il m'a dit est vrai, disperser les fidèles ne suffira pas à arrêter ce qui arrive."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Et si les préparatifs servaient justement à provoquer ce que vous craignez ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "J'y ai pensé. J'ai même cessé les prières une nuit. Les racines ont continué de pousser."
+              },
+              {
+                "speaker": "characters.laurence",
+                "text": "Vous avez attendu une nuit, puis vous avez recommencé ?"
+              },
+              {
+                "speaker": "characters.fatherThomas",
+                "text": "Les racines passaient déjà sous la chapelle. Je n'allais pas attendre qu'elles atteignent les maisons. Demain, je serai au camp."
+              }
+            ]
+          }
+        }
+      }
     },
     "church1": {
       "choices": {
@@ -1461,12 +1697,12 @@
         "critical": "[ Refuser de confondre foi et certitude ]"
       },
       "answers": {
-        "faith": "Alors priez. Non pour obtenir une réponse, mais pour ne pas porter seul votre peur.",
-        "doubt": "Le doute n'est pas une porte fermée. C'est parfois la seule manière honnête de rester devant elle.",
-        "critical": "Ne me croyez pas sur parole. Une foi imposée ne vaut pas davantage qu'un mensonge."
+        "faith": "Alors restez prier avec moi. Nous prendrons le temps qu'il vous faudra.",
+        "doubt": "Restez un moment, si vous voulez. Je ne vous demanderai pas de réciter des mots auxquels vous ne croyez plus.",
+        "critical": "Je vous ai entendu. Vous n'êtes pas obligé de me croire pour revenir me parler."
       },
       "rosaryOffer1": "Thomas détache un chapelet sombre de sa ceinture.",
-      "rosaryOffer2": "Prenez-le. Cela ne constitue pas une preuve, mais vous aurez quelque chose à tenir lorsque vos pensées vous échappent.",
+      "rosaryOffer2": "Prenez-le. Quand vous n'arrivez plus à dormir, passez les grains entre vos doigts et respirez lentement. C'est ce que je fais.",
       "rosaryName": "Chapelet du Père Thomas",
       "rosaryDescription": "Un vieux chapelet sombre offert par le Père Thomas comme point d'ancrage.",
       "rosaryExamine": "Les grains sont lisses et usés. Ils ont longtemps glissé entre des doigts patients."

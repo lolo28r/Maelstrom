@@ -10,6 +10,7 @@ const MUSIC_KEYS = new Set([
     'ostSalon',
     'ostStore',
     'ostEglise',
+    'loreThomasExplanation',
     'day2StreetMusic',
     'day2StoreMusic',
     'day2ChurchMusic',
