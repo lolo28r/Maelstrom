@@ -372,6 +372,10 @@ export class Day3ForestScene extends Phaser.Scene {
                         this.inspectSoilBowls();
                         return;
                     }
+                    if (observation.id === 'body') {
+                        this.inspectLoggerBody();
+                        return;
+                    }
                     if (DARK_MOTHER_OBSERVATIONS.has(observation.id)) {
                         this.inspectDarkMotherRoom(observation.id);
                         return;
@@ -463,6 +467,59 @@ export class Day3ForestScene extends Phaser.Scene {
         }
 
         if (location === 'darkMotherRoom') this.showDarkMotherExitWhenReady();
+    }
+
+    private inspectLoggerBody() {
+        const store = useGameStore.getState();
+        const motivationIds = [
+            'day3_body_for_father',
+            'day3_body_for_victim',
+            'day3_body_for_self',
+        ];
+
+        if (motivationIds.some((id) => store.hasMadeChoice(id))) {
+            store.setDialog({
+                textKey: 'story.day3.observations.body.repeat',
+                speaker: i18n.t('characters.laurence'),
+                type: 'bottom',
+            });
+            return;
+        }
+
+        store.setDialog({
+            textKey: 'story.day3.observations.body.first',
+            speaker: i18n.t('characters.laurence'),
+            type: 'bottom',
+            choices: [
+                {
+                    id: 'day3_body_for_father',
+                    text: i18n.t('story.day3.observations.body.choices.father'),
+                    consequences: { customPayload: 'father' },
+                },
+                {
+                    id: 'day3_body_for_victim',
+                    text: i18n.t('story.day3.observations.body.choices.victim'),
+                    consequences: { customPayload: 'victim' },
+                },
+                {
+                    id: 'day3_body_for_self',
+                    text: i18n.t('story.day3.observations.body.choices.self'),
+                    consequences: { customPayload: 'self' },
+                },
+            ],
+            onComplete: (choiceId) => {
+                const response = choiceId === 'day3_body_for_victim'
+                    ? 'victim'
+                    : choiceId === 'day3_body_for_self'
+                        ? 'self'
+                        : 'father';
+                useGameStore.getState().setDialog({
+                    textKey: `story.day3.observations.body.reactions.${response}`,
+                    speaker: i18n.t('characters.laurence'),
+                    type: 'bottom',
+                });
+            },
+        });
     }
 
     private goTo(destination: Day3Location) {

@@ -126,8 +126,8 @@ export class Day2DreamScene extends Phaser.Scene {
         this.sound.stopAll();
         this.cameras.main.fadeOut(1800, 0, 0, 0);
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-            store.setScene('ChapterEndScene');
-            this.scene.start('ChapterEndScene');
+            store.setScene('Day3ForestScene');
+            this.scene.start('Day3ForestScene');
         });
     }
 }

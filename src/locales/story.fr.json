@@ -204,7 +204,12 @@
       ],
       "alreadyExamined": "J'ai déjà examiné cet élément.",
       "effectsDone": "J'ai vu ce que la valise pouvait m'apprendre.",
-      "photo": "Mon père regarde l'objectif. Son regard est encore celui dont je me souviens.",
+      "photo": [
+        "Mon père détestait être pris en photo.",
+        "Juste avant celle-ci, il m'avait demandé de rester sérieux.",
+        "J'avais souri exprès.",
+        "Lui aussi, finalement."
+      ],
       "fileTitle": "Dossier du patient n°402 — Dr Lindner",
       "file": "Date d'admission : 30 décembre 1924.\n\nLe fils situe en 1921 l'apparition d'une froideur inhabituelle et de brefs troubles de reconnaissance. Le patient conserve ses connaissances historiques, son vocabulaire et ses habitudes de travail. Il vérifie parfois des faits élémentaires, puis récite des textes rares avec une exactitude remarquable.\n\nAucun délire mystique relevé.",
       "noteTitle": "Papier plié trouvé dans la valise",
@@ -831,13 +836,27 @@
         },
         "body": {
           "label": "Examiner le cadavre",
-          "text": [
-            "L'homme ne bouge plus.",
+          "first": [
+            "C'est la première fois que je vois un cadavre.",
             "Un sac lui couvre la tête.",
-            "La traînée dans la neige laisse penser qu'il a été tiré depuis la cabane jusqu'ici.",
             "Des sortes de branches noires semblent pousser de son corps ; je n'arrive pas à distinguer où finit le vêtement et où commence cette matière.",
-            "Je recule sans le toucher."
-          ]
+            "Mon premier mouvement est de m'enfuir.",
+            "De rentrer à Arkham sans poser une seule question.",
+            "Je pose une main contre le mur et j'attends que mon souffle ralentisse.",
+            "Non. Je dois continuer.",
+            "Je dois le faire..."
+          ],
+          "choices": {
+            "father": "[ Pour mon père. ]",
+            "victim": "[ Pour cet homme. ]",
+            "self": "[ Pour moi-même. ]"
+          },
+          "reactions": {
+            "father": "Pour mon père. Tant que je ne sais pas ce qui lui est arrivé, je continue.",
+            "victim": "Pour cet homme. S'il est mort ici, quelqu'un doit comprendre pourquoi.",
+            "self": "Pour moi. Je ne veux plus laisser la peur décider où je regarde."
+          },
+          "repeat": "Je ne regarderai pas ce corps plus longtemps."
         },
         "outsideBlood": {
           "label": "Examiner la traînée de sang",
@@ -1128,6 +1147,312 @@
         "kneel": "S'agenouiller devant la Vierge",
         "leaveDarkMotherRoom": "Remonter dans la chapelle"
       }
+    },
+    "day4Thomas": {
+      "date": "23 janvier 1925",
+      "speakers": {
+        "messenger": "Le Messager"
+      },
+      "opening": [
+        {
+          "speaker": "characters.laurence",
+          "text": "J'ai suivi le chemin dans la forêt."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "J'ai trouvé le camp. Les registres. La fosse."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Vous n'auriez pas dû y aller seul."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "J'ai récité la prière."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Une trappe s'est ouverte sous la chapelle."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Il y avait une statue en dessous."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Dites-moi que vous ignoriez cette salle."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Je ne vous mentirai plus."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "C'est moi qui ai réuni ces gens."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "J'ai recueilli leurs témoignages. J'ai établi les rites."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Je connais cette salle. C'est moi qui l'ai consacrée."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Vous dirigez cette secte."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Oui."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Et vous appelez cela protéger Arkham ?"
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "C'est la seule raison pour laquelle je continue."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Ça n'a aucun sens."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Parce qu'on vous a raconté cette histoire en commençant par la fin."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Asseyez-vous. Écoutez-la depuis le début."
+        }
+      ],
+      "cinematic": {
+        "village": [
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Il y a près de deux mille ans, en Judée, vivait une femme nommée Marie."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Elle vivait dans un village dont le monde n'aurait jamais retenu le nom."
+          }
+        ],
+        "mary": [
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Elle n'était ni reine, ni prophétesse."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "C'était une femme ordinaire."
+          }
+        ],
+        "annunciation": [
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Une nuit, un messager vint à elle."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Les Écritures l'appellent Gabriel."
+          }
+        ],
+        "chosenMary": [
+          {
+            "speaker": "story.day4Thomas.speakers.messenger",
+            "text": "N'aie pas peur, Marie."
+          },
+          {
+            "speaker": "story.day4Thomas.speakers.messenger",
+            "text": "Tu as trouvé grâce auprès de Dieu."
+          }
+        ],
+        "cradle": [
+          {
+            "speaker": "story.day4Thomas.speakers.messenger",
+            "text": "Tu concevras un fils."
+          },
+          {
+            "speaker": "story.day4Thomas.speakers.messenger",
+            "text": "Tu lui donneras le nom de Jésus."
+          },
+          {
+            "speaker": "story.day4Thomas.speakers.messenger",
+            "text": "Son règne n'aura pas de fin."
+          }
+        ],
+        "houseShadow": [
+          {
+            "speaker": "story.day4Thomas.speakers.messenger",
+            "text": "La puissance du Très-Haut te couvrira de son ombre."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Sur ce point, le Messager ne mentait pas."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Il mentait seulement sur le nom."
+          }
+        ],
+        "birth": [
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "L'enfant naquit humain."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Mais il avait été touché avant de venir au monde."
+          }
+        ],
+        "miracle": [
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Près de lui, la chair se refermait."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "La vie s'accrochait là où elle aurait dû céder."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Les hommes appelèrent cela des miracles."
+          }
+        ],
+        "crucifixion": [
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Sa mort fut humaine."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Ce qui suivit ne nous est parvenu qu'à travers la foi."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Je ne prétendrai pas savoir ce que je ne sais pas."
+          }
+        ],
+        "scribe": [
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Des siècles plus tard, d'autres recopièrent l'histoire."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Ils donnèrent un père à la puissance qui avait répondu."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Ils firent du Messager un ange."
+          }
+        ],
+        "shubMary": [
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Mais derrière leurs mots, quelque chose demeurait."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Une présence que les hommes avaient habillée du visage d'une mère."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Nous l'appelons Shub-Niggurath."
+          }
+        ]
+      },
+      "returnToThomas": [
+        {
+          "speaker": "characters.laurence",
+          "text": "Vous dites que la Vierge est cette chose."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Non. Marie était humaine."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "C'est nous qui avons posé son visage sur ce que nous ne pouvions pas regarder."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Et vous la priez ?"
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Je prie pour qu'Arkham survive à ce qui arrive."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "La plante. La fosse. Cette salle... C'est votre protection ?"
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Ce ne sont que les bords du phénomène."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Nos rites lui donnent une forme. Sans eux, je ne sais pas ce qui entrerait."
+        },
+        {
+          "speaker": "characters.laurence",
+          "text": "Vous n'en savez rien."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Non."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Mais l'éclipse aura lieu demain."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Je ne vous demande pas de nous aider."
+        },
+        {
+          "speaker": "characters.fatherThomas",
+          "text": "Je vous demande de ne pas nous arrêter."
+        }
+      ],
+      "choicePrompt": "Laissez-nous achever ce que nous avons commencé.",
+      "choices": {
+        "standAside": "Je ne ferai rien contre vous.",
+        "refuse": "Je ne vous laisserai pas continuer."
+      },
+      "responses": {
+        "standAside": [
+          {
+            "speaker": "characters.laurence",
+            "text": "Je ne ferai rien contre vous."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Merci."
+          },
+          {
+            "speaker": "characters.laurence",
+            "text": "Ne me remerciez pas encore."
+          }
+        ],
+        "refuse": [
+          {
+            "speaker": "characters.laurence",
+            "text": "Je ne vous laisserai pas continuer."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Alors nous agirons sans vous."
+          },
+          {
+            "speaker": "characters.fatherThomas",
+            "text": "Et demain, nous verrons lequel de nous s'est trompé."
+          }
+        ]
+      },
+      "endCard": "LA VEILLE DE L'ÉCLIPSE"
     },
     "church1": {
       "choices": {

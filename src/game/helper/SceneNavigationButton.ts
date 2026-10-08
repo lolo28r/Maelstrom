@@ -30,7 +30,9 @@ export const createSceneNavigationButton = ({
     isBlocked = isSceneInteractionBlocked,
 }: SceneNavigationButtonConfig) => {
     const isBack = kind === 'back';
-    const button = scene.add.text(isBack ? 24 : 1256, isBack ? 24 : 696, label, {
+    // Forward actions sit above the persistent journal HUD button. Keeping them
+    // on the bottom edge lets the DOM overlay cover them and swallow the click.
+    const button = scene.add.text(isBack ? 24 : 1256, isBack ? 24 : 630, label, {
         fontFamily: '"Cormorant Garamond", serif',
         fontSize: '18px',
         color: '#d2c8b5',

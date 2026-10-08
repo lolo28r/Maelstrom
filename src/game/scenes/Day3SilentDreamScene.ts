@@ -145,7 +145,17 @@ export class Day3SilentDreamScene extends Phaser.Scene {
                 color: '#cfc5b1',
                 letterSpacing: 4,
             }).setOrigin(0.5).setAlpha(0).setDepth(10);
-            this.tweens.add({ targets: endTitle, alpha: 1, duration: 1200 });
+            this.tweens.add({
+                targets: endTitle,
+                alpha: 1,
+                duration: 1200,
+                onComplete: () => this.time.delayedCall(2300, () => {
+                    this.cameras.main.fadeOut(900, 0, 0, 0);
+                    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                        this.scene.start('Day4ThomasScene');
+                    });
+                }),
+            });
         });
     }
 }

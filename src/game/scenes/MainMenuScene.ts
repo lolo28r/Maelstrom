@@ -225,7 +225,12 @@ export class MainMenuScene extends Phaser.Scene {
                 },
                 {
                     id: 'dev_day2',
-                    text: '7. Jour II — Bureau et asile',
+                    text: i18n.t('menu_dialogs.devDay2'),
+                    consequences: {},
+                },
+                {
+                    id: 'dev_dream3',
+                    text: i18n.t('menu_dialogs.devDream3'),
                     consequences: {},
                 },
                 {
@@ -236,6 +241,11 @@ export class MainMenuScene extends Phaser.Scene {
                 {
                     id: 'dev_dream4',
                     text: i18n.t('menu_dialogs.devDream4'),
+                    consequences: {},
+                },
+                {
+                    id: 'dev_day4_thomas',
+                    text: i18n.t('menu_dialogs.devDay4Thomas'),
                     consequences: {},
                 },
                 {
@@ -259,8 +269,10 @@ export class MainMenuScene extends Phaser.Scene {
                 if (selectedChoiceId === 'dev_end') targetScene = 'ChapterEndScene';
                 if (selectedChoiceId === 'dev_nightmare') targetScene = 'NightmareScene';
                 if (selectedChoiceId === 'dev_day2') targetScene = 'Day2OfficeScene';
+                if (selectedChoiceId === 'dev_dream3') targetScene = 'Day2DreamScene';
                 if (selectedChoiceId === 'dev_day3') targetScene = 'Day3ForestScene';
                 if (selectedChoiceId === 'dev_dream4') targetScene = 'Day3SilentDreamScene';
+                if (selectedChoiceId === 'dev_day4_thomas') targetScene = 'Day4ThomasScene';
                 if (selectedChoiceId === 'dev_day3' && store.devMode) store.toggleDevMode();
                 store.closeDialog();
                 this.cameras.main.fadeOut(500, 0, 0, 0);
